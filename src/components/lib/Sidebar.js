@@ -7,16 +7,16 @@ import { SidebarData } from './SidebarData';
 import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 
- 
 const Nav = styled.div`
+
   background-image: url(https://desarrollo.consigueventas.com/Frontend/Recursos/fondoMenu.jpg);
   background-repeat: no-repeat;
   opacity: 98%;
+
   height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  cursor: pointer;
 `;
 
 const NavIcon = styled(Link)`
@@ -29,9 +29,11 @@ const NavIcon = styled(Link)`
 `;
 
 const SidebarNav = styled.nav`
+
   background-image: url(https://desarrollo.consigueventas.com/Frontend/Recursos/fondoMenu3.jpg);
   background-repeat: no-repeat;
   opacity: 98%;
+
   width: 250px;
   height: 100vh;
   display: flex;
@@ -51,7 +53,7 @@ const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
-  
+
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -59,14 +61,6 @@ const Sidebar = () => {
           <NavIcon to='#'>
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <div className="iconos">
-            <NavIcon to='#'>
-              <FaIcons.FaCog />
-              <FaIcons.FaSignOutAlt/>
-            </NavIcon>
-            
-          </div>
-          
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
