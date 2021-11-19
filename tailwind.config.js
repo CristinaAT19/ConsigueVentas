@@ -2,6 +2,7 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+
     extend: {
       colors:{
         naranja: '#f29204',
@@ -11,6 +12,7 @@ module.exports = {
         plomoIntermedio : '#6b7280',
       }
     },
+
   },
   variants: {
     extend: {},

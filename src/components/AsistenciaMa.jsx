@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
+
+
 
 const AsistenciaMa = () => {
   /*mañana*/
@@ -21,13 +23,10 @@ const AsistenciaMa = () => {
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
+  
       backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-      borderColor: 'black',
-      borderwidth: 1,
       hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-      haverBorderColor: 'blue',
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
-
     }]
   };
 
@@ -40,11 +39,10 @@ const AsistenciaMa = () => {
     await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma",
       {
         headers: {
-          Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
+          Authorization: "Bearer 516|M3DzLvwxSqUZVUrW5FwX4BfWE90TQaVVxUEq5lku"
         }
       })
       .then(response => {
-
         setPuntualidad(response.data.puntualidad);
         setV_Puntualidad(response.data.v_puntualidad);
         setTardanza(response.data.tardanza);
@@ -61,12 +59,10 @@ const AsistenciaMa = () => {
   useEffect(() => {
     peticionApiAsistenciaManana();
   }, [])
-  return (
+return (
 
-    <Pie data={dataManana} options={opciones} />
-
-
-  )
-}
+    <Doughnut data={dataManana} options={opciones} />
+  
+    )}
 
 export default AsistenciaMa;
