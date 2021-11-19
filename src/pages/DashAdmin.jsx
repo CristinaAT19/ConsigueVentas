@@ -12,7 +12,6 @@ import {
 import { calendarioAsistencia,datosPersonales } from './VistasAdmin/Perfil';
 import calendarioGeneral from './VistasAdmin/CalendarioGeneral';
 import Dashboard from './VistasAdmin/Dashboard';
-import { configuracion } from './VistasAdmin/Configuracion';
 const DashAdmin = () => {
   return (
     <>
@@ -31,13 +30,11 @@ const DashAdmin = () => {
           <Route path='/datosPersonales' exact component={datosPersonales} />
           {/* calendario general */}
           <Route path='/calendarioGeneral' exact component={calendarioGeneral} />
-          {/* Configuración */}
-          <Route path='/configuracion' exact component={configuracion} />
         </Switch>
       </Router>
     </>
 
-  );
-};
+  )
+}
 
-export default DashAdmin;
+export default DashAdmin

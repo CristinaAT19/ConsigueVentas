@@ -1,21 +1,21 @@
 import React from 'react';
-import TablaDatosPer from '../../components/TablaDatosPer';
-
+import CalendarioPersonal from '../../components/CalendarioPersonal';
 export const calendarioAsistencia = () => {
   return (
     <>
       <div>
-        <h1>Vista calendarioAsistencia</h1>
+        <CalendarioPersonal/>
       </div>
     </>
   );
 };
 
 export const datosPersonales = () => {
-  
   return (
-    <div>
-      <TablaDatosPer />
-    </div>
+    <>
+      <div>
+        <h1>Vista datosPersonales</h1>
+      </div>
+    </>
   );
 };
