@@ -1,0 +1,29 @@
+{
+  "evento":[
+        { "title" : "Falta Justificada", 
+          "date" : "2021-10-14" ,
+          "textColor": "black" ,
+          "color": "#00ffb7"
+        },
+        { "title": "Tardanza", 
+          "date": "2021-10-15",
+          "textColor": "black" ,
+          "color": "#ffc320"
+        },
+        { "title": "Puntual", 
+          "date": "2021-11-14",
+          "textColor": "black" ,
+          "color": "green"
+        },
+        { "title": "Falta Injustificada", 
+          "date": "2021-11-17",
+          "textColor": "white" ,
+          "color": "#DA2020"
+        },
+        { "title": "OTRO", 
+          "date": "2021-11-12",
+          "textColor": "white" ,
+          "color": "#DA2020"
+        }
+    ]
+}
