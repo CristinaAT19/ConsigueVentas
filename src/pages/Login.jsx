@@ -36,31 +36,13 @@ const Login = () => {
                     <h2 className="login__h2">{valor}</h2>
                 </div>
                 <div className="login__campo">
-                    <input
-                        type="number"
-                        id="dni"
-                        className="login__input"
-                        placeholder="Dni"
-                        maxLength="8"
-                        required
-                    />
+                    <input type="number" id="dni" className="login__input" placeholder="Dni" maxLength="8" required />
                 </div>
                 <div className="login__campo">
-                    <input
-                        type="password"
-                        id="contrasena"
-                        className="login__input"
-                        placeholder="Contraseña"
-                        maxLength="8"
-                        required
-                    />
+                    <input type="password" id="contrasena" className="login__input" placeholder="Contraseña" maxLength="8" required />
                 </div>
 
-                <button
-                    type="submit"
-                    id="boton"
-                    className="login__boton"
-                >
+                <button type="submit" id="boton" className="login__boton" >
                     Ingresar
                 </button>
             </form>
