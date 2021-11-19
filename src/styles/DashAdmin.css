@@ -10,19 +10,3 @@
   justify-content: center;
   font-size: 3rem;
 }
-
-/*Tailwind*/
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
-
-:root {
-  --blanco: white;
-  --naranja: #f29204;
-  --negro: black;
-  --plomo:#2D2D2B;
-  --plomoBajo: #BCBCB7;
-  --gris: #818181;
-}
