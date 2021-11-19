@@ -5,18 +5,18 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: url("https://desarrollo.consigueventas.com/Frontend/Recursos/fondoMenu.jpg");
+  background: url("https://desarrollo.consigueventas.com/Frontend/Recursos/fondo6.png");
   background-repeat: no-repeat;
   background-size: cover;
   font-size: 16px;
-  opacity: 90%;
 }
 .login__logo{
   border-radius: 6249999.9375em;
-  width: 8.15em;
+  border: solid 0.1875em var(--negro);
+  width: 8.75em;
   position: relative;
   top: 3.75em;
-  border: solid 0.3125em var(--plomo);
+  border: solid 0.3125em var(--naranja);
 }
 .login__formulario{
   display: flex;
@@ -26,7 +26,7 @@
   background: var(--blanco);
   padding: 3.125em;
   border-radius: 1.25em;
-  border: solid 0.3125em var(--plomo);
+  border: solid 0.3125em var(--naranja);
 }
 .login__titulo{
   display: flex;

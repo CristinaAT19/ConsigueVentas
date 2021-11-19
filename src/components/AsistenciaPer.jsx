@@ -28,7 +28,7 @@ const AsistenciaPer = () => {
         await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboardUsuario/73615048",
             {
                 headers: {
-                    Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+                    Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
                 }
             })
             .then(response => {
