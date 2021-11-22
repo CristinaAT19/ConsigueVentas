@@ -34,15 +34,14 @@ const Dashboard = () => {
       </div>
     </div>
     
-      <br/>
-      <br />
-      <br />
-      <div>
-      <TablaDia />
+
+      <div className="bg-gray-300 m-20" >
+        <TablaDia />
       </div>
-      <div>
-      <TablaSin />
+      <div className="bg-gray-300 m-20" >
+        <TablaSin />
       </div>
+
 
     </>
   );

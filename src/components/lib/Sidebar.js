@@ -8,11 +8,9 @@ import SubMenu from './SubMenu';
 import { IconContext } from 'react-icons/lib';
 
 const Nav = styled.div`
-
   background-image: url(https://desarrollo.consigueventas.com/Frontend/Recursos/fondoMenu.jpg);
   background-repeat: no-repeat;
   opacity: 98%;
-
   height: 80px;
   display: flex;
   justify-content: flex-start;

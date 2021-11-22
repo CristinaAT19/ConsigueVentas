@@ -9,7 +9,7 @@ const TablaSin = () => {
                 "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
                 {
                     headers: {
-                        Authorization: "Bearer 516|M3DzLvwxSqUZVUrW5FwX4BfWE90TQaVVxUEq5lku"
+                        Authorization: "Bearer 522|oYmI5xaDnepELpJLpEdGbO9AKX7j3gw0QgYUPk8R"
                     }
                 }
             )
