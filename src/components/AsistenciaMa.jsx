@@ -38,7 +38,7 @@ const AsistenciaMa = () => {
     await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma",
       {
         headers: {
-          Authorization: "Bearer 522|oYmI5xaDnepELpJLpEdGbO9AKX7j3gw0QgYUPk8R"
+          Authorization: "Bearer 633|UnqR5y57yhJ6yz8fGnyWDivoOlOYnMwxW8ZNK48d"
         }
       })
       .then(response => {
