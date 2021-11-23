@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+import {  Doughnut } from 'react-chartjs-2';
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -19,11 +19,9 @@ const AsistenciaTarde = () => {
     const dataTarde = {
         labels: [puntualidadT, tardanzaT, faltas_inT, faltas_jusT, sin_marcarT],
         datasets: [{
+
             backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-            borderColor: 'black',
-            borderwidth: 1,
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            haverBorderColor: 'blue',
             data: [v_puntualidadT, v_tardanzaT, v_faltas_inT, v_faltas_jusT, v_sin_marcarT]
         }]
     };
@@ -36,11 +34,10 @@ const AsistenciaTarde = () => {
         await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ta",
             {
                 headers: {
-                    Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
+                    Authorization: "Bearer 516|M3DzLvwxSqUZVUrW5FwX4BfWE90TQaVVxUEq5lku"
                 }
             })
             .then(response => {
-
                 setPuntualidadT(response.data.puntualidad);
                 setV_PuntualidadT(response.data.v_puntualidad);
                 setTardanzaT(response.data.tardanza);
@@ -58,7 +55,7 @@ const AsistenciaTarde = () => {
     }, [])
     return (
 
-        <Pie data={dataTarde} options={opciones} />
+        < Doughnut data={dataTarde} options={opciones} />
 
     )
 }
