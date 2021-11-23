@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import { Pie } from 'react-chartjs-2';
+import { setToken, getToken } from "../dist/Token";
 
 const AsistenciaMa = () => {
   /*mañana*/
@@ -37,10 +38,10 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma",
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
       {
         headers: {
-          Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
+          Authorization: `Bearer ${getToken()}`
         }
       })
       .then(response => {

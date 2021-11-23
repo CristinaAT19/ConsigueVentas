@@ -1,10 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useReducer } from "react";
 import "../styles/Login.css";
 import axios from "axios";
 import { setToken, getToken } from "../dist/Token";
 import Loading from "../components/Loading";
+// import {todoReducer} from "../components/RedecurOne";
 
 const Login = () => {
+
+    // const initialState = [{
+    //     id : new Date().getTime(),
+    //     desc:"Aprender react",
+    //     done:false
+    // }];
+
+
+    // const [todos,dispatch] = useReducer(todoReducer,initialState);
+    // console.log(todos);
+
+
+    // const newTodo = {
+    //     id : new Date().getTime(),
+    //     desc:"Otra tarae",
+    //     done:false
+    // }
+    // const action = {
+    //     type:'add',
+    //     payload:newTodo
+    // }
 
     const [loading, setLoading] = useState(false);
     const paramsRequest = {
@@ -18,24 +40,14 @@ const Login = () => {
 
         await axios.post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest)
             .then((Response) => {
-                console.log(Response);
-                setValor(Response.data.token);
+                setToken(Response.data.token);
             })
             .catch((e) => {
                 console.log(e);
             });
-        console.log(valor);
         setLoading(false);
+    };  
 
-    };
-
-    const mandarina = () => {
-        return "Vacaciones"; 
-    }
-
-    if (loading == true) {
-        return <Loading loading={loading} mandarina={mandarina}/>;
-    } else {
 
         return (
             <section className="login">
@@ -44,9 +56,8 @@ const Login = () => {
                     alt=""
                     className="login__logo"
                 />
-                <form action="" className="login__formulario" id="formulario">
+                <form action="" onSubmit={peticiontoken} className="login__formulario" id="formulario">
                     <div className="login_titulo">
-                        {/* <h2 className="login__h2">{valor}</h2> */}
                     </div>
                     <div className="login__campo">
                         <input
@@ -68,19 +79,18 @@ const Login = () => {
                             required
                         />
                     </div>
+                    { loading ? <Loading /> : 
+                        <button
+                            type="submit"
+                            id="boton" 
+                            className="login__boton" 
+                            >Ingresar</button> 
+                    }
 
-                    <button
-                        type="submit"
-                        id="boton"
-                        className="login__boton"
-                        onClick={peticiontoken}
-                    >
-                        Ingresar
-                    </button>
                 </form>
             </section>
         );
-    }
+    
 
 };
 
