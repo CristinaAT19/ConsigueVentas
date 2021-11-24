@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+// import { Pie } from 'react-chartjs-2';
 import { setToken, getToken } from "../dist/Token";
+import { Doughnut } from 'react-chartjs-2';
+
+
 
 const AsistenciaMa = () => {
   /*mañana*/
@@ -22,13 +25,10 @@ const AsistenciaMa = () => {
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
+  
       backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-      borderColor: 'black',
-      borderwidth: 1,
       hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-      haverBorderColor: 'blue',
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
-
     }]
   };
 
@@ -38,14 +38,13 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
+    await axios.get(`https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma`,
       {
         headers: {
-          Authorization: `Bearer ${getToken()}`
+          Authorization: `Bearer 663|FsapJB5yQp6hb2sTGwYrkVu89fm58Fk6cxpBXrJz`
         }
       })
       .then(response => {
-
         setPuntualidad(response.data.puntualidad);
         setV_Puntualidad(response.data.v_puntualidad);
         setTardanza(response.data.tardanza);
@@ -62,12 +61,10 @@ const AsistenciaMa = () => {
   useEffect(() => {
     peticionApiAsistenciaManana();
   }, [])
-  return (
+return (
 
-    <Pie data={dataManana} options={opciones} />
-
-
-  )
-}
+    <Doughnut data={dataManana} options={opciones} />
+  
+    )}
 
 export default AsistenciaMa;
