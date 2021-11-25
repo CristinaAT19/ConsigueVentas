@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+
+import { setToken, getToken } from "../dist/Token";
+
 import { Doughnut } from 'react-chartjs-2';
+
 
 const AsistenciaPer = () => {
     const [puntualidadP, setPuntualidadP] = useState([]);
@@ -22,10 +26,12 @@ const AsistenciaPer = () => {
     };
 
     const peticionApiAsistenciaPersonal = async () => {
-        await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboardUsuario/73615048",
+        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/73615048`,
             {
                 headers: {
-                    Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+
+                    Authorization: `Bearer ${getToken()}`
+
                 }
             })
             .then(response => {

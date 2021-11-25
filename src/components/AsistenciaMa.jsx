@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+// import { Pie } from 'react-chartjs-2';
+import { setToken, getToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 
 
@@ -35,10 +37,12 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma",
+    await axios.get(`https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma`,
       {
         headers: {
-          Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+
+          Authorization: `Bearer 663|FsapJB5yQp6hb2sTGwYrkVu89fm58Fk6cxpBXrJz`
+
         }
       })
       .then(response => {

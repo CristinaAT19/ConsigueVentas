@@ -89,5 +89,11 @@ export const SidebarData = [
     title: 'Calendario General',
     path: '/calendarioGeneral',
     icon: <IoIcons.IoMdCalendar />,
+  },
+  {
+    title: 'Cerrar sesion',
+    path: '/cerrarSesion',
+    icon: <IoIcons.IoMdCalendar />,
   }
+
 ];

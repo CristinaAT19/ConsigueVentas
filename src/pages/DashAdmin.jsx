@@ -6,26 +6,30 @@ import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, cale
 import { calendarioAsistencia,datosPersonales } from './VistasAdmin/Perfil';
 import calendarioGeneral from './VistasAdmin/CalendarioGeneral';
 import Dashboard from './VistasAdmin/Dashboard';
+
 const DashAdmin = () => {
   return (
     <>
-      <Router>
-        <Sidebar />
-        <Switch>
-          <Route path='/dashboard' exact component={Dashboard} />
-          {/* empleados */}
-          <Route path='/administracionEmpleados' exact component={administracionEmpleados} />
-          <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
-          <Route path='/tablaFaltas' exact component={tablaFaltas} />
-          <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-          <Route path='/listaAdministradores' exact component={listaAdministradores} />
-          {/* perfil */}
-          <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
-          <Route path='/datosPersonales' exact component={datosPersonales} />
-          {/* calendario general */}
-          <Route path='/calendarioGeneral' exact component={calendarioGeneral} />
-        </Switch>
-      </Router>
+        <Router basename={'/Mandarin/build'}>
+          <Sidebar />
+          <Switch >
+            <Route path='/dashboard' exact component={Dashboard} />
+            {/* empleados */}
+            <Route path='/administracionEmpleados' exact component={administracionEmpleados} />
+            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
+            <Route path='/tablaFaltas' exact component={tablaFaltas} />
+            <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
+            <Route path='/listaAdministradores' exact component={listaAdministradores} />
+            {/* perfil */}
+            <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
+            <Route path='/datosPersonales' exact component={datosPersonales} />
+            {/* calendario general */}
+            <Route path='/calendarioGeneral' exact component={calendarioGeneral} />
+            {/* En caso de no encontrar ninguna ruta */}
+            {/* <Redirect to='/dashboard' /> */}
+
+          </Switch>
+        </Router>
     </>
 
   )

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import AsistenciaMa from '../../components/AsistenciaMa';
 import AsistenciaPer from '../../components/AsistenciaPer';
 import AsistenciaTarde from '../../components/AsistenciaTarde';
+import { UserContext } from '../../components/context/UserContext';
 import TablaDia from '../../components/TablaDia';
 import TablaSin from '../../components/TablaSin';
 const Dashboard = () => {
+
+  const {user} = useContext(UserContext);
+  console.log(user);
+
   return (
     <>
     <div style={{ height: '100%' }}>

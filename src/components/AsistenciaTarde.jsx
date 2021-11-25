@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+// import { Pie } from 'react-chartjs-2';
+import { getToken } from '../dist/Token';
 import {  Doughnut } from 'react-chartjs-2';
 
 const AsistenciaTarde = () => {
@@ -31,10 +33,14 @@ const AsistenciaTarde = () => {
         responsive: true
     }
     const peticionApiAsistenciaTarde = async () => {
-        await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ta",
+
+
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ta`,
             {
                 headers: {
-                    Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+
+                    Authorization: `Bearer ${getToken()}`
+
                 }
             })
             .then(response => {
