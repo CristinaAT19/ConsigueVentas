@@ -12,6 +12,7 @@ import {
 import { calendarioAsistencia,datosPersonales } from './VistasAdmin/Perfil';
 import calendarioGeneral from './VistasAdmin/CalendarioGeneral';
 import Dashboard from './VistasAdmin/Dashboard';
+import TablaDatosPer from '../components/TablaDatosPer';
 const DashAdmin = () => {
   return (
     <>
@@ -27,7 +28,7 @@ const DashAdmin = () => {
           <Route path='/listaAdministradores' exact component={listaAdministradores} />
           {/* perfil */}
           <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
-          <Route path='/datosPersonales' exact component={datosPersonales} />
+          <Route path='/datosPersonales' exact component={TablaDatosPer} />
           {/* calendario general */}
           <Route path='/calendarioGeneral' exact component={calendarioGeneral} />
         </Switch>

@@ -1,5 +1,6 @@
 import React from 'react';
 import CalendarioPersonal from '../../components/CalendarioPersonal';
+import TablaDatosPer from '../../components/TablaDatosPer';
 export const calendarioAsistencia = () => {
   return (
     <>
@@ -14,7 +15,7 @@ export const datosPersonales = () => {
   return (
     <>
       <div>
-        <h1>Vista datosPersonales</h1>
+        <TablaDatosPer/>
       </div>
     </>
   );
