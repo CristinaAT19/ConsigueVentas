@@ -41,15 +41,33 @@ const Login = () => {
         e.preventDefault();
         // "dni": "74434089",
         // "password": "74434089"
+        if(e.target.elements.dni.value.length !== 8){
+            const error = {
+                "dni": "El dni debe tener 8 numeros",
+            };
+            setError(error);
+            setLoading(false);
+            return;
+        }
+
+        if(isNaN(e.target.elements.dni.value)){
+            const error = {
+                "dni": "El dni debe ser un dato numerico",
+            };
+            setError(error);
+            setLoading(false);    
+            return;
+        }
+
+
         paramsRequest['dni'] = e.target.elements.dni.value;
         paramsRequest['password'] = e.target.elements.password.value;
 
-
-        console.log(valor.length);
-        await axios.post(`http://desarrollo.consigueventas.com/Backend/public/api/acceso`, paramsRequest,
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest,
             { 
                 'Content-Type': 'application/json',
-                'Accept': 'application/json' 
+                'Accept': 'application/json' ,
+                'Access-Control-Allow-Origin': '*'
             })
             .then((Response) => {
                 setToken(Response.data.token);
@@ -57,8 +75,7 @@ const Login = () => {
                 setRedirect(true);
             })
             .catch((e) => {
-                console.log(e);
-                // setError(e.response.data.errors);
+                setError(e.response.data.errors);
             });
         setLoading(false);
     };
@@ -98,7 +115,7 @@ const Login = () => {
 
                             {/* Error */}
                             
-                            {/* <Error errors={error['dni']} ></Error> */}
+                            <Error errors={error['dni']} ></Error>
 
                             {/* Fin error */}
 
@@ -108,7 +125,7 @@ const Login = () => {
                             <input type="password" name="password" placeholder="Contraseña" id="contrasena" maxLength="8" required className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent" />
                             {/* Error */}
                             
-                            {/* <Error errors={error['smg']} ></Error> */}
+                            <Error errors={error['smg']} ></Error>
 
                             {/* Fin error */}
                         </div>

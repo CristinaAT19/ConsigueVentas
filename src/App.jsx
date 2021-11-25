@@ -16,15 +16,14 @@ function App() {
   const [user, setUser] = useState({});
 
   return (
-      <Router>
+    
+      <Router >
         <Switch>
           <Route path='/' exact component={Login} />
           <Route path='/login' exact component={Login} />
           <UserContext.Provider value={{ user,setUser }}>
             <Route path='/dashAdmin' exact component={DashAdmin} />
           </UserContext.Provider>
-
-
         </Switch>
       </Router>
     
