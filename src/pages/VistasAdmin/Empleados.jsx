@@ -1,6 +1,6 @@
 import React from 'react';
 import TablaAdmin from '../../components/TablaAdmin';
-import TablaEmpleados from '../../components/TablaEmpleados';
+import App from '../../components/TablaEmpleados';
 import TablaFaltas from '../../components/TablaFaltas';
 
 // export const Reports = () => {
@@ -15,7 +15,7 @@ export const administracionEmpleados = () => {
   return (
     <>
       <div>
-        <TablaEmpleados />
+        <App />
       </div>
     </>
   );
