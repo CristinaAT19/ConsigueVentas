@@ -69,7 +69,7 @@ function TablaDia() {
                 "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
                 {
                     headers: {
-                        Authorization: "Bearer 634|2Zhl6NbfvAai75pfTlJ9bX6qAm81FCOPVmkpvuVq"
+                        Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
                     }
                 }
             )

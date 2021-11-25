@@ -34,7 +34,7 @@ const AsistenciaTarde = () => {
         await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ta",
             {
                 headers: {
-                    Authorization: "Bearer 634|2Zhl6NbfvAai75pfTlJ9bX6qAm81FCOPVmkpvuVq"
+                    Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
                 }
             })
             .then(response => {
