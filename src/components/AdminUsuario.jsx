@@ -26,13 +26,13 @@ const AdminUsuario = ({
         </div>
         <div className="flex flex-col items-baseline justify-center m-1.5">
           <label>{texto}</label>
-          <input type="number" name="" id="" />
+          <input className="text-black" type="number" name="dni_reset" id="dni_reset" />
         </div>
         <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
           
             <input type="checkbox" name="" id="" onClick={resetear} />
             <label>{texto2}</label>
-            {resetea ? <TipoUsuario /> : <ResetearConstra />}
+            {resetea ? <TipoUsuario /> : <ResetearConstra dni_reset='76634714'/>}
           
         </div>
       </div>
