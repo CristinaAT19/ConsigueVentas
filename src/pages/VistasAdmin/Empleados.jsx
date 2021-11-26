@@ -4,6 +4,7 @@ import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
 
+
 // export const Reports = () => {
 //   return (
 //     <div className='reports'>
