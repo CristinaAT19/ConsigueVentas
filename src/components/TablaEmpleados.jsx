@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 import {Modal,TextField,Button} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import { setToken, getToken } from "../dist/Token";
 const columnas=[
   { title: 'ID', field: 'Id'
   },
@@ -32,7 +33,7 @@ const useStyles = makeStyles ((theme) => ({
       width: '100%'
     }
   }));
-const baseUrl="https://desarrollo.consigueventas.com/Backend/public/api/";
+const baseUrl=`${process.env.REACT_APP_API_URL}/api/`;
 
 function App() {
   const styles = useStyles();
@@ -49,7 +50,7 @@ function App() {
         await axios.get(baseUrl+'listarEmpleados',
           {
             headers: {
-                Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+                Authorization: `Bearer ${getToken()}`
             }
           }
         )

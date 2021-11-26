@@ -3,7 +3,7 @@ import axios from "axios";
 import DataTable, { createTheme } from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
-
+import { setToken, getToken } from "../dist/Token";
  const columns = [
     {
         name: 'Nombres',
@@ -51,10 +51,10 @@ function TablaSin() {
       setLoading(true);
         await axios
         .get(
-            "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
+          `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
             {
                 headers: {
-                    Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+                    Authorization: `Bearer ${getToken()}`
                 }
             }
         )
@@ -76,7 +76,9 @@ function TablaSin() {
 
   return (
     <div className="main">
-      <DataTableExtensions {...tableData}>
+      <DataTableExtensions 
+      filterPlaceholder="Buscar"
+      {...tableData}>
         <DataTable
           columns={columns}
           data={data}
@@ -92,21 +94,23 @@ function TablaSin() {
 const customStyles = {
     // rows: {
     //   style: {
-    //     minHeight: '72px', // override the row height
+    //     minHeight: '40px', // override the row height
     //   }
     // },
     headCells: {
         style: {
-            bordercollapse: 'collapse',
+            // bordercollapse: 'collapse',
           fontSize: '1rem',
           fontweight: '900',
-          textTransform: 'uppercase',
+          backgroundColor: '#FFAC23',
+          textTransform: 'uppercase'
           // paddingLeft: '0 8px'
         },
       },
       cells: {
         style: {
             bordercollapse: 'collapse',
+            backgroundColor: '#FFE8C3',
           fontSize: '0.8rem',
           // paddingLeft: '0 8px',
         },
@@ -117,20 +121,9 @@ const customStyles = {
           primary: '#268bd2',
           secondary: '#2aa198',
         },
-        background: {
-          default: '#FFFFFF',
-        },
-        context: {
-          background: '#cb4b16',
-          text: '#FFFFFF',
-        },
         divider: {
-          default: '#F7F7F7',
+          default: 'black',
         },
-        action: {
-          button: 'rgba(0,0,0,.54)',
-          hover: 'rgba(0,0,0,.08)',
-          disabled: 'rgba(0,0,0,.12)',
-        },
+
       });
 export default TablaSin;

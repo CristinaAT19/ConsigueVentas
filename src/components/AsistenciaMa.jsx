@@ -37,11 +37,11 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get(`https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma`,
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
       {
         headers: {
 
-          Authorization: `Bearer 663|FsapJB5yQp6hb2sTGwYrkVu89fm58Fk6cxpBXrJz`
+          Authorization: `Bearer ${getToken()}`
 
         }
       })
