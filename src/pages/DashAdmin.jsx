@@ -10,7 +10,7 @@ import Dashboard from './VistasAdmin/Dashboard';
 const DashAdmin = () => {
   return (
     <>
-        <Router basename={'/Mandarin/build'}>
+        <Router >
           <Sidebar />
           <Switch >
             <Route path='/dashboard' exact component={Dashboard} />

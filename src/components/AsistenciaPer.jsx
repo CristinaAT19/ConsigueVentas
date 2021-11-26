@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
 import { setToken, getToken } from "../dist/Token";
+import { Doughnut } from 'react-chartjs-2';
 
 const AsistenciaPer = () => {
     const [puntualidadP, setPuntualidadP] = useState([]);
@@ -17,10 +17,7 @@ const AsistenciaPer = () => {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
         datasets: [{
             backgroundColor: ['green', 'yellow', 'red', 'blue'],
-            borderColor: 'black',
-            borderwidth: 1,
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            haverBorderColor: 'blue',
             data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP]
         }]
     };
@@ -55,7 +52,7 @@ const AsistenciaPer = () => {
     }, [])
 
     return (
-        <Pie data={dataPersonal} options={opciones} />
+        <Doughnut data={dataPersonal} options={opciones} />
     )
 }
 

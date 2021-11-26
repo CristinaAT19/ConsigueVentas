@@ -1,16 +1,18 @@
 import React, { useState,useEffect } from "react";
 import DataTable from 'react-data-table-component';
+import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 
 const TablaAdmin = () => {
     const [tabla, setTabla] = useState([]);
+    
     const peticionTablaAdmin = async () => {
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/listarAdministrador",
+                `${process.env.REACT_APP_API_URL}/api/listarAdministrador`,
                 {
                     headers: {
-                        Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
+                        Authorization: `Bearer ${getToken()}`
                     }
                 }
             )

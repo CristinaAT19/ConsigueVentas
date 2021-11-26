@@ -25,7 +25,6 @@ const AsistenciaMa = () => {
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
-  
       backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
       hoverBackgroundColor: 'rgba(255,0,0,0.2)',
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
@@ -38,10 +37,10 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get(`https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma`,
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
       {
         headers: {
-          Authorization: `Bearer 663|FsapJB5yQp6hb2sTGwYrkVu89fm58Fk6cxpBXrJz`
+          Authorization: `Bearer ${getToken()}`
         }
       })
       .then(response => {
