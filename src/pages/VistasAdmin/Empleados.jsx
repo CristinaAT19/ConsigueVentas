@@ -1,4 +1,6 @@
 import React from 'react';
+import RestablecerPassword from '../../components/RestablecerPassword';
+//import RestablecerPassword from '../../components/RestablecerPassword';
 import TablaAdmin from '../../components/TablaAdmin';
 import TablaEmpleados from '../../components/TablaEmpleados';
 import TablaFaltas from '../../components/TablaFaltas';
@@ -24,7 +26,8 @@ export const administracionEmpleados = () => {
 export const restablecimientoContraseña = () => {
   return (
     <div>
-        <h1>vista restablecimientoContraseña</h1>
+        <h1>vista restablecimiento Contraseña</h1>
+        <RestablecerPassword />
     </div>
   );
 };

@@ -10,7 +10,7 @@ const TablaFaltas = () => {
                 "https://desarrollo.consigueventas.com/Backend/public/api/tabla_faltas",
                 {
                     headers: {
-                        Authorization: "Bearer 512|0D12MIeenUZaCOR2PKTtw0yPm363WLU52uBBqnBA"
+                        Authorization: "528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
                     }
                 }
             )
