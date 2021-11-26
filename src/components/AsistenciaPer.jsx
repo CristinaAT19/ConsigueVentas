@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
+
 import { setToken, getToken } from "../dist/Token";
+
 import { Doughnut } from 'react-chartjs-2';
+
 
 const AsistenciaPer = () => {
     const [puntualidadP, setPuntualidadP] = useState([]);
