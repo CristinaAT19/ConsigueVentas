@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import React from "react";
 import AdminUsuario from "../../components/AdminUsuario";
 import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
 
+=======
+import React from 'react';
+import TablaAdmin from '../../components/TablaAdmin';
+import App from '../../components/TablaEmpleados';
+import TablaFaltas from '../../components/TablaFaltas';
+>>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
 
 // export const Reports = () => {
 //   return (
@@ -17,7 +24,7 @@ export const administracionEmpleados = () => {
   return (
     <>
       <div>
-        <TablaEmpleados />
+        <App />
       </div>
     </>
   );

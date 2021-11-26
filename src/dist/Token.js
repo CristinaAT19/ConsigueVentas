@@ -1,9 +1,13 @@
-const TOKEN = "token"
-
+const token_auth  ="nada";
 export function setToken(token) {
-    localStorage.setItem(TOKEN, token)
+    localStorage.setItem(token_auth, token)
 }
 
 export function getToken() {
-    return localStorage.getItem(TOKEN)
+    return localStorage.getItem(token_auth)
+}
+
+export function removeToken() {
+    localStorage.removeItem(token_auth)
+    localStorage.clear();
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+// import { Pie } from 'react-chartjs-2';
+import { getToken } from '../dist/Token';
+import {  Doughnut } from 'react-chartjs-2';
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -19,11 +21,9 @@ const AsistenciaTarde = () => {
     const dataTarde = {
         labels: [puntualidadT, tardanzaT, faltas_inT, faltas_jusT, sin_marcarT],
         datasets: [{
+
             backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-            borderColor: 'black',
-            borderwidth: 1,
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            haverBorderColor: 'blue',
             data: [v_puntualidadT, v_tardanzaT, v_faltas_inT, v_faltas_jusT, v_sin_marcarT]
         }]
     };
@@ -33,14 +33,21 @@ const AsistenciaTarde = () => {
         responsive: true
     }
     const peticionApiAsistenciaTarde = async () => {
-        await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ta",
+
+
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ta`,
             {
                 headers: {
+<<<<<<< HEAD
                     Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
+=======
+
+                    Authorization: `Bearer ${getToken()}`
+
+>>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
                 }
             })
             .then(response => {
-
                 setPuntualidadT(response.data.puntualidad);
                 setV_PuntualidadT(response.data.v_puntualidad);
                 setTardanzaT(response.data.tardanza);
@@ -58,7 +65,7 @@ const AsistenciaTarde = () => {
     }, [])
     return (
 
-        <Pie data={dataTarde} options={opciones} />
+        < Doughnut data={dataTarde} options={opciones} />
 
     )
 }

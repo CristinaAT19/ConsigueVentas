@@ -2,6 +2,7 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+
     extend: {
       colors:{
         naranja: '#f29204',
@@ -12,6 +13,7 @@ module.exports = {
         blanco: '#fff'
       }
     },
+
   },
   variants: {
     extend: {},

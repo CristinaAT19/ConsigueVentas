@@ -4,13 +4,18 @@ import axios from "axios";
 
 const TablaAdmin = () => {
     const [tabla, setTabla] = useState([]);
+    
     const peticionTablaAdmin = async () => {
         await axios
             .get(
                 "https://desarrollo.consigueventas.com/Backend/public/api/listarAdministrador",
                 {
                     headers: {
+<<<<<<< HEAD
                         Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
+=======
+                        Authorization: "Bearer 633|UnqR5y57yhJ6yz8fGnyWDivoOlOYnMwxW8ZNK48d"
+>>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
                     }
                 }
             )
