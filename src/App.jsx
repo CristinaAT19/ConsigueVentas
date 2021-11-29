@@ -14,12 +14,17 @@ import { useState } from 'react';
 
 function App() {
   const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     
       <Router >
         <Switch>
-          <Route path='/' exact component={Login} />
+          {/* <Route path='/' exact component={ ()=>{
+            return isLoggedIn ? null : <Login/>
+          } } /> */}
+          <Route path='/' exact component={ Login }/>
+
           <Route path='/login' exact component={Login} />
           <UserContext.Provider value={{ user,setUser }}>
             <Route path='/dashAdmin' exact component={DashAdmin} />
