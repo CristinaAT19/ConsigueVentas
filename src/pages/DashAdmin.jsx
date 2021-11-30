@@ -7,6 +7,7 @@ import Dashboard from './VistasAdmin/Dashboard';
 import App from '../components/TablaEmpleados';
 import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
+import  TablaEmpleados  from '../components/TablaEmpleados';
 
 function DashAdmin() {
 
@@ -30,6 +31,7 @@ function DashAdmin() {
         <Switch >
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
+            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
             <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
             <Route render={() => <Redirect to="/dashboard" />} />
