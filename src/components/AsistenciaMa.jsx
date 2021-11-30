@@ -40,7 +40,9 @@ const AsistenciaMa = () => {
     await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
       {
         headers: {
+
           Authorization: `Bearer ${getToken()}`
+
         }
       })
       .then(response => {

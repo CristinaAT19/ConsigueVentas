@@ -79,7 +79,9 @@ const Dashboard = () => {
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
         <TablaDia />
       </div>
+
       <div className="bg-yellow-50  h-full m-20 rounded-t-3xl text-center">
+
         <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
         <TablaSin />
       </div>

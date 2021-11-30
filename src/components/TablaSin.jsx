@@ -94,7 +94,7 @@ function TablaSin() {
 const customStyles = {
     // rows: {
     //   style: {
-    //     minHeight: '72px', // override the row height
+    //     minHeight: '40px', // override the row height
     //   }
     // },
     headCells: {
