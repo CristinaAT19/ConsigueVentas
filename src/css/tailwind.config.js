@@ -13,9 +13,10 @@ module.exports = {
         xl: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
       },
       colors: {
-        gray: colors.blueGray,
-        'light-blue': colors.sky,
-        red: colors.rose,
+        
+        
+        naranaja: '#F29204',
+        plomo: '#2D2D2B',
       },
       outline: {
         blue: '2px solid rgba(0, 112, 244, 0.5)',

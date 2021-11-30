@@ -40,7 +40,7 @@ function UserMenu() {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
+        
         <div className="flex items-center truncate">
           <span className="truncate ml-2 text-sm font-medium group-hover:text-gray-800">Acme Inc.</span>
           <svg className="w-3 h-3 flex-shrink-0 ml-1 fill-current text-gray-400" viewBox="0 0 12 12">
@@ -75,7 +75,7 @@ function UserMenu() {
                 to="/"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Settings
+                Configuración
               </Link>
             </li>
             <li>
@@ -84,7 +84,7 @@ function UserMenu() {
                 to="/"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Sign Out
+                Cerrar Sesión
               </Link>
             </li>
           </ul>
