@@ -53,21 +53,21 @@ function App() {
   const [data, setData] = useState([]);
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
-  const [modalEliminar, setModalEliminar]= useState(false);
+  const [modalEliminar, setModalEliminar] = useState(false);
 
   // Entidades
   const [empleado, setEmpleado] = useState({});
   const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
-    Id:'',
-    Apellidos:'',
-    Nombres:'',
+    Id: '',
+    Apellidos: '',
+    Nombres: '',
   });
 
   // Utilidades 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [sucess, setSucess] = useState(false);
-
+  const [errorUpdate, setErrorUpdate] = useState([]);
   const peticionGet = async () => {
     await axios.get(`${process.env.REACT_APP_API_URL}/api/listarEmpleados`,
       {
@@ -87,56 +87,124 @@ function App() {
 
 
   // Actualizar empleado
-  const actualizarEmpleado = async () => {
-    // e.preventDefault();
+  const actualizarEmpleado = async (e) => {
+    setLoading(true);
+    e.preventDefault();
     console.log("Inicio de actualizar");
-    // console.log(empleado);
-    // console.log(empleado['Apellido']);
-    // console.log(empleado['Fecha baja']);
-    // console.log(empleado['Fecha Nacimiento']);
-    // setLoading(true);  
+    console.log(empleadoSeleccionado);
 
-    // await axios.put(`${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleado}`,
-    //   {
-    //     "emp_nombre": empleado['Nombres'],
-    //     "emp_apellido": empleado['Apellidos'],
-    //     "emp_fechabaja": empleado['Fecha baja'],
-    //     "emp_fec_inicio_prueba": empleado['Fecha inicio prueba'],
-    //     "emp_Fec_fin_prueba": empleado['Fecha fin prueba'],
-    //     "emp_TurnoId": empleado['Turno'],
-    //     "emp_AreaId": 1,
-    //     "emp_dni": "48964896",
-    //     "emp_carrera": "ing sistemas",
-    //     "emp_email": "joaquinRG@mail.com",
-    //     "emp_telefono": "978978111",
-    //     "emp_link_cv": "https://www.ejemplos.co/",
-    //     "Emp_Id_Condicion_capacitacion_fk": 3,
-    //     "emp_link_calificaciones": "https://www.ejemplos.co/",
-    //     "Emp_Id_Convenio_fk": 5,
-    //     "emp_link_convenio": "https://www.ejemplos.co/",
-    //     "emp_fechanac": "1996-09-12",
-    //     "emp_dias_extra": 5
-    //   },
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${getToken()}`
-    //     }
-    //   }
-    // )
-    //   .then(response => {
-    //     // setLoading(false);
-    //     // setSucess(true);
-    //     // setEmpleadoSeleccionado({
-    //     //   Id: "",
-    //     //   Nombres: "",
-    //     //   Apellidos: "",
-    //     //   Turno: "",
-    //     // })
-    //     // peticionGet();
-    //   }).catch(error => {
-    // setLoading(false);
-    // setError(error.response.data.error);
-    // });
+
+
+
+
+  // Validaciones de frontend
+
+  const form = e.target.elements;
+  // console.log(form['Fecha Nacimiento'].value);
+  const edad = calcularEdad(form['Fecha Nacimiento'].value);
+  const diffDiasPrueba = calcularDiferenciaDias(form['Fecha inicio prueba'].value, form['Fecha fin prueba'].value);
+  const diffDiasActual = calcularDiferenciaDiasFechaActual(form['Fecha baja'].value);
+
+  // Validacion de bajada
+  if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
+    const errorVal = {
+      "emp_fechabaja": "Fecha tiene que mayor a 0. ",
+    }
+    setLoading(false);
+    setErrorUpdate(errorVal);
+    return;
+  }
+
+
+  // Validacion inicio prueba, fin prueba 
+  if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
+    const errorVal = {
+      "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
+    }
+    setErrorUpdate(errorVal);
+    setLoading(false);
+    return;
+  }
+
+  // Validacion edad 
+  if (edad < 18 || isNaN(edad)) {
+    const errorVal = {
+      "emp_fechanac": "Debe ser mayor de edad. ",
+    }
+
+    setLoading(false);
+    setErrorUpdate(errorVal);
+    return;
+  }
+  // Validacion numerico
+  if (validationOnlyNumbers(form['Dni'].value) === false) {
+    const errorVal = {
+      "emp_dni": "Solo se permiten numeros",
+    }
+    setLoading(false);
+    setErrorUpdate(errorVal);
+    return;
+  }
+  if (validationOnlyNumbers(form['Telefono'].value) === false) {
+    const errorVal = {
+      "emp_telefono": "Solo se permiten numeros",
+    }
+    setLoading(false);
+    setErrorUpdate(errorVal);
+    return;
+  }
+
+  if (validationOnlyNumbers(form['Días extra'].value) === false) {
+    const errorVal = {
+      "emp_dias_extra": "Solo se permiten numeros",
+    }
+    setLoading(false);
+    setErrorUpdate(errorVal);
+    return;
+  }
+
+
+  setError([]);
+
+
+
+
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleadoSeleccionado['Id']}`,
+      {
+        "emp_nombre": empleadoSeleccionado['Nombres'],
+        "emp_apellido": empleadoSeleccionado['Apellidos'],
+        "emp_fechabaja": empleadoSeleccionado['Fecha baja'],
+        "emp_fec_inicio_prueba": empleadoSeleccionado['Fecha inicio prueba'],
+        "emp_Fec_fin_prueba": empleadoSeleccionado['Fecha fin prueba'],
+        "emp_TurnoId": empleadoSeleccionado['Turno'],
+        "emp_AreaId": empleadoSeleccionado['Perfil'],
+        "emp_dni": empleadoSeleccionado['Dni'],
+        "emp_carrera": empleadoSeleccionado['Carrera'],
+        "emp_email": empleadoSeleccionado['Correo'],
+        "emp_telefono": empleadoSeleccionado['Telefono'],
+        "emp_link_cv": empleadoSeleccionado['Link CV'],
+        "Emp_Id_Condicion_capacitacion_fk": empleadoSeleccionado['Condicion Capacitación'],
+        "emp_link_calificaciones": empleadoSeleccionado['Link Calificaciones'],
+        "Emp_Id_Convenio_fk": empleadoSeleccionado['Convenio'],
+        "emp_link_convenio": empleadoSeleccionado['Link Convenio'],
+        "emp_fechanac": empleadoSeleccionado['Fecha Nacimiento'],
+        "emp_dias_extra": empleadoSeleccionado['Días extra']
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        console.log(response);
+        setLoading(false);
+        setErrorUpdate([]);
+      }).catch(error => {
+        setLoading(false);
+        console.log(error.response.data);
+        setErrorUpdate(error.response.data.errors);
+    });
     console.log("Fin de actualizar");
   }
 
@@ -150,14 +218,14 @@ function App() {
   const abrircerrarModalEditar = () => {
     setModalEditar(!modalEditar);
   }
-  const abrircerrarModalEliminar=()=>{
+  const abrircerrarModalEliminar = () => {
     setModalEliminar(!modalEliminar);
   }
 
 
-  const seleccionarEmpleado=(empleado, caso)=>{
+  const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
-    let empleadoFormateado = {...empleado};
+    let empleadoFormateado = { ...empleado };
     if (empleadoFormateado.Turno === "Mañana") {
       empleadoFormateado.Turno = 1;
     } else if (empleadoFormateado.Turno === "Tarde") {
@@ -198,27 +266,40 @@ function App() {
     };
 
     // Formateo de 'select' condicion capacitacion
-
     if (empleadoFormateado['Condicion Capacitación'] === "Terminó capacitacion") {
-      empleadoFormateado['Condicion Capacitación']= 1;
-    } else if (empleadoFormateado.Perfil === "No terminó capacitación") {
-      empleadoFormateado['Condicion Capacitación']= 2;
-    } else if (empleadoFormateado.Perfil === "En proceso") {
-      empleadoFormateado['Condicion Capacitación']= 3;
+      empleadoFormateado['Condicion Capacitación'] = 1;
+    } else if (empleadoFormateado['Condicion Capacitación'] === "No terminó capacitación") {
+      empleadoFormateado['Condicion Capacitación'] = 2;
+    } else if (empleadoFormateado['Condicion Capacitación'] === "En proceso") {
+      empleadoFormateado['Condicion Capacitación'] = 3;
     };
+
     // Formateo de 'select' convenio
+    if (empleadoFormateado['Convenio'] === "Firmado") {
+      empleadoFormateado['Convenio'] = 1;
+    } else if (empleadoFormateado['Convenio'] === "Enviado para firmar") {
+      empleadoFormateado['Convenio'] = 2;
+    } else if (empleadoFormateado['Convenio'] === "No firmado") {
+      empleadoFormateado['Convenio'] = 3;
+    } else if (empleadoFormateado['Convenio'] === "Terminó convenio") {
+      empleadoFormateado['Convenio'] = 4;
+    } else if (empleadoFormateado['Convenio'] === "En proceso") {
+      empleadoFormateado['Convenio'] = 5;
+    } else if (empleadoFormateado['Convenio'] === "Retirado") {
+      empleadoFormateado['Convenio'] = 6;
+    };
 
     setEmpleadoSeleccionado(empleadoFormateado);
-    (caso==="Editar")?abrircerrarModalEditar():
-    abrircerrarModalEliminar()
+    (caso === "Editar") ? abrircerrarModalEditar() :
+      abrircerrarModalEliminar()
   }
 
   // 
-  const handleChangeEdit=(e)=>{
-    const {name, value}=e.target;
-    setEmpleadoSeleccionado((prevState)=>({
+  const handleChangeEdit = (e) => {
+    const { name, value } = e.target;
+    setEmpleadoSeleccionado((prevState) => ({
       ...prevState,
-      [name]:value
+      [name]: value
     }));
     console.log(empleadoSeleccionado);
   }
@@ -344,28 +425,30 @@ function App() {
   const bodyEditar = (
     <div className={styles.modal}>
       <h3>Editar Empleado</h3>
-      <TextField className={styles.inputMaterial} label="Artista" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
-      <br />
+      <form onSubmit={actualizarEmpleado}>
+
+        <TextField className={styles.inputMaterial} label="Artista" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
+        <br />
         {/* Error */}
-        {/* <Error errors={error['emp_nombre']} ></Error> */}
+        <Error errors={errorUpdate['emp_nombre']} ></Error>
         {/* Fin error */}
 
         <br />
         <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
-        {/* <Error errors={error['emp_apellido']} ></Error> */}
+        <Error errors={errorUpdate['emp_apellido']} ></Error>
         <br />
 
         <label>Fecha de baja</label>
         <input type="date" placeholder="Fecha baja" name="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha baja']} ></input>
-        {/* <Error errors={error['emp_fechabaja']} ></Error> */}
+        <Error errors={errorUpdate['emp_fechabaja']} ></Error>
         <br />
         <label>Fecha de inicio prueba</label>
-        <input type="date" name="FechaInicioPrueba" placeholder="Fecha inicio prueba" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha inicio prueba']}  ></input>
-        {/* <Error errors={error['emp_fec_inicio_prueba']} ></Error> */}
+        <input type="date" name="Fecha inicio prueba" placeholder="Fecha inicio prueba" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha inicio prueba']}  ></input>
+        <Error errors={errorUpdate['emp_fec_inicio_prueba']} ></Error>
         <br />
         <label>Fecha de fin de prueba</label>
-        <input type="date" name="Fecha fin prueba" placeholder="Fecha baja"   onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha fin prueba']} ></input>
-        {/* <Error errors={error['emp_Fec_fin_prueba']} ></Error> */}
+        <input type="date" name="Fecha fin prueba" placeholder="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha fin prueba']} ></input>
+        <Error errors={errorUpdate['emp_Fec_fin_prueba']} ></Error>
         <br />
         <label >Turno</label>
         <select placeholder="Selecione turno" name="Turno" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Turno']}>
@@ -373,8 +456,7 @@ function App() {
           <option value="2">Tarde</option>
           <option value="3">Mañana y tarde</option>
         </select>
-        {/* <Error errors={error['emp_fec_inicio_prueba']} ></Error> */}
-        {/* <Error errors={error['emp_TurnoId']} ></Error> */}
+        <Error errors={errorUpdate['emp_TurnoId']} ></Error>
 
         <br />
         <label >Area </label>
@@ -395,75 +477,79 @@ function App() {
           <option value="13">Administracion Scrum</option>
           <option value="14">Arquitectura</option>
         </select>
-        {/* <Error errors={error['emp_AreaId']} ></Error> */}
+        <Error errors={errorUpdate['emp_AreaId']} ></Error>
 
         <br />
         <label>DNI</label>
-        <input type="number" name="Dni" placeholder="Insertar dni..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Dni']} ></input>
-        {/* <Error errors={error['emp_dni']} ></Error> */}
+        <input type="number" name="Dni" placeholder="Insertar dni..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Dni']} ></input>
+        <Error errors={errorUpdate['emp_dni']} ></Error>
 
         <br />
         <label >Carrera</label>
-        <input type="text" name="Carrera" placeholder="Insertar carrera..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Carrera']}></input>
-        {/* <Error errors={error['emp_carrera']} ></Error> */}
+        <input type="text" name="Carrera" placeholder="Insertar carrera..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Carrera']}></input>
+        <Error errors={errorUpdate['emp_carrera']} ></Error>
 
         <br />
         <label >Email</label>
-        <input type="email" name="Correo" placeholder="Insertar email..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']}></input>
-        {/* <Error errors={error['emp_email']} ></Error> */}
+        <input type="email" name="Correo" placeholder="Insertar email..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']}></input>
+        <Error errors={errorUpdate['emp_email']} ></Error>
 
         <br />
         <label >Telefono</label>
-        <input type="number" name="Telefono" placeholder="Insertar telefono..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Telefono']}></input>
-        {/* <Error errors={error['emp_telefono']} ></Error> */}
+        <input type="number" name="Telefono" placeholder="Insertar telefono..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Telefono']}></input>
+        <Error errors={errorUpdate['emp_telefono']} ></Error>
 
         <br />
         <label >Url del CV</label>
-        <input type="url" name="Link CV" placeholder="Insertar url del CV..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link CV']}></input>
-        {/* <Error errors={error['emp_link_cv']} ></Error> */}
+        <input type="url" name="Link CV" placeholder="Insertar url del CV..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link CV']}></input>
+        <Error errors={errorUpdate['emp_link_cv']} ></Error>
         <br />
         <label >Condicion de capacitacion</label>
         <select placeholder="Convenio" name="Condicion Capacitación" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Condicion Capacitación']}>
           <option value="1">Terminó capacitacion</option>
           <option value="2">No terminó capacitación</option>
-          <option value="3" selected>En proceso</option>
+          <option value="3">En proceso</option>
         </select>
-        {/* <Error errors={error['Emp_Id_Condicion_capacitacion_fk']} ></Error> */}
+        <Error errors={errorUpdate['Emp_Id_Condicion_capacitacion_fk']} ></Error>
 
         <br />
         <label >Url de calificaciones</label>
-        <input type="url" name="Link Calificaciones" placeholder="Insertar url del calificaciones..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Calificaciones']}></input>
-        {/* <Error errors={error['emp_link_calificaciones']} ></Error> */}
+        <input type="url" name="Link Calificaciones" placeholder="Insertar url del calificaciones..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Calificaciones']}></input>
+        <Error errors={errorUpdate['emp_link_calificaciones']} ></Error>
         <br />
         <label >Convenio</label>
 
-        <select placeholder="Convenio" name="Convenio" id="">
+        <select placeholder="Convenio" name="Convenio" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Convenio']}>
           <option value="1">Firmado</option>
           <option value="2">Enviado para firmar</option>
-          <option value="3" selected>No firmado</option>
+          <option value="3">No firmado</option>
           <option value="4">Terminó convenio</option>
           <option value="5">En proceso</option>
           <option value="6">Retirado</option>
         </select>
-        {/* <Error errors={error['Emp_Id_Convenio_fk']} ></Error> */}
+        <Error errors={errorUpdate['Emp_Id_Convenio_fk']} ></Error>
 
         <br />
         <label >Url de convenio</label>
-        <input type="url" name="Link Convenio" placeholder="Insertar url del convenio..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Convenio']}></input>
-        {/* <Error errors={error['emp_link_convenio']} ></Error> */}
+        <input type="url" name="Link Convenio" placeholder="Insertar url del convenio..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Convenio']}></input>
+        <Error errors={errorUpdate['emp_link_convenio']} ></Error>
         <br />
         <label >Fecha de nacimiento</label>
-        <input type="date" name="Fecha Nacimiento" placeholder="Insertar fecha de nacimiento..."  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha Nacimiento']}></input>
-        {/* <Error errors={error['emp_fechanac']} ></Error> */}
+        <input type="date" name="Fecha Nacimiento" placeholder="Insertar fecha de nacimiento..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha Nacimiento']}></input>
+        <Error errors={errorUpdate['emp_fechanac']} ></Error>
         <br />
         <label >Dias adicionales de trabajo</label>
-        <input type="number" name="Dias extra" placeholder="Ejemplo : 0"  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Dias extra']}></input>
-        {/* <Error errors={error['emp_dias_extra']} ></Error> */}
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onclick={() => actualizarEmpleado()}>Editar</Button>
-        <Button onClick={() => abrircerrarModalEditar()}>Cancelar</Button>
-      </div>
+        <input type="number" name="Días extra" placeholder="Ejemplo : 0" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Días extra']}></input>
+        <Error errors={errorUpdate['emp_dias_extra']} ></Error>
+        <br /><br />
+        <div align="right">
+          {loading ? <Loading /> :
+            <Button color="primary" type="submit" >Editar</Button>
+          }          
+          <Button onClick={() => abrircerrarModalEditar()}>Cancelar</Button>
+        </div>
+      </form>
+
     </div>
   )
 
