@@ -1,38 +1,43 @@
-// import './App.css';
-// import Sidebar from './components/Sidebar';
-import { BrowserRouter as Router, Switch, Route,Link } from 'react-router-dom';
-// import Overview from './pages/Overview';
-// import { Reports, ReportsOne, ReportsTwo, ReportsThree } from './pages/Reports';
+import React, { useEffect } from 'react';
+import {
+  Switch,
+  Route,
+  useLocation,
+  BrowserRouter,
+  Router
+} from 'react-router-dom';
 
-import DashAdmin from "./pages/DashAdmin";
-import Login from './pages/Login';
-// import Login1 from './pages/login-old';
+// import './css/style.scss';
 
-// import Team from './pages/Team';
-import {UserContext} from '../src/components/context/UserContext';
+import { focusHandling } from 'cruip-js-toolkit';
+import './charts/ChartjsConfig';
+
+// import {UserContext} from '../src/components/context/UserContext';
 import { useState } from 'react';
+// Import pages
+import DashAdmin from './pages/DashAdmin';
+import Login from './pages/Login';
 
 function App() {
   const [user, setUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    document.querySelector('html').style.scrollBehavior = 'auto'
+    window.scroll({ top: 0 })
+    document.querySelector('html').style.scrollBehavior = ''
+    focusHandling('outline');
+  }, [location.pathname]); // triggered on route change
 
   return (
-    
-      <Router >
-        <Switch>
-          {/* <Route path='/' exact component={ ()=>{
-            return isLoggedIn ? null : <Login/>
-          } } /> */}
-          <Route path='/' exact component={ Login }/>
-
-          <Route path='/login' exact component={Login} />
-          <UserContext.Provider value={{ user,setUser }}>
-            <Route path='/dashAdmin' exact component={DashAdmin} />
-          </UserContext.Provider>
-        </Switch>
-      </Router>
-    
-
+    <>
+      <Switch>
+        <Route path='/' exact component={Login} />
+        <Route path='/login' exact component={Login} />
+        <Route path='/dashadmin' exact component={DashAdmin} />
+        {/* <Route path='/admin' exact component={Dashboard} /> */}
+      </Switch>
+    </>
   );
 }
 

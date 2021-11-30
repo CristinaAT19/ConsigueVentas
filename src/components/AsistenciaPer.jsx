@@ -29,7 +29,9 @@ const AsistenciaPer = () => {
         await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/73615048`,
             {
                 headers: {
+
                     Authorization: `Bearer ${getToken()}`
+
                 }
             })
             .then(response => {

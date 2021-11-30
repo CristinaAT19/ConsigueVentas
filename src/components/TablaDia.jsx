@@ -3,6 +3,7 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import { setToken, getToken } from "../dist/Token";
 
  const columns = [
     {
@@ -66,10 +67,10 @@ function TablaDia() {
       setLoading(true);
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
+              `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
                 {
                     headers: {
-                        Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+                        Authorization: `Bearer ${getToken()}`
                     }
                 }
             )
