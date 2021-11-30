@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DataTable from 'react-data-table-component';
+import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 
 const TablaFaltas = () => {
@@ -7,11 +8,10 @@ const TablaFaltas = () => {
     const peticionTablaFaltas = async () => {
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/tabla_faltas",
+                `${process.env.REACT_APP_API_URL}/api/tabla_faltas`,
                 {
                     headers: {
-                        Authorization: "Bearer 624|yr3V76pOi2wXinTHeyQGXRzNx1WYGYnOvXOPOVFn"
-                    }
+                        Authorization: `Bearer ${getToken()}`                    }
                 }
             )
             .then((Response) => {

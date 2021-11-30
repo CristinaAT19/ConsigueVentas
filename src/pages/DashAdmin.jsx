@@ -1,38 +1,60 @@
-import React from 'react'
-import '../styles/DashAdmin.css';
-import Sidebar from '../components/lib/Sidebar';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
-import { calendarioAsistencia,datosPersonales } from './VistasAdmin/Perfil';
-import calendarioGeneral from './VistasAdmin/CalendarioGeneral';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
+import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 import Dashboard from './VistasAdmin/Dashboard';
+import App from '../components/TablaEmpleados';
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
+import TablaDatosPer from '../components/TablaDatosPer';
+import TablaEmpleados from '../components/TablaEmpleados';
 
-const DashAdmin = () => {
+function DashAdmin() {
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <>
-        <Router basename={'/Mandarin/build'}>
-          <Sidebar />
-          <Switch >
+    
+    <div className="flex h-screen overflow-hidden">
+      <Router basename={'dashadmin'}>
+      {/* Sidebar */}
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        
+
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+
+        {/*  Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+        <main>
+        <Switch >
             <Route path='/dashboard' exact component={Dashboard} />
-            {/* empleados */}
-            <Route path='/administracionEmpleados' exact component={administracionEmpleados} />
-            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
-            <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-            <Route path='/listaAdministradores' exact component={listaAdministradores} />
+            <Route path='/datosPersonales' exact component={TablaDatosPer}/>
+
+            {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
+            {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
             {/* perfil */}
-            <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
-            <Route path='/datosPersonales' exact component={datosPersonales} />
+            {/* <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} /> */}
             {/* calendario general */}
-            <Route path='/calendarioGeneral' exact component={calendarioGeneral} />
-            {/* En caso de no encontrar ninguna ruta */}
-            {/* <Redirect to='/dashboard' /> */}
+            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
+            {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
+            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
 
-          </Switch>
-        </Router>
-    </>
+            {/* En caso de redireccion a /dashboard */}
+            <Route render={() => <Redirect to="/dashboard" />} />
 
-  )
+        </Switch>
+
+
+        </main>
+
+
+      </div>
+      </Router>
+    </div>
+  );
 }
 
-export default DashAdmin
+export default DashAdmin;

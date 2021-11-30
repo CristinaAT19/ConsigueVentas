@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import DataTable from 'react-data-table-component';
+import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 
 const TablaAdmin = () => {
@@ -8,10 +9,10 @@ const TablaAdmin = () => {
     const peticionTablaAdmin = async () => {
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/listarAdministrador",
+                `${process.env.REACT_APP_API_URL}/api/listarAdministrador`,
                 {
                     headers: {
-                        Authorization: "Bearer 633|UnqR5y57yhJ6yz8fGnyWDivoOlOYnMwxW8ZNK48d"
+                        Authorization: `Bearer ${getToken()}`
                     }
                 }
             )

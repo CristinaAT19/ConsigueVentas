@@ -1,35 +1,15 @@
-import React, { useEffect, useState, useReducer } from "react";
-import "../styles/Login.css";
+import React, { useState} from "react";
+import '../css/style.scss';
 import axios from "axios";
-import { setToken, getToken } from "../dist/Token";
+import { setToken } from "../dist/Token";
 import Loading from "../components/Loading";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
-// import {todoReducer} from "../components/RedecurOne";
+
 
 const Login = () => {
 
-    // const initialState = [{
-    //     id : new Date().getTime(),
-    //     desc:"Aprender react",
-    //     done:false
-    // }];
-
-
-    // const [todos,dispatch] = useReducer(todoReducer,initialState);
-    // console.log(todos);
-
-
-    // const newTodo = {
-    //     id : new Date().getTime(),
-    //     desc:"Otra tarae",
-    //     done:false
-    // }
-    // const action = {
-    //     type:'add',
-    //     payload:newTodo
-    // }
-
+   
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState([]);
     const [redirect, setRedirect] = useState(false);
@@ -39,8 +19,6 @@ const Login = () => {
     const peticiontoken = async (e) => {
         setLoading(true);
         e.preventDefault();
-        // "dni": "74434089",
-        // "password": "74434089"
         if(e.target.elements.dni.value.length !== 8){
             const error = {
                 "dni": "El dni debe tener 8 numeros",
@@ -76,6 +54,7 @@ const Login = () => {
             })
             .catch((e) => {
                 setError(e.response.data.errors);
+                // console.log(e);
             });
         setLoading(false);
     };
@@ -87,20 +66,16 @@ const Login = () => {
     // }, [redirect]);
 
     if (redirect) {
-        return <Redirect to='/dashAdmin'/>;
+        return <Redirect to='/dashadmin'/>;
     }
     return (
-        <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-naranja h-screen">
+        <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-600 h-screen">
             <div className="grid grid-cols-5 shadow-xl rounded-xl max-w-2xl">
                 <div className="col-span-3 py-9 px-8 bg-gray-50 rounded-l-xl h-full">
                     <div className="flex justify-center h-1/3">
                         <img src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
                             className="h-20 pl-4 bg-gray-50"
-                        />
-                        {/* <img src="icono-cventas.png"
-                            className=" h-20 bg-gray-50"
-                        /> */}
-
+                        />                        
                     </div>
                     <div className="h-2/3 flex items-center pt-10 justify-center">
                         <img className="" src="icons8-admin.png" />
@@ -132,7 +107,7 @@ const Login = () => {
 
                         {loading ? <Loading /> :
 
-                            <button type="submit" id="boton" className="cursor-pointer py-2 px-6 block mt-6 duration-75 bg-plomo hover:bg-gray-700  text-white font-bold w-full text-center rounded">Ingresar</button>
+                            <button type="submit" id="boton" className="cursor-pointer py-2 px-6 block mt-6 duration-75 bg-gray-900 hover:bg-gray-700  text-white font-bold w-full text-center rounded">Ingresar</button>
 
                         }
 

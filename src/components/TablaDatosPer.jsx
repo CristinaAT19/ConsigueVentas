@@ -7,45 +7,32 @@ const TablaDatosPer = () => {
     <>
       <div className=" flex flex-col items-center justify-center">
         <section className="flex items-center justify-center w-full h-screen">
-          <div className="flex flex-wrap items-center justify-around w-5/12 bg-plomoIntermedio p-10 text-white">
-            <div className="flex flex-row items-center justify-center mr-px">
-              <label>Nombres</label>
-              <input type="text" name="" id="" />
-            </div>
+          <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 bg-gray-500 p-10 text-white gap-x-8 gap-y-4">
+            <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
+              <label>Nombres:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div className="flex flex-row items-center justify-center mr-px">
-              <label>Apellidos</label>
-              <input type="text" name="" id="" />
-            </div>
+              <label>DNI:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div>
-              <label>DNI</label>
-              <input type="text" name="" id="" />
-            </div>
+              <label>Correo:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div>
-              <label>Teléfono</label>
-              <input type="text" name="" id="" />
+              <label>Area:</label>
+              <input type="text" name="" id="" className="m-1.5" />
             </div>
+            <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
+              <label>Apellidos:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div>
-              <label>Correo</label>
-              <input type="text" name="" id="" />
-            </div>
+              <label>Teléfono:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div>
-              <label>Carrera</label>
-              <input type="text" name="" id="" />
-            </div>
+              <label>Carrera:</label>
+              <input type="text" name="" id="" className="m-1.5" />
 
-            <div>
-              <label>Area</label>
-              <input type="text" name="" id="" />
-            </div>
-
-            <div>
-              <label>Turno</label>
-              <input type="text" name="" id="" />
+              <label>Turno:</label>
+              <input type="text" name="" id="" className="m-1.5" />
             </div>
           </div>
         </section>
