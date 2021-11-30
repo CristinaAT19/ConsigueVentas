@@ -8,6 +8,8 @@ import App from '../components/TablaEmpleados';
 import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
 import TablaEmpleados from '../components/TablaEmpleados';
+import CalendarioPersonal from '../components/CalendarioPersonal';
+import CerrarSesion from '../components/CerrarSesion';
 
 function DashAdmin() {
 
@@ -16,7 +18,7 @@ function DashAdmin() {
   return (
     
     <div className="flex h-screen overflow-hidden">
-      <Router basename={'dashadmin'}>
+      <Router >
       {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         
@@ -32,15 +34,18 @@ function DashAdmin() {
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
-
+        
             {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
             {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
             {/* perfil */}
             {/* <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} /> */}
             {/* calendario general */}
             <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
-            {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
+            <Route path='/calendarioGeneral' exact component={CalendarioPersonal} />
             <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
+            <Route path='/cerrarSesion' exact component={CerrarSesion} />
+            {/* Auxliar de cerrar sesion */}
+            <Route exact path='/redirectSesion' render={()=>(<Redirect to='/login' /> )}  />
 
             {/* En caso de redireccion a /dashboard */}
             <Route render={() => <Redirect to="/dashboard" />} />

@@ -357,7 +357,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 <NavLink
                   exact
-                  to="/"
+                  to="/calendarioGeneral"
                   className={`block text-gray-200 hover:text-white truncate transition duration-150 ${
                     pathname.includes("calendar") && "hover:text-gray-200"
                   }`}

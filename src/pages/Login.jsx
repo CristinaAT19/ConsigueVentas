@@ -41,16 +41,11 @@ const Login = () => {
         paramsRequest['dni'] = e.target.elements.dni.value;
         paramsRequest['password'] = e.target.elements.password.value;
 
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest,
-            { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json' ,
-                'Access-Control-Allow-Origin': '*'
-            })
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest)
             .then((Response) => {
                 setToken(Response.data.token);
-                setError([]);
                 setRedirect(true);
+                setError([]);
             })
             .catch((e) => {
                 setError(e.response.data.errors);
