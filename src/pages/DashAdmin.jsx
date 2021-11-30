@@ -7,6 +7,7 @@ import Dashboard from './VistasAdmin/Dashboard';
 import App from '../components/TablaEmpleados';
 import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
+import TablaEmpleados from '../components/TablaEmpleados';
 
 function DashAdmin() {
 
@@ -30,9 +31,20 @@ function DashAdmin() {
         <Switch >
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
-            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
+
+            {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
+            {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
+            {/* perfil */}
+            {/* <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} /> */}
+            {/* calendario general */}
+            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
+            {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
+            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
+
+            {/* En caso de redireccion a /dashboard */}
             <Route render={() => <Redirect to="/dashboard" />} />
+
         </Switch>
 
 

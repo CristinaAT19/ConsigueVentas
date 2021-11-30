@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
-function App() {
+function TablaEmpleados() {
   // Estilos  
   const styles = useStyles();
 
@@ -727,4 +727,4 @@ function App() {
 
 
 }
-export default App;
+export default TablaEmpleados;
