@@ -1,10 +1,11 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import '../css/style.scss';
 import axios from "axios";
 import { setToken } from "../dist/Token";
 import Loading from "../components/Loading";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
+import { distSetAutentication } from "../dist/Autentication";
 
 
 const Login = () => {
@@ -16,6 +17,9 @@ const Login = () => {
     const paramsRequest = {
     }
     const [valor, setValor] = useState("");
+    useEffect(() =>{
+        distSetAutentication(false);
+    })
     const peticiontoken = async (e) => {
         setLoading(true);
         e.preventDefault();
@@ -51,6 +55,7 @@ const Login = () => {
                 setToken(Response.data.token);
                 setError([]);
                 setRedirect(true);
+                distSetAutentication(true);
             })
             .catch((e) => {
                 setError(e.response.data.errors);
