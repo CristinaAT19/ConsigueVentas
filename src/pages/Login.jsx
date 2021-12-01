@@ -1,15 +1,17 @@
-import React, { useState} from "react";
+import React, { useState,useContext} from "react";
 import '../css/style.scss';
 import axios from "axios";
 import { setToken } from "../dist/Token";
 import Loading from "../components/Loading";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
+import { UserContext } from "../components/context/UserContext";
 
 
 const Login = () => {
-
-   
+    
+    const {user} = useContext(UserContext);
+    console.log(user);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState([]);
     const [redirect, setRedirect] = useState(false);
@@ -49,7 +51,6 @@ const Login = () => {
             })
             .catch((e) => {
                 setError(e.response.data.errors);
-                // console.log(e);
             });
         setLoading(false);
     };
@@ -59,6 +60,7 @@ const Login = () => {
     //     <Redirect to='/dashAdmin'/>;
     //     console.log("Fin");
     // }, [redirect]);
+
 
     if (redirect) {
         return <Redirect to='/dashadmin'/>;

@@ -17,11 +17,16 @@ import { useState } from 'react';
 // Import pages
 import DashAdmin from './pages/DashAdmin';
 import Login from './pages/Login';
+import { UserContext } from './components/context/UserContext';
+
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: 'Vaca',
+    age: '1',
+    breed: 'Chihuahua'
+  });
   const location = useLocation();
-
   useEffect(() => {
     document.querySelector('html').style.scrollBehavior = 'auto'
     window.scroll({ top: 0 })
@@ -32,9 +37,11 @@ function App() {
   return (
     <>
       <Switch>
-        <Route path='/' exact component={Login} />
-        <Route path='/login' exact component={Login} />
-        <Route path='/dashadmin' exact component={DashAdmin} />
+        <UserContext.Provider value={{ user,setUser,algo:123 }}>
+          <Route path='/' exact component={Login} />
+          <Route path='/login' exact component={Login} />
+          <Route path='/dashadmin' exact component={DashAdmin} />
+        </UserContext.Provider>
         {/* <Route path='/admin' exact component={Dashboard} /> */}
       </Switch>
     </>
