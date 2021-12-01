@@ -1,9 +1,10 @@
 import React from 'react'
+import { Redirect } from 'react-router';
 import { distGetAutentication } from '../dist/Autentication';
 
-const RoutePrivate = () => {
+const RoutePrivate = ({children}) => {
     const autentication = distGetAutentication()
-    return autentication ? children : N
+    return autentication ?  children : <Redirect to="/login"/>
 };
 
 export default RoutePrivate;
