@@ -3,6 +3,7 @@ import AdminUsuario from '../../components/AdminUsuario';
 import TablaAdmin from '../../components/TablaAdmin';
 import App from '../../components/TablaEmpleados';
 import TablaFaltas from '../../components/TablaFaltas';
+import TablaEmpleados from '../../components/TablaEmpleados';
 
 // export const Reports = () => {
 //   return (
@@ -16,7 +17,7 @@ export const administracionEmpleados = () => {
   return (
     <>
       <div>
-        <App />
+        <TablaEmpleados	 />
       </div>
     </>
   );
