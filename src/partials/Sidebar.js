@@ -67,7 +67,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     <div>
       {/* Sidebar backdrop (mobile only) */}
       <div
-        className={`fixed inset-0 bg-gray-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
+        className={`fixed inset-0 bg-gray-600 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
           sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
@@ -77,12 +77,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <div
         id="sidebar"
         ref={sidebar}
-        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 flex-shrink-0 bg-gray-800 p-4 transition-all duration-200 ease-in-out ${
+        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 flex-shrink-0 bg-gray-700 transition-all duration-200 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-64"
         }`}
       >
         {/* Sidebar header */}
-        <div className="flex justify-center mb-10 pr-3 sm:px-2">
+        <div className="flex bg-gray-600 border-red-900 justify-center py-4 pr-3 sm:px-2">
           {/* Close button */}
 
           {/* <button
@@ -102,9 +102,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <NavLink exact to="/dashAdmin" className="block" onClick={expandir}>
             {expand ? (
               <img
-              className=" w-11/12 h-9"
+              className=" max-w-7xl w-40 h-12"
               src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
-              alt=""
             />
               
             ) : (
@@ -115,7 +114,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
 
         {/* Links */}
-        <div className="space-y-8">
+        <div className="space-y-8 p-4">
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">
@@ -201,7 +200,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       </a>
                       <div className=" lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul
-                          className={`bg-yellow-500 pl-9 mt-1 ${
+                          className={`bg-naranjaBajo pl-9 mt-1 ${
                             !open && "hidden"
                           }`}
                         >
@@ -315,7 +314,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul
-                          className={`bg-yellow-500 pl-9 mt-1 ${
+                          className={`bg-naranjaBajo pl-9 mt-1 ${
                             !open && "hidden"
                           }`}
                         >

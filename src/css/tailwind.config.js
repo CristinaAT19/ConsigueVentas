@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors');
+
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -13,9 +13,9 @@ module.exports = {
         xl: '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
       },
       colors: {
-        
-        
-        naranaja: '#F29204',
+        verde: '#80E0A7',
+        naranjaBajo: '#F9B058',       
+        naranja: '#F29204',
         plomo: '#2D2D2B',
       },
       outline: {
