@@ -77,13 +77,16 @@ const Dashboard = () => {
 
       <div className="bg-white m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
-        <TablaDia />
+        <div style={{ width: '97%',margin: '0 auto',padding:'1rem 0'}}>
+          <TablaDia />
+        </div>
       </div>
 
       <div className="bg-white m-20 rounded-t-3xl text-center">
-
         <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
-        <TablaSin />
+        <div style={{ width: '97%',margin: '0 auto',padding:'1rem 0'}}>
+          <TablaSin />
+        </div>
       </div>
     </>
   );
