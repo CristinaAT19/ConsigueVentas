@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-
 import {  Modal, TextField, Button, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { setToken, getToken } from "../dist/Token";
 import Error from "../components/item/Error";
@@ -12,6 +12,7 @@ import { calcularEdad, calcularDiferenciaDias, calcularDiferenciaDiasFechaActual
 import { validationOnlyNumbers } from '../helpers/validaciones';
 
 const columnas = [
+
   {title: 'ID', field: 'Id'},
   {title: 'Nombres', field: 'Nombres'},
   {title: 'Apellidos', field: 'Apellidos'},
@@ -41,7 +42,6 @@ const columnas = [
   {title: 'Tipo Empleado', field: 'Tipo Empleado'},
   {title: 'Fecha Baja', field: 'Fecha baja',type:'date'}  
 ];
-
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
 
+
 function TablaEmpleados()  {
 
   // Estilos  
@@ -71,7 +72,6 @@ function TablaEmpleados()  {
 
   // Modales
   const [data, setData] = useState([]);
-
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);

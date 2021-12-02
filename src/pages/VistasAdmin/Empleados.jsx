@@ -3,6 +3,7 @@ import AdminUsuario from '../../components/AdminUsuario';
 import TablaAdmin from '../../components/TablaAdmin';
 import TablaEmpleados from '../../components/TablaEmpleados';
 import TablaFaltas from '../../components/TablaFaltas';
+import TablaEmpleados from '../../components/TablaEmpleados';
 
 // export const Reports = () => {
 //   return (
@@ -15,11 +16,13 @@ import TablaFaltas from '../../components/TablaFaltas';
 export const administracionEmpleados = () => {
   return (
     <>
+
       <div className="mt-12 flex flex-col justify-around items-center">
         <h2 className="text-3xl">Administración de empleados</h2>
         <div className="w-11/12">
           <TablaEmpleados/>
         </div>
+
       </div>
     </>
   );

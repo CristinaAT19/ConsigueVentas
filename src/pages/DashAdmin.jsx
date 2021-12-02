@@ -31,6 +31,8 @@ function DashAdmin() {
         <Switch >
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
+            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
+            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
 
             {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
@@ -38,8 +40,8 @@ function DashAdmin() {
             {/* perfil */}
             {/* <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} /> */}
             {/* calendario general */}
-            <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
+
             <Route path='/tablaEmpleados' exact component={administracionEmpleados} />
 
             {/* En caso de redireccion a /dashboard */}

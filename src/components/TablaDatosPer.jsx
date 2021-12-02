@@ -7,7 +7,7 @@ const TablaDatosPer = () => {
     <>
       <div className=" flex flex-col items-center justify-center">
         <section className="flex items-center justify-center w-full h-screen">
-          <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 bg-gray-500 p-10 text-white gap-x-8 gap-y-4">
+          <div className="flex flex-colgrid grid-cols-2 auto-cols-auto grid-rows-1 bg-gray-800 p-10 text-white gap-x-8 gap-y-4">
             <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
               <label>Nombres:</label>
               <input type="text" name="" id="" className="m-1.5" />
