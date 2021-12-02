@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminUsuario from '../../components/AdminUsuario';
 import TablaAdmin from '../../components/TablaAdmin';
-import App from '../../components/TablaEmpleados';
+import TablaEmpleados from '../../components/TablaEmpleados';
 import TablaFaltas from '../../components/TablaFaltas';
 import TablaEmpleados from '../../components/TablaEmpleados';
 
@@ -16,8 +16,13 @@ import TablaEmpleados from '../../components/TablaEmpleados';
 export const administracionEmpleados = () => {
   return (
     <>
-      <div>
-        <TablaEmpleados	 />
+
+      <div className="mt-12 flex flex-col justify-around items-center">
+        <h2 className="text-3xl">Administración de empleados</h2>
+        <div className="w-11/12">
+          <TablaEmpleados/>
+        </div>
+
       </div>
     </>
   );
@@ -45,7 +50,8 @@ export const restablecimientoContraseña = () => {
 
 export const tablaFaltas = () => {
   return (
-    <div>
+    <div className="w-4/5">
+      <h1>Administracion de faltas</h1>
       <TablaFaltas />
     </div>
   );

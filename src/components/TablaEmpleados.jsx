@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { Modal, TextField, Button } from '@material-ui/core';
+import {  Modal, TextField, Button, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { setToken, getToken } from "../dist/Token";
 import Error from "../components/item/Error";
@@ -11,23 +12,40 @@ import { calcularEdad, calcularDiferenciaDias, calcularDiferenciaDiasFechaActual
 import { validationOnlyNumbers } from '../helpers/validaciones';
 
 const columnas = [
-  {
-    title: 'ID', field: 'Id'
-  },
-  {
-    title: 'Nombres', field: 'Nombres'
-  },
-  {
-    title: 'Apellidos', field: 'Apellidos'
-  },
-  {
-    title: 'Turno', field: 'Turno'
-  }
+
+  {title: 'ID', field: 'Id'},
+  {title: 'Nombres', field: 'Nombres'},
+  {title: 'Apellidos', field: 'Apellidos'},
+  {title: 'Fecha Inicio Prueba', field: 'Fecha inicio prueba', type:'date'},  
+  {title: 'Fecha Fin Prueba', field: 'Fecha fin prueba', type:'date'},
+  {title: 'Turno', field: 'Turno'},
+  {title: 'Perfil', field: 'Perfil'},
+  {title: 'Dni', field: 'Dni'},
+  {title: 'Carrera', field: 'Carrera'},
+  {title: 'Telefono', field: 'Telefono'},
+  {title: 'Link CV', field: 'Link CV'},
+  {title: 'Correo', field: 'Correo'},
+  {title: 'Condicion Capacitación', field: 'Condicion Capacitación'},
+  {title: 'Link Calificaciones', field: 'Link Calificaciones'},
+  {title: 'Convenio', field: 'Convenio'},
+  {title: 'Link Convenio', field: 'Link Convenio'},
+  {title: 'Fecha Nacimiento', field: 'Fecha Nacimiento',type:'date'},
+  {title: 'Area', field: 'Unidad'},
+  {title: 'Fecha Inicio Practicas', field: 'Fecha inicio practicas',type:'date'},
+  {title: 'Días extra', field: 'Días extra'},
+  {title: 'Fecha Salida Practicas', field: 'Fecha salida practicas',type:'date'},
+  {title: 'Fecha Fin Practicas', field: 'Fecha fin practicas',type:'date' },
+  {title: 'Días Fin Practicas', field: 'Días fin practicas'},
+  {title: 'Nro Días Cumple', field: 'Nro días cumple'},
+  {title: 'Condición Practicas', field: 'Condición Practicas'},
+  {title: 'Estado', field: 'Estado'},
+  {title: 'Tipo Empleado', field: 'Tipo Empleado'},
+  {title: 'Fecha Baja', field: 'Fecha baja',type:'date'}  
 ];
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
-    width: 500,
+    width: '80%',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxshadow: theme.shadows[5],
@@ -41,11 +59,14 @@ const useStyles = makeStyles((theme) => ({
   },
   inputMaterial: {
     width: '100%'
-  }
+  },
 }));
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
-function TablaEmpleados() {
+
+
+function TablaEmpleados()  {
+
   // Estilos  
   const styles = useStyles();
 
@@ -424,138 +445,143 @@ function TablaEmpleados() {
     setLoading(false);
   }
   const bodyEditar = (
-    <div className={styles.modal}>
-      <h3>Editar Empleado</h3>
-      <form onSubmit={actualizarEmpleado}>
+    <form onSubmit={actualizarEmpleado}>
+      <div className={styles.modal}>
+        <h3>Editar Empleado</h3>
+        
 
-        <TextField className={styles.inputMaterial} label="Artista" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
-        <br />
-        {/* Error */}
-        <Error errors={errorUpdate['emp_nombre']} ></Error>
-        {/* Fin error */}
+        <div className="flex flex-wrap justify-around content-center">
+            <div style={{ width: '40%'}}>
+                <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
+                <Error errors={errorUpdate['emp_nombre']} ></Error>
+                <br />
 
-        <br />
-        <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
-        <Error errors={errorUpdate['emp_apellido']} ></Error>
-        <br />
+                <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
+                <Error errors={errorUpdate['emp_nombre']} ></Error>
+                <br />
 
-        <label>Fecha de baja</label>
-        <input type="date" placeholder="Fecha baja" name="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha baja']} ></input>
-        <Error errors={errorUpdate['emp_fechabaja']} ></Error>
-        <br />
-        <label>Fecha de inicio prueba</label>
-        <input type="date" name="Fecha inicio prueba" placeholder="Fecha inicio prueba" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha inicio prueba']}  ></input>
-        <Error errors={errorUpdate['emp_fec_inicio_prueba']} ></Error>
-        <br />
-        <label>Fecha de fin de prueba</label>
-        <input type="date" name="Fecha fin prueba" placeholder="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha fin prueba']} ></input>
-        <Error errors={errorUpdate['emp_Fec_fin_prueba']} ></Error>
-        <br />
-        <label >Turno</label>
-        <select placeholder="Selecione turno" name="Turno" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Turno']}>
-          <option value="1">Mañana</option>
-          <option value="2">Tarde</option>
-          <option value="3">Mañana y tarde</option>
-        </select>
-        <Error errors={errorUpdate['emp_TurnoId']} ></Error>
+                <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha baja']} />
+                <Error errors={errorUpdate['emp_fechabaja']} ></Error>
+                <br />
 
-        <br />
-        <label >Area </label>
+                <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de inicio prueba" name="Fecha inicio prueba" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha inicio prueba']} />
+                <Error errors={errorUpdate['emp_fec_inicio_prueba']} ></Error>
+                <br />
 
-        <select placeholder="Selecione area" name="Perfil" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']}>
-          <option value="1">Administracion</option>
-          <option value="2">Relaciones Publicas</option>
-          <option value="3">Comunity Manager Web</option>
-          <option value="4">Talento Humano</option>
-          <option value="5">Diseño Grafico</option>
-          <option value="6">Ventas</option>
-          <option value="7">Comunity Manager</option>
-          <option value="8">Big Data</option>
-          <option value="9">Diseño Web</option>
-          <option value="10">Desarrollo Web</option>
-          <option value="11">Soporte Tecnico</option>
-          <option value="12">Atención Al Cliente Digital</option>
-          <option value="13">Administracion Scrum</option>
-          <option value="14">Arquitectura</option>
-        </select>
-        <Error errors={errorUpdate['emp_AreaId']} ></Error>
+                <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de fin de prueba"  name="Fecha fin prueba"  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha fin prueba']} />
+                <Error errors={errorUpdate['emp_Fec_fin_prueba']} ></Error>
+                <br />
 
-        <br />
-        <label>DNI</label>
-        <input type="number" name="Dni" placeholder="Insertar dni..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Dni']} ></input>
-        <Error errors={errorUpdate['emp_dni']} ></Error>
+                <FormControl fullWidth>
+                  <InputLabel id="turno">Turno</InputLabel>
+                  <Select labelId="turno" id="turno"  name="Turno" label="Turno" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Turno']} >
+                    <MenuItem value={1}>Mañana</MenuItem>
+                    <MenuItem value={2}>Tarde</MenuItem>
+                    <MenuItem value={3}>Mañana y Tarde</MenuItem>
+                  </Select>
+                </FormControl>
+                <Error errors={errorUpdate['emp_TurnoId']} ></Error>
+                <br />
 
-        <br />
-        <label >Carrera</label>
-        <input type="text" name="Carrera" placeholder="Insertar carrera..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Carrera']}></input>
-        <Error errors={errorUpdate['emp_carrera']} ></Error>
+                <FormControl fullWidth>
+                  <InputLabel id="area">Area</InputLabel>
+                  <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
+                    <MenuItem value={1}>Administracion</MenuItem>
+                    <MenuItem value={2}>Relaciones Publicas</MenuItem>
+                    <MenuItem value={3}>Comunity Manager Web</MenuItem>
+                    <MenuItem value={4}>Talento Humano</MenuItem>
+                    <MenuItem value={5}>Diseño Grafico</MenuItem>
+                    <MenuItem value={6}>Ventas</MenuItem>
+                    <MenuItem value={7}>Comunity Manager</MenuItem>
+                    <MenuItem value={8}>Big Data</MenuItem>
+                    <MenuItem value={9}>Diseño Web</MenuItem>
+                    <MenuItem value={10}>Desarrollo Web</MenuItem>
+                    <MenuItem value={11}>Soporte Tecnico</MenuItem>
+                    <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
+                    <MenuItem value={13}>Administracion Scrum</MenuItem>
+                    <MenuItem value={14}>Arquitectura</MenuItem>
+                  </Select>
+                </FormControl>
+                <Error errors={errorUpdate['emp_AreaId']} ></Error>
+                <br />
 
-        <br />
-        <label >Email</label>
-        <input type="email" name="Correo" placeholder="Insertar email..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']}></input>
-        <Error errors={errorUpdate['emp_email']} ></Error>
+                <TextField className={styles.inputMaterial} label="DNI" name="Dni" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Dni']} />
+                <Error errors={errorUpdate['emp_dni']} ></Error>
+                <br />
 
-        <br />
-        <label >Telefono</label>
-        <input type="number" name="Telefono" placeholder="Insertar telefono..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Telefono']}></input>
-        <Error errors={errorUpdate['emp_telefono']} ></Error>
+                <TextField className={styles.inputMaterial} label="Carrera" name="Carrera" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Carrera']}/>
+                <Error errors={errorUpdate['emp_carrera']} ></Error>
+                <br />
+            </div>
+            <div style={{ width: '40%'}}>
+                <TextField type="email" className={styles.inputMaterial} label="Email" name="Correo" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']}/>
+                <Error errors={errorUpdate['emp_email']} ></Error>
+                <br />
 
-        <br />
-        <label >Url del CV</label>
-        <input type="url" name="Link CV" placeholder="Insertar url del CV..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link CV']}></input>
-        <Error errors={errorUpdate['emp_link_cv']} ></Error>
-        <br />
-        <label >Condicion de capacitacion</label>
-        <select placeholder="Convenio" name="Condicion Capacitación" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Condicion Capacitación']}>
-          <option value="1">Terminó capacitacion</option>
-          <option value="2">No terminó capacitación</option>
-          <option value="3">En proceso</option>
-        </select>
-        <Error errors={errorUpdate['Emp_Id_Condicion_capacitacion_fk']} ></Error>
+                <TextField type="tel" className={styles.inputMaterial} label="Telefono" name="Telefono"  onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Telefono']}/>
+                <Error errors={errorUpdate['emp_telefono']} ></Error>
+                <br />
 
-        <br />
-        <label >Url de calificaciones</label>
-        <input type="url" name="Link Calificaciones" placeholder="Insertar url del calificaciones..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Calificaciones']}></input>
-        <Error errors={errorUpdate['emp_link_calificaciones']} ></Error>
-        <br />
-        <label >Convenio</label>
+                <TextField type="url" className={styles.inputMaterial} label="Url de CV" name="Link CV" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link CV']}/>
+                <Error errors={errorUpdate['emp_link_cv']} ></Error>
+                <br />
 
-        <select placeholder="Convenio" name="Convenio" id="" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Convenio']}>
-          <option value="1">Firmado</option>
-          <option value="2">Enviado para firmar</option>
-          <option value="3">No firmado</option>
-          <option value="4">Terminó convenio</option>
-          <option value="5">En proceso</option>
-          <option value="6">Retirado</option>
-        </select>
-        <Error errors={errorUpdate['Emp_Id_Convenio_fk']} ></Error>
+                <FormControl fullWidth>
+                  <InputLabel id="capacitacion">Condicion de capacitación</InputLabel>
+                  <Select labelId="capacitacion" id="capacitacion" name="Condicion Capacitación"  label="Condicion de capacitación" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Condicion Capacitación']} >
+                    <MenuItem value={1}>Terminó capacitación</MenuItem>
+                    <MenuItem value={2}>No terminó capacitación</MenuItem>
+                    <MenuItem value={3}>En proceso</MenuItem>
+                  </Select>
+                </FormControl>
+                <Error errors={errorUpdate['Emp_Id_Condicion_capacitacion_fk']} ></Error>
+                <br />
 
+                <TextField type="url" className={styles.inputMaterial} label="Url de calificaciones" name="Link Calificaciones" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Calificaciones']}/>
+                <Error errors={errorUpdate['emp_link_calificaciones']} ></Error>
+                <br />
+
+                <FormControl fullWidth>
+                  <InputLabel id="convenio">Condicion de convenio</InputLabel>
+                  <Select labelId="convenio" id="convenio" name="Convenio"  label="Convenio" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Convenio']} >
+                    <MenuItem value={1}>Firmado</MenuItem>
+                    <MenuItem value={2}>Enviado para firmar</MenuItem>
+                    <MenuItem value={3}>No firmado</MenuItem>
+                    <MenuItem value={4}>Terminó convenio</MenuItem>
+                    <MenuItem value={5}>En proceso</MenuItem>
+                    <MenuItem value={6}>Retirado</MenuItem>
+                  </Select>
+                </FormControl>
+                <Error errors={errorUpdate['Emp_Id_Convenio_fk']} ></Error>
+                <br />
+
+                <TextField type="url" className={styles.inputMaterial} label="Url de convenio" name="Link Convenio" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Convenio']}/>
+                <Error errors={errorUpdate['emp_link_convenio']} ></Error>
+                <br />
+
+                <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de Nacimiento" name="Fecha Nacimiento" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha Nacimiento']}/>
+                <Error errors={errorUpdate['emp_fechanac']} ></Error>
+                <br />
+
+                <TextField type="number" className={styles.inputMaterial} label="Dias adicionales de trabajo" name="Días extra" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Días extra']}/>
+                <Error errors={errorUpdate['emp_dias_extra']} ></Error>
+                <br />
+
+            </div>
+        </div>
         <br />
-        <label >Url de convenio</label>
-        <input type="url" name="Link Convenio" placeholder="Insertar url del convenio..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Link Convenio']}></input>
-        <Error errors={errorUpdate['emp_link_convenio']} ></Error>
-        <br />
-        <label >Fecha de nacimiento</label>
-        <input type="date" name="Fecha Nacimiento" placeholder="Insertar fecha de nacimiento..." onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha Nacimiento']}></input>
-        <Error errors={errorUpdate['emp_fechanac']} ></Error>
-        <br />
-        <label >Dias adicionales de trabajo</label>
-        <input type="number" name="Días extra" placeholder="Ejemplo : 0" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Días extra']}></input>
-        <Error errors={errorUpdate['emp_dias_extra']} ></Error>
-        <br /><br />
         <div align="right">
           {loading ? <Loading /> :
             <Button color="primary" type="submit" >Editar</Button>
           }          
           <Button onClick={() => abrircerrarModalEditar()}>Cancelar</Button>
         </div>
-      </form>
-
-    </div>
+      </div>
+    </form>
   )
 
   const bodyInsertar = (
-    <form onSubmit={manejadorInsertar}>
+<form onSubmit={manejadorInsertar}>
       <div className={styles.modal}>
         <h3>Agregar empleado</h3>
 
@@ -563,123 +589,127 @@ function TablaEmpleados() {
           <p></p>
         }
 
-
+        <div className="flex flex-wrap justify-around content-center">
+        <div style={{ width: '40%'}}>
         <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" />
-        {/* Error */}
         <Error errors={error['emp_nombre']} ></Error>
-        {/* Fin error */}
-
         <br />
+
         <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" />
         <Error errors={error['emp_apellido']} ></Error>
         <br />
 
-        <label>Fecha de baja</label>
-        <input type="date" name="FechaBaja" placeholder="Fecha baja" ></input>
+        <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="FechaBaja" />
         <Error errors={error['emp_fechabaja']} ></Error>
         <br />
-        <label>Fecha de inicio prueba</label>
-        <input type="date" name="FechaInicioPrueba" placeholder="Fecha baja" ></input>
+
+        <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de inicio prueba" name="FechaInicioPrueba" />
         <Error errors={error['emp_fec_inicio_prueba']} ></Error>
         <br />
-        <label>Fecha de fin de prueba</label>
-        <input type="date" name="FechaFinPrueba" placeholder="Fecha baja" ></input>
+
+        <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de fin de prueba" name="FechaFinPrueba" />
         <Error errors={error['emp_Fec_fin_prueba']} ></Error>
         <br />
-        <label >Turno</label>
-        <select placeholder="Selecione turno" name="Turno" id="">
-          <option value="1" selected>Mañana</option>
-          <option value="2">Tarde</option>
-          <option value="3">Mañana y tarde</option>
-        </select>
-        {/* <Error errors={error['emp_fec_inicio_prueba']} ></Error> */}
+
+        <FormControl fullWidth>
+          <InputLabel id="turno">Turno</InputLabel>
+          <Select labelId="turno" id="turno"  label="Turno" name="Turno" >
+            <MenuItem value={1}>Mañana</MenuItem>
+            <MenuItem value={2}>Tarde</MenuItem>
+            <MenuItem value={3}>Mañana y Tarde</MenuItem>
+          </Select>
+        </FormControl>
         <Error errors={error['emp_TurnoId']} ></Error>
-
         <br />
-        <label >Area </label>
-
-        <select placeholder="Selecione area" name="Area" id="">
-          <option value="1" selected>Administracion</option>
-          <option value="2">Relaciones Publicas</option>
-          <option value="3">Comunity Manager Web</option>
-          <option value="4">Talento Humano</option>
-          <option value="5">Diseño Grafico</option>
-          <option value="6">Ventas</option>
-          <option value="7">Comunity Manager</option>
-          <option value="8">Big Data</option>
-          <option value="9">Diseño Web</option>
-          <option value="10">Desarrollo Web</option>
-          <option value="11">Soporte Tecnico</option>
-          <option value="12">Atención Al Cliente Digital</option>
-          <option value="13">Administracion Scrum</option>
-          <option value="14">Arquitectura</option>
-        </select>
+        <FormControl fullWidth>
+          <InputLabel id="area">Area</InputLabel>
+          <Select labelId="area" id="area"  label="Area" name="Area" >
+            <MenuItem value={1}>Administracion</MenuItem>
+            <MenuItem value={2}>Relaciones Publicas</MenuItem>
+            <MenuItem value={3}>Comunity Manager Web</MenuItem>
+            <MenuItem value={4}>Talento Humano</MenuItem>
+            <MenuItem value={5}>Diseño Grafico</MenuItem>
+            <MenuItem value={6}>Ventas</MenuItem>
+            <MenuItem value={7}>Comunity Manager</MenuItem>
+            <MenuItem value={8}>Big Data</MenuItem>
+            <MenuItem value={9}>Diseño Web</MenuItem>
+            <MenuItem value={10}>Desarrollo Web</MenuItem>
+            <MenuItem value={11}>Soporte Tecnico</MenuItem>
+            <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
+            <MenuItem value={13}>Administracion Scrum</MenuItem>
+            <MenuItem value={14}>Arquitectura</MenuItem>
+          </Select>
+        </FormControl>
         <Error errors={error['emp_AreaId']} ></Error>
-
         <br />
-        <label>DNI</label>
-        <input type="number" name="Dni" placeholder="Insertar dni..." ></input>
+
+        <TextField className={styles.inputMaterial} label="DNI" name="Dni" />
         <Error errors={error['emp_dni']} ></Error>
-
         <br />
-        <label >Carrera</label>
-        <input type="text" name="Carrera" placeholder="Insertar carrera..." ></input>
+
+        <TextField className={styles.inputMaterial} label="Carrera" name="Carrera" />
         <Error errors={error['emp_carrera']} ></Error>
-
         <br />
-        <label >Email</label>
-        <input type="email" name="Email" placeholder="Insertar email..." ></input>
+        </div>
+
+        <div style={{ width: '40%'}}>
+        <TextField type="email" className={styles.inputMaterial} label="Email" name="Email" />
         <Error errors={error['emp_email']} ></Error>
-
         <br />
-        <label >Telefono</label>
-        <input type="number" name="Telefono" placeholder="Insertar telefono..." ></input>
+
+        <TextField type="tel" className={styles.inputMaterial} label="Telefono" name="Telefono" />
         <Error errors={error['emp_telefono']} ></Error>
-
         <br />
-        <label >Url del CV</label>
-        <input type="url" name="Cv" placeholder="Insertar url del CV..." ></input>
+
+        <TextField type="url" className={styles.inputMaterial} label="Url de CV" name="Cv" />
         <Error errors={error['emp_link_cv']} ></Error>
         <br />
-        <label >Condicion de capacitacion</label>
-        <select placeholder="Capacitacion" name="Capacitacion" id="">
-          <option value="1">Terminó capacitacion</option>
-          <option value="2">No terminó capacitación</option>
-          <option value="3" selected>En proceso</option>
-        </select>
-        <Error errors={error['Emp_Id_Condicion_capacitacion_fk']} ></Error>
 
+        <FormControl fullWidth>
+          <InputLabel id="capacitacion">Condicion de capacitación</InputLabel>
+          <Select labelId="capacitacion" id="capacitacion"  label="Condicion de capacitación" name="Capacitacion" >
+            <MenuItem value={1}>Terminó capacitación</MenuItem>
+            <MenuItem value={2}>No terminó capacitación</MenuItem>
+            <MenuItem value={3}>En proceso</MenuItem>
+          </Select>
+        </FormControl>
+        <Error errors={error['Emp_Id_Condicion_capacitacion_fk']} ></Error>
         <br />
-        <label >Url de calificaciones</label>
-        <input type="url" name="Calificaciones" placeholder="Insertar url del calificaciones..." ></input>
+
+        <TextField type="url" className={styles.inputMaterial} label="Url de calificaciones" name="Calificaciones" />
         <Error errors={error['emp_link_calificaciones']} ></Error>
         <br />
-        <label >Convenio</label>
 
-        <select placeholder="Convenio" name="Convenio" id="">
-          <option value="1">Firmado</option>
-          <option value="2">Enviado para firmar</option>
-          <option value="3" selected>No firmado</option>
-          <option value="4">Terminó convenio</option>
-          <option value="5">En proceso</option>
-          <option value="6">Retirado</option>
-        </select>
+        <FormControl fullWidth>
+          <InputLabel id="convenio">Condicion de convenio</InputLabel>
+          <Select labelId="convenio" id="convenio"  label="Convenio" name="Convenio"  >
+            <MenuItem value={1}>Firmado</MenuItem>
+            <MenuItem value={2}>Enviado para firmar</MenuItem>
+            <MenuItem value={3}>No firmado</MenuItem>
+            <MenuItem value={4}>Terminó convenio</MenuItem>
+            <MenuItem value={5}>En proceso</MenuItem>
+            <MenuItem value={6}>Retirado</MenuItem>
+          </Select>
+        </FormControl>
         <Error errors={error['Emp_Id_Convenio_fk']} ></Error>
-
         <br />
-        <label >Url de convenio</label>
-        <input type="url" name="ConvenioUrl" placeholder="Insertar url del convenio..." ></input>
+
+        <TextField type="url" className={styles.inputMaterial} label="Url de convenio" name="ConvenioUrl" />
         <Error errors={error['emp_link_convenio']} ></Error>
         <br />
-        <label >Fecha de nacimiento</label>
-        <input type="date" name="FechaNacimiento" placeholder="Insertar fecha de nacimiento..." ></input>
+
+        <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de Nacimiento" name="FechaNacimiento" />
         <Error errors={error['emp_fechanac']} ></Error>
         <br />
-        <label >Dias adicionales de trabajo</label>
-        <input type="number" name="DiasAdicionales" placeholder="Ejemplo : 0" ></input>
-        <Error errors={error['emp_dias_extra']} ></Error>
 
-        <br /><br />
+        <TextField type="number" className={styles.inputMaterial} label="Dias adicionales de trabajo" name="DiasAdicionales" />
+        <Error errors={error['emp_dias_extra']} ></Error>
+        <br />
+        </div>
+        </div>
+        
+
+        <br />
         <div align="right">
           {loading ? <Loading /> :
             <Button color="primary" type="submit" >Insertar</Button>
@@ -689,31 +719,54 @@ function TablaEmpleados() {
       </div>
     </form>
   )
-  
+  const tableRef = React.createRef();
   return (
     <div>
       <br />
-      <Button onClick={() => abrircerrarModalInsertar()}>Insertar Empleado</Button>
-      <MaterialTable
-        columns={columnas}
-        data={data}
-        title="Tabla Empleados"
-        actions={[
-          {
-            icon: 'edit',
-            tooltip: 'Editar Empleado',
-            onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
-          }
-        ]}
-        options={{
-          actionsColumnIndex: -1
-        }}
-        localization={{
-          header: {
-            actions: 'Acciones'
-          }
-        }}
-      />
+      <div className=" text-center flex flex-col justify-around  ">
+        <div className="flex justify-center align-center my-8 ">
+          <div className="shadow-sm rounded-2xl">
+          <Button  onClick={() => abrircerrarModalInsertar()}><img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png"/>Insertar Empleado</Button>
+          </div>
+        </div>
+        <div>
+            <MaterialTable
+            columns={columnas}
+            data={data}
+            title="Tabla de Empleados"
+            tableRef={tableRef}
+            actions={[
+              {
+                icon: 'edit',
+                tooltip: 'Editar Empleado',
+                onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
+              },
+              {
+                icon: 'refresh',
+                tooltip: 'Refresh Data',
+                isFreeAction: true,
+                onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+              }
+            ]}
+            options={{
+              // fixedColumns: {
+
+              //   right: 1
+              // },
+              headerStyle: {
+                backgroundColor: '#E2E2E2  ',
+              },
+              exportButton: true,
+              actionsColumnIndex: -1
+            }}
+            localization={{
+              header: {
+                actions: 'Acciones'
+              }
+            }}
+          />
+        </div>
+      </div>
       <Modal open={modalInsertar}
         onClose={abrircerrarModalInsertar}>
         {bodyInsertar}
@@ -721,7 +774,6 @@ function TablaEmpleados() {
       <Modal open={modalEditar} onclose={abrircerrarModalEditar}>
         {bodyEditar}
       </Modal>
-
     </div>
   );
 

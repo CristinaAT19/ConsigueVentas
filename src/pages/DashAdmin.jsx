@@ -42,6 +42,8 @@ function DashAdmin() {
             {/* calendario general */}
             {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
 
+            <Route path='/tablaEmpleados' exact component={administracionEmpleados} />
+
             {/* En caso de redireccion a /dashboard */}
             <Route render={() => <Redirect to="/dashboard" />} />
 

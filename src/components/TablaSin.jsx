@@ -1,45 +1,15 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import DataTable, { createTheme } from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
-import "react-data-table-component-extensions/dist/index.css";
+import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
  const columns = [
-    {
-        name: 'Nombres',
-        selector: 'Nombre',
-        sortable: true
-    },
-    {
-        name: 'Apellidos',
-        selector: 'Apellido',
-        sortable: true
-    },
-    {
-        name: 'Turno',
-        selector: 'Turno',
-        sortable: true
-    },
-    {
-        name: 'Perfil',
-        selector: 'Perfil',
-        sortable: true
-    },
-    {
-        name: 'Departamento',
-        selector: 'Unidad',
-        sortable: true
-    },
-    {
-        name: 'Dni',
-        selector: 'Dni',
-        sortable: true
-    },
-    {
-        name: 'Condición de Practicas',
-        selector: 'Condición Practicas',
-        sortable: true
-    },
+    {title: 'Nombres',field: 'Nombre'},
+    {title: 'Apellidos',field: 'Apellido'},
+    {title: 'Turno',field: 'Turno'},
+    {title: 'Perfil',field: 'Perfil'},
+    {title: 'Departamento',field: 'Unidad'},
+    {title: 'Dni',field: 'Dni'},
+    {title: 'Condición Practicas', field: 'Condición Practicas'}
 ];
 
 
@@ -69,25 +39,23 @@ function TablaSin() {
     useEffect(() => {
         peticionTablaDia();
     }, [])
-  const tableData = {
-    columns,
-    data
-  };
 
   return (
     <div className="main">
-      <DataTableExtensions 
-      filterPlaceholder="Buscar"
-      {...tableData}>
-        <DataTable
+
+        <MaterialTable
           columns={columns}
           data={data}
+
           customStyles={customStyles}
-          pagination
-          theme="solarized"
-          progressPending={loading}
+          options={{
+            searchFieldAlignment: 'left',
+            showTitle: false,
+            exportButton: true,
+            actionsColumnIndex: -1
+          }}
         />
-      </DataTableExtensions>
+
     </div>
   );
 }
@@ -116,14 +84,14 @@ const customStyles = {
         },
       },
     };
-    createTheme('solarized', {
-        text: {
-          primary: '#268bd2',
-          secondary: '#2aa198',
-        },
-        divider: {
-          default: 'black',
-        },
+    // createTheme('solarized', {
+    //     text: {
+    //       primary: '#268bd2',
+    //       secondary: '#2aa198',
+    //     },
+    //     divider: {
+    //       default: 'black',
+    //     },
 
-      });
+    //   });
 export default TablaSin;
