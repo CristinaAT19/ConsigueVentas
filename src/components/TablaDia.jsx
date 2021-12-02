@@ -1,61 +1,19 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import DataTable from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
-import "react-data-table-component-extensions/dist/index.css";
+import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
 
  const columns = [
-    {
-        name: 'Fecha',
-        selector: 'Fecha',
-        sortable: true
-    },
-    {
-        name: 'Hora',
-        selector: 'Hora',
-        sortable: true
-    },
-    {
-        name: 'DNI',
-        selector: 'Dni',
-        sortable: true
-    },
-    {
-        name: 'Nombres',
-        selector: 'Nombres',
-        sortable: true
-    },
-    {
-        name: 'Sistema Operativo',
-        selector: 'Sistema Operativo',
-        sortable: true
-    },
-    {
-        name: 'Dispositivo',
-        selector: 'Dispositivo',
-        sortable: true
-    },
-    {
-        name: 'Perfil',
-        selector: 'Perfil',
-        sortable: true
-    },
-    {
-        name: 'Departamento',
-        selector: 'Unidad',
-        sortable: true
-    },
-    {
-        name: 'Estado',
-        selector: 'Estado',
-        sortable: true
-    },
-    {
-        name: 'Turno',
-        selector: 'Turno',
-        sortable: true
-    }
+    {title: 'Fecha',field: 'Fecha'},
+    {title: 'Hora',field: 'Hora'},
+    {title: 'Dni',field: 'Dni'},
+    {title: 'Nombres',field: 'Nombres'},
+    {title: 'Sistema Operativo',field: 'Sistema Operativo'},
+    {title: 'Dispositivo',field: 'Dispositivo'},
+    {title: 'Perfil',field: 'Perfil'},
+    {title: 'Departamento',field: 'Unidad'},
+    {title: 'Estado',field: 'Estado'},
+    {title: 'Turno',field: 'Turno'},
 ];
 
 
@@ -85,44 +43,23 @@ function TablaDia() {
     useEffect(() => {
         peticionTablaDia();
     }, [])
-  const tableData = {
-    columns,
-    data
-  };
+
 
   return (
     <div className="main">
-      <DataTableExtensions {...tableData}>
-        <DataTable
+        <MaterialTable
           columns={columns}
           data={data}
-          customStyles={customStyles}
-          pagination
-          progressPending={loading}
+
+          options={{
+            searchFieldAlignment: 'left',
+            showTitle: false,
+            exportButton: true,
+            actionsColumnIndex: -1
+          }}
         />
-      </DataTableExtensions>
     </div>
   );
 }
-const customStyles = {
-    // rows: {
-    //   style: {
-    //     minHeight: '72px', // override the row height
-    //   }
-    // },
-    headCells: {
-      style: {
-        fontSize: '1rem',
-        fontweight: '900',
-        textTransform: 'uppercase',
-        // paddingLeft: '0 8px'
-      },
-    },
-    cells: {
-      style: {
-        fontSize: '0.8rem',
-        // paddingLeft: '0 8px',
-      },
-    },
-  };
+
 export default TablaDia;

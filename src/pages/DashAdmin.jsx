@@ -40,7 +40,7 @@ function DashAdmin() {
             {/* calendario general */}
             <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
-            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
+            <Route path='/tablaEmpleados' exact component={administracionEmpleados} />
 
             {/* En caso de redireccion a /dashboard */}
             <Route render={() => <Redirect to="/dashboard" />} />

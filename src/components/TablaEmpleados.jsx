@@ -12,18 +12,34 @@ import { calcularEdad, calcularDiferenciaDias, calcularDiferenciaDiasFechaActual
 import { validationOnlyNumbers } from '../helpers/validaciones';
 
 const columnas = [
-  {
-    title: 'ID', field: 'Id'
-  },
-  {
-    title: 'Nombres', field: 'Nombres'
-  },
-  {
-    title: 'Apellidos', field: 'Apellidos'
-  },
-  {
-    title: 'Turno', field: 'Turno'
-  }
+  {title: 'ID', field: 'Id'},
+  {title: 'Nombres', field: 'Nombres'},
+  {title: 'Apellidos', field: 'Apellidos'},
+  {title: 'Fecha Inicio Prueba', field: 'Fecha inicio prueba', type:'date'},  
+  {title: 'Fecha Fin Prueba', field: 'Fecha fin prueba', type:'date'},
+  {title: 'Turno', field: 'Turno'},
+  {title: 'Perfil', field: 'Perfil'},
+  {title: 'Dni', field: 'Dni'},
+  {title: 'Carrera', field: 'Carrera'},
+  {title: 'Telefono', field: 'Telefono'},
+  {title: 'Link CV', field: 'Link CV'},
+  {title: 'Correo', field: 'Correo'},
+  {title: 'Condicion Capacitación', field: 'Condicion Capacitación'},
+  {title: 'Link Calificaciones', field: 'Link Calificaciones'},
+  {title: 'Convenio', field: 'Convenio'},
+  {title: 'Link Convenio', field: 'Link Convenio'},
+  {title: 'Fecha Nacimiento', field: 'Fecha Nacimiento',type:'date'},
+  {title: 'Area', field: 'Unidad'},
+  {title: 'Fecha Inicio Practicas', field: 'Fecha inicio practicas',type:'date'},
+  {title: 'Días extra', field: 'Días extra'},
+  {title: 'Fecha Salida Practicas', field: 'Fecha salida practicas',type:'date'},
+  {title: 'Fecha Fin Practicas', field: 'Fecha fin practicas',type:'date' },
+  {title: 'Días Fin Practicas', field: 'Días fin practicas'},
+  {title: 'Nro Días Cumple', field: 'Nro días cumple'},
+  {title: 'Condición Practicas', field: 'Condición Practicas'},
+  {title: 'Estado', field: 'Estado'},
+  {title: 'Tipo Empleado', field: 'Tipo Empleado'},
+  {title: 'Fecha Baja', field: 'Fecha baja',type:'date'}  
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -43,12 +59,13 @@ const useStyles = makeStyles((theme) => ({
   },
   inputMaterial: {
     width: '100%'
-  }
+  },
 }));
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
 
-function TablaEmpleados() {
+function TablaEmpleados()  {
+
   // Estilos  
   const styles = useStyles();
 
@@ -440,7 +457,7 @@ function TablaEmpleados() {
                 <br />
 
                 <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
-                <Error errors={errorUpdate['emp_apellido']} ></Error>
+                <Error errors={errorUpdate['emp_nombre']} ></Error>
                 <br />
 
                 <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha baja']} />
@@ -702,31 +719,54 @@ function TablaEmpleados() {
       </div>
     </form>
   )
-  
+  const tableRef = React.createRef();
   return (
     <div>
       <br />
-      <Button onClick={() => abrircerrarModalInsertar()}>Insertar Empleado</Button>
-      <MaterialTable
-        columns={columnas}
-        data={data}
-        title="Tabla Empleados"
-        actions={[
-          {
-            icon: 'edit',
-            tooltip: 'Editar Empleado',
-            onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
-          }
-        ]}
-        options={{
-          actionsColumnIndex: -1
-        }}
-        localization={{
-          header: {
-            actions: 'Acciones'
-          }
-        }}
-      />
+      <div className=" text-center flex flex-col justify-around  ">
+        <div className="flex justify-center align-center my-8 ">
+          <div className="shadow-sm rounded-2xl">
+          <Button  onClick={() => abrircerrarModalInsertar()}><img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png"/>Insertar Empleado</Button>
+          </div>
+        </div>
+        <div>
+            <MaterialTable
+            columns={columnas}
+            data={data}
+            title="Tabla de Empleados"
+            tableRef={tableRef}
+            actions={[
+              {
+                icon: 'edit',
+                tooltip: 'Editar Empleado',
+                onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
+              },
+              {
+                icon: 'refresh',
+                tooltip: 'Refresh Data',
+                isFreeAction: true,
+                onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+              }
+            ]}
+            options={{
+              // fixedColumns: {
+
+              //   right: 1
+              // },
+              headerStyle: {
+                backgroundColor: '#E2E2E2  ',
+              },
+              exportButton: true,
+              actionsColumnIndex: -1
+            }}
+            localization={{
+              header: {
+                actions: 'Acciones'
+              }
+            }}
+          />
+        </div>
+      </div>
       <Modal open={modalInsertar}
         onClose={abrircerrarModalInsertar}>
         {bodyInsertar}
@@ -734,7 +774,6 @@ function TablaEmpleados() {
       <Modal open={modalEditar} onclose={abrircerrarModalEditar}>
         {bodyEditar}
       </Modal>
-
     </div>
   );
 

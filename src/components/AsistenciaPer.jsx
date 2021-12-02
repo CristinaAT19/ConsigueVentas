@@ -26,7 +26,7 @@ const AsistenciaPer = () => {
     };
 
     const peticionApiAsistenciaPersonal = async () => {
-        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/73615048`,
+        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/75358753`,
             {
                 headers: {
 

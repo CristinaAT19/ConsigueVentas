@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div style={{ height: "100%" }}>
+      <div>
         <div
           className="my-4"
           style={{
@@ -75,12 +75,12 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-gray-100 m-20 rounded-t-3xl text-center">
+      <div className="bg-white m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
         <TablaDia />
       </div>
 
-      <div className="bg-yellow-50  h-full m-20 rounded-t-3xl text-center">
+      <div className="bg-white m-20 rounded-t-3xl text-center">
 
         <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
         <TablaSin />
@@ -90,3 +90,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
