@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminUsuario from '../../components/AdminUsuario';
 import TablaAdmin from '../../components/TablaAdmin';
-import TablaEmpleados from '../../components/TablaEmpleados';
+
 import TablaFaltas from '../../components/TablaFaltas';
 import TablaEmpleados from '../../components/TablaEmpleados';
 
