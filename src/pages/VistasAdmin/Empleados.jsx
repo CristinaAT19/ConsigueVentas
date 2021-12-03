@@ -54,7 +54,7 @@ export const tablaFaltas = () => {
     <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
         <h1 className="border-b-2 text-3xl">Administracion de faltas</h1>
         <div style={{ width: '97%',margin: '0 auto'}}>
-        <TablaFaltas />
+        {/* <TablaFaltas /> */}
         </div>
       </div>
   );
