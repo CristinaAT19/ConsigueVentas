@@ -775,3 +775,110 @@
 
 // }
 // export default TablaEmpleados;
+// ABEL2
+//         <br />
+//         <div align="right">
+//           {loading ? <Loading /> :
+//             <Button color="primary" type="submit" >Insertar</Button>
+//           }
+//           <Button onClick={() => abrircerrarModalInsertar()}>Cancelar</Button>
+//         </div>
+//       </div>
+//     </form>
+//   )
+//   const tableRef = React.createRef();
+//   return (
+//     <div>
+//       <br />
+//       <div className=" text-center flex flex-col  ">
+//         <div className="flex justify-center align-center ">
+//           <div className="shadow-sm rounded-2xl mb-2 border-black">
+//           <Button  onClick={() => abrircerrarModalInsertar()}><img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png"/>Insertar Empleado</Button>
+//           </div>
+//         </div>
+//         <div>
+//             <MaterialTable
+//             columns={columnas}
+//             data={data}
+//             title="Tabla de Empleados"
+//             tableRef={tableRef}
+//             actions={[
+//               {
+//                 icon: 'edit',
+//                 tooltip: 'Editar Empleado',
+//                 onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
+//               },
+//               {
+//                 icon: 'refresh',
+//                 tooltip: 'Refresh Data',
+//                 isFreeAction: true,
+//                 onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+//               }
+//             ]}
+//             options={{
+//               // fixedColumns: {
+
+//               //   right: 1
+//               // },
+//               headerStyle: {
+//                 backgroundColor: '#E2E2E2  ',
+//               },
+//               exportButton: true,
+//               actionsColumnIndex: -1
+//             }}
+//             localization={{
+//               body: {
+//                   emptyDataSourceMessage: "No hay registro para mostrar",
+//                   addTooltip: 'Agregar',
+//                   deleteTooltip: 'Eliminar',
+//                   editTooltip: 'Editar',
+//                   filterRow: {
+//                       filterTooltip: 'Filtrar'
+//                   },
+  
+//               },
+//               pagination: {
+//                   labelDisplayedRows: '{from}-{to} de {count}',
+//                   labelRowsSelect: 'filas',
+//                   labelRowsPerPage: 'filas por pagina:',
+//                   firstAriaLabel: 'Primera pagina',
+//                   firstTooltip: 'Primera pagina',
+//                   previousAriaLabel: 'Pagina anterior',
+//                   previousTooltip: 'Pagina anterior',
+//                   nextAriaLabel: 'Pagina siguiente',
+//                   nextTooltip: 'Pagina siguiente',
+//                   lastAriaLabel: 'Ultima pagina',
+//                   lastTooltip: 'Ultima pagina'
+//               },
+//               toolbar: {
+//                   nRowsSelected: '{0} ligne(s) sélectionée(s)',
+//                   // showColumnsTitle: 'Voir les colonnes',
+//                   // showColumnsAriaLabel: 'Voir les colonnes',
+//                   exportTitle: 'Exportar',
+//                   exportAriaLabel: 'Exportar',
+//                   exportName: 'Exportar como CSV',
+//                   searchTooltip: 'Buscar',
+//                   searchPlaceholder: 'Buscar'
+//               },
+//               header: {
+//                 actions: 'Acciones'
+//               }
+//           }}
+
+//           />
+//         </div>
+//       </div>
+//       <Modal open={modalInsertar}
+//         onClose={abrircerrarModalInsertar}>
+//         {bodyInsertar}
+//       </Modal>
+//       <Modal open={modalEditar} onclose={abrircerrarModalEditar}>
+//         {bodyEditar}
+//       </Modal>
+//     </div>
+//   );
+
+
+
+// }
+// export default TablaEmpleados;

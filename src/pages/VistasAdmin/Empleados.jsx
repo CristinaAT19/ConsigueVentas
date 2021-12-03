@@ -19,13 +19,11 @@ import App from "../../App";
 export const administracionEmpleados = () => {
   return (
     <>
-
-      <div className="mt-12 flex flex-col justify-around items-center">
-        <h2 className="text-3xl">Administración de empleados</h2>
-        <div className="w-11/12">
+      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
+        <h1 className="border-b-2 text-3xl">Administracion de Emppleados</h1>
+        <div style={{ width: '97%',margin: '0 auto'}}>
           <TablaEmpleados/>
         </div>
-
       </div>
     </>
   );
@@ -53,10 +51,12 @@ export const restablecimientoContraseña = () => {
 
 export const tablaFaltas = () => {
   return (
-    <div className="w-4/5">
-      <h1>Administracion de faltas</h1>
-      <TablaFaltas />
-    </div>
+    <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
+        <h1 className="border-b-2 text-3xl">Administracion de faltas</h1>
+        <div style={{ width: '97%',margin: '0 auto'}}>
+        <TablaFaltas />
+        </div>
+      </div>
   );
 };
 

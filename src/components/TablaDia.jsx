@@ -20,9 +20,9 @@ import { setToken, getToken } from "../dist/Token";
 
 function TablaDia() {
     const [data, setTabla] = useState([]);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const peticionTablaDia = async () => {
-      setLoading(true);
+      // setLoading(true);
         await axios
             .get(
               `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
@@ -41,28 +41,66 @@ function TablaDia() {
                 }else{
                 }
             });
-            setLoading(false);
+            // setLoading(false);
     }
     useEffect(() => {
         peticionTablaDia();
-      }, [])
-  const tableData = {
-    columns,
-    data
-  };
+    }, [])
 
+    const [selectedRow, setSelectedRow] = useState(null);
   return (
     <div className="main">
         <MaterialTable
           columns={columns}
           data={data}
 
-          options={{
+          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+        options={{
+            rowStyle: rowData => ({
+              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
+            }),
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
-            actionsColumnIndex: -1
+            actionsColumnIndex: -1,
+            // rowStyle: {
+            //   backgroundColor: '#EEE',
+            // }
           }}
+          localization={{
+            body: {
+              emptyDataSourceMessage: "No hay registro para mostrar",
+              addTooltip: 'Agregar',
+              deleteTooltip: 'Eliminar',
+              editTooltip: 'Editar',
+              filterRow: {
+                  filterTooltip: 'Filtrar'
+              },
+            },
+            pagination: {
+                labelDisplayedRows: '{from}-{to} de {count}',
+                labelRowsSelect: 'filas',
+                labelRowsPerPage: 'filas por pagina:',
+                firstAriaLabel: 'Primera pagina',
+                firstTooltip: 'Primera pagina',
+                previousAriaLabel: 'Pagina anterior',
+                previousTooltip: 'Pagina anterior',
+                nextAriaLabel: 'Pagina siguiente',
+                nextTooltip: 'Pagina siguiente',
+                lastAriaLabel: 'Ultima pagina',
+                lastTooltip: 'Ultima pagina'
+            },
+            toolbar: {
+                nRowsSelected: '{0} ligne(s) sélectionée(s)',
+                showColumnsTitle: 'Ver columnas',
+                showColumnsAriaLabel: 'Ver columnas',
+                exportTitle: 'Exportar',
+                exportAriaLabel: 'Exportar',
+                exportName: 'Exportar como CSV',
+                searchTooltip: 'Buscar',
+                searchPlaceholder: 'Buscar'
+            }
+        }}
         />
     </div>
   );
