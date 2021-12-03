@@ -723,9 +723,9 @@ function TablaEmpleados()  {
   return (
     <div>
       <br />
-      <div className=" text-center flex flex-col justify-around  ">
-        <div className="flex justify-center align-center my-8 ">
-          <div className="shadow-sm rounded-2xl">
+      <div className=" text-center flex flex-col  ">
+        <div className="flex justify-center align-center ">
+          <div className="shadow-sm rounded-2xl mb-2 border-black">
           <Button  onClick={() => abrircerrarModalInsertar()}><img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png"/>Insertar Empleado</Button>
           </div>
         </div>
@@ -760,10 +760,44 @@ function TablaEmpleados()  {
               actionsColumnIndex: -1
             }}
             localization={{
+              body: {
+                  emptyDataSourceMessage: "No hay registro para mostrar",
+                  addTooltip: 'Agregar',
+                  deleteTooltip: 'Eliminar',
+                  editTooltip: 'Editar',
+                  filterRow: {
+                      filterTooltip: 'Filtrar'
+                  },
+  
+              },
+              pagination: {
+                  labelDisplayedRows: '{from}-{to} de {count}',
+                  labelRowsSelect: 'filas',
+                  labelRowsPerPage: 'filas por pagina:',
+                  firstAriaLabel: 'Primera pagina',
+                  firstTooltip: 'Primera pagina',
+                  previousAriaLabel: 'Pagina anterior',
+                  previousTooltip: 'Pagina anterior',
+                  nextAriaLabel: 'Pagina siguiente',
+                  nextTooltip: 'Pagina siguiente',
+                  lastAriaLabel: 'Ultima pagina',
+                  lastTooltip: 'Ultima pagina'
+              },
+              toolbar: {
+                  nRowsSelected: '{0} ligne(s) sélectionée(s)',
+                  // showColumnsTitle: 'Voir les colonnes',
+                  // showColumnsAriaLabel: 'Voir les colonnes',
+                  exportTitle: 'Exportar',
+                  exportAriaLabel: 'Exportar',
+                  exportName: 'Exportar como CSV',
+                  searchTooltip: 'Buscar',
+                  searchPlaceholder: 'Buscar'
+              },
               header: {
                 actions: 'Acciones'
               }
-            }}
+          }}
+
           />
         </div>
       </div>

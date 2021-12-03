@@ -31,7 +31,6 @@ function DashAdmin() {
         <Switch >
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/tablaFaltas' exact component={tablaFaltas} />
-            <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
             <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
 

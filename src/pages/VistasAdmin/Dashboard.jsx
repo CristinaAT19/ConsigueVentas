@@ -11,21 +11,10 @@ const Dashboard = () => {
 
   return (
     <>
+    <h1 className="text-center text-3xl">Dashboard</h1>
       <div>
-        <div
-          className="my-4"
-          style={{
-            width: "100%",
-            height: "400px",
-            display: "flex",
-            justifyContent: "space-evenly",
-            marginbottom: "200px",
-          }}
-        >
-          <div
-            className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center"
-            style={{ width: "35%" }}
-          >
+        <div className="my-14 w-full flex justify-evenly mb-4" style={{height: "400px"}}>
+          <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center " style={{ width: "40%" }} >
             <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
               <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                 Asistencia de Dia (Turno Mañana)
@@ -35,10 +24,7 @@ const Dashboard = () => {
               <AsistenciaMa />
             </div>
           </div>
-          <div
-            className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center"
-            style={{ width: "35%" }}
-          >
+          <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center " style={{ width: "40%" }} >
             <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
               <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                 Asistencia de Dia (Turno Tarde)
@@ -49,20 +35,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div
-          className="my-14"
-          style={{
-            width: "100%",
-            height: "400px",
-            display: "flex",
-            justifyContent: "space-evenly",
-            marginbottom: "200px",
-          }}
-        >
-          <div
-            className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center"
-            style={{ width: "35%" }}
-          >
+        <div  className="my-14 w-full flex justify-evenly mb-4" style={{height: "400px"}} >
+          <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center" style={{ width: "40%" }} >
             <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
               <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                 Mi asistencia del mes
@@ -77,14 +51,14 @@ const Dashboard = () => {
 
       <div className="bg-white m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
-        <div style={{ width: '97%',margin: '0 auto',padding:'1rem 0'}}>
+        <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
           <TablaDia />
         </div>
       </div>
 
       <div className="bg-white m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
-        <div style={{ width: '97%',margin: '0 auto',padding:'1rem 0'}}>
+        <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
           <TablaSin />
         </div>
       </div>

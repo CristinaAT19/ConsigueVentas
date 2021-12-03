@@ -73,7 +73,6 @@ function TablaDia() {
               filterRow: {
                   filterTooltip: 'Filtrar'
               },
-
             },
             pagination: {
                 labelDisplayedRows: '{from}-{to} de {count}',
