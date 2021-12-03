@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
 
 import { setToken, getToken } from "../dist/Token";
 
 import { Doughnut } from 'react-chartjs-2';
+import { UserContext } from './context/UserContext';
 
 
 const AsistenciaPer = () => {
+
     const [puntualidadP, setPuntualidadP] = useState([]);
     const [v_puntualidadP, setV_PuntualidadP] = useState([]);
     const [tardanzaP, setTardanzaP] = useState([]);
@@ -15,6 +17,11 @@ const AsistenciaPer = () => {
     const [v_faltas_inP, setV_Faltas_inP] = useState([]);
     const [faltas_jusP, setFaltasJusP] = useState([]);
     const [v_faltas_jusP, setV_Faltas_jusP] = useState([]);
+
+    // Obtiene contexto
+    const { user } = useContext(UserContext);
+
+
 
     const dataPersonal = {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
@@ -26,11 +33,11 @@ const AsistenciaPer = () => {
     };
 
     const peticionApiAsistenciaPersonal = async () => {
-        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/75358753`,
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboardUsuario/${user['dni']}`,
             {
                 headers: {
 
-                    Authorization: `Bearer ${getToken()}`
+                    Authorization: `Bearer ${user['token']}`
 
                 }
             })
@@ -45,6 +52,13 @@ const AsistenciaPer = () => {
                 setFaltasJusP(response.data.DashboardAsistencia[3].Estado);
                 setV_Faltas_jusP(response.data.DashboardAsistencia[3].Cantidad);
             })
+            .catch((e) => {
+                if (e.response.status === 403) {
+                    console.log("No tienes permisos para ver esta información");
+                } else {
+                }
+            });
+
     }
 
     const opciones = {
@@ -54,7 +68,7 @@ const AsistenciaPer = () => {
     useEffect(() => {
         peticionApiAsistenciaPersonal();
 
-    }, [])
+    }, []);
 
     return (
         <Doughnut data={dataPersonal} options={opciones} />

@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import * as BsIcons from "react-icons/bs";
 import * as IoIcons from "react-icons/io";
 import * as FaIcons from "react-icons/fa";
 import styled from "styled-components";
+import { UserContext } from "../components/context/UserContext";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
-
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
+  const {user} = useContext(UserContext);
   const storedSidebarExpanded = true;
   
   const [expand, setExpand] = useState(false);
@@ -157,6 +158,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </li>
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
               {/* Empleado */}
+
+              { user['idType'] == 1 ? (                            
+
               <SidebarLinkGroup activecondition={pathname.includes("team")}>
                 {(handleClick, open) => {
                   return (
@@ -197,14 +201,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </a>                      
                       <div className=" lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul
                           className={`bg-naranjaBajo pl-9 mt-1 ${
                             !open && "hidden"
                           }`}
                         >
+                          { user['idType'] == 1 ? (
                           <li className="mb-1 last:mb-0">
+                            
                             <NavLink
                               exact
                               to="/tablaEmpleados"
@@ -214,7 +220,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 Administración de Empleados
                               </span>
                             </NavLink>
+
                           </li>
+                              ) : null
+                          }                          
                           <hr className="w-10/12 h-full bg-gray-400"></hr>
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -228,6 +237,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </NavLink>
                           </li>
                           <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          { user['idType'] == 1 ? (                            
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -239,7 +249,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                           <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          { user['idType'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -251,7 +265,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                           <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          { user['idType'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -263,13 +281,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                         </ul>
                       </div>
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
+              ) : null
+              }
+
+              { user['idType'] == 1 ? (                            
+              
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                        ) : null
+                }
+
               {/* Perfil */}
               <SidebarLinkGroup activecondition={pathname.includes("team")}>
                 {(handleClick, open) => {
@@ -330,6 +358,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </NavLink>
                           </li>
                           <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          { user['idType'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -341,6 +371,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                         </ul>
                       </div>
                     </React.Fragment>
@@ -349,6 +381,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
               {/* Calendario General */}
+              { user['idType'] == 1 ? (                            
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("calendar") && "bg-gray-900"
@@ -374,6 +407,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </div>
                 </NavLink>
               </li>
+              ) : null
+              }
             </ul>
           </div>
         </div>

@@ -1,15 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../../utils/Transition';
 
 import UserAvatar from '../../images/user-avatar-32.png';
+import { UserContext } from '../../components/context/UserContext';
+import { distGetUser, distSetAutentication } from '../../dist/Autentication';
+
 
 function UserMenu() {
-
+  // Obteniendo contexto
+  const { user, setUser } = useContext(UserContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+    useEffect(() => {
+    if(user['dni'] == null) {
+      distSetAutentication(true);      
+      setUser(distGetUser());
+    }
+  }, [user]);
 
   // close on click outside
   useEffect(() => {
@@ -42,7 +52,7 @@ function UserMenu() {
       >
         
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium group-hover:text-gray-800">Acme Inc.</span>
+          <span className="truncate ml-2 text-sm font-medium group-hover:text-gray-800">{user['nombre']+' '+user['apellido']}</span>
           <svg className="w-3 h-3 flex-shrink-0 ml-1 fill-current text-gray-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -65,8 +75,8 @@ function UserMenu() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200">
-            <div className="font-medium text-gray-800">Acme Inc.</div>
-            <div className="text-xs text-gray-500 italic">Administrator</div>
+            <div className="font-medium text-gray-800">{user['nombre']+' '+user['apellido']}</div>
+            <div className="text-xs text-gray-500 italic">{user['tipoUsuario']}</div>
           </div>
           <ul>
             <li>
@@ -81,7 +91,7 @@ function UserMenu() {
             <li>
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/"
+                to="/cerrarSesion"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Cerrar Sesión

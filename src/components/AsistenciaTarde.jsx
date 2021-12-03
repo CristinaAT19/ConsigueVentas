@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from "axios";
 // import { Pie } from 'react-chartjs-2';
 import { getToken } from '../dist/Token';
-import {  Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -55,6 +55,13 @@ const AsistenciaTarde = () => {
                 setSin_marT(response.data.sin_marcar);
                 setV_sin_marT(response.data.v_sin_marcar);
             })
+            .catch((e) => {
+                if (e.response.status === 403) {
+                    console.log("No tienes permisos para ver esta información");
+                } else {
+                }
+            });
+
     }
     useEffect(() => {
         peticionApiAsistenciaTarde();

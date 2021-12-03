@@ -8,3 +8,9 @@ const RoutePrivate = ({children}) => {
 };
 
 export default RoutePrivate;
+
+// Dashboard
+// Adminsitracion  <--
+
+// Usuauro : Restablecimiento,  perfil(Calendarioa sitencia, Datos personales <-- Ocultar datos para usauriso), calendario general, 
+
