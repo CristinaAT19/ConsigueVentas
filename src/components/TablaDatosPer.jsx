@@ -7,8 +7,22 @@ const TablaDatosPer = () => {
     <>
       <div className=" flex flex-col items-center justify-center">
         <section className="flex items-center justify-center w-full h-screen">
-          <div className="flex flex-colgrid grid-cols-2 auto-cols-auto grid-rows-1 bg-gray-800 p-10 text-white gap-x-8 gap-y-4">
-            <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
+          <div className="flex flex-colgrid grid-cols-2 grid-rows-1 bg-gray-800 p-10 text-white gap-x-8 gap-y-4">
+            <div className="">
+              <div clasName="grid grid-cols-3">
+                <label clasName=" col-span-1">Nombres:</label>
+                <input type="text" name="" id="" clasName=" col-span-2" />
+              </div>
+              <div clasName="grid grid-cols-3">
+                <label clasName=" col-span-1">Nombres:</label>
+                <input type="text" name="" id="" clasName=" col-span-2" />
+              </div>
+              <div clasName="grid grid-cols-3">
+                <label clasName=" col-span-1">Nombrsses:</label>
+                <input type="text" name="" id="" clasName=" col-span-2" />
+              </div>
+            </div>
+            {/* <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
               <label>Nombres:</label>
               <input type="text" name="" id="" className="m-1.5" />
 
@@ -20,7 +34,7 @@ const TablaDatosPer = () => {
 
               <label>Area:</label>
               <input type="text" name="" id="" className="m-1.5" />
-            </div>
+            </div> */}
             <div className="grid grid-cols-2 auto-cols-auto grid-rows-1 m-px">
               <label>Apellidos:</label>
               <input type="text" name="" id="" className="m-1.5" />

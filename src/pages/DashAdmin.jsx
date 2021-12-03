@@ -13,6 +13,7 @@ import { getToken, removeToken } from "../dist/Token";
 import { distSetAutentication } from "../dist/Autentication";
 import CalendarioPersonal from "../components/CalendarioPersonal";
 import { calendarioAsistencia } from "./VistasAdmin/Perfil";
+import Configuracion from '../components/Configuracion';
 
 function DashAdmin() {
 
@@ -68,7 +69,7 @@ function DashAdmin() {
               <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
               <Route path='/datosPersonales' exact component={TablaDatosPer} />
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
-
+              <Route path='/configuracion' exact component={Configuracion}/>
               <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
               {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
               {/* perfil */}

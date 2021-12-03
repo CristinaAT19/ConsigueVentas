@@ -52,8 +52,8 @@ function UserMenu() {
       >
         
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium group-hover:text-gray-800">{user['nombre']+' '+user['apellido']}</span>
-          <svg className="w-3 h-3 flex-shrink-0 ml-1 fill-current text-gray-400" viewBox="0 0 12 12">
+          <span className="truncate ml-2 text-sm font-medium text-gray-800 group-hover:text-gray-900">{user['nombre']+' '+user['apellido']}</span>
+          <svg className="w-3 h-3 flex-shrink-0 ml-1 fill-current text-gray-800" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
         </div>
@@ -82,7 +82,7 @@ function UserMenu() {
             <li>
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/"
+                to="/configuracion"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Configuración
