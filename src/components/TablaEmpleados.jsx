@@ -90,17 +90,10 @@ function TablaEmpleados() {
   const actualizarEmpleado = async (e) => {
     setLoading(true);
     e.preventDefault();
-    console.log("Inicio de actualizar");
-    console.log(empleadoSeleccionado);
-
-
-
-
 
   // Validaciones de frontend
 
   const form = e.target.elements;
-  // console.log(form['Fecha Nacimiento'].value);
   const edad = calcularEdad(form['Fecha Nacimiento'].value);
   const diffDiasPrueba = calcularDiferenciaDias(form['Fecha inicio prueba'].value, form['Fecha fin prueba'].value);
   const diffDiasActual = calcularDiferenciaDiasFechaActual(form['Fecha baja'].value);
@@ -197,15 +190,20 @@ function TablaEmpleados() {
       }
     )
       .then(response => {
-        console.log(response);
+
+        // var dataNueva = data.concat(response.data); 
+        // dataNueva.map(empleado => { 
+        //     if (empleado.Id === empleadoSeleccionado.Id) { 
+        //         empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta'] 
+        //     } 
+        // }        
+
         setLoading(false);
         setErrorUpdate([]);
       }).catch(error => {
         setLoading(false);
-        console.log(error.response.data);
         setErrorUpdate(error.response.data.errors);
     });
-    console.log("Fin de actualizar");
   }
 
 
@@ -301,7 +299,6 @@ function TablaEmpleados() {
       ...prevState,
       [name]: value
     }));
-    console.log(empleadoSeleccionado);
   }
 
 

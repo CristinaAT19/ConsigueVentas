@@ -1,4 +1,4 @@
-const token_auth  ="nada";
+const token_auth  ="token";
 export function setToken(token) {
     localStorage.setItem(token_auth, token)
 }

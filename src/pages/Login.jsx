@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../css/style.scss";
 import axios from "axios";
 import { setToken } from "../dist/Token";
 import Loading from "../components/Loading";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
-import { distSetAutentication } from "../dist/Autentication";
+import { distSetAutentication,distSetUser } from "../dist/Autentication";
+import { UserContext } from "../components/context/UserContext";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,8 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const paramsRequest = {};
   const [valor, setValor] = useState("");
+  //   Contexto de usuario
+  const {user, setUser} = useContext(UserContext);
 
   const peticiontoken = async (e) => {
     setLoading(true);
@@ -34,30 +37,40 @@ const Login = () => {
       setLoading(false);
       return;
     }
-
     paramsRequest["dni"] = e.target.elements.dni.value;
     paramsRequest["password"] = e.target.elements.password.value;
 
     await axios
       .post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest, {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
       })
       .then((Response) => {
+        setUser({
+            dni: Response.data.dni,
+            nombre: Response.data.nombre,
+            apellido: Response.data.apellido,
+            idType: Response.data.id_TipoUsuario,
+            tipoUsuario: Response.data.TipoUsuario,
+        });
         setToken(Response.data.token);
         distSetAutentication(true);
+        distSetUser(Response.data);
         setRedirect(true);
         setError([]);
         
       })
       .catch((e) => {
-        setError(e.response.data.errors);
-        // console.log(e);
+        if(e.response.status === 404){
+            const error = {
+                dni: "Problemas al intentar contectar con el servidor.",
+              };            
+            setError(error);
+        }else{
+            setError(e.response.data.errors);
+        }
       });
     setLoading(false);
   };
-  
+
   // useEffect(() => {
   //     console.log("redirecionando");
   //     <Redirect to='/dashAdmin'/>;

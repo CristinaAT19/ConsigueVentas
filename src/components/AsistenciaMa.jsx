@@ -57,6 +57,12 @@ const AsistenciaMa = () => {
         setSin_mar(response.data.sin_marcar);
         setV_sin_mar(response.data.v_sin_marcar);
       })
+      .catch((e) => {
+        if(e.response.status === 403){
+          console.log("No tienes permisos para ver esta información");
+        }else{
+        }
+      });
 
   }
   useEffect(() => {

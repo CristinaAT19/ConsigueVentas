@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Switch,
   Route,
@@ -19,7 +19,8 @@ import DashAdmin from "./pages/DashAdmin";
 import Login from "./pages/Login";
 import RoutePrivate from "./routes/RoutePrivate";
 import RoutePublic from "./routes/RoutePublic";
-import { distSetAutentication } from "./dist/Autentication";
+import { distGetAutentication, distSetAutentication } from "./dist/Autentication";
+import { UserContext } from "./components/context/UserContext";
 
 function App() {
   const [user, setUser] = useState({});
@@ -33,22 +34,28 @@ function App() {
   }, [location.pathname]); // triggered on route change
 
   useEffect(() =>{
-    distSetAutentication(false);
+    if(distGetAutentication()==null){
+      distSetAutentication(false);      
+    }
   }, [])
+  
   return (
     <>
       <Switch>
-        <Route path="/login">
-          <RoutePublic>
-            <Login />
-          </RoutePublic>
-        </Route>
+        <UserContext.Provider value={{ user, setUser }}>
+          <Route path="/login">
+            <RoutePublic>
+              <Login />
+            </RoutePublic>
+          </Route>
 
-        <Route path="/*">
-          <RoutePrivate>
-            <DashAdmin/>
-          </RoutePrivate>
-        </Route>
+          <Route path="/*">
+            <RoutePrivate>
+              <DashAdmin/>
+            </RoutePrivate>
+          </Route>
+        </UserContext.Provider>
+
         {/* <Route path='/admin' exact component={Dashboard} /> */}
       </Switch>
     </>

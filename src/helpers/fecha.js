@@ -13,7 +13,6 @@ export const calcularDiferenciaDias = (fechaInicio, fechaFin) => {
     let fecIni = new Date(fechaInicio).getTime();
     let fecFin    = new Date(fechaFin).getTime();
     let diff = fecFin - fecIni;
-    console.log(Math.round(diff/(1000*60*60*24)));    
     return (diff/(1000*60*60*24));
 }
 
@@ -21,6 +20,5 @@ export const calcularDiferenciaDiasFechaActual = (fechaFin) => {
     let fecFin    = new Date(fechaFin).getTime();
     let fecActual = new Date().getTime();
     let diff = fecFin - fecActual;
-    console.log(Math.round(diff/(1000*60*60*24)));    
     return (diff/(1000*60*60*24));
 }
