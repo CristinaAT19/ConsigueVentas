@@ -2,6 +2,7 @@ import * as FaIcons from "react-icons/fa";
 import React, { useState } from "react";
 import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
+import Error from "../components/item/Error";
 
 const TipoUsuario = (dniReset) => {
   const campo=document.getElementById("dni_reset");
@@ -10,6 +11,7 @@ const TipoUsuario = (dniReset) => {
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState('');
   const [tipoMostrar, setTipoMostrar] = useState('');
+  const [error, setError] = useState([]);
 
   const seleccionarTipo = async(e) =>{
     //reiniciar otros msjs de vista
@@ -18,9 +20,27 @@ const TipoUsuario = (dniReset) => {
     //funcionalidad de seleccionarTipo
     setTipo(e.target.value);
   }
+  
   const cambiarTipoUsuario = async (e) => {
       setValor("");
       setTipoMostrar("");
+      setError([]);
+      if(isNaN(dni_reset)){
+        const error = {
+            "dni": "El dni debe ser un dato numerico",
+        };
+        setError(error);  
+        return;
+      }
+  
+       if(dni_reset.length !== 8){
+        const error = {
+            "dni": "El dni debe tener 8 numeros",
+        };
+        setError(error);
+        return;
+      }
+
       const config = {
        headers: { Authorization: `Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd` }
       }
@@ -45,14 +65,32 @@ const TipoUsuario = (dniReset) => {
 
  const limpiar = () => {
   campo.value='';
+  setError([]);
   setValor("");
   setTipoMostrar("");
  };
  
  //////////////// MOSTRAR TIPO USUARIO ACTUAL
  const mostrarTipoUsuarioActual = async (e) => {
+   
   setTipoMostrar("");
   setValor("");
+  setError([]);
+  if(isNaN(dni_reset)){
+    const error = {
+        "dni": "El dni debe ser un dato numerico",
+    };
+    setError(error);  
+    return;
+  }
+
+   if(dni_reset.length !== 8){
+    const error = {
+        "dni": "El dni debe tener 8 numeros",
+    };
+    setError(error);
+    return;
+  }
   const config = {
    headers: { Authorization: `Bearer 1058|M3cAikJUGTb6r5LbmU5Dg3C2XNWFUrXmoV0Pq2s7` }
   }
@@ -97,6 +135,7 @@ const TipoUsuario = (dniReset) => {
         </button>
         <p> {valor} </p>
         <p> {tipoMostrar} </p>
+        <Error errors={error['dni']} ></Error> <br/>
       </div>
     </>
   );

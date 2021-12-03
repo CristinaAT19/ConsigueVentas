@@ -7,7 +7,7 @@ const TablaFaltas = () => {
     const peticionTablaFaltas = async () => {
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/tabla_faltas",
+                "http://127.0.0.1:8000/api/tabla_faltas",
                 {
                     headers: {
                         Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
