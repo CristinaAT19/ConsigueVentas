@@ -54,9 +54,9 @@ const CalendarioEmpleados = () => {
    await axios.post(`${process.env.REACT_APP_API_URL}/api/mostrarTipoUsuario`, bodyParameters,config)
    .then((Response) => {
            //console.log(Response);
-           setDniEmpleado('DNI: ' + Response.data.dniUsuario);
-           setNombreEmpleado('NOMBRE ' + Response.data.nombreUsuario);
-           setTurnoEmpleado('TURNO ' + Response.data.turnoUsuario);
+           setDniEmpleado('DNI: ' + Response.data.dni);
+           setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
+           setTurnoEmpleado('TURNO: ' + Response.data.turno);
            //console.log(tipoMostrar);
        })
        .catch((e) => {
