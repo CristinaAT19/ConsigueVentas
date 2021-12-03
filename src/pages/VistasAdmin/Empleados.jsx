@@ -1,9 +1,12 @@
-import React from 'react';
-import AdminUsuario from '../../components/AdminUsuario';
-import TablaAdmin from '../../components/TablaAdmin';
+import React from "react";
+import AdminUsuario from "../../components/AdminUsuario";
+import CalendarioPersonal from "../../components/CalendarioPersonal";
+import CalendarioEmpleados from "../../components/CalendarioEmpleados";
+import TablaAdmin from "../../components/TablaAdmin";
+import TablaEmpleados from "../../components/TablaEmpleados";
+import TablaFaltas from "../../components/TablaFaltas";
+import App from "../../App";
 
-import TablaFaltas from '../../components/TablaFaltas';
-import TablaEmpleados from '../../components/TablaEmpleados';
 
 // export const Reports = () => {
 //   return (
@@ -57,19 +60,22 @@ export const tablaFaltas = () => {
   );
 };
 
-// export const calendarioEmpleados = () => {
-//   return (
-//     <div>
-//      <h1>vista calendarioEmpleados</h1>
-//     </div>
-//   );
-// };
-
-// export const listaAdministradores = () => {
-//   return (
-//     <div>
-//       <TablaAdmin/>
+export const calendarioEmpleados = () => {
+  return (
+    <div>
+      <h1>
+      VISTA CALENDARIO EMPLEADOS
+      </h1>
       
-//     </div>
-//   );
-// };
+      <CalendarioEmpleados/>
+    </div>
+  );
+};
+
+export const listaAdministradores = () => {
+  return (
+    <div>
+      <TablaAdmin />
+    </div>
+  );
+};

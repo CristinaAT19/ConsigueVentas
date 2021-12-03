@@ -11,6 +11,8 @@ import CerrarSesion from '../components/CerrarSesion';
 import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
 import { distSetAutentication } from "../dist/Autentication";
+import CalendarioPersonal from "../components/CalendarioPersonal";
+import { calendarioAsistencia } from "./VistasAdmin/Perfil";
 
 function DashAdmin() {
 
@@ -67,10 +69,12 @@ function DashAdmin() {
               <Route path='/datosPersonales' exact component={TablaDatosPer} />
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
 
-              {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
+              <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
               {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
               {/* perfil */}
-              {/* <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} /> */}
+              
+              
+              <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
               {/* calendario general */}
               {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
 

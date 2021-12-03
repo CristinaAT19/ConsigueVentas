@@ -10,7 +10,7 @@ const TablaEmpleados = () => {
                 "https://desarrollo.consigueventas.com/Backend/public/api/listarEmpleados",
                 {
                     headers: {
-                        Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+                        Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
                     }
                 }
             )

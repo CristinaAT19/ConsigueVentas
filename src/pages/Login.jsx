@@ -48,8 +48,8 @@ const Login = () => {
             dni: Response.data.dni,
             nombre: Response.data.nombre,
             apellido: Response.data.apellido,
-            idType: Response.data.id_TipoUsuario,
-            tipoUsuario: Response.data.TipoUsuario,
+            id_TipoUsuario: Response.data.id_TipoUsuario,
+            TipoUsuario: Response.data.TipoUsuario,
         });
         setToken(Response.data.token);
         distSetAutentication(true);

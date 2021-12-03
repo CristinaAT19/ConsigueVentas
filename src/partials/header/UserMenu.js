@@ -76,7 +76,7 @@ function UserMenu() {
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200">
             <div className="font-medium text-gray-800">{user['nombre']+' '+user['apellido']}</div>
-            <div className="text-xs text-gray-500 italic">{user['tipoUsuario']}</div>
+            <div className="text-xs text-gray-500 italic">{user['TipoUsuario']}</div>
           </div>
           <ul>
             <li>

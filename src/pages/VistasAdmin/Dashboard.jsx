@@ -13,7 +13,7 @@ const Dashboard = () => {
   return (
     <>
       <div style={{ height: "100%" }}>
-      {user['idType'] == 1 ? (
+      {user['id_TipoUsuario'] == 1 ? (
 
         <div
           className="my-4"
@@ -84,14 +84,14 @@ const Dashboard = () => {
         </div>
       </div>
 {/* 
-      {user['idType'] == 1 ? (
+      {user['id_TipoUsuario'] == 1 ? (
 
       <div className="bg-gray-100 m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
         <TablaDia />
       </div>
       ) : (null)}
-      {user['idType'] == 1 ? (
+      {user['id_TipoUsuario'] == 1 ? (
 
       <div className="bg-white m-20 rounded-t-3xl text-center">
 

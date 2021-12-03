@@ -31,7 +31,7 @@ function App() {
     if(distGetAutentication()==null){
       distSetAutentication(false);      
     }
-  }, [])
+  }, [user]);
   
   return (
     <>

@@ -38,9 +38,7 @@ const AsistenciaTarde = () => {
         await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ta`,
             {
                 headers: {
-
-                    Authorization: `Bearer ${getToken()}`
-
+                    Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
                 }
             })
             .then(response => {
