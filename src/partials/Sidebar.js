@@ -14,18 +14,17 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const sidebar = useRef(null);
 
   const storedSidebarExpanded = true;
-  
+
   const [expand, setExpand] = useState(false);
   const expandir = () => {
     setExpand(!expand);
   };
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
-    
   );
 
-  const handleExpanded = ()=>{
-    setSidebarExpanded(!sidebarExpanded);   
+  const handleExpanded = () => {
+    setSidebarExpanded(!sidebarExpanded);
     expandir();
   };
   // close on click outside
@@ -82,7 +81,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         }`}
       >
         {/* Sidebar header */}
-        <div className="flex bg-gray-600 border-red-900 justify-center py-4 pr-3 sm:px-2">
+        <div
+          className="flex bg-gray-700 justify-center py-4 pr-3 sm:px-2"
+          // style="border: solid #2D2D2B 10px;"
+        >
           {/* Close button */}
 
           {/* <button
@@ -99,22 +101,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </button> */}
 
           {/* Logo */}
-          <NavLink exact to="/dashAdmin" className="block" onClick={expandir}>
+          <NavLink exact to="/dashAdmin" className="block">
             {expand ? (
               <img
-              className=" max-w-7xl w-40 h-12"
-              src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
-            />
-              
+                className=" max-w-7xl w-40 h-12"
+                src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
+              />
             ) : (
-              <img className="w-auto h-9" src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png" alt="" />
+              <img
+                className="w-auto h-9"
+                src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png"
+                alt=""
+              />
             )}
-            <rect fill="#6366F1" width="32" height="32" rx="16" />
           </NavLink>
         </div>
 
         {/* Links */}
-        <div className="space-y-8 p-4">
+        <div className="space-y-8 pl-2">
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">
@@ -382,7 +386,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
           <div className="px-3 py-2">
             <button onClick={handleExpanded}>
-            
               <span className="sr-only">Expand / collapse sidebar</span>
               <svg
                 className="w-6 h-6 fill-current sidebar-expanded:rotate-180"

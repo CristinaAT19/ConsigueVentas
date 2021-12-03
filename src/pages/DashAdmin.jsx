@@ -8,6 +8,7 @@ import App from '../components/TablaEmpleados';
 import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
 import TablaEmpleados from '../components/TablaEmpleados';
+import Configuracion from '../components/Configuracion';
 
 function DashAdmin() {
 
@@ -34,7 +35,7 @@ function DashAdmin() {
             <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
             <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña}/>
             <Route path='/datosPersonales' exact component={TablaDatosPer}/>
-
+            <Route path='/configuracion' exact component={Configuracion}/>
             {/* <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} /> */}
             {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
             {/* perfil */}
