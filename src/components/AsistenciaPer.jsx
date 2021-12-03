@@ -26,16 +26,10 @@ const AsistenciaPer = () => {
     };
 
     const peticionApiAsistenciaPersonal = async () => {
-        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/73615048`,
+        await axios.get( `${process.env.REACT_APP_API_URL}/api/dashboardUsuario/76634714`,
             {
                 headers: {
-<<<<<<< HEAD
-                    Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
-=======
-
-                    Authorization: `Bearer ${getToken()}`
-
->>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
+                    Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
                 }
             })
             .then(response => {

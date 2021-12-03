@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import DataTable from 'react-data-table-component';
-import axios from "axios";
-
-const TablaEmpleados = () => {
-    const [tabla, setTabla] = useState([]);
-    const peticionTablaEmpleados = async () => {
-        await axios
-            .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/listarEmpleados",
-                {
-                    headers: {
-                        Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
-                    }
-                }
-            )
-            .then((Response) => {
-                setTabla(Response.data.empleados);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-
-=======
 import React,{useEffect, useState} from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
@@ -55,7 +30,6 @@ const useStyles = makeStyles ((theme) => ({
     },
     inputMaterial:{
       width: '100%'
->>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
     }
   }));
 const baseUrl="https://desarrollo.consigueventas.com/Backend/public/api/";
@@ -75,7 +49,7 @@ function App() {
         await axios.get(baseUrl+'listarEmpleados',
           {
             headers: {
-                Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
+                Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
             }
           }
         )

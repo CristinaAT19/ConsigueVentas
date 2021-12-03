@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ResetearConstra from "./ResetearConstra";
 import TipoUsuario from "./TipoUsuario";
 
@@ -12,9 +12,15 @@ const AdminUsuario = ({
   button2,
 }) => {
   const [resetea, setResetea] = useState(false);
+  const [valorDni, setValorDni]=useState("");
   const resetear = () => {
     setResetea(!resetea);
   };
+  const onChangeDni = (evento)=>{
+     setValorDni(evento.target.value);
+     //console.log(componenteInput.current.value);
+  }
+
   return (
     <>
       <div className="flex flex-col items-baseline justify-around w-4/5 p-10 bg-gray-500 rounded">
@@ -26,13 +32,15 @@ const AdminUsuario = ({
         </div>
         <div className="flex flex-col items-baseline justify-center m-1.5">
           <label>{texto}</label>
-          <input className="text-black" type="number" name="dni_reset" id="dni_reset" />
+          <input type="number" placeholder="dni" onChange={onChangeDni} className="text-black" name="dni_reset" id="dni_reset" />
         </div>
         <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
           
             <input type="checkbox" name="" id="" onClick={resetear} />
+            
             <label>{texto2}</label>
-            {resetea ? <TipoUsuario /> : <ResetearConstra dni_reset='76634714'/>}
+            {resetea ? <TipoUsuario dni_reset={valorDni} /> : <ResetearConstra dni_reset={valorDni}/>
+             }
           
         </div>
       </div>
@@ -41,3 +49,4 @@ const AdminUsuario = ({
 };
 
 export default AdminUsuario;
+ // <span>{valorDni}</span><br/> (antes del checkbox)

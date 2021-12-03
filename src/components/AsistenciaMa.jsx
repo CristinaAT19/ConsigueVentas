@@ -40,13 +40,7 @@ const AsistenciaMa = () => {
     await axios.get(`https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma`,
       {
         headers: {
-<<<<<<< HEAD
-          Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
-=======
-
-          Authorization: `Bearer 663|FsapJB5yQp6hb2sTGwYrkVu89fm58Fk6cxpBXrJz`
-
->>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
+          Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
         }
       })
       .then(response => {

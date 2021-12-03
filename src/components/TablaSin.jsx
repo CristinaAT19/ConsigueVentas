@@ -50,20 +50,11 @@ function TablaSin() {
     const peticionTablaDia = async () => {
       setLoading(true);
         await axios
-<<<<<<< HEAD
-            .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
-                {
-                    headers: {
-                        Authorization: "Bearer 528|RtyDQ6TzXjCZ6DeoNaauvx8EgrBsmwvGCYbWTeGj"
-                    }
-=======
         .get(
             "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
             {
                 headers: {
-                    Authorization: "Bearer 677|brZgrPFNk78A3Ju7qsaDHWB7yPCoTVQkBseYZRvp"
->>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
+                    Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
                 }
             }
         )

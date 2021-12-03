@@ -16,15 +16,6 @@ function App() {
   const [user, setUser] = useState({});
 
   return (
-<<<<<<< HEAD
-    <Router>
-      <Switch>
-        <Route path='/dashAdmin' exact component={DashAdmin} />
-        <Route path='/login' exact component={Login} />
-        
-      </Switch>
-    </Router>
-=======
     
       <Router >
         <Switch>
@@ -37,7 +28,6 @@ function App() {
       </Router>
     
 
->>>>>>> 7a6c3e3e641ec6378831cfa333740f327d42418c
   );
 }
 
