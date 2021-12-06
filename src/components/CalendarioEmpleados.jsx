@@ -10,11 +10,11 @@ import { getToken } from "../dist/Token";
 
 const CalendarioEmpleados = () => {
     const campo=useRef();
+    //const campo=document.getElementById("dni_calendario");
     const [error, setError] = useState([]);
     const [valor, setValor] = useState([]);
     const [dniCalendario, setDniCalendario]= useState('');
-    //const campo=document.getElementById("dni_calendario");
-
+    
     const [dniEmpleado, setDniEmpleado]= useState('');
     const [nombreEmpleado, setNombreEmpleado]= useState('');
     const [turnoEmpleado, setTurnoEmpleado]= useState('');
@@ -32,7 +32,7 @@ const CalendarioEmpleados = () => {
 
     const limpiar = async ()=>{
             campo.current.value='';
-            setDniCalendario(campo.current.value);
+            setDniCalendario('');
             setError([]); 
             setValor([]);
             setDniEmpleado('');
@@ -40,7 +40,7 @@ const CalendarioEmpleados = () => {
             setTurnoEmpleado(''); 
   }
 
-    const peticionApiCalendarioPersonal = async () => { /*
+  /*  const peticionApiCalendarioPersonal = async () => { 
         if(isNaN(dniCalendario)){
             const error = {
                 "dni": "El dni debe ser un dato numerico",
@@ -76,8 +76,8 @@ const CalendarioEmpleados = () => {
       }).catch((e) => {
         setValor([]);
         console.log(e);
-      });*/
-  }
+      });
+  }*/
 
   const peticionDatos = async () => {
     if(isNaN(dniCalendario)){
@@ -110,22 +110,6 @@ const CalendarioEmpleados = () => {
     const bodyParameters = {
      dni: dniCalendario
     };
-   
-    /////////////////////
-    await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
-    {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    .then(response => {
-        //console.log(response.data.CalendarioAsistencia);
-        setValor(response.data.CalendarioAsistencia);
-    }).catch((e) => {
-      setValor([]);
-      console.log(e);
-    });
-    ////////////////////
 
    await axios.post(`${process.env.REACT_APP_API_URL}/api/mostrarTipoUsuario`, bodyParameters,config)
    .then((Response) => {
@@ -146,6 +130,22 @@ const CalendarioEmpleados = () => {
            setNombreEmpleado('');
            setTurnoEmpleado('');
        }); 
+
+    /////////////////////
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    .then(response => {
+        //console.log(response.data.CalendarioAsistencia);
+        setValor(response.data.CalendarioAsistencia);
+    }).catch((e) => {
+      setValor([]);
+      console.log(e);
+    });
+    ////////////////////
   }
 
     return (
