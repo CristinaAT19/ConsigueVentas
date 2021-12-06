@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 // import { Pie } from 'react-chartjs-2';
-import { setToken, getToken } from "../dist/Token";
+import { setToken, getToken, removeToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
+import CerrarSesion from './CerrarSesion';
+import { distSetAutentication } from '../dist/Autentication';
 
 
 
@@ -60,7 +62,14 @@ const AsistenciaMa = () => {
       .catch((e) => {
         if(e.response.status === 403){
           console.log("No tienes permisos para ver esta información");
-        }else{
+        }
+
+        if(e.response.status === 401){
+          console.log("El token expiro o no te has aunteticado");
+          
+          distSetAutentication(false);
+          removeToken();
+
         }
       });
 

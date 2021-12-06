@@ -37,7 +37,7 @@ const AsistenciaPer = () => {
             {
                 headers: {
 
-                    Authorization: `Bearer ${user['token']}`
+                    Authorization: `Bearer ${getToken()}`
 
                 }
             })
@@ -55,8 +55,8 @@ const AsistenciaPer = () => {
             .catch((e) => {
                 if (e.response.status === 403) {
                     console.log("No tienes permisos para ver esta información");
-                } else {
                 }
+                console.log(e.response);
             });
 
     }

@@ -157,10 +157,6 @@ function TablaFaltas() {
     }
 
     useEffect(() => {
-        // peticionGet();
-    }, [data])
-
-    useEffect(() => {
         peticionGet();
     }, [])
 
