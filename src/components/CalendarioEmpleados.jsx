@@ -116,8 +116,17 @@ const CalendarioEmpleados = () => {
            //console.log(Response);
            setError([]);
            if(Response.data.dni === undefined){
-            setDniEmpleado('El dni ingresado no se encuentra en la base de datos. Corregir');
-           } else {
+            /*setDniEmpleado('El dni ingresado no se encuentra en la base de datos. Corregir');
+            setNombreEmpleado('');
+            setTurnoEmpleado('');*/
+            const errorDni = {
+              "dni": "El dni ingresado no se encuentra en la base de datos. Corregir",
+            };
+            setError(errorDni);
+            setDniEmpleado('');
+            setNombreEmpleado('');
+            setTurnoEmpleado('');
+          } else {
            setDniEmpleado('DNI: ' + Response.data.dni);
            setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
            setTurnoEmpleado('TURNO: ' + Response.data.turno);
@@ -147,7 +156,6 @@ const CalendarioEmpleados = () => {
     });
     ////////////////////
   }
-
     return (
         <div>
             <label> Dni usuario:   </label>
@@ -162,7 +170,6 @@ const CalendarioEmpleados = () => {
             {dniEmpleado} <br/>
             {nombreEmpleado}<br/>
             {turnoEmpleado}<br/> <br/>
-            <br/> <br/>
             <FullCalendar
                 plugins={[dayGridPlugin, bootstrapPlugin]}
                 /*events={[
