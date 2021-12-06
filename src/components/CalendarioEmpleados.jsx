@@ -25,12 +25,7 @@ const CalendarioEmpleados = () => {
         //console.log(componenteInput.current.value);
     }
 
-    /*const enviar = ()=>{
-        //peticionDatos();
-        //peticionApiCalendarioPersonal();
-    }*/
-
-    const limpiar = async ()=>{
+    const limpiar = ()=>{
             campo.current.value='';
             setDniCalendario('');
             setError([]); 
@@ -38,48 +33,25 @@ const CalendarioEmpleados = () => {
             setDniEmpleado('');
             setNombreEmpleado('');
             setTurnoEmpleado(''); 
-  }
+    }
 
-  /*  const peticionApiCalendarioPersonal = async () => { 
-        if(isNaN(dniCalendario)){
-            const error = {
-                "dni": "El dni debe ser un dato numerico",
-            };
-            setError(error); 
-            setValor([]);
-            setDniEmpleado('');
-            setNombreEmpleado('');
-            setTurnoEmpleado(''); 
-            return;
-          }
-      
-           if(dniCalendario.length !== 8){
-            const error = {
-                "dni": "El dni debe tener 8 numeros",
-            };
-            setError(error);
-            setValor([]); 
-           setDniEmpleado('');
-           setNombreEmpleado('');
-           setTurnoEmpleado('');
-            return;
-          }
-    await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`
-        }
-      })
-      .then(response => {
-          //console.log(response.data.CalendarioAsistencia);
-          setValor(response.data.CalendarioAsistencia);
-      }).catch((e) => {
-        setValor([]);
-        console.log(e);
-      });
+    /*const peticionDatos2 = async () => { 
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    })
+    .then(response => {
+        //console.log(response.data.CalendarioAsistencia);
+        setValor(response.data.CalendarioAsistencia);
+    }).catch((e) => {
+      setValor([]);
+      console.log(e);
+    });
   }*/
 
-  const peticionDatos = async () => {
+  const peticionDatosCalendario = async () => {
     if(isNaN(dniCalendario)){
         const error = {
             "dni": "El dni debe ser un dato numerico",
@@ -114,6 +86,7 @@ const CalendarioEmpleados = () => {
    await axios.post(`${process.env.REACT_APP_API_URL}/api/mostrarTipoUsuario`, bodyParameters,config)
    .then((Response) => {
            //console.log(Response);
+           //peticionDatos2();
            setError([]);
            if(Response.data.dni === undefined){
             /*setDniEmpleado('El dni ingresado no se encuentra en la base de datos. Corregir');
@@ -160,7 +133,7 @@ const CalendarioEmpleados = () => {
         <div>
             <label> Dni usuario:   </label>
               <input onChange={onChangeDni} ref={campo} type="number" placeholder="dni" className="border-2 border-black-500" name="dni_calendario" id="dni_calendario" />
-              <button  onClick={peticionDatos} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+              <button  onClick={peticionDatosCalendario} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
                   Mostrar
               </button> 
               <button  onClick={limpiar} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
