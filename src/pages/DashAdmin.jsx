@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
-import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
 import TablaEmpleados from '../components/TablaEmpleados';
 import CerrarSesion from '../components/CerrarSesion';
