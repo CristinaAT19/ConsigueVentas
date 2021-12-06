@@ -21,7 +21,7 @@ export const administracionEmpleados = () => {
     <>
       <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
         <h1 className="border-b-2 text-3xl">Administracion de Emppleados</h1>
-        <div style={{ width: '97%',margin: '0 auto'}}>
+        <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
           <TablaEmpleados/>
         </div>
       </div>
@@ -53,8 +53,8 @@ export const tablaFaltas = () => {
   return (
     <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
         <h1 className="border-b-2 text-3xl">Administracion de faltas</h1>
-        <div style={{ width: '97%',margin: '0 auto'}}>
-        {/* <TablaFaltas /> */}
+        <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
+        <TablaFaltas />
         </div>
       </div>
   );

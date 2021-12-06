@@ -100,7 +100,7 @@ const Login = () => {
         <div className="col-span-2 py-9 px-8 bg-white rounded-r-xl shadow-xl">
           <form action="" onSubmit={peticiontoken} id="formulario" className="">
             <div className="mb-3">
-              <label for="name" className="block text-gray-800 font-bold">
+              <label htmlFor="name" className="block text-gray-800 font-bold">
                 Usuario
               </label>
               <input
@@ -120,7 +120,7 @@ const Login = () => {
               {/* Fin error */}
             </div>
             <div>
-              <label for="email" className="block text-gray-800 font-bold">
+              <label htmlFor="email" className="block text-gray-800 font-bold">
                 Contraseña
               </label>
               <input
