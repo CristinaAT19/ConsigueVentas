@@ -4,6 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
+import esLocale from '@fullcalendar/core/locales/es';
 import { getToken } from "../dist/Token";
 import { UserContext } from "./context/UserContext";
 const CalendarioPersonal = () => {
@@ -44,8 +45,8 @@ const CalendarioPersonal = () => {
                 events={valor}
                 height={"600px"}
                 unselect={"false"}
-                locale="Es"
-                themeSystem="bootstrap"
+                locale='es'
+                themeSystem='standard'
                 weekTextLong={"true"}
                 firstDay={1}
                 initialView="dayGridMonth"

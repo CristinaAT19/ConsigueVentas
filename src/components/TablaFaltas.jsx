@@ -8,53 +8,7 @@ import { setToken, getToken } from "../dist/Token";
 import Select from 'react-select'
 
 
-const columnas = [
-    {
-        title: 'Id',
-        field: 'Id',
-        sortable: true
-    },
-    {
-        title: 'Nombres',
-        field: 'Nombre',
-        sortable: true
-    },
-    {
-        title: 'Apellidos',
-        field: 'Apellido',
-        sortable: true
-    },
-    {
-        title: 'Dni',
-        field: 'Dni',
-        sortable: true
-    },
-    {
-        title: 'Perfil',
-        field: 'Perfil',
-        sortable: true
-    },
-    {
-        title: 'Unidad',
-        field: 'Unidad',
-        sortable: true
-    },
-    {
-        title: 'Turno',
-        field: 'Turno',
-        sortable: true
-    },
-    {
-        title: 'Fecha de Falta',
-        field: 'Fecha Falta',
-        sortable: true
-    },
-    {
-        title: 'Estado de Falta',
-        field: 'Estado Falta',
-        sortable: true
-    },
-];
+
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
@@ -81,7 +35,6 @@ function TablaFaltas() {
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
-    const [modalInsertar, setModalInsertar] = useState(false);
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState(null)
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
         Apellido: "",
@@ -148,6 +101,7 @@ function TablaFaltas() {
                     }
                 });
                 setData(data);
+                peticionGet();
                 abrirCerrarModalEditar();
 
             }).catch(error => {
@@ -155,6 +109,7 @@ function TablaFaltas() {
             });
         console.log(modalSeleccionarOptionar);
     }
+
 
     useEffect(() => {
         peticionGet();
@@ -196,14 +151,60 @@ function TablaFaltas() {
         <div>
             
             <MaterialTable
-                columns={columnas}
+                columns={[
+                    {
+                        title: 'Id',
+                        field: 'Id',
+                        sortable: true
+                    },
+                    {
+                        title: 'Nombres',
+                        field: 'Nombre',
+                        sortable: true
+                    },
+                    {
+                        title: 'Apellidos',
+                        field: 'Apellido',
+                        sortable: true
+                    },
+                    {
+                        title: 'Dni',
+                        field: 'Dni',
+                        sortable: true
+                    },
+                    {
+                        title: 'Perfil',
+                        field: 'Perfil',
+                        sortable: true
+                    },
+                    {
+                        title: 'Unidad',
+                        field: 'Unidad',
+                        sortable: true
+                    },
+                    {
+                        title: 'Turno',
+                        field: 'Turno',
+                        sortable: true
+                    },
+                    {
+                        title: 'Fecha de Falta',
+                        field: 'Fecha Falta',
+                        sortable: true
+                    },
+                    {
+                        title: 'Estado de Falta',
+                        field: 'Estado Falta',
+                        sortable: true
+                    },
+                ]}
                 data={data}
                 title="Tabla Empleados"
                 // tableRef={tableRef}
                 actions={[
                     {
                         icon: 'edit',
-                        tooltip: 'Editar Empleado',
+                        tooltip: 'Editar faltas',
                         onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
                     },
                     // {
