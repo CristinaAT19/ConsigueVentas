@@ -4,6 +4,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
+import { getToken } from "../dist/Token";
+
 const CalendarioPersonal = () => {
     const [valor, setValor] = useState([]);
     const [dniUtilizar, setDniUtilizar] = useState('76634714');
@@ -13,7 +15,7 @@ const CalendarioPersonal = () => {
     await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniUtilizar}`,
       {
         headers: {
-          Authorization: "Bearer 1062|VzYr7PB1AHPBvSuVjaPpGC9rIinTVjxxe7cCVwgd"
+          Authorization: `Bearer ${getToken()}`
         }
       })
       .then(response => {
