@@ -81,7 +81,6 @@ function TablaFaltas() {
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
-    const [modalInsertar, setModalInsertar] = useState(false);
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState(null)
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
         Apellido: "",
@@ -156,9 +155,6 @@ function TablaFaltas() {
         console.log(modalSeleccionarOptionar);
     }
 
-    useEffect(() => {
-        // peticionGet();
-    }, [data])
 
     useEffect(() => {
         peticionGet();
