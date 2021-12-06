@@ -7,7 +7,7 @@ function Header({
   setSidebarOpen
 }) {
   return (
-    <header className="sticky top-0 inset-0 bg-gray-600 border-b z-30">
+    <header className="sticky top-0 inset-0 bg-gray-100 text-gray-700 shadow-md border-b z-30">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 -mb-px">
 
@@ -16,7 +16,7 @@ function Header({
 
             {/* Hamburger button */}
             <button
-              className="text-gray-500 hover:text-gray-600 lg:hidden"
+              className="text-white hover:text-gray-600 lg:hidden"
               aria-controls="sidebar"
               aria-expanded={sidebarOpen}
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -27,6 +27,7 @@ function Header({
                 <rect x="4" y="11" width="16" height="2" />
                 <rect x="4" y="17" width="16" height="2" />
               </svg>
+              
             </button>
 
           </div>
@@ -38,7 +39,7 @@ function Header({
             
             
             {/*  Divider */}
-            <hr className="w-px h-6 bg-gray-200 mx-3" />
+            <hr className="w-px h-6 bg-gray-800 mx-3" />
             <UserMenu />
 
           </div>

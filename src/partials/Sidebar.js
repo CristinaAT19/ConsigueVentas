@@ -1,31 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import * as BsIcons from "react-icons/bs";
 import * as IoIcons from "react-icons/io";
 import * as FaIcons from "react-icons/fa";
 import styled from "styled-components";
+import { UserContext } from "../components/context/UserContext";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
-
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
+  const {user} = useContext(UserContext);
   const storedSidebarExpanded = true;
-  
+
   const [expand, setExpand] = useState(false);
   const expandir = () => {
     setExpand(!expand);
   };
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
-    
   );
 
-  const handleExpanded = ()=>{
-    setSidebarExpanded(!sidebarExpanded);   
+  const handleExpanded = () => {
+    setSidebarExpanded(!sidebarExpanded);
     expandir();
   };
   // close on click outside
@@ -82,7 +82,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         }`}
       >
         {/* Sidebar header */}
-        <div className="flex bg-gray-600 border-red-900 justify-center py-4 pr-3 sm:px-2">
+        <div
+          className="flex bg-gray-700 justify-center py-4 pr-3 sm:px-2"
+          // style="border: solid #2D2D2B 10px;"
+        >
           {/* Close button */}
 
           {/* <button
@@ -99,22 +102,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </button> */}
 
           {/* Logo */}
-          <NavLink exact to="/dashAdmin" className="block" onClick={expandir}>
+          <NavLink exact to="/dashAdmin" className="block">
             {expand ? (
               <img
-              className=" max-w-7xl w-40 h-12"
-              src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
-            />
-              
+                className=" max-w-7xl w-40 h-12"
+                src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
+              />
             ) : (
-              <img className="w-auto h-9" src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png" alt="" />
+              <img
+                className="w-auto h-9"
+                src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png"
+                alt=""
+              />
             )}
-            <rect fill="#6366F1" width="32" height="32" rx="16" />
           </NavLink>
         </div>
 
         {/* Links */}
-        <div className="space-y-8 p-4">
+        <div className="space-y-8 pl-2">
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">
@@ -157,6 +162,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </li>
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
               {/* Empleado */}
+
+              { user['id_TipoUsuario'] == 1 ? (                            
+
               <SidebarLinkGroup activecondition={pathname.includes("team")}>
                 {(handleClick, open) => {
                   return (
@@ -197,14 +205,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </a>                      
                       <div className=" lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul
                           className={`bg-naranjaBajo pl-9 mt-1 ${
                             !open && "hidden"
                           }`}
                         >
+                          { user['id_TipoUsuario'] == 1 ? (
                           <li className="mb-1 last:mb-0">
+                            
                             <NavLink
                               exact
                               to="/tablaEmpleados"
@@ -214,8 +224,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 Administración de Empleados
                               </span>
                             </NavLink>
+
                           </li>
-                          <hr className="w-10/12 h-full bg-gray-400"></hr>
+                              ) : null
+                          }                          
+                          <hr className="w-10/12 h-1 bg-yellow-600"></hr>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -227,7 +240,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                          { user['id_TipoUsuario'] == 1 ? (                            
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -239,11 +253,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          ) : null
+                          }
+                          <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                          { user['id_TipoUsuario'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
-                              to="/"
+                              to="/calendarioEmpleados"
                               className="block text-gray-50 hover:text-gray-600 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -251,7 +269,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          ) : null
+                          }
+                          <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                          { user['id_TipoUsuario'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -263,13 +285,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                         </ul>
                       </div>
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
+              ) : null
+              }
+
+              { user['id_TipoUsuario'] == 1 ? (                            
+              
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                        ) : null
+                }
+
               {/* Perfil */}
               <SidebarLinkGroup activecondition={pathname.includes("team")}>
                 {(handleClick, open) => {
@@ -321,7 +353,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
-                              to="/"
+                              to="/calendarioAsistencia"
                               className="block text-gray-50 hover:text-gray-600 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -329,7 +361,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <hr className="w-10/12 h-full bg-gray-400"></hr>
+                          <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                          { user['id_TipoUsuario'] == 1 ? (                            
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
@@ -341,6 +375,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
+                          ) : null
+                          }
                         </ul>
                       </div>
                     </React.Fragment>
@@ -349,6 +385,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               <hr className="w-10/12 h-1 bg-yellow-600"></hr>
               {/* Calendario General */}
+              { user['id_TipoUsuario'] == 1 ? (                            
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("calendar") && "bg-gray-900"
@@ -374,6 +411,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </div>
                 </NavLink>
               </li>
+              ) : null
+              }
             </ul>
           </div>
         </div>
@@ -382,7 +421,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
           <div className="px-3 py-2">
             <button onClick={handleExpanded}>
-            
               <span className="sr-only">Expand / collapse sidebar</span>
               <svg
                 className="w-6 h-6 fill-current sidebar-expanded:rotate-180"

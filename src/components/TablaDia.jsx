@@ -36,7 +36,10 @@ function TablaDia() {
                 setTabla(Response.data.AsistenciaEmpleadosDiario);
             })
             .catch((e) => {
-                console.log(e);
+                if(e.response.status === 403){
+                  console.log("No tienes permisos para ver esta información");
+                }else{
+                }
             });
             // setLoading(false);
     }

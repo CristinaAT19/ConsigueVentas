@@ -3,23 +3,18 @@ import {
   Switch,
   Route,
   useLocation,
-  BrowserRouter,
-  Router,
 } from "react-router-dom";
-
-// import './css/style.scss';
 
 import { focusHandling } from "cruip-js-toolkit";
 import "./charts/ChartjsConfig";
 
-// import {UserContext} from '../src/components/context/UserContext';
 import { useState } from "react";
-// Import pages
 import DashAdmin from "./pages/DashAdmin";
 import Login from "./pages/Login";
 import RoutePrivate from "./routes/RoutePrivate";
 import RoutePublic from "./routes/RoutePublic";
-import { distSetAutentication } from "./dist/Autentication";
+import { distGetAutentication, distSetAutentication } from "./dist/Autentication";
+import { UserContext } from "./components/context/UserContext";
 
 function App() {
   const [user, setUser] = useState({});
@@ -33,22 +28,28 @@ function App() {
   }, [location.pathname]); // triggered on route change
 
   useEffect(() =>{
-    distSetAutentication(false);
-  }, [])
+    if(distGetAutentication()==null){
+      distSetAutentication(false);      
+    }
+  }, [user]);
+  
   return (
     <>
       <Switch>
-        <Route path="/login">
-          <RoutePublic>
-            <Login />
-          </RoutePublic>
-        </Route>
+        <UserContext.Provider value={{ user, setUser }}>
+          <Route path="/login">
+            <RoutePublic>
+              <Login />
+            </RoutePublic>
+          </Route>
 
-        <Route path="/*">
-          <RoutePrivate>
-            <DashAdmin/>
-          </RoutePrivate>
-        </Route>
+          <Route path="/*">
+            <RoutePrivate>
+              <DashAdmin/>
+            </RoutePrivate>
+          </Route>
+        </UserContext.Provider>
+
         {/* <Route path='/admin' exact component={Dashboard} /> */}
       </Switch>
     </>

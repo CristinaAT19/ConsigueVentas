@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
@@ -450,7 +451,7 @@ function TablaEmpleados()  {
     <form onSubmit={actualizarEmpleado}>
       <div className={styles.modal}>
         <h3>Editar Empleado</h3>
-        
+      
 
         <div className="flex flex-wrap justify-around content-center">
             <div style={{ width: '40%'}}>
@@ -711,6 +712,11 @@ function TablaEmpleados()  {
         </div>
         
 
+
+
+
+
+
         <br />
         <div align="right">
           {loading ? <Loading /> :
@@ -817,3 +823,4 @@ function TablaEmpleados()  {
 
 }
 export default TablaEmpleados;
+

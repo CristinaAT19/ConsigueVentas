@@ -33,7 +33,10 @@ function TablaSin() {
             setTabla(Response.data.EmpleadosSinMarcarDiario);
         })
         .catch((e) => {
-            console.log(e);
+          if(e.response.status === 403){
+            console.log("No tienes permisos para ver esta información");
+          }else{
+          }    
         });
         // setLoading(false);
     }

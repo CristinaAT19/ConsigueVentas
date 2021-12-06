@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import AsistenciaMa from "../../components/AsistenciaMa";
 import AsistenciaPer from "../../components/AsistenciaPer";
 import AsistenciaTarde from "../../components/AsistenciaTarde";
+import { UserContext } from "../../components/context/UserContext";
 // import { UserContext } from '../../components/context/UserContext';
 import TablaDia from "../../components/TablaDia";
 import TablaSin from "../../components/TablaSin";
 const Dashboard = () => {
-  // const {user} = useContext(UserContext);
-  // console.log(user);
+
+  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -49,7 +50,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-white m-20 rounded-t-3xl text-center">
+      {/* <div className="bg-white m-20 rounded-t-3xl text-center">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
         <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
           <TablaDia />
@@ -61,10 +62,11 @@ const Dashboard = () => {
         <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
           <TablaSin />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
+
 
 export default Dashboard;
 

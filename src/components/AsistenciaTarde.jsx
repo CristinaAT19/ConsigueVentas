@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 // import { Pie } from 'react-chartjs-2';
-import { getToken } from '../dist/Token';
-import {  Doughnut } from 'react-chartjs-2';
+import { getToken, removeToken } from '../dist/Token';
+import { Doughnut } from 'react-chartjs-2';
+import CerrarSesion from './CerrarSesion';
+import { distSetAutentication } from '../dist/Autentication';
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -38,9 +40,7 @@ const AsistenciaTarde = () => {
         await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ta`,
             {
                 headers: {
-
                     Authorization: `Bearer ${getToken()}`
-
                 }
             })
             .then(response => {
@@ -55,6 +55,18 @@ const AsistenciaTarde = () => {
                 setSin_marT(response.data.sin_marcar);
                 setV_sin_marT(response.data.v_sin_marcar);
             })
+            .catch((e) => {
+                if (e.response.status === 403) {
+                    console.log("No tienes permisos para ver esta información");
+                } 
+                if(e.response.status === 401){
+                    console.log("El token expiro");
+                    distSetAutentication(false);
+                    removeToken();          
+                }
+                  
+            });
+
     }
     useEffect(() => {
         peticionApiAsistenciaTarde();
