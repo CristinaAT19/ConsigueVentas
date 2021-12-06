@@ -207,7 +207,7 @@ function TablaFaltas() {
                 actions={[
                     {
                         icon: 'edit',
-                        tooltip: 'Editar Empleado',
+                        tooltip: 'Editar faltas',
                         onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
                     },
                     // {

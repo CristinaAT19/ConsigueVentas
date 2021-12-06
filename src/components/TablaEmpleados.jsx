@@ -89,6 +89,7 @@ function TablaEmpleados()  {
   const [error, setError] = useState([]);
   const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
+  
   const peticionGet = async () => {
     await axios.get(`${process.env.REACT_APP_API_URL}/api/listarEmpleados`,
       {
@@ -103,6 +104,7 @@ function TablaEmpleados()  {
       })
   }
   useEffect(() => {
+      
     peticionGet();
   }, [])
 
@@ -801,11 +803,11 @@ function TablaEmpleados()  {
           />
         </div>
       </div>
-      <Modal open={modalInsertar}
+      <Modal animation={false} open={modalInsertar}
         onClose={abrircerrarModalInsertar}>
         {bodyInsertar}
       </Modal>
-      <Modal open={modalEditar} onclose={abrircerrarModalEditar}>
+      <Modal animation={false} open={modalEditar} onclose={abrircerrarModalEditar}>
         {bodyEditar}
       </Modal>
     </div>
