@@ -6,13 +6,15 @@ import { UserContext } from "../../components/context/UserContext";
 // import { UserContext } from '../../components/context/UserContext';
 import TablaDia from "../../components/TablaDia";
 import TablaSin from "../../components/TablaSin";
+import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 const Dashboard = () => {
 
   const { user } = useContext(UserContext);
 
   return (
     <>
-    <h1 className="text-center text-3xl">Dashboard</h1>
+    
+    <WelcomeBanner/>
       <div>
         <div className="my-14 w-full flex justify-evenly mb-4" style={{height: "400px"}}>
           <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center " style={{ width: "40%" }} >
