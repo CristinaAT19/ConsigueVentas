@@ -6,7 +6,6 @@ import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
 import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
-import TablaEmpleados from '../components/TablaEmpleados';
 import CerrarSesion from '../components/CerrarSesion';
 import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
@@ -65,7 +64,6 @@ function DashAdmin() {
             <Switch >
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/tablaFaltas' exact component={tablaFaltas} />
-              <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
               <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
               <Route path='/datosPersonales' exact component={TablaDatosPer} />
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
