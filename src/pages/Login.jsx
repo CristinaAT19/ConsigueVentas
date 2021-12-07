@@ -81,9 +81,9 @@ const Login = () => {
       return <Redirect to='/dashadmin'/>;
   }
   return (
-    <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-600 h-screen">
-      <div className="grid grid-cols-5 shadow-xl rounded-xl max-w-2xl">
-        <div className="col-span-3 py-9 px-8 bg-gray-50 rounded-l-xl h-full">
+    <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-700 h-screen">
+      <div className="flex md:grid md:grid-cols-5 shadow-xl mx-2 sm:mx-0 max-w-2xl">
+        <div className="hidden md:grid md:col-span-3 py-9 px-8 bg-gray-50 rounded-l-xl h-full">
           <div className="flex justify-center h-1/3">
             <img
               src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
@@ -96,9 +96,16 @@ const Login = () => {
               Recuerda que tu usuario y contraseña es tu DNI
             </span>
           </div>
-        </div>
-        <div className="col-span-2 py-9 px-8 bg-white rounded-r-xl shadow-xl">
-          <form action="" onSubmit={peticiontoken} id="formulario" className="">
+        </div>        
+        <div className="col-span-2 md:col-span-2  md:pt-9 pb-9 px-8 bg-white rounded-xl rounded-r-xl md:rounded-l-none shadow-xl">
+          <div className=" md:hidden flex justify-center border-b pt-2 pb-3">
+            <img
+              // src="icono-cventas.png"
+              src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
+              className="h-16"
+            />
+          </div>
+          <form action="" onSubmit={peticiontoken} id="formulario" className="mt-4">
             <div className="mb-3">
               <label htmlFor="name" className="block text-gray-800 font-bold">
                 Usuario
