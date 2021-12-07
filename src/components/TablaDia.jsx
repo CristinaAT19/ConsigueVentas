@@ -3,18 +3,7 @@ import axios from "axios";
 import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
 
- const columns = [
-    {title: 'Fecha',field: 'Fecha'},
-    {title: 'Hora',field: 'Hora'},
-    {title: 'Dni',field: 'Dni'},
-    {title: 'Nombres',field: 'Nombres'},
-    {title: 'Sistema Operativo',field: 'Sistema Operativo'},
-    {title: 'Dispositivo',field: 'Dispositivo'},
-    {title: 'Perfil',field: 'Perfil'},
-    {title: 'Departamento',field: 'Unidad'},
-    {title: 'Estado',field: 'Estado'},
-    {title: 'Turno',field: 'Turno'},
-];
+
 
 
 
@@ -51,7 +40,18 @@ function TablaDia() {
   return (
     <div className="main">
         <MaterialTable
-          columns={columns}
+          columns={[
+            {title: 'Fecha',field: 'Fecha'},
+            {title: 'Hora',field: 'Hora'},
+            {title: 'Dni',field: 'Dni'},
+            {title: 'Nombres',field: 'Nombres'},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo'},
+            {title: 'Dispositivo',field: 'Dispositivo'},
+            {title: 'Perfil',field: 'Perfil'},
+            {title: 'Departamento',field: 'Unidad'},
+            {title: 'Estado',field: 'Estado'},
+            {title: 'Turno',field: 'Turno'},
+        ]}
           data={data}
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}

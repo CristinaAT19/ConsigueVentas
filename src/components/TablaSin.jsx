@@ -2,15 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
- const columns = [
-    {title: 'Nombres',field: 'Nombre'},
-    {title: 'Apellidos',field: 'Apellido'},
-    {title: 'Turno',field: 'Turno'},
-    {title: 'Perfil',field: 'Perfil'},
-    {title: 'Departamento',field: 'Unidad'},
-    {title: 'Dni',field: 'Dni'},
-    {title: 'Condición Practicas', field: 'Condición Practicas'}
-];
+
 
 
 
@@ -49,7 +41,15 @@ function TablaSin() {
     <div className="main">
 
         <MaterialTable
-          columns={columns}
+          columns={[
+            {title: 'Nombres',field: 'Nombre'},
+            {title: 'Apellidos',field: 'Apellido'},
+            {title: 'Turno',field: 'Turno'},
+            {title: 'Perfil',field: 'Perfil'},
+            {title: 'Departamento',field: 'Unidad'},
+            {title: 'Dni',field: 'Dni'},
+            {title: 'Condición Practicas', field: 'Condición Practicas'}
+        ]}
           data={data}
 
         onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
