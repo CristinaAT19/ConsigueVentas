@@ -20,7 +20,7 @@ export const administracionEmpleados = () => {
   return (
     <>
       <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
-        <h1 className="border-b-2 text-3xl">Administracion de Emppleados</h1>
+        <h1 className="border-b-2 text-3xl">Administracion de Empleados</h1>
         <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
           <TablaEmpleados/>
         </div>
@@ -32,16 +32,18 @@ export const administracionEmpleados = () => {
 export const restablecimientoContraseña = () => {
   return (
     <>
-      <div className=" flex flex-col items-center justify-center">
-        <h1 className="text-center m-2">Administración de Usuarios</h1>
-        <section className="flex flex-col items-center justify-center w-full h-full text-white">
+      <div className="w-4/5 mx-auto mt-14">
+        <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
+          <h2 className="py-4">Administración de Usuarios</h2>
+        </div>
+        <section className="rounded-b-2xl shadow-md bg-white">
           <AdminUsuario
             titulo="Sección para reseteo y cambio de tipo de usuario"
-            descripcion1="- Puedes resetear el ingreso al sistema ingresando el Nº de dni del empleado (La contraseña que quedará por defecto es el dni)."
+            descripcion1="- Puedes resetear el ingreso al sistema ingresando el Nº de DNI del empleado (La contraseña que quedará por defecto es el DNI)."
             descripcion2="- Si marcas el check puedes cambiar el tipo de usuario del empleado (Administrador / Usuario)."
-            descripcion3="- Si das click al signo de interrogación (?) , puedes saber el tipo de usuario actual del empleado ."
+            descripcion3="- Si das click al signo de interrogación (?), puedes saber el tipo de usuario actual del empleado."
             texto="DNI del empleado"
-            texto2="Sólo resetear contraseña"
+            texto2="Solo resetear contraseña"
           />
         </section>
       </div>
