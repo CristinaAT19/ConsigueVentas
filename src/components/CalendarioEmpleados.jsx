@@ -19,6 +19,7 @@ const CalendarioEmpleados = () => {
     const [nombreEmpleado, setNombreEmpleado]= useState('');
     const [turnoEmpleado, setTurnoEmpleado]= useState('');
 
+
     const onChangeDni = ()=>{
         setDniCalendario(campo.current.value);
         console.log(dniCalendario);
@@ -99,11 +100,26 @@ const CalendarioEmpleados = () => {
             setDniEmpleado('');
             setNombreEmpleado('');
             setTurnoEmpleado('');
-          } else {
-           setDniEmpleado('DNI: ' + Response.data.dni);
-           setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
-           setTurnoEmpleado('TURNO: ' + Response.data.turno);
+          } else {          
            //console.log(tipoMostrar);
+
+           axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${getToken()}`
+                  }
+                })
+                .then(response => {
+                    //console.log(response.data.CalendarioAsistencia);
+                    setValor(response.data.CalendarioAsistencia);
+                }).catch((e) => {
+                  setValor([]);
+                  console.log(e);
+                });
+
+                setDniEmpleado('DNI: ' + Response.data.dni);
+                setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
+                setTurnoEmpleado('TURNO: ' + Response.data.turno);
            }
        })
        .catch((e) => {
@@ -114,31 +130,32 @@ const CalendarioEmpleados = () => {
        }); 
 
     /////////////////////
-    await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
-    {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    .then(response => {
-        //console.log(response.data.CalendarioAsistencia);
-        setValor(response.data.CalendarioAsistencia);
-    }).catch((e) => {
-      setValor([]);
-      console.log(e);
-    });
+    // await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
+    // {
+    //   headers: {
+    //     Authorization: `Bearer ${getToken()}`
+    //   }
+    // })
+    // .then(response => {
+    //     //console.log(response.data.CalendarioAsistencia);
+    //     setValor(response.data.CalendarioAsistencia);
+    // }).catch((e) => {
+    //   setValor([]);
+    //   console.log(e);
+    // });
     ////////////////////
   }
     return (
         <div>
             <label> Dni usuario:   </label>
               <input onChange={onChangeDni} ref={campo} type="number" placeholder="dni" className="border-2 border-black-500" name="dni_calendario" id="dni_calendario" />
-              <button  onClick={peticionDatosCalendario} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+              <button  onClick={peticionDatosCalendario} className="mb-4 flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
                   Mostrar
               </button> 
-              <button  onClick={limpiar} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+              { dniEmpleado&&<button onClick={limpiar} className=" flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
                   Limpiar
-              </button> <br/> <br/>
+              </button>}
+              <br/> <br/>
             <Error errors={error['dni']} ></Error> <br/>
             {dniEmpleado} <br/>
             {nombreEmpleado}<br/>
