@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
-import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados } from './VistasAdmin/Empleados'
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
 import TablaEmpleados from '../components/TablaEmpleados';
 import CerrarSesion from '../components/CerrarSesion';
@@ -71,9 +71,9 @@ function DashAdmin() {
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
               <Route path='/configuracion' exact component={Configuracion}/>
               <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-              {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
+              <Route path='/listaAdministradores' exact component={listaAdministradores} />
               {/* perfil */}
-              
+              <Route path='/calendarioPersonal' exact component={CalendarioPersonal} />
               
               <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
               {/* calendario general */}

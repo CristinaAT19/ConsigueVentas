@@ -50,6 +50,10 @@ const Login = () => {
             apellido: Response.data.apellido,
             id_TipoUsuario: Response.data.id_TipoUsuario,
             TipoUsuario: Response.data.TipoUsuario,
+            perfil:Response.data.perfil,
+            unidad:Response.data.unidad,
+            turno:Response.data.turno,
+
         });
         setToken(Response.data.token);
         distSetAutentication(true);
