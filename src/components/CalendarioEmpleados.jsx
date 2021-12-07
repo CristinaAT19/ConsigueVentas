@@ -2,11 +2,30 @@ import React, { useState, useRef, useEffect} from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import esLocale from '@fullcalendar/core/locales/es';
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import { getToken } from "../dist/Token";
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    width: '80%',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxshadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: '50%',
+    left: '50%',
+  },
+  inputMaterial: {
+    width: '30%'
+  },
+}));
 
 const CalendarioEmpleados = () => {
+  const styles = useStyles();
+
+
     const campo=useRef();
     const [valor, setValor] = useState([]);
     const [dniCalendario, setDniCalendario]= useState('');
@@ -21,6 +40,9 @@ const CalendarioEmpleados = () => {
         console.log(dniCalendario);
         //console.log(componenteInput.current.value);
     }
+    const resetInputField = () => {
+      setDniCalendario("");
+    };
 
     const enviar = ()=>{
         peticionDatos();
@@ -63,24 +85,29 @@ const CalendarioEmpleados = () => {
        })
        .catch((e) => {
          console.log(e);
-            setDniEmpleado('');
-           setNombreEmpleado('');
+          setDniEmpleado('');
+          setNombreEmpleado('');
            setTurnoEmpleado('');
        }); 
   }
 
     return (
         <div>
-            <label> Dni usuario:   </label>
-              <input onChange={onChangeDni} ref={campo} type="number" placeholder="dni" className="border-2 border-black-500" name="dni_calendario" id="dni_calendario" />
-              <button  onClick={enviar} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
-                  Mostrar
-            </button> <br/> <br/>
+          <div className="flex justify-center items-center">
+            <label className="mx-4"> Dni usuario:</label>
+            {/* <TextField className={styles.inputMaterial}  onChange={onChangeDni} type="number" label="Dni Usuario:" name="dni_calendario" id="dni_calendario" ref={campo}/> */}
+            <input onChange={onChangeDni} ref={campo} type="number" placeholder="dni" className={styles.inputMaterial} name="dni_calendario" id="dni_calendario" />
+            <button  onClick={enviar} className="mx-4 bg-yellow-500 flex items-center justify-center w-28  h-1/5 border-solid border-2 border-black rounded-md hover:bg-red-700 hover:text-white px-3">
+              Mostrar
+            </button> 
+            <input type="reset" value="reset" onClick={enviar} className="mx-4 bg-yellow-500 flex items-center justify-center w-28  h-1/5 border-solid border-2 border-black rounded-md hover:bg-red-700 hover:text-white px-3"/>
+          </div>
+          <br/> <br/>
             
-            {dniEmpleado} <br/>
-            {nombreEmpleado}<br/>
-            {turnoEmpleado}<br/> <br/>
-            <br/> <br/>
+            {dniEmpleado}
+            {nombreEmpleado}
+            {turnoEmpleado}
+          
             <FullCalendar
                 plugins={[dayGridPlugin, bootstrapPlugin]}
                 /*events={[
@@ -92,8 +119,9 @@ const CalendarioEmpleados = () => {
                 events={valor}
                 height={"600px"}
                 unselect={"false"}
-                locale="Es"
-                themeSystem="bootstrap"
+                locales={esLocale}
+                locale="es"
+                themeSystem='standard'
                 weekTextLong={"true"}
                 firstDay={1}
                 initialView="dayGridMonth"

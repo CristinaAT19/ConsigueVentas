@@ -45,7 +45,8 @@ const CalendarioPersonal = () => {
                 events={valor}
                 height={"600px"}
                 unselect={"false"}
-                locale='es'
+                locales={esLocale}
+                locale="es"
                 themeSystem='standard'
                 weekTextLong={"true"}
                 firstDay={1}
