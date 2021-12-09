@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
@@ -60,8 +59,9 @@ function TablaEmpleados() {
   const [error, setError] = useState([]);
   const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
-
+  
   const peticionGet = async () => {
+    
     await axios.get(`${process.env.REACT_APP_API_URL}/api/listarEmpleados`,
       {
         headers: {
@@ -189,10 +189,10 @@ function TablaEmpleados() {
       }
     )
       .then(response => {
-        let auxValue = [...data];
-        console.log(empleadoSeleccionado);        
+
         setLoading(false);
         setErrorUpdate([]);
+        peticionGet();
         // setData(empleadoSeleccionado);
         // console.log(auxValue);
         // console.log(empleadoSeleccionado['Id']);
@@ -437,7 +437,9 @@ function TablaEmpleados() {
       })
       .then((Response) => {
         setError([]);
+      //error update
         setSucess(true);
+        peticionGet();
       })
       .catch((e) => {
         setSucess(false);
@@ -455,11 +457,11 @@ function TablaEmpleados() {
         <div className="flex flex-wrap justify-around content-center">
           <div style={{ width: '40%' }}>
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
-            <Error errors={errorUpdate['emp_nombre']} ></Error>
+             <Error errors={errorUpdate['emp_nombre']} ></Error>
             <br />
 
             <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
-            <Error errors={errorUpdate['emp_nombre']} ></Error>
+            <Error errors={errorUpdate['emp_apellido']} ></Error>
             <br />
 
             <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="Fecha baja" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Fecha baja']} />
@@ -852,4 +854,3 @@ function TablaEmpleados() {
 
 }
 export default TablaEmpleados;
-
