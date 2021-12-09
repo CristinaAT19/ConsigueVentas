@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
+import Loading from "../components/Loading.jsx";
 
 
 
@@ -33,10 +34,22 @@ function TablaDia() {
             // setLoading(false);
     }
     useEffect(() => {
-        peticionTablaDia();
-    }, [])
+      peticionTablaDia();
+      cambiarEstado();
+  }, [])
+  const [loading, setLoading] = useState(false);
+
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }
 
     const [selectedRow, setSelectedRow] = useState(null);
+    if (loading) {
+      return (<Loading />)
+    }else{
   return (
     <div className="main">
         <MaterialTable
@@ -103,7 +116,7 @@ function TablaDia() {
         }}
         />
     </div>
-  );
+  );}
 }
 
 export default TablaDia;

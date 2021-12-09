@@ -59,7 +59,16 @@ function TablaEmpleados() {
   const [error, setError] = useState([]);
   const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
-  
+
+
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }
+
+
   const peticionGet = async () => {
     
     await axios.get(`${process.env.REACT_APP_API_URL}/api/listarEmpleados`,
@@ -75,7 +84,7 @@ function TablaEmpleados() {
       })
   }
   useEffect(() => {
-
+    cambiarEstado();
     peticionGet();
   }, [])
 
@@ -703,6 +712,9 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
+  if (loading) {
+    return (<Loading />)
+  }else{  
   return (
     <div>
       <br />
@@ -822,7 +834,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );
+  );}
 
 
 
