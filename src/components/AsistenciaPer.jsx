@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
-
 import { setToken, getToken } from "../dist/Token";
-
 import { Doughnut } from 'react-chartjs-2';
 import { UserContext } from './context/UserContext';
+import Loading from "../components/Loading.jsx";
 
 
 const AsistenciaPer = () => {
@@ -17,6 +16,15 @@ const AsistenciaPer = () => {
     const [v_faltas_inP, setV_Faltas_inP] = useState([]);
     const [faltas_jusP, setFaltasJusP] = useState([]);
     const [v_faltas_jusP, setV_Faltas_jusP] = useState([]);
+
+    const [loading, setLoading] = useState(false);
+
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
 
     // Obtiene contexto
     const { user } = useContext(UserContext);
@@ -67,12 +75,14 @@ const AsistenciaPer = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaPersonal();
-
+        cambiarEstado();
     }, []);
 
-    return (
-        <Doughnut data={dataPersonal} options={opciones} />
-    )
+    if (loading) {
+        return (<Loading />)
+    }else{
+        return (<Doughnut data={dataPersonal} options={opciones} />);
+    }
 }
 
 export default AsistenciaPer
