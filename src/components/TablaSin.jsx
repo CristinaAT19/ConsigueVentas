@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
+import Loading from "../components/Loading.jsx";
 
 
 
@@ -9,6 +10,15 @@ import { setToken, getToken } from "../dist/Token";
 function TablaSin() {
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
 
     const peticionTablaDia = async () => {
       // setLoading(true);
@@ -33,10 +43,14 @@ function TablaSin() {
         // setLoading(false);
     }
     useEffect(() => {
+      cambiarEstado();
         peticionTablaDia();
     }, [])
     // const { useState } = React;
     const [selectedRow, setSelectedRow] = useState(null);
+    if (loading) {
+      return (<Loading />)
+    }else{
   return (
     <div className="main">
 
@@ -103,7 +117,7 @@ function TablaSin() {
         />
 
     </div>
-  );
+  );}
 }
 
     

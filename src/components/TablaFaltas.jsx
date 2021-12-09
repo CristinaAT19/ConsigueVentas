@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 import { Modal, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
 // import { Component } from 'react'
 import Select from 'react-select'
@@ -34,6 +35,7 @@ function TablaFaltas() {
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState(null)
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
         Apellido: "",
@@ -48,7 +50,12 @@ function TablaFaltas() {
         cambio_estado: "",
     })
 
-
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -111,6 +118,7 @@ function TablaFaltas() {
 
 
     useEffect(() => {
+        cambiarEstado();
         peticionGet();
     }, [])
 
@@ -146,6 +154,9 @@ function TablaFaltas() {
         </div>
     )
     // const tableRef = React.createRef();
+    if (loading) {
+        return (<Loading />)
+      }else{
     return (
         <div>
             
@@ -271,6 +282,6 @@ function TablaFaltas() {
         </div >
 
 
-    );
+    );}
 }
 export default TablaFaltas;
