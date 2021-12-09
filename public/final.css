@@ -1,15 +1,3 @@
-.home,
-.reports,
-.products,
-.team,
-.reports {
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-
 /*Tailwind*/
 
 /*! tailwindcss v2.2.19 | MIT License | https://tailwindcss.com*/
