@@ -7,12 +7,15 @@ import { UserContext } from "../../components/context/UserContext";
 // import { UserContext } from '../../components/context/UserContext';
 import TablaDia from "../../components/TablaDia";
 import TablaSin from "../../components/TablaSin";
+import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 const Dashboard = () => {
   const { user } = useContext(UserContext);
 
   return (
     <>
-    {/* Dahsboard personal */}
+      <WelcomeBanner/>
+      <h1 className="text-center text-3xl">Dashboard</h1>
+      <div>
       <div className="my-4">
         <h1 className=" mt-2 text-center text-3xl">Dashboard personal</h1>
         <div  className="border-gray-500 w-full flex justify-evenly my-2" style={{height: '700px'}} >
@@ -29,7 +32,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-
+      </div>
       {/* Dashboards de administrador */}
       {user["id_TipoUsuario"] == 1 ? (
       <div className="my-4">

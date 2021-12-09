@@ -83,7 +83,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       >
         {/* Sidebar header */}
         <div
-          className="flex bg-gray-700 justify-center py-4 pr-3 sm:px-2"
+          className="flex bg-gray-700 justify-center py-4 pr-3 px-3 sm:px-2"
           // style="border: solid #2D2D2B 10px;"
         >
           {/* Close button */}
@@ -160,7 +160,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </div>
                 </NavLink>
               </li>
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
               {/* Empleado */}
 
               { user['id_TipoUsuario'] == 1 ? (                            
@@ -298,7 +298,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
               { user['id_TipoUsuario'] == 1 ? (                            
               
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
                         ) : null
                 }
 
@@ -383,7 +383,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
               {/* Calendario General */}
               { user['id_TipoUsuario'] == 1 ? (                            
               <li
