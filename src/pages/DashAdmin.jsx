@@ -69,9 +69,9 @@ function DashAdmin() {
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
               <Route path='/configuracion' exact component={Configuracion}/>
               <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-              {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
+              <Route path='/listaAdministradores' exact component={listaAdministradores} />
               {/* perfil */}
-              
+              <Route path='/calendarioPersonal' exact component={CalendarioPersonal} />
               
               <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
               {/* calendario general */}

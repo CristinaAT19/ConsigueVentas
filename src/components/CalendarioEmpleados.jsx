@@ -106,9 +106,9 @@ const CalendarioEmpleados = () => {
                   console.log(e);
                 });
 
-                setDniEmpleado('DNI: ' + Response.data.dni);
-                setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
-                setTurnoEmpleado('TURNO: ' + Response.data.turno);
+                setDniEmpleado('Dni: ' + Response.data.dni);
+                setNombreEmpleado('Nombre: ' + Response.data.nombre+ ' ' + Response.data.apellido);
+                setTurnoEmpleado('Turno: ' + Response.data.turno);
            }
        })
        .catch((e) => {
@@ -135,12 +135,12 @@ const CalendarioEmpleados = () => {
               </button>}
           </div>
             <Error errors={error['dni']} ></Error>
-            <div className="m-4 w-1/5 flex flex-col justify-around items-center text-2xl">
-              <div>{nombreEmpleado}</div>
-              <div>{dniEmpleado}</div>
-              <div>{turnoEmpleado}</div>
+          <div className="m-4 w-full flex flex-col  items-center text-2xl">
+              <div className="w-full">{nombreEmpleado}</div>
+              <div className="w-full">{dniEmpleado}</div>
+              <div className="w-full">{turnoEmpleado}</div>
 
-            </div>
+          </div>
           <div>
           <FullCalendar
                 plugins={[dayGridPlugin, bootstrapPlugin]}
