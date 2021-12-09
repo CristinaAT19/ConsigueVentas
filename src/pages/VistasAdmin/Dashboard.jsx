@@ -15,8 +15,8 @@ const Dashboard = () => {
     {/* Dahsboard personal */}
       <div className="my-4">
         <h1 className=" mt-2 text-center text-3xl">Dashboard personal</h1>
-        <div  className="border-gray-500 w-full flex justify-evenly my-2 " style={{ height: "700px" }} >
-          <div  className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center" style={{ width: "80%" }}  >
+        <div  className="border-gray-500 w-full flex justify-evenly my-2" style={{height: '700px'}} >
+          <div  className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-4/5">
             <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
               <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                 Mi asistencia del mes
@@ -34,9 +34,9 @@ const Dashboard = () => {
       {user["id_TipoUsuario"] == 1 ? (
       <div className="my-4">
         <h1 className="text-center text-3xl">Dashboard de Administrador</h1>
-          <div>
-            <div className="mt-2 w-full flex justify-evenly mb-4" style={{ height: "400px" }} >
-              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center " style={{ width: "40%" }} >
+
+          <div className="mt-2 w-full flex flex-row  justify-evenly mb-4 h-96" >
+              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-2/5">
                 <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                   <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                     Asistencia del Dia (Turno Mañana)
@@ -47,7 +47,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center " style={{ width: "40%" }} >
+              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-2/5">
                 <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                   <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                     Asistencia del Dia (Turno Tarde)
@@ -57,12 +57,12 @@ const Dashboard = () => {
                   <AsistenciaTarde />
                 </div>
               </div>
-            </div>
           </div>
 
 
-          <div className="my-14 w-full flex justify-evenly mb-4" style={{ height: "400px" }} >
-            <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center"  style={{ width: "40%" }} >
+
+          <div className="my-14 w-full flex justify-evenly mb-4 h-96">
+            <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-2/5">
               <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                 <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                   Asistencia del Dia (Mañana y Tarde)
@@ -82,7 +82,7 @@ const Dashboard = () => {
 
       {/* Tablas de administrador */}
       {user["id_TipoUsuario"] == 1 ? (
-        <div className="bg-white m-20 rounded-t-3xl text-center">
+        <div className="bg-white m-20 sm:m-0 rounded-t-3xl text-center">
           <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
           <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
             <TablaDia />
@@ -91,7 +91,7 @@ const Dashboard = () => {
       ) : null}
 
       {user["id_TipoUsuario"] == 1 ? (
-        <div className="bg-white m-20 rounded-t-3xl text-center">
+        <div className="bg-white m-20 sm:m-0 rounded-t-3xl text-center">
           <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
           <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
             <TablaSin />
