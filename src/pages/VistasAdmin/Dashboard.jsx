@@ -13,13 +13,9 @@ const Dashboard = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <WelcomeBanner/>
       <h1 className="text-center text-3xl">Dashboard</h1>
       <div>
-        {user['id_TipoUsuario'] == 1 ? (
-=======
-    {/* Dahsboard personal */}
       <div className="my-4">
         <h1 className=" mt-2 text-center text-3xl">Dashboard personal</h1>
         <div  className="border-gray-500 w-full flex justify-evenly my-2 " style={{ height: "700px" }} >
@@ -35,9 +31,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
->>>>>>> 7984be9f65b20f963d1113eac7bdbaf834c5eecd
 
-
+      </div>
       {/* Dashboards de administrador */}
       {user["id_TipoUsuario"] == 1 ? (
       <div className="my-4">
