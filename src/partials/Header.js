@@ -7,7 +7,7 @@ function Header({
   setSidebarOpen
 }) {
   return (
-    <header className="sticky top-0 inset-0 bg-gray-100 text-gray-700 shadow-md border-b z-30">
+    <header className="sticky top-0 inset-0 bg-gray-300 text-gray-700 shadow-md border-b z-30">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 -mb-px">
 
@@ -23,7 +23,7 @@ function Header({
             >
               <span className="sr-only">Open sidebar</span>
               <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="5" width="16" height="2" />
+                <rect x="4" y="5" width="16" height="2" />n
                 <rect x="4" y="11" width="16" height="2" />
                 <rect x="4" y="17" width="16" height="2" />
               </svg>

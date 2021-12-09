@@ -23,7 +23,7 @@ const AdminUsuario = ({
 
   return (
     <>
-      <div className="flex flex-col items-baseline justify-around w-4/5 p-10 bg-gray-500 rounded">
+      <div className="flex flex-col items-baseline justify-center w-full p-10 pt-5 bg-white rounded">
         <div className="flex flex-col items-baseline justify-center m-1.5">
           <h3>{titulo}</h3>
           <p>{descripcion1}</p>

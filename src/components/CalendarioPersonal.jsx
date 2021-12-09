@@ -45,14 +45,15 @@ const CalendarioPersonal = () => {
                 events={valor}
                 height={"600px"}
                 unselect={"false"}
-                locale='es'
+                locales={esLocale}
+                locale="es"
                 themeSystem='standard'
                 weekTextLong={"true"}
                 firstDay={1}
                 initialView="dayGridMonth"
                 Forma
                 headerToolbar={{
-                    start: "prev,next,prevYear,nextYear,today",
+                    start: "prev,next,today",
                     center: "title",
                     end: "dayGridMonth,dayGridWeek,dayGridDay",
                 }}
