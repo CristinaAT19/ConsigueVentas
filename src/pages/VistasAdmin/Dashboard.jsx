@@ -16,6 +16,7 @@ const Dashboard = () => {
     <>
       <WelcomeBanner />
       <h1 className="text-center text-3xl">Dashboard</h1>
+      {user["id_TipoUsuario"] == 2 || user["id_TipoUsuario"] == 1 ? (
       <div>
         <div className="my-4">
           <h1 className=" mt-2 text-center text-3xl">Dashboard personal</h1>
@@ -104,6 +105,7 @@ const Dashboard = () => {
           </div>
         ) : null}
       </div>
+      ) : null}
     </>
   );
 };
