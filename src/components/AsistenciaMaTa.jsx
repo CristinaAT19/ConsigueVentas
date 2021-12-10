@@ -8,8 +8,7 @@ import { distSetAutentication } from '../dist/Autentication';
 import Loading from "../components/Loading.jsx";
 
 
-
-const AsistenciaMa = () => {
+const AsistenciaMaTa = () => {
   /*mañana*/
   const [puntualidad, setPuntualidad] = useState([]);
   const [v_puntualidad, setV_Puntualidad] = useState([]);
@@ -22,8 +21,7 @@ const AsistenciaMa = () => {
   const [sin_marcar, setSin_mar] = useState([]);
   const [v_sin_marcar, setV_sin_mar] = useState([]);
 
-
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const cambiarEstado=()=>{
     setLoading(true);
@@ -31,6 +29,7 @@ const [loading, setLoading] = useState(false);
       setLoading(false);
     }, 1000);
   }
+
 
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
@@ -47,7 +46,7 @@ const [loading, setLoading] = useState(false);
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma_ta`,
       {
         headers: {
 
@@ -86,12 +85,10 @@ const [loading, setLoading] = useState(false);
     peticionApiAsistenciaManana();
     cambiarEstado();
   }, [])
-
   if (loading) {
     return (<Loading />)
   }else{
-    return (<Doughnut data={dataManana} options={opciones} />);
+    return (< Doughnut data={dataManana} options={opciones} />);
   }
 }
-
-export default AsistenciaMa;
+export default AsistenciaMaTa;
