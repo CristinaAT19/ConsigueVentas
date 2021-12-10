@@ -91,14 +91,19 @@ function TablaEmpleados() {
     const diffDiasPrueba = calcularDiferenciaDias(form['Fecha inicio prueba'].value, form['Fecha fin prueba'].value);
     const diffDiasActual = calcularDiferenciaDiasFechaActual(form['Fecha baja'].value);
 
-    // Validacion de bajada
-    if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
-      const errorVal = {
-        "emp_fechabaja": "Fecha tiene que mayor a 0. ",
+    console.log("Fecha 1 ", empleadoSeleccionado['Fecha baja']);
+    console.log("Fecha 2 ", form['Fecha baja'].value);
+
+    if(empleadoSeleccionado['Fecha baja'] != form['Fecha baja'].value){
+      // Validacion de bajada
+      if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
+        const errorVal = {
+          "emp_fechabaja": "Fecha tiene que mayor a 0. ",
+        }
+        setLoading(false);
+        setErrorUpdate(errorVal);
+        return;
       }
-      setLoading(false);
-      setErrorUpdate(errorVal);
-      return;
     }
 
 
@@ -152,14 +157,6 @@ function TablaEmpleados() {
 
     setError([]);
 
-    // let auxValue = [...data];
-    // setData(data.map(empleado => {
-    //   if (empleado['Id'] === empleadoSeleccionado['Id']) {
-    //     // console.log(empleado['Días extra'], empleadoSeleccionado['Días extra']);
-    //     empleado['Nombres'] = empleadoSeleccionado['Nombres']
-    //   }
-    // }));
-
     console.log(empleadoSeleccionado);
     await axios.post(`${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleadoSeleccionado['Id']}`,
       {
@@ -193,39 +190,12 @@ function TablaEmpleados() {
         setLoading(false);
         setErrorUpdate([]);
         peticionGet();
-        // setData(empleadoSeleccionado);
-        // console.log(auxValue);
-        // console.log(empleadoSeleccionado['Id']);
-        // let index = auxValue.findIndex(x => x['Id'] === empleadoSeleccionado['Id']);
-        // console.log(auxValue);
-        // let index = auxValue.findIndex(x => x.Id === empleadoSeleccionado['Id']);
-        // console.log(auxValue);
-        // auxValue[index] = response.data.empleado;
-        // console.log(index);        
-        // console.log(auxValue[index]);
-        // setData(auxValue);
-        // setData(auxValue);
-        // console.log("valor");        
-        // setData(auxValue.map(item => {
-        //   if (item.Id === empleadoSeleccionado['Id']) {
-        //     return {
-        //       ...item,
-        //       ...empleadoSeleccionado
-        //     }
-        //   }
-        // }));
-        // console.log("fallo");
-        // setData()
-        // setData(data.map(empleado => {
-        //   if (empleado['Id'] === empleadoSeleccionado['Id']) {
-        //     // console.log(empleado['Días extra'], empleadoSeleccionado['Días extra']);
-        //     // empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
-        //   }
-        // }));
         abrircerrarModalEditar();
       }).catch(error => {
         setLoading(false);
-        // console.log(error.response.data);
+        console.log("Inicio de error");
+        console.log(error.response.data);
+        console.log("Fin de error");
         setErrorUpdate(error.response.data.errors);
 
       });
@@ -289,7 +259,7 @@ function TablaEmpleados() {
     };
 
     // Formateo de 'select' condicion capacitacion
-    if (empleadoFormateado['Condicion Capacitación'] === "Terminó capacitacion") {
+    if (empleadoFormateado['Condicion Capacitación'] === "Terminó capacitación") {
       empleadoFormateado['Condicion Capacitación'] = 1;
     } else if (empleadoFormateado['Condicion Capacitación'] === "No terminó capacitación") {
       empleadoFormateado['Condicion Capacitación'] = 2;
@@ -324,7 +294,9 @@ function TablaEmpleados() {
       ...prevState,
       [name]: value
     }));
-    // console.log(empleadoSeleccionado);
+    console.log("Edicion");
+    console.log(empleadoSeleccionado['Fecha baja']);
+    console.log("Fin edicion");
   }
 
 
@@ -440,6 +412,8 @@ function TablaEmpleados() {
       //error update
         setSucess(true);
         peticionGet();
+        abrircerrarModalInsertar();
+
       })
       .catch((e) => {
         setSucess(false);
