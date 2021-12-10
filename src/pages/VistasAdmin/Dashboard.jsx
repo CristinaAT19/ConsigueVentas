@@ -33,12 +33,27 @@ const Dashboard = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
+      <div className="bg-white rounded-t-3xl text-center mb-4 mx-4">
+        <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
+        <div className="my-0 mx-auto py-4"  style={{width: "97%"}} >
+          <TablaDia />
+        </div>
+=======
+>>>>>>> 43118d9a146a86c09ae362b02b7f97699bb94ccb
       </div>
       {/* Dashboards de administrador */}
       {user["id_TipoUsuario"] == 1 ? (
       <div className="my-4">
         <h1 className="text-center text-3xl">Dashboard de Administrador</h1>
 
+<<<<<<< HEAD
+      <div className="bg-white rounded-t-3xl text-center mb-4 mx-4">
+        <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
+        <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
+          <TablaSin />
+        </div>
+=======
           <div className="mt-2 w-full flex flex-row  justify-evenly mb-4 h-96" >
               <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-2/5">
                 <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
@@ -78,6 +93,7 @@ const Dashboard = () => {
             </div>
           </div>
         
+>>>>>>> 43118d9a146a86c09ae362b02b7f97699bb94ccb
       </div>
       ) : null}
 
