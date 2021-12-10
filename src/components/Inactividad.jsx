@@ -1,17 +1,18 @@
-import { getToken } from "../dist/Token";
-import React, { useState, useEffect } from "react";
-//import { Redirect } from "react-router";
+import Reat, { useState, useContext } from "react";
 import { distSetAutentication,distSetUser } from "../dist/Autentication";
 import axios from "axios";
 import { removeToken } from "../dist/Token";
+import { UserContext } from "./context/UserContext";
 
-export const ControlInactividad = () => {
+
+ const ControlInactividad = () => {
   console.log("CONTROL - INACTIVIDAD");
-  const dni='70045021';
+  const { user } = useContext(UserContext);
+  const [dni, setDni] = useState(user['dni']);
   let msjDni='';
 
-  const peticionVerificacionToken = async () => {
-    await axios.get(`http://127.0.0.1:8000/api/verificarToken/${dni}`)
+   const peticionVerificacionToken = async () => {
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${dni}`)
       .then(response => {
           msjDni=response.data.tokenDni;
           console.log(msjDni);
@@ -34,4 +35,7 @@ export const ControlInactividad = () => {
       ///////////////
   }
   peticionVerificacionToken();
-}
+  return (<div>Tiempo expirado</div>);
+};
+
+export default ControlInactividad;
