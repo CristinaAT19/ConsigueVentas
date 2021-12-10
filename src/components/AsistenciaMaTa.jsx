@@ -5,7 +5,7 @@ import { setToken, getToken, removeToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import CerrarSesion from './CerrarSesion';
 import { distSetAutentication } from '../dist/Autentication';
-
+import Loading from "../components/Loading.jsx";
 
 
 const AsistenciaMaTa = () => {
@@ -21,7 +21,14 @@ const AsistenciaMaTa = () => {
   const [sin_marcar, setSin_mar] = useState([]);
   const [v_sin_marcar, setV_sin_mar] = useState([]);
 
+  const [loading, setLoading] = useState(false);
 
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
 
 
   const dataManana = {
@@ -76,11 +83,12 @@ const AsistenciaMaTa = () => {
   }
   useEffect(() => {
     peticionApiAsistenciaManana();
+    cambiarEstado();
   }, [])
-return (
-
-    <Doughnut data={dataManana} options={opciones} />
-  
-    )}
-
+  if (loading) {
+    return (<Loading />)
+  }else{
+    return (< Doughnut data={dataManana} options={opciones} />);
+  }
+}
 export default AsistenciaMaTa;
