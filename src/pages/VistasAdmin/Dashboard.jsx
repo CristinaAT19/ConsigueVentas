@@ -50,14 +50,14 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-white m-20 rounded-t-3xl text-center">
+      <div className="bg-white rounded-t-3xl text-center mb-4 mx-4">
         <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
-        <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
+        <div className="my-0 mx-auto py-4"  style={{width: "97%"}} >
           <TablaDia />
         </div>
       </div>
 
-      <div className="bg-white m-20 rounded-t-3xl text-center">
+      <div className="bg-white rounded-t-3xl text-center mb-4 mx-4">
         <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
         <div className="my-0 mx-auto py-4" style={{width: "97%"}} >
           <TablaSin />
