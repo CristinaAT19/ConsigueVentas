@@ -10,7 +10,8 @@ import TablaSin from "../../components/TablaSin";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-
+  const hoy = new Date();
+  var fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear();
   return (
     <>
       <WelcomeBanner/>
@@ -85,8 +86,8 @@ const Dashboard = () => {
 
       {/* Tablas de administrador */}
       {user["id_TipoUsuario"] == 1 ? (
-        <div className="bg-white m-20 sm:m-0 rounded-t-3xl text-center">
-          <h1 className="border-b-2 text-3xl">Tabla de Asistencia </h1>
+        <div className="bg-white m-0 rounded-t-3xl text-center md:m-16">
+          <h1 className="border-b-2 text-3xl">Tabla de Asistencias: {fecha} </h1>
           <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
             <TablaDia />
           </div>
@@ -95,8 +96,8 @@ const Dashboard = () => {
 
       {user["id_TipoUsuario"] == 1 ? (
         <div className="bg-white m-20 sm:m-0 rounded-t-3xl text-center">
-          <h1 className="border-b-2 text-3xl">Vista de empleados sin marcar</h1>
-          <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <h1 className="border-b-2 text-3xl">Tabla de empleados sin marcar: {fecha} </h1>
+          <div className="my-0 mx-auto py-4" style={{ width: "97%", minWidth:"1028px" }}>
             <TablaSin />
           </div>
         </div>

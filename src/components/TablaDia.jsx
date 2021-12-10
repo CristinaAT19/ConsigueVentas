@@ -43,7 +43,7 @@ function TablaDia() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }
 
     const [selectedRow, setSelectedRow] = useState(null);
