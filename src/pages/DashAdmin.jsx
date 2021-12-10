@@ -4,9 +4,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
-import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados } from './VistasAdmin/Empleados'
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
-import TablaEmpleados from '../components/TablaEmpleados';
 import CerrarSesion from '../components/CerrarSesion';
 import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
@@ -65,15 +64,14 @@ function DashAdmin() {
             <Switch >
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/tablaFaltas' exact component={tablaFaltas} />
-              <Route path='/tablaEmpleados' exact component={TablaEmpleados} />
               <Route path='/restablecimientoContraseña' exact component={restablecimientoContraseña} />
               <Route path='/datosPersonales' exact component={TablaDatosPer} />
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
               <Route path='/configuracion' exact component={Configuracion}/>
               <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-              {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
+              <Route path='/listaAdministradores' exact component={listaAdministradores} />
               {/* perfil */}
-              
+              <Route path='/calendarioPersonal' exact component={CalendarioPersonal} />
               
               <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
               {/* calendario general */}
