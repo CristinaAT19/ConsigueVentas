@@ -362,7 +362,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </NavLink>
                           </li>
                           <hr className="w-10/12 h-1 bg-yellow-600"></hr>
-                          { user['id_TipoUsuario'] == 1 ? (                            
 
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -375,8 +374,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          ) : null
-                          }
                         </ul>
                       </div>
                     </React.Fragment>

@@ -89,22 +89,18 @@ function TablaEmpleados() {
     const form = e.target.elements;
     const edad = calcularEdad(form['Fecha Nacimiento'].value);
     const diffDiasPrueba = calcularDiferenciaDias(form['Fecha inicio prueba'].value, form['Fecha fin prueba'].value);
-    const diffDiasActual = calcularDiferenciaDiasFechaActual(form['Fecha baja'].value);
-
-    console.log("Fecha 1 ", empleadoSeleccionado['Fecha baja']);
-    console.log("Fecha 2 ", form['Fecha baja'].value);
-
-    if(empleadoSeleccionado['Fecha baja'] != form['Fecha baja'].value){
-      // Validacion de bajada
-      if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
-        const errorVal = {
-          "emp_fechabaja": "Fecha tiene que mayor a 0. ",
-        }
-        setLoading(false);
-        setErrorUpdate(errorVal);
-        return;
-      }
-    }
+    // const diffDiasActual = calcularDiferenciaDiasFechaActual(form['Fecha baja'].value);
+    // if(empleadoSeleccionado['Fecha baja'] != form['Fecha baja'].value){
+    //   // Validacion de bajada
+    //   if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
+    //     const errorVal = {
+    //       "emp_fechabaja": "Fecha tiene que mayor a 0. ",
+    //     }
+    //     setLoading(false);
+    //     setErrorUpdate(errorVal);
+    //     return;
+    //   }
+    // }
 
 
     // Validacion inicio prueba, fin prueba 
@@ -157,7 +153,6 @@ function TablaEmpleados() {
 
     setError([]);
 
-    console.log(empleadoSeleccionado);
     await axios.post(`${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleadoSeleccionado['Id']}`,
       {
         "emp_nombre": empleadoSeleccionado['Nombres'],
@@ -193,9 +188,6 @@ function TablaEmpleados() {
         abrircerrarModalEditar();
       }).catch(error => {
         setLoading(false);
-        console.log("Inicio de error");
-        console.log(error.response.data);
-        console.log("Fin de error");
         setErrorUpdate(error.response.data.errors);
 
       });
@@ -294,9 +286,6 @@ function TablaEmpleados() {
       ...prevState,
       [name]: value
     }));
-    console.log("Edicion");
-    console.log(empleadoSeleccionado['Fecha baja']);
-    console.log("Fin edicion");
   }
 
 
@@ -308,18 +297,18 @@ function TablaEmpleados() {
     const form = e.target.elements;
     const edad = calcularEdad(form.FechaNacimiento.value);
     const diffDiasPrueba = calcularDiferenciaDias(form.FechaInicioPrueba.value, form.FechaFinPrueba.value);
-    const diffDiasActual = calcularDiferenciaDiasFechaActual(form.FechaBaja.value);
+    // const diffDiasActual = calcularDiferenciaDiasFechaActual(form.FechaBaja.value);
 
-    // Validacion de bajada
-    if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
-      const errorVal = {
-        "emp_fechabaja": "Fecha tiene que mayor a 0. ",
+    // // Validacion de bajada
+    // if (diffDiasActual < 0 || isNaN(diffDiasActual)) {
+    //   const errorVal = {
+    //     "emp_fechabaja": "Fecha tiene que mayor a 0. ",
 
-      }
-      setLoading(false);
-      setError(errorVal);
-      return;
-    }
+    //   }
+    //   setLoading(false);
+    //   setError(errorVal);
+    //   return;
+    // }
 
 
     // Validacion inicio prueba, fin prueba 
@@ -360,14 +349,14 @@ function TablaEmpleados() {
       return;
     }
 
-    if (validationOnlyNumbers(form.DiasAdicionales.value) === false) {
-      const errorVal = {
-        "emp_dias_extra": "Solo se permiten numeros",
-      }
-      setLoading(false);
-      setError(errorVal);
-      return;
-    }
+    // if (validationOnlyNumbers(form.DiasAdicionales.value) === false) {
+    //   const errorVal = {
+    //     "emp_dias_extra": "Solo se permiten numeros",
+    //   }
+    //   setLoading(false);
+    //   setError(errorVal);
+    //   return;
+    // }
 
 
     setError([]);
@@ -377,7 +366,6 @@ function TablaEmpleados() {
     const nuevoEmpleado = await {
       "emp_nombre": form.Nombres.value,
       "emp_apellido": form.Apellidos.value,
-      "emp_fechabaja": form.FechaBaja.value,
       "emp_fec_inicio_prueba": form.FechaInicioPrueba.value,
       "emp_Fec_fin_prueba": form.FechaFinPrueba.value,
       "emp_TurnoId": form.Turno.value,
@@ -392,13 +380,12 @@ function TablaEmpleados() {
       "Emp_Id_Convenio_fk": form.Convenio.value,
       "emp_link_convenio": form.ConvenioUrl.value,
       "emp_fechanac": form.FechaNacimiento.value,
-      "emp_dias_extra": form.DiasAdicionales.value
     };
 
 
     await setEmpleado(nuevoEmpleado);
 
-    await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
+    await axios.post(`http://localhost:8232/api/insertarEmpleado`, nuevoEmpleado,
       {
         headers: {
           'Authorization': `Bearer ${getToken()}`,
@@ -416,6 +403,7 @@ function TablaEmpleados() {
 
       })
       .catch((e) => {
+        console.log(e.response.data.errors);
         setSucess(false);
         setLoading(false);
         setError(e.response.data.errors);
@@ -577,9 +565,9 @@ function TablaEmpleados() {
             <Error errors={error['emp_apellido']} ></Error>
             <br />
 
-            <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="FechaBaja" />
+            {/* <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de baja" name="FechaBaja" />
             <Error errors={error['emp_fechabaja']} ></Error>
-            <br />
+            <br /> */}
 
             <TextField InputLabelProps={{ shrink: true, required: true }} type="date" className={styles.inputMaterial} label="Fecha de inicio prueba" name="FechaInicioPrueba" />
             <Error errors={error['emp_fec_inicio_prueba']} ></Error>
@@ -680,9 +668,9 @@ function TablaEmpleados() {
             <Error errors={error['emp_fechanac']} ></Error>
             <br />
 
-            <TextField type="number" className={styles.inputMaterial} label="Dias adicionales de trabajo" name="DiasAdicionales" />
+            {/* <TextField type="number" className={styles.inputMaterial} label="Dias adicionales de trabajo" name="DiasAdicionales" />
             <Error errors={error['emp_dias_extra']} ></Error>
-            <br />
+            <br /> */}
           </div>
         </div>
 
