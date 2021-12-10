@@ -5,6 +5,7 @@ import { getToken, removeToken } from '../dist/Token';
 import { Doughnut } from 'react-chartjs-2';
 import CerrarSesion from './CerrarSesion';
 import { distSetAutentication } from '../dist/Autentication';
+import Loading from "../components/Loading.jsx";
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -18,6 +19,15 @@ const AsistenciaTarde = () => {
     const [v_faltas_jusT, setV_Faltas_jusT] = useState([]);
     const [sin_marcarT, setSin_marT] = useState([]);
     const [v_sin_marcarT, setV_sin_marT] = useState([]);
+
+    const [loading, setLoading] = useState(false);
+
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
 
 
     const dataTarde = {
@@ -70,12 +80,14 @@ const AsistenciaTarde = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaTarde();
+        cambiarEstado();
     }, [])
-    return (
 
-        < Doughnut data={dataTarde} options={opciones} />
-
-    )
+    if (loading) {
+        return (<Loading />)
+    }else{
+        return (< Doughnut data={dataTarde} options={opciones} />);
+    }
 }
 
 export default AsistenciaTarde
