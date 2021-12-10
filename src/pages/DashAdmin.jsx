@@ -14,10 +14,22 @@ import CalendarioPersonal from "../components/CalendarioPersonal";
 import { calendarioAsistencia } from "./VistasAdmin/Perfil";
 import Configuracion from '../components/Configuracion';
 
+import ControlInactividad from "../components/Inactividad";
+
 function DashAdmin() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const funcionnnn=()=>{
+    <ControlInactividad/>;
+  }
+  //////////////////
+  useEffect(() => {
+    const interval = setInterval(<ControlInactividad/>, 10000);
+    //const interval = setInterval(ControlInactividad(), 10000);
+    return () => clearInterval(interval);
+  }, []);
+  //////////////////
   // const { user,setUser } = useContext(UserContext);
 
   // Peticion para ver y ocultar campos
