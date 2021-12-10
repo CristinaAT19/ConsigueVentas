@@ -68,10 +68,10 @@ const ResetearConstra = (dniReset) => {
     <>
       <div className="flex items-center justify-evenly m-1.5 gap-8">
         
-        <button onClick={resetear} className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 rounded-md">
+        <button onClick={resetear} className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
           Resetear contraseña
         </button>
-        <button onClick={limpiar} className="flex items-center justify-center w-28 bg-gray-700 text-gray-50 h-1/5 py-2 rounded-md">
+        <button onClick={limpiar} className="flex items-center justify-center w-28 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
           Limpiar
         </button>
         <Error errors={error['dni']} ></Error> <br/>

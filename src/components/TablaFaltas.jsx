@@ -9,7 +9,6 @@ import { setToken, getToken } from "../dist/Token";
 import Select from 'react-select'
 
 
-
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
@@ -55,7 +54,7 @@ function TablaFaltas() {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 1000);
       }
 
     const handleChange = e => {
@@ -210,7 +209,7 @@ function TablaFaltas() {
                     },
                 ]}
                 data={data}
-                title="Tabla Empleados"
+                title="Tabla de Faltas"
                 // tableRef={tableRef}
                 actions={[
                     {
