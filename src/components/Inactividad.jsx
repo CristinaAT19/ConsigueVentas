@@ -17,7 +17,7 @@ import { getToken, removeToken } from "../dist/Token";
 
    const peticionVerificacionToken = async () => {
    //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
-   await axios.get(`http://127.0.0.1:8000/api/verificarToken/${idToken}`)
+   await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${idToken}`)
       .then(response => {
         console.log(idToken);
           msjToken=response.data.tokenId;
