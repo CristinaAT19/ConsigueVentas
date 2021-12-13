@@ -129,6 +129,7 @@ const Dashboard = () => {
             <TablaDia />
 
           </div>
+        </div>
         ) : null}
 
 
@@ -141,9 +142,8 @@ const Dashboard = () => {
             <TablaSin />
 
           </div>
+          </div>
         ) : null}
-      </div>
-      ) : null}
     </>
   );
 };

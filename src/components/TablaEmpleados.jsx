@@ -394,7 +394,7 @@ function TablaEmpleados() {
 
     await setEmpleado(nuevoEmpleado);
 
-    await axios.post(`http://localhost:8232/api/insertarEmpleado`, nuevoEmpleado,
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
       {
         headers: {
           'Authorization': `Bearer ${getToken()}`,
