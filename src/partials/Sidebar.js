@@ -385,7 +385,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
               <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
               {/* Calendario General */}
-              { user['id_TipoUsuario'] == 1 ? (                            
+              {/* { user['id_TipoUsuario'] == 1 ? (                            
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("calendar") && "bg-gray-900"
@@ -412,7 +412,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </NavLink>
               </li>
               ) : null
-              }
+              } */}
             </ul>
           </div>
         </div>
