@@ -11,6 +11,7 @@ import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 const Dashboard = () => {
   const { user } = useContext(UserContext);
   const hoy = new Date();
+
   var fecha =
     hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
   return (
@@ -60,6 +61,7 @@ const Dashboard = () => {
             <div className="col-span-12 md:col-span-6 w-full">
               <div className="flex justify-center">
                 <div className="my-4 bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center h-96 w-10/12">
+
                   <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                     <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                       Asistencia del Dia (Turno Tarde)
@@ -70,6 +72,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           {/* <div className="mt-2 w-full flex flex-col md:flex-row justify-evenly mb-4 " >
@@ -84,6 +87,7 @@ const Dashboard = () => {
                   </div>
                 </div>
 
+
                   <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-2/5 h-96">
                     <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                       <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl md:text-xs">
@@ -96,6 +100,7 @@ const Dashboard = () => {
                   </div>
               </div> */}
 
+
           <div className="my-4 w-full flex justify-evenly mb-4 h-96">
             <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center h-96 w-10/12 ">
               <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
@@ -105,8 +110,11 @@ const Dashboard = () => {
               </div>
               <div className="h-full py-4">
                 <AsistenciaMaTa />
+
               </div>
+
             </div>
+
           </div>
         </div>
       ) : null}
@@ -119,9 +127,10 @@ const Dashboard = () => {
           </h1>
           <div className="my-0 mx-auto py-4 w-6/7">
             <TablaDia />
+
           </div>
-        </div>
-      ) : null}
+        ) : null}
+
 
       {user["id_TipoUsuario"] == 1 ? (
         <div className="bg-white mx-4 my-4 rounded-t-3xl text-center">
@@ -130,8 +139,10 @@ const Dashboard = () => {
           </h1>
           <div className="my-0 mx-auto py-4 w-6/7 ">
             <TablaSin />
+
           </div>
-        </div>
+        ) : null}
+      </div>
       ) : null}
     </>
   );

@@ -14,6 +14,8 @@ const TablaDatosPer = () => {
   {/* <div className="text-blueGray-400 text-2xl font-bold mt-4 uppercase text-center">
     <h2 className="py-4">Datos Personales</h2>
   </div> */}
+
+{user["id_TipoUsuario"] == 2 || user["id_TipoUsuario"] == 1 ? (
   <section clasName="">
     <div className="w-4/5 mx-auto mt-14">
       <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
@@ -73,6 +75,7 @@ const TablaDatosPer = () => {
       </div>
     </div>
   </section>
+  ) : null}
 </>
   );
 };
