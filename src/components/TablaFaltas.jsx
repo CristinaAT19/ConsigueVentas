@@ -69,7 +69,6 @@ function TablaFaltas() {
             ...prevState,
             [name]: value
         }));
-        console.log(empleadoSeleccionado);
     }
 
 
@@ -83,9 +82,7 @@ function TablaFaltas() {
         )
             .then(response => {
                 setData(response.data.data);
-                console.log(response.data)
             }).catch(error => {
-                console.log(error);
             })
     }
 
@@ -119,9 +116,7 @@ function TablaFaltas() {
                 abrirCerrarModalEditar();
 
             }).catch(error => {
-                console.log(error);
             });
-        console.log(modalSeleccionarOptionar);
     }
 
 

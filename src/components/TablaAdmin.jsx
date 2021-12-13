@@ -21,7 +21,6 @@ const TablaAdmin = () => {
                 setTabla(Response.data.administradores);
             })
             .catch((e) => {
-                console.log(e);
             });
 
     }

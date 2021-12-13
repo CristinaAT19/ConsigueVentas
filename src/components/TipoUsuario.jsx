@@ -7,7 +7,6 @@ import Error from "../components/item/Error";
 const TipoUsuario = (dniReset) => {
   const campo = document.getElementById("dni_reset");
   const { dni_reset } = dniReset;
-  console.log(dni_reset);
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState('');
   const [tipoMostrar, setTipoMostrar] = useState('');
@@ -57,11 +56,10 @@ const TipoUsuario = (dniReset) => {
       .then((Response) => {
         //setValor("Correcto");
         setValor(Response.data.msg[0].cambiar);
-        console.log(Response);
+
       })
       .catch((e) => {
         setValor("Ocurrio un error al cambiar");
-        console.log(e);
         //setError(e.response.data.errors);
       });
   };
@@ -113,7 +111,6 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        console.log(e);
         //setError(e.response.data.errors);
       });
   };

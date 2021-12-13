@@ -6,7 +6,6 @@ import { getToken, removeToken } from "../dist/Token";
 
 
  const ControlInactividad = () => {
-  console.log("CONTROL - INACTIVIDAD");
   
   //const { user } = useContext(UserContext);
   //const [dni, setDni] = useState(user['dni']);
@@ -19,20 +18,13 @@ import { getToken, removeToken } from "../dist/Token";
    //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
    await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${idToken}`)
       .then(response => {
-        console.log(idToken);
           msjToken=response.data.tokenId;
-          console.log(msjToken);
-          console.log(idToken==msjToken);
       }).catch((e) => {
         msjToken='Error';
-        console.log(msjToken);
       });
       //////////////
       if(idToken==msjToken){
-        console.log("Token aun activo");
      } else {
-       console.log("Token inactivo");
-       console.log("Redirigiendo");
        removeToken();
        distSetAutentication(false); 
       // <Redirect to='/login'/>;

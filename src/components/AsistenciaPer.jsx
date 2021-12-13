@@ -64,7 +64,6 @@ const AsistenciaPer = () => {
                 if (e.response.status === 403) {
                     console.log("No tienes permisos para ver esta información");
                 }
-                console.log(e.response);
             });
 
     }

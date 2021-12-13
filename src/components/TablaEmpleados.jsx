@@ -393,8 +393,8 @@ function TablaEmpleados() {
 
 
     await setEmpleado(nuevoEmpleado);
-//await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
-    await axios.post(`http://127.0.0.1:8000/api/insertarEmpleado`, nuevoEmpleado,
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
+    // await axios.post(`http://127.0.0.1:8000/api/insertarEmpleado`, nuevoEmpleado,
       {
         headers: {
           'Authorization': `Bearer ${getToken()}`,
@@ -412,10 +412,8 @@ function TablaEmpleados() {
 
       })
       .catch((e) => {
-        console.log(e.response.data.errors);
         setSucess(false);
         setLoading(false);
-        setError(e.response.data.errors);
       });
     setLoading(false);
   }

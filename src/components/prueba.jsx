@@ -18,7 +18,6 @@ const TablaEmpleados = () => {
                 setTabla(Response.data.empleados);
             })
             .catch((e) => {
-                console.log(e);
             });
 
     }

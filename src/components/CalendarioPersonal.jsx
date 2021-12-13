@@ -24,7 +24,6 @@ const CalendarioPersonal = () => {
           setValor(response.data.CalendarioAsistencia);
       }).catch((e) => {
         setValor("error");
-        console.log(e);
       });
   }
   useEffect(() => {

@@ -7,7 +7,6 @@ const ResetearConstra = (dniReset) => {
     
     //console.log(dniReset);
     const campo=document.getElementById("dni_reset");
-    console.log(campo);
     const {dni_reset}=dniReset;
     const [error, setError] = useState([]);
     const [valor, setValor] = useState("");
@@ -52,7 +51,6 @@ const ResetearConstra = (dniReset) => {
           })
           .catch((e) => {
             setValor("Ocurrio un error");
-            console.log(e);
             //setError(e.response.data.errors);
           });
   };

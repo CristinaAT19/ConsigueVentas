@@ -25,8 +25,6 @@ const CalendarioEmpleados = () => {
 
     const onChangeDni = ()=>{
         setDniCalendario(campo.current.value);
-        console.log(dniCalendario);
-        //console.log(componenteInput.current.value);
     }
 
     const limpiar = ()=>{
@@ -103,7 +101,6 @@ const CalendarioEmpleados = () => {
                     setValor(response.data.CalendarioAsistencia);
                 }).catch((e) => {
                   setValor([]);
-                  console.log(e);
                 });
 
                 setDniEmpleado('Dni: ' + Response.data.dni);
@@ -112,7 +109,6 @@ const CalendarioEmpleados = () => {
            }
        })
        .catch((e) => {
-         console.log(e);
            setDniEmpleado('');
            setNombreEmpleado('');
            setTurnoEmpleado('');
