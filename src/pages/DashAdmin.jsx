@@ -20,15 +20,12 @@ function DashAdmin() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const funcionnnn=()=>{
-    <ControlInactividad/>;
-  }
   //////////////////
-  useEffect(() => {
-    const interval = setInterval(<ControlInactividad/>, 10000);
-    //const interval = setInterval(ControlInactividad(), 10000);
-    return () => clearInterval(interval);
-  }, []);
+              useEffect(() => {
+                const interval = setInterval(ControlInactividad, 10000);
+                //const interval = setInterval(ControlInactividad(), 10000);
+                return () => clearInterval(interval);
+              }, []); 
   //////////////////
   // const { user,setUser } = useContext(UserContext);
 
