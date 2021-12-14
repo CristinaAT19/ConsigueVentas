@@ -7,10 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { setToken, getToken } from "../dist/Token";
 import Error from "../components/item/Error";
 import Loading from "../components/Loading";
-import Success from './item/Sucess';
+//import Success from './item/Sucess';
 import { calcularEdad, calcularDiferenciaDias, calcularDiferenciaDiasFechaActual } from '../helpers/fecha';
 import { validationOnlyNumbers } from '../helpers/validaciones';
-
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -32,8 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
-
-
 
 function TablaEmpleados() {
 
@@ -57,7 +54,7 @@ function TablaEmpleados() {
   // Utilidades 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [sucess, setSucess] = useState(false);
+//  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
 
 
@@ -141,6 +138,7 @@ function TablaEmpleados() {
       setErrorUpdate(errorVal);
       return;
     }
+
     if (validationOnlyNumbers(form['Telefono'].value) === false) {
       const errorVal = {
         "emp_telefono": "Solo se permiten numeros",
@@ -190,7 +188,6 @@ function TablaEmpleados() {
       }
     )
       .then(response => {
-
         setLoading(false);
         setErrorUpdate([]);
         peticionGet();
@@ -198,7 +195,7 @@ function TablaEmpleados() {
       }).catch(error => {
         setLoading(false);
         setErrorUpdate(error.response.data.errors);
-
+        
       });
   }
 
@@ -297,12 +294,11 @@ function TablaEmpleados() {
     }));
   }
 
-
-
   // Insertar nuevo empleado
   const manejadorInsertar = async (e) => {
-    setLoading(true);
+    
     e.preventDefault();
+    setLoading(true);
     const form = e.target.elements;
     const edad = calcularEdad(form.FechaNacimiento.value);
     const diffDiasPrueba = calcularDiferenciaDias(form.FechaInicioPrueba.value, form.FechaFinPrueba.value);
@@ -349,6 +345,7 @@ function TablaEmpleados() {
       setError(errorVal);
       return;
     }
+    
     if (validationOnlyNumbers(form.Telefono.value) === false) {
       const errorVal = {
         "emp_telefono": "Solo se permiten numeros",
@@ -370,9 +367,7 @@ function TablaEmpleados() {
 
     setError([]);
 
-
-
-    const nuevoEmpleado = await {
+    const nuevoEmpleado = {
       "emp_nombre": form.Nombres.value,
       "emp_apellido": form.Apellidos.value,
       "emp_fec_inicio_prueba": form.FechaInicioPrueba.value,
@@ -391,10 +386,7 @@ function TablaEmpleados() {
       "emp_fechanac": form.FechaNacimiento.value,
     };
 
-
-    await setEmpleado(nuevoEmpleado);
     await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
-    // await axios.post(`http://127.0.0.1:8000/api/insertarEmpleado`, nuevoEmpleado,
       {
         headers: {
           'Authorization': `Bearer ${getToken()}`,
@@ -405,15 +397,14 @@ function TablaEmpleados() {
       })
       .then((Response) => {
         setError([]);
-      //error update
-        setSucess(true);
+     abrircerrarModalInsertar();
         peticionGet();
-        abrircerrarModalInsertar();
-
+ 
       })
       .catch((e) => {
-        setSucess(false);
+      //  setSucess(false);
         setLoading(false);
+        setError(e.response.data.errors);
       });
     setLoading(false);
   }
@@ -558,10 +549,6 @@ function TablaEmpleados() {
       <div className={styles.modal}>
         <h3>Agregar empleado</h3>
 
-        {sucess ? <Success /> :
-          <p></p>
-        }
-
         <div className="flex flex-wrap justify-around content-center">
           <div style={{ width: '40%' }}>
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" />
@@ -698,9 +685,7 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (<Loading />)
-  }else{  
+   
   return (
     <div>
       <br />
@@ -820,7 +805,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );}
+  );
 
 
 
