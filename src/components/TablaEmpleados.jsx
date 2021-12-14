@@ -772,6 +772,7 @@ function TablaEmpleados() {
               },
               exportButton: true,
               actionsColumnIndex: -1
+              
             }}
             localization={{
               body: {
@@ -803,7 +804,8 @@ function TablaEmpleados() {
                 // showColumnsAriaLabel: 'Voir les colonnes',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
               },
