@@ -58,7 +58,7 @@ function DashAdmin() {
   return (
 
     <div className="flex h-screen overflow-hidden">
-      <Router basename={'dashadmin'}>
+      <Router basename={process.env.REACT_APP_URL+'/dashadmin'}>
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
