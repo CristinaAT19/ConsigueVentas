@@ -15,9 +15,12 @@ import { validationOnlyNumbers } from '../helpers/validaciones';
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
+    overflow: 'scroll',
+    overflowX: 'hidden',
     width: '80%',
+    height: '95%',
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    // border: '2px solid #000',
     boxshadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     top: '50%',
@@ -554,8 +557,8 @@ function TablaEmpleados() {
   )
 
   const bodyInsertar = (
-    <form onSubmit={manejadorInsertar}>
-      <div className={styles.modal}>
+    <form onSubmit={manejadorInsertar}  >
+      <div className={styles.modal}  >
         <h3>Agregar empleado</h3>
 
         {sucess ? <Success /> :
