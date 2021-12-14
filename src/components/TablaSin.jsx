@@ -58,7 +58,8 @@ function TablaSin() {
           columns={[
             {title: 'Nombres',field: 'Nombre'},
             {title: 'Apellidos',field: 'Apellido'},
-            {title: 'Turno',field: 'Turno'},
+            {title: 'Turno',field: 'Turno',lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'
+          }},
             {title: 'Perfil',field: 'Perfil'},
             {title: 'Departamento',field: 'Unidad'},
             {title: 'Dni',field: 'Dni'},
@@ -68,13 +69,11 @@ function TablaSin() {
 
         onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
-            rowStyle: rowData => ({
-              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-            }),
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
+            filtering: true,
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }

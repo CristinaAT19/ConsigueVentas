@@ -5,10 +5,9 @@ import { setToken, getToken } from "../dist/Token";
 import Loading from "../components/Loading.jsx";
 
 
-
-
-
 function TablaDia() {
+  
+
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
     const peticionTablaDia = async () => {
@@ -56,26 +55,34 @@ function TablaDia() {
           columns={[
             {title: 'Fecha',field: 'Fecha'},
             {title: 'Hora',field: 'Hora'},
-            {title: 'Dni',field: 'Dni'},
-            {title: 'Nombres',field: 'Nombres'},
+            {title: 'Dni',field: 'Dni',filtering: false},
+            {title: 'Nombres',field: 'Nombres',filtering: false},
             {title: 'Sistema Operativo',field: 'Sistema Operativo'},
             {title: 'Dispositivo',field: 'Dispositivo'},
-            {title: 'Perfil',field: 'Perfil'},
-            {title: 'Departamento',field: 'Unidad'},
-            {title: 'Estado',field: 'Estado'},
-            {title: 'Turno',field: 'Turno'},
+            {title: 'Area',field: 'Perfil'},
+            {
+              title: 'Departamento',field: 'Unidad'
+            },
+            {title: 'Estado',field: 'Estado',lookup: { Activo: 'Activo', Retirado: 'Retirado' },},
+            {title: 'Turno',field: 'Turno',
+              lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'
+          }},
         ]}
           data={data}
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
-            rowStyle: rowData => ({
-              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-            }),
+            filterCellStyle: {
+                backgroundColor: '#D4D4D4',
+            },
             searchFieldAlignment: 'left',
             showTitle: false,
-            exportButton: true,
+            exportButton: {
+              csv: true,
+              pdf: true,
+            },
             actionsColumnIndex: -1,
+            filtering: true,
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
@@ -109,7 +116,8 @@ function TablaDia() {
                 showColumnsAriaLabel: 'Ver columnas',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
             }
