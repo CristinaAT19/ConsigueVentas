@@ -100,19 +100,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
           {/* Logo */}
           <NavLink exact to="/dashAdmin" className="block">
-            {!expand ? (
-              <img
-                className=" max-w-7xl w-40 h-12"
-                src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
-              />
-            ) : (
+            {
               <img
                 className="w-auto h-9"
                 src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png"
                 alt=""
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               />
-            )}
+            }
           </NavLink>
         </div>
 
