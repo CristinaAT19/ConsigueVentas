@@ -7,7 +7,6 @@ import Error from "../components/item/Error";
 const TipoUsuario = (dniReset) => {
   const campo = document.getElementById("dni_reset");
   const { dni_reset } = dniReset;
-  console.log(dni_reset);
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState('');
   const [tipoMostrar, setTipoMostrar] = useState('');
@@ -57,11 +56,10 @@ const TipoUsuario = (dniReset) => {
       .then((Response) => {
         //setValor("Correcto");
         setValor(Response.data.msg[0].cambiar);
-        console.log(Response);
+
       })
       .catch((e) => {
         setValor("Ocurrio un error al cambiar");
-        console.log(e);
         //setError(e.response.data.errors);
       });
   };
@@ -113,7 +111,6 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        console.log(e);
         //setError(e.response.data.errors);
       });
   };
@@ -133,10 +130,10 @@ const TipoUsuario = (dniReset) => {
       </div>
 
       <div className="flex items-center justify-evenly m-1.5 gap-8">
-        <button onClick={cambiarTipoUsuario} className="flex items-center justify-center w-56 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+        <button onClick={cambiarTipoUsuario} className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
           Cambiar tipo de Usuario
         </button>
-        <button onClick={limpiar} className="flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+        <button onClick={limpiar} className="flex items-center justify-center w-28 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
           Limpiar
         </button>
         <p> {valor} </p>

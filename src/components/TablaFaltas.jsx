@@ -3,10 +3,10 @@ import MaterialTable from 'material-table';
 import axios from 'axios';
 import { Modal, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
 // import { Component } from 'react'
 import Select from 'react-select'
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         width: 500,
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        // border: '2px solid #000',
         boxshadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         top: '50%',
@@ -35,7 +35,14 @@ function TablaFaltas() {
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
-    const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState(null)
+
+    const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
+        value:3, label: "Falta Justificada"
+    });
+
+    const [loading, setLoading] = useState(false);
+
+
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
         Apellido: "",
         Dni: "",
@@ -49,7 +56,12 @@ function TablaFaltas() {
         cambio_estado: "",
     })
 
-
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      }
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -57,7 +69,6 @@ function TablaFaltas() {
             ...prevState,
             [name]: value
         }));
-        console.log(empleadoSeleccionado);
     }
 
 
@@ -71,9 +82,7 @@ function TablaFaltas() {
         )
             .then(response => {
                 setData(response.data.data);
-                console.log(response.data)
             }).catch(error => {
-                console.log(error);
             })
     }
 
@@ -83,10 +92,12 @@ function TablaFaltas() {
 
 
     const peticionPut = async () => {
+
         await axios.post(baseUrl + 'tabla_faltas/' + empleadoSeleccionado.Id,
             {
                 "cambio_estado": modalSeleccionarOptionar.value
             },
+
             {
                 headers: {
                     Authorization: `Bearer ${getToken()}`
@@ -105,13 +116,12 @@ function TablaFaltas() {
                 abrirCerrarModalEditar();
 
             }).catch(error => {
-                console.log(error);
             });
-        console.log(modalSeleccionarOptionar);
     }
 
 
     useEffect(() => {
+        cambiarEstado();
         peticionGet();
     }, [])
 
@@ -136,7 +146,7 @@ function TablaFaltas() {
         <div className={styles.modal}>
             <h3>Editar Empleado</h3>
             <br />
-            <Select className={styles.inputMaterial} options={optiones} onChange={setModalSeleccionarOptionar} />
+            <Select options={optiones} onChange={setModalSeleccionarOptionar} placeholder="Falta Justificada" defaultMenuIsOpen={false} isSearchable={false} />
             {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
             <br /><br />
             <div align="right">
@@ -147,9 +157,12 @@ function TablaFaltas() {
         </div>
     )
     // const tableRef = React.createRef();
+    if (loading) {
+        return (<Loading />)
+      }else{
     return (
         <div>
-            
+
             <MaterialTable
                 columns={[
                     {
@@ -199,7 +212,7 @@ function TablaFaltas() {
                     },
                 ]}
                 data={data}
-                title="Tabla Empleados"
+                title="Tabla de Faltas"
                 // tableRef={tableRef}
                 actions={[
                     {
@@ -213,56 +226,58 @@ function TablaFaltas() {
                     //     isFreeAction: true,
                     //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
                     //   }
-                    ]}
-                    options={{
-                      // fixedColumns: {
-        
-                      //   right: 1
-                      // },
-                      headerStyle: {
+                ]}
+                options={{
+                    // fixedColumns: {
+
+                    //   right: 1
+                    // },
+                    headerStyle: {
                         backgroundColor: '#E2E2E2  ',
-                      },
-                      exportButton: true,
-                      actionsColumnIndex: -1
-                    }}
-                    localization={{
-                      body: {
-                          emptyDataSourceMessage: "No hay registro para mostrar",
-                          addTooltip: 'Agregar',
-                          deleteTooltip: 'Eliminar',
-                          editTooltip: 'Editar',
-                          filterRow: {
-                              filterTooltip: 'Filtrar'
-                          },
-          
-                      },
-                      pagination: {
-                          labelDisplayedRows: '{from}-{to} de {count}',
-                          labelRowsSelect: 'filas',
-                          labelRowsPerPage: 'filas por pagina:',
-                          firstAriaLabel: 'Primera pagina',
-                          firstTooltip: 'Primera pagina',
-                          previousAriaLabel: 'Pagina anterior',
-                          previousTooltip: 'Pagina anterior',
-                          nextAriaLabel: 'Pagina siguiente',
-                          nextTooltip: 'Pagina siguiente',
-                          lastAriaLabel: 'Ultima pagina',
-                          lastTooltip: 'Ultima pagina'
-                      },
-                      toolbar: {
-                          nRowsSelected: '{0} ligne(s) sélectionée(s)',
-                          // showColumnsTitle: 'Voir les colonnes',
-                          // showColumnsAriaLabel: 'Voir les colonnes',
-                          exportTitle: 'Exportar',
-                          exportAriaLabel: 'Exportar',
-                          exportName: 'Exportar como CSV',
-                          searchTooltip: 'Buscar',
-                          searchPlaceholder: 'Buscar'
-                      },
-                      header: {
+                    },
+                    exportButton: true,
+                    actionsColumnIndex: -1,
+                    
+                }}
+                localization={{
+                    body: {
+                        emptyDataSourceMessage: "No hay registro para mostrar",
+                        addTooltip: 'Agregar',
+                        deleteTooltip: 'Eliminar',
+                        editTooltip: 'Editar',
+                        filterRow: {
+                            filterTooltip: 'Filtrar'
+                        },
+
+                    },
+                    pagination: {
+                        labelDisplayedRows: '{from}-{to} de {count}',
+                        labelRowsSelect: 'filas',
+                        labelRowsPerPage: 'filas por pagina:',
+                        firstAriaLabel: 'Primera pagina',
+                        firstTooltip: 'Primera pagina',
+                        previousAriaLabel: 'Pagina anterior',
+                        previousTooltip: 'Pagina anterior',
+                        nextAriaLabel: 'Pagina siguiente',
+                        nextTooltip: 'Pagina siguiente',
+                        lastAriaLabel: 'Ultima pagina',
+                        lastTooltip: 'Ultima pagina'
+                    },
+                    toolbar: {
+                        nRowsSelected: '{0} ligne(s) sélectionée(s)',
+                        // showColumnsTitle: 'Voir les colonnes',
+                        // showColumnsAriaLabel: 'Voir les colonnes',
+                        exportTitle: 'Exportar',
+                        exportAriaLabel: 'Exportar',
+                        exportCSVName: "Exportar en formato CSV",
+                        exportPDFName: "Exportar como PDF",
+                        searchTooltip: 'Buscar',
+                        searchPlaceholder: 'Buscar'
+                    },
+                    header: {
                         actions: 'Acciones'
-                      }
-                    }}
+                    }
+                }}
             />
 
             < Modal open={modalEditar}
@@ -272,6 +287,6 @@ function TablaFaltas() {
         </div >
 
 
-    );
+    );}
 }
 export default TablaFaltas;

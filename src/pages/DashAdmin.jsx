@@ -11,13 +11,22 @@ import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
 import { distSetAutentication } from "../dist/Autentication";
 import CalendarioPersonal from "../components/CalendarioPersonal";
-import { calendarioAsistencia } from "./VistasAdmin/Perfil";
+import { CalendarioAsistencia } from "./VistasAdmin/Perfil";
 import Configuracion from '../components/Configuracion';
+
+import ControlInactividad from "../components/Inactividad";
 
 function DashAdmin() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  //////////////////
+              useEffect(() => {
+                const interval = setInterval(ControlInactividad, 10000);
+                //const interval = setInterval(ControlInactividad(), 10000);
+                return () => clearInterval(interval);
+              }, []); 
+  //////////////////
   // const { user,setUser } = useContext(UserContext);
 
   // Peticion para ver y ocultar campos
@@ -69,11 +78,11 @@ function DashAdmin() {
               <Route path='/cerrarSesion' exact component={CerrarSesion} />
               <Route path='/configuracion' exact component={Configuracion}/>
               <Route path='/calendarioEmpleados' exact component={calendarioEmpleados} />
-              {/* <Route path='/listaAdministradores' exact component={listaAdministradores} /> */}
+              <Route path='/listaAdministradores' exact component={listaAdministradores} />
               {/* perfil */}
+              <Route path='/calendarioPersonal' exact component={CalendarioPersonal} />
               
-              
-              <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
+              <Route path='/calendarioAsistencia' exact component={CalendarioAsistencia} />
               {/* calendario general */}
               {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
 

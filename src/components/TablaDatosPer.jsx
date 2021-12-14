@@ -11,68 +11,71 @@ const TablaDatosPer = () => {
   
   return (
     <> 
-  <div className="text-blueGray-400 text-2xl font-bold mt-4 uppercase text-center">
+  {/* <div className="text-blueGray-400 text-2xl font-bold mt-4 uppercase text-center">
     <h2 className="py-4">Datos Personales</h2>
-  </div>
-  <section>
-    <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">         
-      <div className="px-4 lg:px-10 py-10 pt-0">
-        <form className=" p-4 border-2 border-yellow-500">            
-            <div className="flex flex-wrap justify-center mt-28">
+  </div> */}
+
+{user["id_TipoUsuario"] == 2 || user["id_TipoUsuario"] == 1 ? (
+  <section clasName="">
+    <div className="w-4/5 mx-auto mt-14">
+      <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
+        <h2 className="py-4">Datos Personales</h2>
+      </div>
+      <div className="py-4 rounded-b-2xl shadow-md bg-white">            
+            <div className="flex flex-wrap justify-center">
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  <label className="block uppercase text-xs font-bold mb-2">
                     Nombres
                   </label>
-                  <input type="text" disabled className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['nombre']}/>
+                  <input type="text" disabled className="border px-3 py-3 bg-gray-50 rounded text-sm shadow-md" value={user['nombre']}/>
                 </div>
               </div>
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  <label className="block uppercase text-xs font-bold mb-2">
                     Apellidos
                   </label>
-                  <input type="email" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['apellido']}/>
+                  <input type="text" disabled  className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['apellido']}/>
                 </div>
               </div>
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  <label className="block uppercase text-xs font-bold mb-2">
                     Dni
                   </label>
-                  <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['dni']}/>
+                  <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['dni']}/>
                 </div>
               </div>
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  <label className="block uppercase text-xs font-bold mb-2">
                     Carrera
                   </label>
-                  <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['perfil']}/>
+                  <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['perfil']}/>
                 </div>
               </div>
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  <label className="block uppercase text-xs font-bold mb-2">
                     Unidad
                   </label>
-                  <input type="text" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['unidad']}/>
+                  <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['unidad']}/>
                 </div>
               </div>
               <div className="px-4">
                 <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                    Turbo
+                  <label className="block uppercase text-xs font-bold mb-2">
+                    Turno
                   </label>
-                  <input type="email" className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-md focus:ring-yellow-500" value={user['turno']}/>
+                  <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['turno']}/>
                 </div>
               </div>
-              
             </div>
-        </form>
       </div>
     </div>
   </section>
+  ) : null}
 </>
   );
 };

@@ -83,7 +83,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       >
         {/* Sidebar header */}
         <div
-          className="flex bg-gray-700 justify-center py-4 pr-3 sm:px-2"
+          className="flex bg-gray-700 justify-center py-4 pr-3 px-3 sm:px-2"
           // style="border: solid #2D2D2B 10px;"
         >
           {/* Close button */}
@@ -160,7 +160,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   </div>
                 </NavLink>
               </li>
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
               {/* Empleado */}
 
               { user['id_TipoUsuario'] == 1 ? (                            
@@ -277,7 +277,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               exact
-                              to="/"
+                              to="/listaAdministradores"
                               className="block text-gray-50 hover:text-gray-600 transition duration-150 truncate"
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -298,7 +298,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
               { user['id_TipoUsuario'] == 1 ? (                            
               
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
                         ) : null
                 }
 
@@ -362,7 +362,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </NavLink>
                           </li>
                           <hr className="w-10/12 h-1 bg-yellow-600"></hr>
-                          { user['id_TipoUsuario'] == 1 ? (                            
 
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -375,17 +374,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          ) : null
-                          }
                         </ul>
                       </div>
                     </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup>
-              <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+              <hr className="w-10/12 h-1 bg-yellow-600 opacity-100"></hr>
               {/* Calendario General */}
-              { user['id_TipoUsuario'] == 1 ? (                            
+              {/* { user['id_TipoUsuario'] == 1 ? (                            
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
                   pathname.includes("calendar") && "bg-gray-900"
@@ -412,7 +409,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </NavLink>
               </li>
               ) : null
-              }
+              } */}
             </ul>
           </div>
         </div>

@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
+import Loading from "../components/Loading.jsx";
 
 
 
@@ -33,10 +34,22 @@ function TablaDia() {
             // setLoading(false);
     }
     useEffect(() => {
-        peticionTablaDia();
-    }, [])
+      peticionTablaDia();
+      cambiarEstado();
+  }, [])
+  const [loading, setLoading] = useState(false);
+
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
 
     const [selectedRow, setSelectedRow] = useState(null);
+    if (loading) {
+      return (<Loading />)
+    }else{
   return (
     <div className="main">
         <MaterialTable
@@ -56,6 +69,9 @@ function TablaDia() {
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
+            headerStyle: {
+              backgroundColor: '#E2E2E2  ',
+            },
             rowStyle: rowData => ({
               backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
             }),
@@ -63,6 +79,7 @@ function TablaDia() {
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
+            
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
@@ -96,14 +113,15 @@ function TablaDia() {
                 showColumnsAriaLabel: 'Ver columnas',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
             }
         }}
         />
     </div>
-  );
+  );}
 }
 
 export default TablaDia;

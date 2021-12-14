@@ -7,8 +7,11 @@ import bootstrapPlugin from "@fullcalendar/bootstrap";
 import Error from "../components/item/Error";
 import { getToken } from "../dist/Token";
 import esLocale from '@fullcalendar/core/locales/es';
+import { MdCleaningServices} from "react-icons/md";
+
 
 const CalendarioEmpleados = () => {
+
     const campo=useRef();
     //const campo=document.getElementById("dni_calendario");
     const [error, setError] = useState([]);
@@ -22,8 +25,6 @@ const CalendarioEmpleados = () => {
 
     const onChangeDni = ()=>{
         setDniCalendario(campo.current.value);
-        console.log(dniCalendario);
-        //console.log(componenteInput.current.value);
     }
 
     const limpiar = ()=>{
@@ -36,21 +37,7 @@ const CalendarioEmpleados = () => {
             setTurnoEmpleado(''); 
     }
 
-    /*const peticionDatos2 = async () => { 
-        await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
-    {
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
-    .then(response => {
-        //console.log(response.data.CalendarioAsistencia);
-        setValor(response.data.CalendarioAsistencia);
-    }).catch((e) => {
-      setValor([]);
-      console.log(e);
-    });
-  }*/
+
 
   const peticionDatosCalendario = async () => {
     if(isNaN(dniCalendario)){
@@ -114,60 +101,46 @@ const CalendarioEmpleados = () => {
                     setValor(response.data.CalendarioAsistencia);
                 }).catch((e) => {
                   setValor([]);
-                  console.log(e);
                 });
 
-                setDniEmpleado('DNI: ' + Response.data.dni);
-                setNombreEmpleado('NOMBRE: ' + Response.data.nombre+ ' ' + Response.data.apellido);
-                setTurnoEmpleado('TURNO: ' + Response.data.turno);
+                setDniEmpleado('Dni: ' + Response.data.dni);
+                setNombreEmpleado('Nombre: ' + Response.data.nombre+ ' ' + Response.data.apellido);
+                setTurnoEmpleado('Turno: ' + Response.data.turno);
            }
        })
        .catch((e) => {
-         console.log(e);
            setDniEmpleado('');
            setNombreEmpleado('');
            setTurnoEmpleado('');
        }); 
 
-    /////////////////////
-    // await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
-    // {
-    //   headers: {
-    //     Authorization: `Bearer ${getToken()}`
-    //   }
-    // })
-    // .then(response => {
-    //     //console.log(response.data.CalendarioAsistencia);
-    //     setValor(response.data.CalendarioAsistencia);
-    // }).catch((e) => {
-    //   setValor([]);
-    //   console.log(e);
-    // });
-    ////////////////////
+
   }
     return (
         <div>
-            <label> Dni usuario:   </label>
-              <input onChange={onChangeDni} ref={campo} type="number" placeholder="dni" className="border-2 border-black-500" name="dni_calendario" id="dni_calendario" />
-              <button  onClick={peticionDatosCalendario} className="mb-4 flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
+          <div className="flex justify-center items-center">
+              <input onChange={onChangeDni} ref={campo} type="number" placeholder="Dni de empleado"  className="border-2 border-black-500 h-8 " style={{borderRadius:"0.5rem 0 0 0.5rem"}} name="dni_calendario" id="dni_calendario" />
+              <button  onClick={peticionDatosCalendario} className="flex items-center justify-center w-28 bg-yellow-500  border-solid border-2 border-black h-8" style={{borderRadius:"0 0.5rem 0.5rem 0"}}>
                   Mostrar
               </button> 
-              { dniEmpleado&&<button onClick={limpiar} className=" flex items-center justify-center w-28 bg-yellow-500 h-1/5 border-solid border-2 border-black rounded-md">
-                  Limpiar
+          </div>
+
+          <div className="m-2 flex justify-center items-center transition-all" title="Limpiar datos">
+              { dniEmpleado&&<button onClick={limpiar} className=" flex items-center justify-center p-2 bg-yellow-500 h-8 border-solid border-2 border-black rounded-md" >
+              <MdCleaningServices/>
               </button>}
-              <br/> <br/>
-            <Error errors={error['dni']} ></Error> <br/>
-            {dniEmpleado} <br/>
-            {nombreEmpleado}<br/>
-            {turnoEmpleado}<br/> <br/>
-            <FullCalendar
+          </div>
+            <Error errors={error['dni']} ></Error>
+          <div className="m-4 w-full flex flex-col  items-center text-2xl">
+              <div className="w-full">{nombreEmpleado}</div>
+              <div className="w-full">{dniEmpleado}</div>
+              <div className="w-full">{turnoEmpleado}</div>
+
+          </div>
+          <div>
+          <FullCalendar
                 plugins={[dayGridPlugin, bootstrapPlugin]}
-                /*events={[
-                    { start: '2021-12-01',
-                    title: "Tardanza:08:26",
-                    color: "#DCD617",
-                    textColor: "black" }
-                  ]}*/
+
                   events={valor}
                   height={"600px"}
                   unselect={"false"}
@@ -179,12 +152,14 @@ const CalendarioEmpleados = () => {
                   initialView="dayGridMonth"
                   Forma
                   headerToolbar={{
-                      start: "prev,next,prevYear,nextYear,today",
+                      start: "prev,next,today",
                       center: "title",
                       end: "dayGridMonth,dayGridWeek,dayGridDay",
                   }}
                   dayHeaderFormat={{ weekday: "long" }}
             />
+          </div>
+            
         </div>
     );
 };

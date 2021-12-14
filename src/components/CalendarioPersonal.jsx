@@ -24,7 +24,6 @@ const CalendarioPersonal = () => {
           setValor(response.data.CalendarioAsistencia);
       }).catch((e) => {
         setValor("error");
-        console.log(e);
       });
   }
   useEffect(() => {
@@ -53,7 +52,7 @@ const CalendarioPersonal = () => {
                 initialView="dayGridMonth"
                 Forma
                 headerToolbar={{
-                    start: "prev,next,prevYear,nextYear,today",
+                    start: "prev,next,today",
                     center: "title",
                     end: "dayGridMonth,dayGridWeek,dayGridDay",
                 }}
