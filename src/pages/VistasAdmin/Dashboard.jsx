@@ -22,7 +22,7 @@ const Dashboard = () => {
           <div className="my-4 ">
             <h1 className="mt-2 text-center text-3xl">Dashboard personal</h1>
             <div className="border-gray-500 w-full flex justify-evenly my-2" >
-              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-10/12" style={{height: "700px"}}>
+              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center  w-10/12" style={{height: "30rem"}}>
                 <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                   <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                     Mi asistencia del mes
