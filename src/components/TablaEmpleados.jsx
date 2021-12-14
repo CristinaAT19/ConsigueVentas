@@ -423,11 +423,10 @@ function TablaEmpleados() {
   const bodyEditar = (
     <form onSubmit={actualizarEmpleado}>
       <div className={styles.modal}>
-        <h3>Editar Empleado</h3>
+        <h3 className="text-2xl text-medium my-3">EDITAR EMPLEADO</h3>
 
-
-        <div className="flex flex-wrap justify-around content-center">
-          <div style={{ width: '40%' }}>
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+          <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
              <Error errors={errorUpdate['emp_nombre']} ></Error>
             <br />
@@ -489,7 +488,7 @@ function TablaEmpleados() {
             <Error errors={errorUpdate['emp_carrera']} ></Error>
             <br />
           </div>
-          <div style={{ width: '40%' }}>
+          <div className="mx-3 w-90 md:w-40">
             <TextField type="email" className={styles.inputMaterial} label="Email" name="Correo" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']} />
             <Error errors={errorUpdate['emp_email']} ></Error>
             <br />
@@ -559,14 +558,14 @@ function TablaEmpleados() {
   const bodyInsertar = (
     <form onSubmit={manejadorInsertar}  >
       <div className={styles.modal}  >
-        <h3>Agregar empleado</h3>
+        <h3 className="text-2xl text-medium my-3">AGREGAR EMPLEADO</h3>
 
         {sucess ? <Success /> :
           <p></p>
         }
 
-        <div className="flex flex-wrap justify-around content-center">
-          <div style={{ width: '40%' }}>
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+          <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" />
             <Error errors={error['emp_nombre']} ></Error>
             <br />
@@ -628,7 +627,7 @@ function TablaEmpleados() {
             <br />
           </div>
 
-          <div style={{ width: '40%' }}>
+          <div className="mx-3 w-90 md:w-40">
             <TextField type="email" className={styles.inputMaterial} label="Email" name="Email" />
             <Error errors={error['emp_email']} ></Error>
             <br />
