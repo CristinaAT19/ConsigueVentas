@@ -12,7 +12,7 @@ import Select from 'react-select'
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: 500,
+        width: '21rem',
         backgroundColor: theme.palette.background.paper,
         // border: '2px solid #000',
         boxshadow: theme.shadows[5],
@@ -148,11 +148,11 @@ function TablaFaltas() {
             <br />
             <Select options={optiones} onChange={setModalSeleccionarOptionar} placeholder="Falta Justificada" defaultMenuIsOpen={false} isSearchable={false} />
             {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
-            <br /><br />
+            <br />
             <div align="right">
                 <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
                 |
+                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
             </div>
         </div>
     )
