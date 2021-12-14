@@ -44,7 +44,7 @@ function TablaEmpleados() {
   const styles = useStyles();
 
   // Modales
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -62,7 +62,23 @@ function TablaEmpleados() {
   const [error, setError] = useState([]);
   const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
+  const [selectArea, setSelectArea] = useState([]);
 
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        setSelectArea(response.data.Areas);
+        //console.log(selectArea)
+      }).catch(error => {
+      })
+  }, [])
 
   const cambiarEstado=()=>{
     setLoading(true);
@@ -462,7 +478,11 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
-                <MenuItem value={1}>Administracion</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem value={i+1}>{option}</MenuItem>)
+                })}
+                {/* <MenuItem value={1}>Administracion</MenuItem>
                 <MenuItem value={2}>Relaciones Publicas</MenuItem>
                 <MenuItem value={3}>Comunity Manager Web</MenuItem>
                 <MenuItem value={4}>Talento Humano</MenuItem>
@@ -475,7 +495,7 @@ function TablaEmpleados() {
                 <MenuItem value={11}>Soporte Tecnico</MenuItem>
                 <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
                 <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                <MenuItem value={14}>Arquitectura</MenuItem> */}
               </Select>
             </FormControl>
             <Error errors={errorUpdate['emp_AreaId']} ></Error>
@@ -600,7 +620,11 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" label="Area" name="Area" >
-                <MenuItem value={1}>Administracion</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem value={i+1}>{option}</MenuItem>)
+                })}
+                {/* <MenuItem value={1}>Administracion</MenuItem>
                 <MenuItem value={2}>Relaciones Publicas</MenuItem>
                 <MenuItem value={3}>Comunity Manager Web</MenuItem>
                 <MenuItem value={4}>Talento Humano</MenuItem>
@@ -613,7 +637,7 @@ function TablaEmpleados() {
                 <MenuItem value={11}>Soporte Tecnico</MenuItem>
                 <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
                 <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                <MenuItem value={14}>Arquitectura</MenuItem> */}
               </Select>
             </FormControl>
             <Error errors={error['emp_AreaId']} ></Error>
