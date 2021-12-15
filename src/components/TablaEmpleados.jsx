@@ -224,12 +224,13 @@ function TablaEmpleados() {
 
 
   const abrircerrarModalInsertar = () => {
-
+    setError([]);
     setModalInsertar(!modalInsertar);
   }
 
   const abrircerrarModalEditar = () => {
-    setModalEditar(!modalEditar);
+    setErrorUpdate([]);
+    setModalEditar(!modalEditar);    
   }
   const abrircerrarModalEliminar = () => {
     setModalEliminar(!modalEliminar);
@@ -341,9 +342,9 @@ function TablaEmpleados() {
 
 
     // Validacion inicio prueba, fin prueba 
-    if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
+    if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
+        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 2",
       }
       setError(errorVal);
       setLoading(false);
@@ -730,7 +731,7 @@ function TablaEmpleados() {
               { title: 'Condición Practicas', field: 'Condición Practicas' },
               { title: 'Estado', field: 'Estado' },
               { title: 'Tipo Empleado', field: 'Tipo Empleado' },
-              { title: 'Fecha Baja', field: 'Fecha baja', type: 'date' }
+              { title: 'Fecha Baja', field: 'Fecha baja' }
             ]}
             data={data}
             title="Tabla de Empleados"
