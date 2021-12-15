@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+// import { Pie } from 'react-chartjs-2';
+import { setToken, getToken, removeToken } from "../dist/Token";
+import { Doughnut } from 'react-chartjs-2';
+import CerrarSesion from './CerrarSesion';
+import { distSetAutentication } from '../dist/Autentication';
+import Loading from "../components/Loading.jsx";
+
+
 
 const AsistenciaMa = () => {
   /*mañana*/
@@ -16,18 +23,21 @@ const AsistenciaMa = () => {
   const [v_sin_marcar, setV_sin_mar] = useState([]);
 
 
+const [loading, setLoading] = useState(false);
 
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
 
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
       backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-      borderColor: 'black',
-      borderwidth: 1,
       hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-      haverBorderColor: 'blue',
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
-
     }]
   };
 
@@ -37,14 +47,15 @@ const AsistenciaMa = () => {
   }
 
   const peticionApiAsistenciaManana = async () => {
-    await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ma",
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ma`,
       {
         headers: {
-          Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+
+          Authorization: `Bearer ${getToken()}`
+
         }
       })
       .then(response => {
-
         setPuntualidad(response.data.puntualidad);
         setV_Puntualidad(response.data.v_puntualidad);
         setTardanza(response.data.tardanza);
@@ -56,17 +67,31 @@ const AsistenciaMa = () => {
         setSin_mar(response.data.sin_marcar);
         setV_sin_mar(response.data.v_sin_marcar);
       })
+      .catch((e) => {
+        if(e.response.status === 403){
+          console.log("No tienes permisos para ver esta información");
+        }
+
+        if(e.response.status === 401){
+          console.log("El token expiro o no te has aunteticado");
+          
+          distSetAutentication(false);
+          removeToken();
+
+        }
+      });
 
   }
   useEffect(() => {
     peticionApiAsistenciaManana();
+    cambiarEstado();
   }, [])
-  return (
 
-    <Pie data={dataManana} options={opciones} />
-
-
-  )
+  if (loading) {
+    return (<Loading />)
+  }else{
+    return (<Doughnut data={dataManana} options={opciones} />);
+  }
 }
 
 export default AsistenciaMa;

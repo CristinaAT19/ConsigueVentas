@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+import { setToken, getToken } from "../dist/Token";
+import { Doughnut } from 'react-chartjs-2';
+import { UserContext } from './context/UserContext';
+import Loading from "../components/Loading.jsx";
+
 
 const AsistenciaPer = () => {
+
     const [puntualidadP, setPuntualidadP] = useState([]);
     const [v_puntualidadP, setV_PuntualidadP] = useState([]);
     const [tardanzaP, setTardanzaP] = useState([]);
@@ -12,23 +17,36 @@ const AsistenciaPer = () => {
     const [faltas_jusP, setFaltasJusP] = useState([]);
     const [v_faltas_jusP, setV_Faltas_jusP] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+
+    // Obtiene contexto
+    const { user } = useContext(UserContext);
+
+
+
     const dataPersonal = {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
         datasets: [{
             backgroundColor: ['green', 'yellow', 'red', 'blue'],
-            borderColor: 'black',
-            borderwidth: 1,
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            haverBorderColor: 'blue',
             data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP]
         }]
     };
 
     const peticionApiAsistenciaPersonal = async () => {
-        await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboardUsuario/73615048",
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboardUsuario/${user['dni']}`,
             {
                 headers: {
-                    Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+
+                    Authorization: `Bearer ${getToken()}`
+
                 }
             })
             .then(response => {
@@ -42,6 +60,12 @@ const AsistenciaPer = () => {
                 setFaltasJusP(response.data.DashboardAsistencia[3].Estado);
                 setV_Faltas_jusP(response.data.DashboardAsistencia[3].Cantidad);
             })
+            .catch((e) => {
+                if (e.response.status === 403) {
+                    console.log("No tienes permisos para ver esta información");
+                }
+            });
+
     }
 
     const opciones = {
@@ -50,12 +74,14 @@ const AsistenciaPer = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaPersonal();
+        cambiarEstado();
+    }, []);
 
-    }, [])
-
-    return (
-        <Pie data={dataPersonal} options={opciones} />
-    )
+    if (loading) {
+        return (<Loading />)
+    }else{
+        return (<Doughnut data={dataPersonal} options={opciones} />);
+    }
 }
 
 export default AsistenciaPer

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
-import { Pie } from 'react-chartjs-2';
+// import { Pie } from 'react-chartjs-2';
+import { getToken, removeToken } from '../dist/Token';
+import { Doughnut } from 'react-chartjs-2';
+import CerrarSesion from './CerrarSesion';
+import { distSetAutentication } from '../dist/Autentication';
+import Loading from "../components/Loading.jsx";
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -15,15 +20,22 @@ const AsistenciaTarde = () => {
     const [sin_marcarT, setSin_marT] = useState([]);
     const [v_sin_marcarT, setV_sin_marT] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+
 
     const dataTarde = {
         labels: [puntualidadT, tardanzaT, faltas_inT, faltas_jusT, sin_marcarT],
         datasets: [{
+
             backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-            borderColor: 'black',
-            borderwidth: 1,
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            haverBorderColor: 'blue',
             data: [v_puntualidadT, v_tardanzaT, v_faltas_inT, v_faltas_jusT, v_sin_marcarT]
         }]
     };
@@ -33,14 +45,15 @@ const AsistenciaTarde = () => {
         responsive: true
     }
     const peticionApiAsistenciaTarde = async () => {
-        await axios.get("https://desarrollo.consigueventas.com/Backend/public/api/dashboard_ta",
+
+
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard_ta`,
             {
                 headers: {
-                    Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+                    Authorization: `Bearer ${getToken()}`
                 }
             })
             .then(response => {
-
                 setPuntualidadT(response.data.puntualidad);
                 setV_PuntualidadT(response.data.v_puntualidad);
                 setTardanzaT(response.data.tardanza);
@@ -52,15 +65,29 @@ const AsistenciaTarde = () => {
                 setSin_marT(response.data.sin_marcar);
                 setV_sin_marT(response.data.v_sin_marcar);
             })
+            .catch((e) => {
+                if (e.response.status === 403) {
+                    console.log("No tienes permisos para ver esta información");
+                } 
+                if(e.response.status === 401){
+                    console.log("El token expiro");
+                    distSetAutentication(false);
+                    removeToken();          
+                }
+                  
+            });
+
     }
     useEffect(() => {
         peticionApiAsistenciaTarde();
+        cambiarEstado();
     }, [])
-    return (
 
-        <Pie data={dataTarde} options={opciones} />
-
-    )
+    if (loading) {
+        return (<Loading />)
+    }else{
+        return (< Doughnut data={dataTarde} options={opciones} />);
+    }
 }
 
 export default AsistenciaTarde

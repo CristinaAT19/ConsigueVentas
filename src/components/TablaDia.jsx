@@ -1,16 +1,24 @@
 import React, { useState,useEffect } from "react";
-import DataTable from 'react-data-table-component';
 import axios from "axios";
+import MaterialTable from 'material-table';
+import { setToken, getToken } from "../dist/Token";
+import Loading from "../components/Loading.jsx";
 
-const TablaDia = () => {
-    const [tabla, setTabla] = useState([]);
+
+
+
+
+function TablaDia() {
+    const [data, setTabla] = useState([]);
+    // const [loading, setLoading] = useState(false);
     const peticionTablaDia = async () => {
+      // setLoading(true);
         await axios
             .get(
-                "https://desarrollo.consigueventas.com/Backend/public/api/tablas_administrador",
+              `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
                 {
                     headers: {
-                        Authorization: "Bearer 176|Ye9uwnJp6PyaPGTcJQxCB6uP85uRYoOZIXnveA9Z"
+                        Authorization: `Bearer ${getToken()}`
                     }
                 }
             )
@@ -18,76 +26,102 @@ const TablaDia = () => {
                 setTabla(Response.data.AsistenciaEmpleadosDiario);
             })
             .catch((e) => {
-                console.log(e);
+                if(e.response.status === 403){
+                  console.log("No tienes permisos para ver esta información");
+                }else{
+                }
             });
-
+            // setLoading(false);
     }
-    const columnas = [
-        {
-            name: 'Fecha',
-            selector: 'Fecha',
-            sortable: true
-        },
-        {
-            name: 'Hora',
-            selector: 'Hora',
-            sortable: true
-        },
-        {
-            name: 'DNI',
-            selector: 'Dni',
-            sortable: true
-        },
-        {
-            name: 'Nombres',
-            selector: 'Nombres',
-            sortable: true
-        },
-        {
-            name: 'Sistema Operativo',
-            selector: 'Sistema Operativo',
-            sortable: true
-        },
-        {
-            name: 'Dispositivo',
-            selector: 'Dispositivo',
-            sortable: true
-        },
-        {
-            name: 'Perfil',
-            selector: 'Perfil',
-            sortable: true
-        },
-        {
-            name: 'Departamento',
-            selector: 'Unidad',
-            sortable: true
-        },
-        {
-            name: 'Estado',
-            selector: 'Estado',
-            sortable: true
-        },
-        {
-            name: 'Turno',
-            selector: 'Turno',
-            sortable: true
-        },
-    ]
     useEffect(() => {
-        peticionTablaDia();
-    }, [])
-    return (
-        <div>
-            <DataTable
-                columns={columnas}
-                data={tabla}
-                title="Asistencia del Dia"
-                pagination
+      peticionTablaDia();
+      cambiarEstado();
+  }, [])
+  const [loading, setLoading] = useState(false);
 
-            />
-        </div>
-    )
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
+
+    const [selectedRow, setSelectedRow] = useState(null);
+    if (loading) {
+      return (<Loading />)
+    }else{
+  return (
+    <div className="main">
+        <MaterialTable
+          columns={[
+            {title: 'Fecha',field: 'Fecha'},
+            {title: 'Hora',field: 'Hora'},
+            {title: 'Dni',field: 'Dni'},
+            {title: 'Nombres',field: 'Nombres'},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo'},
+            {title: 'Dispositivo',field: 'Dispositivo'},
+            {title: 'Perfil',field: 'Perfil'},
+            {title: 'Departamento',field: 'Unidad'},
+            {title: 'Estado',field: 'Estado'},
+            {title: 'Turno',field: 'Turno'},
+        ]}
+          data={data}
+
+          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+        options={{
+            headerStyle: {
+              backgroundColor: '#E2E2E2  ',
+            },
+            rowStyle: rowData => ({
+              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
+            }),
+            searchFieldAlignment: 'left',
+            showTitle: false,
+            exportButton: true,
+            actionsColumnIndex: -1,
+            
+            // rowStyle: {
+            //   backgroundColor: '#EEE',
+            // }
+          }}
+          localization={{
+            body: {
+              emptyDataSourceMessage: "No hay registro para mostrar",
+              addTooltip: 'Agregar',
+              deleteTooltip: 'Eliminar',
+              editTooltip: 'Editar',
+              filterRow: {
+                  filterTooltip: 'Filtrar'
+              },
+            },
+            pagination: {
+                labelDisplayedRows: '{from}-{to} de {count}',
+                labelRowsSelect: 'filas',
+                labelRowsPerPage: 'filas por pagina:',
+                firstAriaLabel: 'Primera pagina',
+                firstTooltip: 'Primera pagina',
+                previousAriaLabel: 'Pagina anterior',
+                previousTooltip: 'Pagina anterior',
+                nextAriaLabel: 'Pagina siguiente',
+                nextTooltip: 'Pagina siguiente',
+                lastAriaLabel: 'Ultima pagina',
+                lastTooltip: 'Ultima pagina'
+            },
+            toolbar: {
+                nRowsSelected: '{0} ligne(s) sélectionée(s)',
+                showColumnsTitle: 'Ver columnas',
+                showColumnsAriaLabel: 'Ver columnas',
+                exportTitle: 'Exportar',
+                exportAriaLabel: 'Exportar',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
+                searchTooltip: 'Buscar',
+                searchPlaceholder: 'Buscar'
+            }
+        }}
+        />
+    </div>
+  );}
 }
 
 export default TablaDia;
