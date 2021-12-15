@@ -41,7 +41,7 @@ function TablaEmpleados() {
   const styles = useStyles();
 
   // Modales
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -59,7 +59,23 @@ function TablaEmpleados() {
   const [error, setError] = useState([]);
 //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
+  const [selectArea, setSelectArea] = useState([]);
 
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        setSelectArea(response.data.Areas);
+        //console.log(selectArea)
+      }).catch(error => {
+      })
+  }, [])
 
   const cambiarEstado=()=>{
     setLoading(true);
@@ -219,7 +235,9 @@ function TablaEmpleados() {
 
   const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
+    
     let empleadoFormateado = { ...empleado };
+    console.log(empleadoFormateado)
     if (empleadoFormateado.Turno === "Mañana") {
       empleadoFormateado.Turno = 1;
     } else if (empleadoFormateado.Turno === "Tarde") {
@@ -237,7 +255,7 @@ function TablaEmpleados() {
       empleadoFormateado.Perfil = 3;
     } else if (empleadoFormateado.Perfil === "Talento Humano") {
       empleadoFormateado.Perfil = 4;
-    } else if (empleadoFormateado.Turno === "Diseño Grafico") {
+    } else if (empleadoFormateado.Perfil === "Diseño Grafico") {
       empleadoFormateado.Perfil = 5;
     } else if (empleadoFormateado.Perfil === "Ventas") {
       empleadoFormateado.Perfil = 6;
@@ -452,20 +470,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={errorUpdate['emp_AreaId']} ></Error>
@@ -587,20 +595,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" label="Area" name="Area" >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={error['emp_AreaId']} ></Error>
