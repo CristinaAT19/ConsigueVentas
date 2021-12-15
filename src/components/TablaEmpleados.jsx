@@ -238,7 +238,9 @@ function TablaEmpleados() {
 
   const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
+    
     let empleadoFormateado = { ...empleado };
+    console.log(empleadoFormateado)
     if (empleadoFormateado.Turno === "Mañana") {
       empleadoFormateado.Turno = 1;
     } else if (empleadoFormateado.Turno === "Tarde") {
@@ -256,7 +258,7 @@ function TablaEmpleados() {
       empleadoFormateado.Perfil = 3;
     } else if (empleadoFormateado.Perfil === "Talento Humano") {
       empleadoFormateado.Perfil = 4;
-    } else if (empleadoFormateado.Turno === "Diseño Grafico") {
+    } else if (empleadoFormateado.Perfil === "Diseño Grafico") {
       empleadoFormateado.Perfil = 5;
     } else if (empleadoFormateado.Perfil === "Ventas") {
       empleadoFormateado.Perfil = 6;
@@ -480,22 +482,8 @@ function TablaEmpleados() {
               <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
                 {selectArea.map((option,i)=>{
                   return(
-                    <MenuItem value={i+1}>{option}</MenuItem>)
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
                 })}
-                {/* <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem> */}
               </Select>
             </FormControl>
             <Error errors={errorUpdate['emp_AreaId']} ></Error>
@@ -622,22 +610,8 @@ function TablaEmpleados() {
               <Select labelId="area" id="area" label="Area" name="Area" >
                 {selectArea.map((option,i)=>{
                   return(
-                    <MenuItem value={i+1}>{option}</MenuItem>)
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
                 })}
-                {/* <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem> */}
               </Select>
             </FormControl>
             <Error errors={error['emp_AreaId']} ></Error>
