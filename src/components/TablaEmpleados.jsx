@@ -188,7 +188,10 @@ function TablaEmpleados() {
       },
       {
         headers: {
-          Authorization: `Bearer ${getToken()}`
+          'Authorization': `Bearer ${getToken()}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       }
     )
