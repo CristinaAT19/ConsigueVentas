@@ -34,7 +34,7 @@ const AsistenciaPer = () => {
     const dataPersonal = {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
         datasets: [{
-            backgroundColor: ['green', 'yellow', 'red', 'blue'],
+            backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF'],
             hoverBackgroundColor: 'rgba(255,0,0,0.2)',
             data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP]
         }]

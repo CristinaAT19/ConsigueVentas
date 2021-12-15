@@ -34,7 +34,7 @@ const AsistenciaMaTa = () => {
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
-      backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
+      backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', 'gray'],
       hoverBackgroundColor: 'rgba(255,0,0,0.2)',
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
     }]
