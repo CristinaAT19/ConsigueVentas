@@ -128,7 +128,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 •••
               </span>
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Pages
+                Asistencia
               </span>
             </h3>
             <ul className="mt-3">
