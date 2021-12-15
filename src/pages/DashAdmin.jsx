@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
@@ -58,7 +58,7 @@ function DashAdmin() {
   return (
 
     <div className="flex h-screen overflow-hidden">
-      <Router basename={'dashadmin'}>
+      <Router basename='/dashadmin'>
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
