@@ -43,7 +43,11 @@ const [loading, setLoading] = useState(false);
 
   const opciones = {
     maintainAspectRatio: false,
-    responsive: true
+    responsive: true,
+    interaction: {
+      intersect: true,
+      // enabled:false,
+  }
   }
 
   const peticionApiAsistenciaManana = async () => {

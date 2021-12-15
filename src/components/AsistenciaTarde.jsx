@@ -42,7 +42,11 @@ const AsistenciaTarde = () => {
 
     const opciones = {
         maintainAspectRatio: false,
-        responsive: true
+        responsive: true, 
+        interaction: {
+            intersect: true,
+            // enabled:false,
+        }
     }
     const peticionApiAsistenciaTarde = async () => {
 
