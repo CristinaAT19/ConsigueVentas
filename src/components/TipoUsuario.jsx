@@ -68,6 +68,7 @@ const TipoUsuario = (dniReset) => {
     campo.value = '';
     setError([]);
     setValor("");
+    setTipo("");
     setTipoMostrar("");
   };
 
