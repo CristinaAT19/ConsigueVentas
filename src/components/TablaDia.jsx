@@ -69,6 +69,9 @@ function TablaDia() {
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
+            headerStyle: {
+              backgroundColor: '#E2E2E2  ',
+            },
             rowStyle: rowData => ({
               backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
             }),
@@ -76,6 +79,7 @@ function TablaDia() {
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
+            
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
@@ -109,7 +113,8 @@ function TablaDia() {
                 showColumnsAriaLabel: 'Ver columnas',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
             }

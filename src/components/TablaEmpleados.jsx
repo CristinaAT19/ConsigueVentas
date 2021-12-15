@@ -7,10 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { setToken, getToken } from "../dist/Token";
 import Error from "../components/item/Error";
 import Loading from "../components/Loading";
-import Success from './item/Sucess';
+//import Success from './item/Sucess';
 import { calcularEdad, calcularDiferenciaDias, calcularDiferenciaDiasFechaActual } from '../helpers/fecha';
 import { validationOnlyNumbers } from '../helpers/validaciones';
-
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,15 +35,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
-
-
 function TablaEmpleados() {
 
   // Estilos  
   const styles = useStyles();
 
   // Modales
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -60,9 +57,25 @@ function TablaEmpleados() {
   // Utilidades 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
-  const [sucess, setSucess] = useState(false);
+//  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
+  const [selectArea, setSelectArea] = useState([]);
 
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        setSelectArea(response.data.Areas);
+        //console.log(selectArea)
+      }).catch(error => {
+      })
+  }, [])
 
   const cambiarEstado=()=>{
     setLoading(true);
@@ -144,6 +157,7 @@ function TablaEmpleados() {
       setErrorUpdate(errorVal);
       return;
     }
+
     if (validationOnlyNumbers(form['Telefono'].value) === false) {
       const errorVal = {
         "emp_telefono": "Solo se permiten numeros",
@@ -196,7 +210,6 @@ function TablaEmpleados() {
       }
     )
       .then(response => {
-
         setLoading(false);
         setErrorUpdate([]);
         peticionGet();
@@ -204,7 +217,7 @@ function TablaEmpleados() {
       }).catch(error => {
         setLoading(false);
         setErrorUpdate(error.response.data.errors);
-
+        
       });
   }
 
@@ -225,7 +238,9 @@ function TablaEmpleados() {
 
   const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
+    
     let empleadoFormateado = { ...empleado };
+    console.log(empleadoFormateado)
     if (empleadoFormateado.Turno === "Mañana") {
       empleadoFormateado.Turno = 1;
     } else if (empleadoFormateado.Turno === "Tarde") {
@@ -243,7 +258,7 @@ function TablaEmpleados() {
       empleadoFormateado.Perfil = 3;
     } else if (empleadoFormateado.Perfil === "Talento Humano") {
       empleadoFormateado.Perfil = 4;
-    } else if (empleadoFormateado.Turno === "Diseño Grafico") {
+    } else if (empleadoFormateado.Perfil === "Diseño Grafico") {
       empleadoFormateado.Perfil = 5;
     } else if (empleadoFormateado.Perfil === "Ventas") {
       empleadoFormateado.Perfil = 6;
@@ -303,12 +318,11 @@ function TablaEmpleados() {
     }));
   }
 
-
-
   // Insertar nuevo empleado
   const manejadorInsertar = async (e) => {
-    setLoading(true);
+    
     e.preventDefault();
+    setLoading(true);
     const form = e.target.elements;
     const edad = calcularEdad(form.FechaNacimiento.value);
     const diffDiasPrueba = calcularDiferenciaDias(form.FechaInicioPrueba.value, form.FechaFinPrueba.value);
@@ -355,6 +369,7 @@ function TablaEmpleados() {
       setError(errorVal);
       return;
     }
+    
     if (validationOnlyNumbers(form.Telefono.value) === false) {
       const errorVal = {
         "emp_telefono": "Solo se permiten numeros",
@@ -376,9 +391,7 @@ function TablaEmpleados() {
 
     setError([]);
 
-
-
-    const nuevoEmpleado = await {
+    const nuevoEmpleado = {
       "emp_nombre": form.Nombres.value,
       "emp_apellido": form.Apellidos.value,
       "emp_fec_inicio_prueba": form.FechaInicioPrueba.value,
@@ -397,10 +410,7 @@ function TablaEmpleados() {
       "emp_fechanac": form.FechaNacimiento.value,
     };
 
-
-    await setEmpleado(nuevoEmpleado);
     await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarEmpleado`, nuevoEmpleado,
-    // await axios.post(`http://127.0.0.1:8000/api/insertarEmpleado`, nuevoEmpleado,
       {
         headers: {
           'Authorization': `Bearer ${getToken()}`,
@@ -411,26 +421,24 @@ function TablaEmpleados() {
       })
       .then((Response) => {
         setError([]);
-      //error update
-        setSucess(true);
+     abrircerrarModalInsertar();
         peticionGet();
-        abrircerrarModalInsertar();
-
+ 
       })
       .catch((e) => {
-        setSucess(false);
+      //  setSucess(false);
         setLoading(false);
+        setError(e.response.data.errors);
       });
     setLoading(false);
   }
   const bodyEditar = (
     <form onSubmit={actualizarEmpleado}>
       <div className={styles.modal}>
-        <h3>Editar Empleado</h3>
+        <h3 className="text-2xl text-medium my-3">EDITAR EMPLEADO</h3>
 
-
-        <div className="flex flex-wrap justify-around content-center">
-          <div style={{ width: '40%' }}>
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+          <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
              <Error errors={errorUpdate['emp_nombre']} ></Error>
             <br />
@@ -465,20 +473,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={errorUpdate['emp_AreaId']} ></Error>
@@ -492,7 +490,7 @@ function TablaEmpleados() {
             <Error errors={errorUpdate['emp_carrera']} ></Error>
             <br />
           </div>
-          <div style={{ width: '40%' }}>
+          <div className="mx-3 w-90 md:w-40">
             <TextField type="email" className={styles.inputMaterial} label="Email" name="Correo" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Correo']} />
             <Error errors={errorUpdate['emp_email']} ></Error>
             <br />
@@ -562,14 +560,11 @@ function TablaEmpleados() {
   const bodyInsertar = (
     <form onSubmit={manejadorInsertar}  >
       <div className={styles.modal}  >
-        <h3>Agregar empleado</h3>
+        <h3 className="text-2xl text-medium my-3">AGREGAR EMPLEADO</h3>
 
-        {sucess ? <Success /> :
-          <p></p>
-        }
 
-        <div className="flex flex-wrap justify-around content-center">
-          <div style={{ width: '40%' }}>
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+          <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" />
             <Error errors={error['emp_nombre']} ></Error>
             <br />
@@ -603,20 +598,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" label="Area" name="Area" >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={error['emp_AreaId']} ></Error>
@@ -631,7 +616,7 @@ function TablaEmpleados() {
             <br />
           </div>
 
-          <div style={{ width: '40%' }}>
+          <div className="mx-3 w-90 md:w-40">
             <TextField type="email" className={styles.inputMaterial} label="Email" name="Email" />
             <Error errors={error['emp_email']} ></Error>
             <br />
@@ -704,9 +689,7 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (<Loading />)
-  }else{  
+   
   return (
     <div>
       <br />
@@ -775,6 +758,7 @@ function TablaEmpleados() {
               },
               exportButton: true,
               actionsColumnIndex: -1
+              
             }}
             localization={{
               body: {
@@ -806,7 +790,8 @@ function TablaEmpleados() {
                 // showColumnsAriaLabel: 'Voir les colonnes',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
               },
@@ -826,7 +811,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );}
+  );
 
 
 

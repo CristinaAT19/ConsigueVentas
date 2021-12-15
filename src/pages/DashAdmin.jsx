@@ -11,7 +11,7 @@ import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
 import { distSetAutentication } from "../dist/Autentication";
 import CalendarioPersonal from "../components/CalendarioPersonal";
-import { calendarioAsistencia } from "./VistasAdmin/Perfil";
+import { CalendarioAsistencia } from "./VistasAdmin/Perfil";
 import Configuracion from '../components/Configuracion';
 
 import ControlInactividad from "../components/Inactividad";
@@ -82,7 +82,7 @@ function DashAdmin() {
               {/* perfil */}
               <Route path='/calendarioPersonal' exact component={CalendarioPersonal} />
               
-              <Route path='/calendarioAsistencia' exact component={calendarioAsistencia} />
+              <Route path='/calendarioAsistencia' exact component={CalendarioAsistencia} />
               {/* calendario general */}
               {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
 

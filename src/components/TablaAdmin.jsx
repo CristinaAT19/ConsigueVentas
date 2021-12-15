@@ -82,7 +82,8 @@ const TablaAdmin = () => {
                         backgroundColor: '#E2E2E2  ',
                     },
                     exportButton: true,
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+                    
                 }}
                 localization={{
                     body: {
@@ -114,7 +115,8 @@ const TablaAdmin = () => {
                         // showColumnsAriaLabel: 'Voir les colonnes',
                         exportTitle: 'Exportar',
                         exportAriaLabel: 'Exportar',
-                        exportName: 'Exportar como CSV',
+                        exportCSVName: "Exportar en formato CSV",
+                        exportPDFName: "Exportar como PDF",
                         searchTooltip: 'Buscar',
                         searchPlaceholder: 'Buscar'
                     },
