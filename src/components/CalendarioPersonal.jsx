@@ -47,7 +47,7 @@ const CalendarioPersonal = () => {
                 locales={esLocale}
                 locale="es"
                 themeSystem='standard'
-                weekTextLong={"true"}
+                weekTextLong={"false"}
                 firstDay={1}
                 initialView="dayGridMonth"
                 Forma

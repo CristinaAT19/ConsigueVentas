@@ -62,6 +62,7 @@ function TablaEmpleados() {
   const [selectArea, setSelectArea] = useState([]);
 
 
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
       {
@@ -700,7 +701,9 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-   
+  if (loading) {
+    return (<Loading />)
+  }else{ 
   return (
     <div>
       <br />
@@ -825,7 +828,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );
+  );}
 
 
 
