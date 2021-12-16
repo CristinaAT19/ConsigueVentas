@@ -41,7 +41,7 @@ function TablaEmpleados() {
   const styles = useStyles();
 
   // Modales
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);  
   const [modalInsertar, setModalInsertar] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
@@ -59,7 +59,23 @@ function TablaEmpleados() {
   const [error, setError] = useState([]);
 //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
+  const [selectArea, setSelectArea] = useState([]);
 
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        setSelectArea(response.data.Areas);
+        //console.log(selectArea)
+      }).catch(error => {
+      })
+  }, [])
 
   const cambiarEstado=()=>{
     setLoading(true);
@@ -186,7 +202,10 @@ function TablaEmpleados() {
       },
       {
         headers: {
-          Authorization: `Bearer ${getToken()}`
+          'Authorization': `Bearer ${getToken()}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       }
     )
@@ -205,12 +224,13 @@ function TablaEmpleados() {
 
 
   const abrircerrarModalInsertar = () => {
-
+    setError([]);
     setModalInsertar(!modalInsertar);
   }
 
   const abrircerrarModalEditar = () => {
-    setModalEditar(!modalEditar);
+    setErrorUpdate([]);
+    setModalEditar(!modalEditar);    
   }
   const abrircerrarModalEliminar = () => {
     setModalEliminar(!modalEliminar);
@@ -219,69 +239,81 @@ function TablaEmpleados() {
 
   const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
+    
+    //Cambio de else if a Switch
+
     let empleadoFormateado = { ...empleado };
-    if (empleadoFormateado.Turno === "Mañana") {
-      empleadoFormateado.Turno = 1;
-    } else if (empleadoFormateado.Turno === "Tarde") {
-      empleadoFormateado.Turno = 2;
-    } else if (empleadoFormateado.Turno === "Mañana y tarde") {
-      empleadoFormateado.Turno = 3;
-    };
+    console.log(empleadoFormateado)
+
+    switch (empleadoFormateado.Turno) {
+      case 'Mañana':
+        return empleadoFormateado.Turno = 1;
+      case 'Tarde':
+        return empleadoFormateado.Turno = 2;
+      case 'Mañana y tarde':
+        return empleadoFormateado.Turno = 3;
+    }
 
     // Formateo de 'select' area
-    if (empleadoFormateado.Perfil === "Administracion") {
-      empleadoFormateado.Perfil = 1;
-    } else if (empleadoFormateado.Perfil === "Relaciones Publicas") {
-      empleadoFormateado.Perfil = 2;
-    } else if (empleadoFormateado.Perfil === "Comunity Manager Web") {
-      empleadoFormateado.Perfil = 3;
-    } else if (empleadoFormateado.Perfil === "Talento Humano") {
-      empleadoFormateado.Perfil = 4;
-    } else if (empleadoFormateado.Turno === "Diseño Grafico") {
-      empleadoFormateado.Perfil = 5;
-    } else if (empleadoFormateado.Perfil === "Ventas") {
-      empleadoFormateado.Perfil = 6;
-    } else if (empleadoFormateado.Perfil === "Comunity Manager") {
-      empleadoFormateado.Perfil = 7;
-    } else if (empleadoFormateado.Perfil === "Big Data") {
-      empleadoFormateado.Perfil = 8;
-    } else if (empleadoFormateado.Perfil === "Diseño Web") {
-      empleadoFormateado.Perfil = 9;
-    } else if (empleadoFormateado.Perfil === "Desarrollo Web") {
-      empleadoFormateado.Perfil = 10;
-    } else if (empleadoFormateado.Perfil === "Soporte Tecnico") {
-      empleadoFormateado.Perfil = 11;
-    } else if (empleadoFormateado.Perfil === "Atención Al Cliente Digital") {
-      empleadoFormateado.Perfil = 12;
-    } else if (empleadoFormateado.Perfil === "Administracion Scrum") {
-      empleadoFormateado.Perfil = 13;
-    } else if (empleadoFormateado.Perfil === "Arquitectura") {
-      empleadoFormateado.Perfil = 14;
-    };
+
+    switch (empleadoFormateado.Perfil) {
+      case 'Administracion':
+        return empleadoFormateado.Perfil = 1;
+      case 'Relaciones Publicas':
+        return empleadoFormateado.Perfil = 2;
+      case 'Comunity Manager Web':
+        return empleadoFormateado.Perfil = 3;
+      case 'Talento Humano':
+        return empleadoFormateado.Perfil = 4;
+      case 'Diseño Grafico':
+        return empleadoFormateado.Perfil = 5;
+      case 'Ventas':
+        return empleadoFormateado.Perfil = 6;
+      case 'Comunity Manager':
+        return empleadoFormateado.Perfil = 7;
+      case 'Big Data':
+        return empleadoFormateado.Perfil = 8;
+      case 'Diseño Web':
+        return empleadoFormateado.Perfil = 9;
+      case 'Desarrollo Web':
+        return empleadoFormateado.Perfil = 10;
+      case 'Soporte Tecnico':
+        return empleadoFormateado.Perfil = 11;
+      case 'Atención Al Cliente Digital':
+        return empleadoFormateado.Perfil = 12;
+      case 'Administracion Scrum':
+        return empleadoFormateado.Perfil = 13;
+      case 'Arquitectura':
+        return empleadoFormateado.Perfil = 14;
+    }
 
     // Formateo de 'select' condicion capacitacion
-    if (empleadoFormateado['Condicion Capacitación'] === "Terminó capacitación") {
-      empleadoFormateado['Condicion Capacitación'] = 1;
-    } else if (empleadoFormateado['Condicion Capacitación'] === "No terminó capacitación") {
-      empleadoFormateado['Condicion Capacitación'] = 2;
-    } else if (empleadoFormateado['Condicion Capacitación'] === "En proceso") {
-      empleadoFormateado['Condicion Capacitación'] = 3;
-    };
+
+    switch (empleadoFormateado['Condicion Capacitación']) {
+      case 'Terminó capacitación':
+        return empleadoFormateado['Condicion Capacitación'] = 1;
+      case 'No terminó capacitación':
+        return empleadoFormateado['Condicion Capacitación'] = 2;
+      case 'En proceso':
+        return empleadoFormateado['Condicion Capacitación'] = 3;
+    }
 
     // Formateo de 'select' convenio
-    if (empleadoFormateado['Convenio'] === "Firmado") {
-      empleadoFormateado['Convenio'] = 1;
-    } else if (empleadoFormateado['Convenio'] === "Enviado para firmar") {
-      empleadoFormateado['Convenio'] = 2;
-    } else if (empleadoFormateado['Convenio'] === "No firmado") {
-      empleadoFormateado['Convenio'] = 3;
-    } else if (empleadoFormateado['Convenio'] === "Terminó convenio") {
-      empleadoFormateado['Convenio'] = 4;
-    } else if (empleadoFormateado['Convenio'] === "En proceso") {
-      empleadoFormateado['Convenio'] = 5;
-    } else if (empleadoFormateado['Convenio'] === "Retirado") {
-      empleadoFormateado['Convenio'] = 6;
-    };
+
+    switch (empleadoFormateado['Convenio']) {
+      case 'Firmado':
+        return empleadoFormateado['Convenio'] = 1;
+      case 'Enviado para firmar':
+        return empleadoFormateado['Convenio'] = 2;
+      case 'No firmado':
+        return empleadoFormateado['Convenio'] = 3;
+      case 'Terminó convenio':
+        return empleadoFormateado['Convenio'] = 4;
+      case 'En proceso':
+        return empleadoFormateado['Convenio'] = 5;
+      case 'Retirado':
+        return empleadoFormateado['Convenio'] = 6;
+    }
 
     setEmpleadoSeleccionado(empleadoFormateado);
     (caso === "Editar") ? abrircerrarModalEditar() :
@@ -320,9 +352,9 @@ function TablaEmpleados() {
 
 
     // Validacion inicio prueba, fin prueba 
-    if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
+    if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
+        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 2",
       }
       setError(errorVal);
       setLoading(false);
@@ -332,7 +364,7 @@ function TablaEmpleados() {
     // Validacion edad 
     if (edad < 18 || isNaN(edad)) {
       const errorVal = {
-        "emp_fechanac": "Debe ser mayor de edad. ",
+        "emp_fechanac": "Debe ser mayor de edad.",
       }
 
       setLoading(false);
@@ -342,7 +374,7 @@ function TablaEmpleados() {
     // Validacion numerico
     if (validationOnlyNumbers(form.Dni.value) === false) {
       const errorVal = {
-        "emp_dni": "Solo se permiten numeros",
+        "emp_dni": "Solo se permiten numeros.",
       }
       setLoading(false);
       setError(errorVal);
@@ -351,7 +383,7 @@ function TablaEmpleados() {
     
     if (validationOnlyNumbers(form.Telefono.value) === false) {
       const errorVal = {
-        "emp_telefono": "Solo se permiten numeros",
+        "emp_telefono": "Solo se permiten numeros.",
       }
       setLoading(false);
       setError(errorVal);
@@ -452,20 +484,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" name="Perfil" label="Area" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Perfil']} >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={errorUpdate['emp_AreaId']} ></Error>
@@ -587,20 +609,10 @@ function TablaEmpleados() {
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
               <Select labelId="area" id="area" label="Area" name="Area" >
-                <MenuItem value={1}>Administracion</MenuItem>
-                <MenuItem value={2}>Relaciones Publicas</MenuItem>
-                <MenuItem value={3}>Comunity Manager Web</MenuItem>
-                <MenuItem value={4}>Talento Humano</MenuItem>
-                <MenuItem value={5}>Diseño Grafico</MenuItem>
-                <MenuItem value={6}>Ventas</MenuItem>
-                <MenuItem value={7}>Comunity Manager</MenuItem>
-                <MenuItem value={8}>Big Data</MenuItem>
-                <MenuItem value={9}>Diseño Web</MenuItem>
-                <MenuItem value={10}>Desarrollo Web</MenuItem>
-                <MenuItem value={11}>Soporte Tecnico</MenuItem>
-                <MenuItem value={12}>Atención Al Cliente Digital</MenuItem>
-                <MenuItem value={13}>Administracion Scrum</MenuItem>
-                <MenuItem value={14}>Arquitectura</MenuItem>
+                {selectArea.map((option,i)=>{
+                  return(
+                    <MenuItem key={i+1} value={i+1}>{option}</MenuItem>)
+                })}
               </Select>
             </FormControl>
             <Error errors={error['emp_AreaId']} ></Error>
@@ -729,7 +741,7 @@ function TablaEmpleados() {
               { title: 'Condición Practicas', field: 'Condición Practicas' },
               { title: 'Estado', field: 'Estado' },
               { title: 'Tipo Empleado', field: 'Tipo Empleado' },
-              { title: 'Fecha Baja', field: 'Fecha baja', type: 'date' }
+              { title: 'Fecha Baja', field: 'Fecha baja' }
             ]}
             data={data}
             title="Tabla de Empleados"

@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { Modal, TextField, Button } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Loading from "../components/Loading";
-import { setToken, getToken } from "../dist/Token";
-// import { Component } from 'react'
+import { getToken } from "../dist/Token";
 import Select from 'react-select'
-
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: '21rem',
+        width: 500,
         backgroundColor: theme.palette.background.paper,
-        // border: '2px solid #000',
+        border: '2px solid #000',
         boxshadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         top: '50%',
@@ -35,14 +32,10 @@ function TablaFaltas() {
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
-
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
-        value:3, label: "Falta Justificada"
+        value: "",
+        label: "",
     });
-
-    const [loading, setLoading] = useState(false);
-
-
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
         Apellido: "",
         Dni: "",
@@ -56,12 +49,7 @@ function TablaFaltas() {
         cambio_estado: "",
     })
 
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }
+
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -69,6 +57,7 @@ function TablaFaltas() {
             ...prevState,
             [name]: value
         }));
+        console.log(empleadoSeleccionado);
     }
 
 
@@ -83,13 +72,9 @@ function TablaFaltas() {
             .then(response => {
                 setData(response.data.data);
             }).catch(error => {
+                console.log(error);
             })
     }
-
-
-
-
-
 
     const peticionPut = async () => {
 
@@ -105,7 +90,6 @@ function TablaFaltas() {
             }
         )
             .then(response => {
-                var dataNueva = data.concat(response.data);
                 data.map(empleado => {
                     if (empleado.Id === empleadoSeleccionado.Id) {
                         empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
@@ -116,14 +100,20 @@ function TablaFaltas() {
                 abrirCerrarModalEditar();
 
             }).catch(error => {
+                console.log(error);
             });
+        console.log(modalSeleccionarOptionar);
     }
 
 
     useEffect(() => {
-        cambiarEstado();
         peticionGet();
     }, [])
+
+    const limpiarFalta = () => {
+        setModalSeleccionarOptionar(modalSeleccionarOptionar.value = "");
+        setModalSeleccionarOptionar(modalSeleccionarOptionar.label = "");
+    }
 
 
 
@@ -146,20 +136,17 @@ function TablaFaltas() {
         <div className={styles.modal}>
             <h3>Editar Empleado</h3>
             <br />
-            <Select options={optiones} onChange={setModalSeleccionarOptionar} placeholder="Falta Justificada" defaultMenuIsOpen={false} isSearchable={false} />
-            {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
-            <br />
+            <Select options={optiones} onChange={setModalSeleccionarOptionar}  placeholder={empleadoSeleccionado['Estado Falta']} defaultMenuIsOpen={false} isSearchable={false} >
+            </Select>
+            <br /><br />
             <div align="right">
                 <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                |
                 <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+                |
             </div>
         </div>
     )
     // const tableRef = React.createRef();
-    if (loading) {
-        return (<Loading />)
-      }else{
     return (
         <div>
 
@@ -168,47 +155,57 @@ function TablaFaltas() {
                     {
                         title: 'Id',
                         field: 'Id',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Nombres',
                         field: 'Nombre',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Apellidos',
                         field: 'Apellido',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Dni',
                         field: 'Dni',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Perfil',
                         field: 'Perfil',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Unidad',
                         field: 'Unidad',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Turno',
                         field: 'Turno',
-                        sortable: true
+                        sortable: true,
+                        align: 'center'
                     },
                     {
                         title: 'Fecha de Falta',
                         field: 'Fecha Falta',
-                        sortable: true
+                        sortable: true,
+                        type: 'date',
+                        align: 'center'
                     },
                     {
                         title: 'Estado de Falta',
                         field: 'Estado Falta',
-                        sortable: true
+                        sortable: true,
+                        lookup: { ['Falta Justificada']: 'Falta Justicada', ['Falta Injustificada']: 'Falta Injusticada' }
                     },
                 ]}
                 data={data}
@@ -236,8 +233,9 @@ function TablaFaltas() {
                         backgroundColor: '#E2E2E2  ',
                     },
                     exportButton: true,
-                    actionsColumnIndex: -1,
-                    
+                    align: 'right',
+                    // filtering: true,
+                    actionsColumnIndex: -1
                 }}
                 localization={{
                     body: {
@@ -269,8 +267,7 @@ function TablaFaltas() {
                         // showColumnsAriaLabel: 'Voir les colonnes',
                         exportTitle: 'Exportar',
                         exportAriaLabel: 'Exportar',
-                        exportCSVName: "Exportar en formato CSV",
-                        exportPDFName: "Exportar como PDF",
+                        exportName: 'Exportar como CSV',
                         searchTooltip: 'Buscar',
                         searchPlaceholder: 'Buscar'
                     },
@@ -287,6 +284,6 @@ function TablaFaltas() {
         </div >
 
 
-    );}
+    );
 }
 export default TablaFaltas;

@@ -1,23 +1,14 @@
 import axios from "axios";
-import React, { useState, useContext, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import Sidebar from "../partials/Sidebar";
-import Header from "../partials/Header";
-import Dashboard from "./VistasAdmin/Dashboard";
-import {
-  administracionEmpleados,
-  restablecimientoContraseña,
-  tablaFaltas,
-  calendarioEmpleados,
-  listaAdministradores,
-} from "./VistasAdmin/Empleados";
-import TablaDatosPer from "../components/TablaDatosPer";
-import CerrarSesion from "../components/CerrarSesion";
+
+import React, { useState, useContext, useEffect } from 'react';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
+import Dashboard from './VistasAdmin/Dashboard';
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
+import TablaDatosPer from '../components/TablaDatosPer';
+import CerrarSesion from '../components/CerrarSesion';
+
 import { UserContext } from "../components/context/UserContext";
 import { getToken, removeToken } from "../dist/Token";
 import { distSetAutentication } from "../dist/Autentication";
@@ -66,7 +57,7 @@ function DashAdmin() {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Router basename={"dashadmin"}>
+      <Router basename='/dashadmin'>
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
