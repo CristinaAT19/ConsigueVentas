@@ -30,9 +30,9 @@ const AdminUsuario = ({
           <p>{descripcion2}</p>
           <p>{descripcion3}</p>
         </div>
-        <div className="flex flex-col items-baseline justify-center m-1.5">
-          <label>{texto}</label>
-          <input type="number" placeholder="dni" onChange={onChangeDni} className="text-black" name="dni_reset" id="dni_reset" />
+        <div className="flex flex-col md:flex-row items-baseline justify-center m-1.5">
+          <label class="pr-3">{texto}</label>
+          <input class="border pl-2 py-2 bg-gray-50 rounded text-sm shadow-md" type="number" placeholder="DNI" onChange={onChangeDni} className="text-black" name="dni_reset" id="dni_reset" />
         </div>
         <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
           
