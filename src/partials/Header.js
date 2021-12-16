@@ -38,10 +38,6 @@ function Header({
           <div className="flex items-center">
 
 
-            <SearchModal />
-
-
-
             {/*  Divider */}
             <hr className="w-px h-6 bg-gray-800 mx-3" />
             <UserMenu />
