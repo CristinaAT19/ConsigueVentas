@@ -8,7 +8,7 @@ import bootstrapPlugin from "@fullcalendar/bootstrap";
 import esLocale from '@fullcalendar/core/locales/es';
 import { getToken } from "../dist/Token";
 import { UserContext } from "./context/UserContext";
-const CalendarioPersonal = () => {
+const CalendarioPersonalMovil = () => {
     const [valor, setValor] = useState([]);
     const {user} = useContext(UserContext)
     const [dniUtilizar, setDniUtilizar] = useState(user['dni']);
@@ -37,7 +37,7 @@ const CalendarioPersonal = () => {
             <FullCalendar
 
 
-                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[ bootstrapPlugin, listPlugin]}
                 /*events={[
                     { start: '2021-12-01',
                     title: "Tardanza:08:26",
@@ -52,14 +52,13 @@ const CalendarioPersonal = () => {
                 themeSystem='standard'
                 weekTextLong={"false"}
                 firstDay={1}
-                initialView="dayGridMonth"
+                initialView="listYear"
                 Forma
                 headerToolbar={{
-                    start: "prev,next,today",
+                    start: "prev,next",
                     center: "title",
-                    end: 'listYear,dayGridMonth,dayGridWeek,dayGridDay',
+                    end: 'listYear',
                 }}
-                dayHeaderFormat={{ weekday: "long" }}
 
                 
             />
@@ -67,4 +66,4 @@ const CalendarioPersonal = () => {
     );
 };
 
-export default CalendarioPersonal;
+export default CalendarioPersonalMovil;
