@@ -129,9 +129,9 @@ function TablaEmpleados() {
 
 
     // Validacion inicio prueba, fin prueba 
-    if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
+    if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
+        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 2",
       }
       setErrorUpdate(errorVal);
       setLoading(false);

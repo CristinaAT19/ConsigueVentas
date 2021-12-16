@@ -2,7 +2,7 @@
 import { distSetAutentication,distSetUser } from "../dist/Autentication";
 import axios from "axios";
 import { getToken, removeToken } from "../dist/Token";
-//import { UserContext } from "./context/UserContext";
+// import { UserContext } from "./context/UserContext";
 
 
  const ControlInactividad = () => {
@@ -28,7 +28,7 @@ import { getToken, removeToken } from "../dist/Token";
        removeToken();
        distSetAutentication(false); 
       // <Redirect to='/login'/>;
-        window.location = '/login';  
+      window.location = '/login';  
     }
       ///////////////
   }
