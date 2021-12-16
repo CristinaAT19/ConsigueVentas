@@ -767,7 +767,10 @@ function TablaEmpleados() {
               headerStyle: {
                 backgroundColor: '#E2E2E2  ',
               },
-              exportButton: true,
+              exportButton: {
+                csv: true,
+                pdf: false
+              },
               actionsColumnIndex: -1
               
             }}
