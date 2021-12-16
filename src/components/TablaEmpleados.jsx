@@ -240,70 +240,80 @@ function TablaEmpleados() {
   const seleccionarEmpleado = (empleado, caso) => {
     // Formateo de 'select' turno
     
+    //Cambio de else if a Switch
+
     let empleadoFormateado = { ...empleado };
     console.log(empleadoFormateado)
-    if (empleadoFormateado.Turno === "Mañana") {
-      empleadoFormateado.Turno = 1;
-    } else if (empleadoFormateado.Turno === "Tarde") {
-      empleadoFormateado.Turno = 2;
-    } else if (empleadoFormateado.Turno === "Mañana y tarde") {
-      empleadoFormateado.Turno = 3;
-    };
+
+    switch (empleadoFormateado.Turno) {
+      case 'Mañana':
+        return empleadoFormateado.Turno = 1;
+      case 'Tarde':
+        return empleadoFormateado.Turno = 2;
+      case 'Mañana y tarde':
+        return empleadoFormateado.Turno = 3;
+    }
 
     // Formateo de 'select' area
-    if (empleadoFormateado.Perfil === "Administracion") {
-      empleadoFormateado.Perfil = 1;
-    } else if (empleadoFormateado.Perfil === "Relaciones Publicas") {
-      empleadoFormateado.Perfil = 2;
-    } else if (empleadoFormateado.Perfil === "Comunity Manager Web") {
-      empleadoFormateado.Perfil = 3;
-    } else if (empleadoFormateado.Perfil === "Talento Humano") {
-      empleadoFormateado.Perfil = 4;
-    } else if (empleadoFormateado.Perfil === "Diseño Grafico") {
-      empleadoFormateado.Perfil = 5;
-    } else if (empleadoFormateado.Perfil === "Ventas") {
-      empleadoFormateado.Perfil = 6;
-    } else if (empleadoFormateado.Perfil === "Comunity Manager") {
-      empleadoFormateado.Perfil = 7;
-    } else if (empleadoFormateado.Perfil === "Big Data") {
-      empleadoFormateado.Perfil = 8;
-    } else if (empleadoFormateado.Perfil === "Diseño Web") {
-      empleadoFormateado.Perfil = 9;
-    } else if (empleadoFormateado.Perfil === "Desarrollo Web") {
-      empleadoFormateado.Perfil = 10;
-    } else if (empleadoFormateado.Perfil === "Soporte Tecnico") {
-      empleadoFormateado.Perfil = 11;
-    } else if (empleadoFormateado.Perfil === "Atención Al Cliente Digital") {
-      empleadoFormateado.Perfil = 12;
-    } else if (empleadoFormateado.Perfil === "Administracion Scrum") {
-      empleadoFormateado.Perfil = 13;
-    } else if (empleadoFormateado.Perfil === "Arquitectura") {
-      empleadoFormateado.Perfil = 14;
-    };
+
+    switch (empleadoFormateado.Perfil) {
+      case 'Administracion':
+        return empleadoFormateado.Perfil = 1;
+      case 'Relaciones Publicas':
+        return empleadoFormateado.Perfil = 2;
+      case 'Comunity Manager Web':
+        return empleadoFormateado.Perfil = 3;
+      case 'Talento Humano':
+        return empleadoFormateado.Perfil = 4;
+      case 'Diseño Grafico':
+        return empleadoFormateado.Perfil = 5;
+      case 'Ventas':
+        return empleadoFormateado.Perfil = 6;
+      case 'Comunity Manager':
+        return empleadoFormateado.Perfil = 7;
+      case 'Big Data':
+        return empleadoFormateado.Perfil = 8;
+      case 'Diseño Web':
+        return empleadoFormateado.Perfil = 9;
+      case 'Desarrollo Web':
+        return empleadoFormateado.Perfil = 10;
+      case 'Soporte Tecnico':
+        return empleadoFormateado.Perfil = 11;
+      case 'Atención Al Cliente Digital':
+        return empleadoFormateado.Perfil = 12;
+      case 'Administracion Scrum':
+        return empleadoFormateado.Perfil = 13;
+      case 'Arquitectura':
+        return empleadoFormateado.Perfil = 14;
+    }
 
     // Formateo de 'select' condicion capacitacion
-    if (empleadoFormateado['Condicion Capacitación'] === "Terminó capacitación") {
-      empleadoFormateado['Condicion Capacitación'] = 1;
-    } else if (empleadoFormateado['Condicion Capacitación'] === "No terminó capacitación") {
-      empleadoFormateado['Condicion Capacitación'] = 2;
-    } else if (empleadoFormateado['Condicion Capacitación'] === "En proceso") {
-      empleadoFormateado['Condicion Capacitación'] = 3;
-    };
+
+    switch (empleadoFormateado['Condicion Capacitación']) {
+      case 'Terminó capacitación':
+        return empleadoFormateado['Condicion Capacitación'] = 1;
+      case 'No terminó capacitación':
+        return empleadoFormateado['Condicion Capacitación'] = 2;
+      case 'En proceso':
+        return empleadoFormateado['Condicion Capacitación'] = 3;
+    }
 
     // Formateo de 'select' convenio
-    if (empleadoFormateado['Convenio'] === "Firmado") {
-      empleadoFormateado['Convenio'] = 1;
-    } else if (empleadoFormateado['Convenio'] === "Enviado para firmar") {
-      empleadoFormateado['Convenio'] = 2;
-    } else if (empleadoFormateado['Convenio'] === "No firmado") {
-      empleadoFormateado['Convenio'] = 3;
-    } else if (empleadoFormateado['Convenio'] === "Terminó convenio") {
-      empleadoFormateado['Convenio'] = 4;
-    } else if (empleadoFormateado['Convenio'] === "En proceso") {
-      empleadoFormateado['Convenio'] = 5;
-    } else if (empleadoFormateado['Convenio'] === "Retirado") {
-      empleadoFormateado['Convenio'] = 6;
-    };
+
+    switch (empleadoFormateado['Convenio']) {
+      case 'Firmado':
+        return empleadoFormateado['Convenio'] = 1;
+      case 'Enviado para firmar':
+        return empleadoFormateado['Convenio'] = 2;
+      case 'No firmado':
+        return empleadoFormateado['Convenio'] = 3;
+      case 'Terminó convenio':
+        return empleadoFormateado['Convenio'] = 4;
+      case 'En proceso':
+        return empleadoFormateado['Convenio'] = 5;
+      case 'Retirado':
+        return empleadoFormateado['Convenio'] = 6;
+    }
 
     setEmpleadoSeleccionado(empleadoFormateado);
     (caso === "Editar") ? abrircerrarModalEditar() :
@@ -354,7 +364,7 @@ function TablaEmpleados() {
     // Validacion edad 
     if (edad < 18 || isNaN(edad)) {
       const errorVal = {
-        "emp_fechanac": "Debe ser mayor de edad. ",
+        "emp_fechanac": "Debe ser mayor de edad.",
       }
 
       setLoading(false);
@@ -364,7 +374,7 @@ function TablaEmpleados() {
     // Validacion numerico
     if (validationOnlyNumbers(form.Dni.value) === false) {
       const errorVal = {
-        "emp_dni": "Solo se permiten numeros",
+        "emp_dni": "Solo se permiten numeros.",
       }
       setLoading(false);
       setError(errorVal);
@@ -373,7 +383,7 @@ function TablaEmpleados() {
     
     if (validationOnlyNumbers(form.Telefono.value) === false) {
       const errorVal = {
-        "emp_telefono": "Solo se permiten numeros",
+        "emp_telefono": "Solo se permiten numeros.",
       }
       setLoading(false);
       setError(errorVal);
