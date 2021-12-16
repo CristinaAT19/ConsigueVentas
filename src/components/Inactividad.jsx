@@ -24,11 +24,13 @@ import { getToken, removeToken } from "../dist/Token";
       });
       //////////////
       if(idToken==msjToken){
+        console.log(window.location.href);
+        console.log(window.location.pathname);
      } else {
        removeToken();
        distSetAutentication(false); 
       // <Redirect to='/login'/>;
-        window.location = '/login';  
+        window.location = '/cerrarSesion';  
     }
       ///////////////
   }
