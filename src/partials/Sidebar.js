@@ -15,15 +15,32 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const { user } = useContext(UserContext);
   const storedSidebarExpanded = true;
-
-  const [expand, setExpand] = useState(false);
-  const expandir = () => {
-    setExpand(!expand);
-  };
+  //
+  const mql = window.matchMedia('(min-width: 1536px)');
+  let media = mql.matches;
+  // 
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
+  const [expand, setExpand] = useState(
+    // localStorage.getItem("sidebar-expanded") ? true : false
+    // storedSidebarExpanded === null ? false : true
+    false
+  );
 
+  const expandir = () => {
+    setExpand(!expand);
+
+  };
+
+  useEffect(() => {
+    mql.addEventListener('change', (e) => {
+      let media = e.matches;
+      media ? setExpand(true) : setExpand(false);
+    });
+    if (media) setExpand(true);
+
+  })
   const handleExpanded = () => {
     setSidebarExpanded(!sidebarExpanded);
     expandir();
@@ -60,6 +77,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     } else {
       document.querySelector("body").classList.remove("sidebar-expanded");
     }
+    // if (localStorage.getItem("sidebar-expanded")) {
+    //   setExpand(true);
+
+    // } else {
+    //   setExpand(false);
+
+    // }
+
   }, [sidebarExpanded]);
 
   return (
@@ -69,7 +94,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         className={`fixed inset-0 bg-gray-800 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${sidebarOpen ? "opacity-50" : "opacity-0 pointer-events-none"
           }`}
         aria-hidden="true"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
+        onClick={() => {
+          setSidebarOpen(!sidebarOpen)
+        }}
       ></div>
 
       {/* Sidebar */}
@@ -100,19 +127,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
           {/* Logo */}
           <NavLink exact to="/dashAdmin" className="block">
-            {!expand ? (
-              <img
-                className=" max-w-7xl w-40 h-12"
-                src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
-              />
-            ) : (
-              <img
-                className="w-auto h-9"
-                src="https://desarrollo.consigueventas.com/Frontend/Recursos/icono-cventas.png"
-                alt=""
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-              />
-            )}
+            {
+              !expand ? (
+                <img
+                  className="w-auto h-9 xl:h-10"
+                  src="https://desarrollo.consigueventas.com/Frontend/Recursos/logo%20mini.svg"
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                />
+              ) : (
+                <img
+                  className="w-auto h-9 xl:h-10"
+                  src="https://desarrollo.consigueventas.com/Frontend/Recursos/Logo.svg"
+                  alt=""
+                  onClick={() => setSidebarOpen(!sidebarOpen)}
+                />
+              )
+            }
           </NavLink>
         </div>
 
@@ -317,9 +347,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
+                          if (sidebarExpanded) {
+                            handleClick()
+                          } else {
+                            setSidebarExpanded(true);
+                            // setExpand(false);
+                          }
                         }}
                       >
                         <div className="flex items-center justify-between">
