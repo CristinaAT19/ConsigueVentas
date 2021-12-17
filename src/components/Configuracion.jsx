@@ -49,7 +49,7 @@ const Configuracion = () => {
             return true;
         }
         if (newPassword != confirPassword) {
-            setPasswordError('Confirmar contraseña diferente!');
+            setPasswordError('La nueva contraseña y confirmar contraseña no coinciden!');
             return true;
         }
         axios.post(`${process.env.REACT_APP_API_URL}/api/cambiarPassword`, bodyParameters, config)
@@ -57,7 +57,8 @@ const Configuracion = () => {
                 setPasswordError(Response.data.mensaje);
             })
             .catch((e) => {
-                setPasswordError("Ocurrio un error");
+                // console.log(e.response.data.errors);
+                setPasswordError(e.response.data.errors.oldPassword + " " + e.response.data.errors.newPassword);
             });
 
     };
@@ -75,7 +76,7 @@ const Configuracion = () => {
                                 <label className="block uppercase text-xs font-bold mb-2">
                                 Contraseña actual (DNI por defecto)
                                 </label>
-                                <input onChange={(e) => setPassword(e.target.value)} class="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" type="text" name="password" id="password" required />
+                                <input onChange={(e) => setPassword(e.target.value)} class="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" type="text" name="password" id="password" minLength="4" maxLength="20" required />
                             </div>
                         </div>
                         <div className="px-4">
@@ -83,7 +84,7 @@ const Configuracion = () => {
                                 <label className="block uppercase text-xs font-bold mb-2">
                                 Nueva contraseña
                                 </label>
-                                <input onChange={(e) => setNewPassword(e.target.value)} class="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" type="password" name="newPassword" id="newPassword" required />
+                                <input onChange={(e) => setNewPassword(e.target.value)} class="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" type="password" name="newPassword" minLength="4" maxLength="20"  id="newPassword" required />
                             </div>
                         </div>
                         <div className="px-4">

@@ -67,7 +67,7 @@ const ResetearConstra = (dniReset) => {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-left m-1.5 gap-8">
+      <div className="flex flex-col md:flex-row items-center justify-around gap-8">
         <button
           onClick={resetear}
           className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
@@ -75,7 +75,7 @@ const ResetearConstra = (dniReset) => {
         </button>
         <button
           onClick={limpiar}
-          className="flex items-center justify-center w-28 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
+          className="flex items-center justify-center w-56 md:w-28 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md">
           Limpiar
         </button>
         <Error errors={error["dni"]}></Error> <br />

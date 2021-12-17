@@ -52,12 +52,11 @@ const CalendarioPersonalMovil = () => {
                 themeSystem='standard'
                 weekTextLong={"false"}
                 firstDay={1}
-                initialView="listYear"
+                initialView="listMonth"
                 Forma
                 headerToolbar={{
-                    start: "prev,next",
-                    center: "title",
-                    end: 'listYear',
+                  start: "title",
+                  end: "prev,next",
                 }}
 
                 

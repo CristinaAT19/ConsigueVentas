@@ -23,16 +23,16 @@ const AdminUsuario = ({
 
   return (
     <>
-      <div className="flex flex-col items-baseline justify-center w-full p-10 pt-5 bg-white rounded">
+      <div className="flex flex-col items-baseline justify-center w-full p-2 md:p-10 pt-2 bg-white rounded">
         <div className="flex flex-col items-baseline justify-center m-1.5">
           <h3>{titulo}</h3>
           <p>{descripcion1}</p>
           <p>{descripcion2}</p>
           <p>{descripcion3}</p>
         </div>
-        <div className="flex flex-col items-baseline justify-center m-1.5">
-          <label>{texto}</label>
-          <input type="number" placeholder="dni" onChange={onChangeDni} className="text-black" name="dni_reset" id="dni_reset" />
+        <div className="flex flex-col md:flex-row items-baseline justify-center m-1.5">
+          <label className="pr-3">{texto}</label>
+          <input onChange={onChangeDni} className="border pl-2 py-2 bg-gray-50 rounded text-sm shadow-md text-black" type="number" placeholder="DNI" name="dni_reset" id="dni_reset" />
         </div>
         <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
           
