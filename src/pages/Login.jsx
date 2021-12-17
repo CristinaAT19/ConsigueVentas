@@ -139,7 +139,7 @@ const Login = () => {
                 name="password"
                 placeholder="Contraseña"
                 id="contrasena"
-                maxLength="8"
+                maxLength="20"
                 required
                 className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
               />

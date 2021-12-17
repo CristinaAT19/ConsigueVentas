@@ -35,8 +35,9 @@ const AsistenciaMaTa = () => {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
       backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', 'gray'],
-      hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-      data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
+      hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
+      data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar],
+      hoverOffset: 10
     }]
   };
 

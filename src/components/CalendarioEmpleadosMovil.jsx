@@ -11,7 +11,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 import { MdCleaningServices} from "react-icons/md";
 
 
-const CalendarioEmpleados = () => {
+const CalendarioEmpleadosMovil = () => {
 
     const campo=useRef();
     //const campo=document.getElementById("dni_calendario");
@@ -140,7 +140,7 @@ const CalendarioEmpleados = () => {
           </div>
           <div>
           <FullCalendar
-                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[ bootstrapPlugin, listPlugin]}
 
                   events={valor}
                   height={"600px"}
@@ -150,14 +150,14 @@ const CalendarioEmpleados = () => {
                   themeSystem='standard'
                   weekTextLong={"true"}
                   firstDay={1}
-                  initialView="dayGridMonth"
+                  initialView="listYear"
                   Forma
                   headerToolbar={{
-                      start: "prev,next,today",
+                      start: "prev,next",
                       center: "title",
-                      end: "listYear,dayGridMonth,dayGridWeek,dayGridDay",
+                      end: "listYear",
                   }}
-                  dayHeaderFormat={{ weekday: "long" }}
+
             />
           </div>
             
@@ -165,4 +165,4 @@ const CalendarioEmpleados = () => {
     );
 };
 
-export default CalendarioEmpleados;
+export default CalendarioEmpleadosMovil;

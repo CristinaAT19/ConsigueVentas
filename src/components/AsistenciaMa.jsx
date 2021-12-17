@@ -36,9 +36,9 @@ const [loading, setLoading] = useState(false);
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
       backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', 'gray'],
-      hoverBackgroundColor: 'rgba(255,0,0,0.2)',
+      hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
       data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar],
-
+      hoverOffset: 10
     }]
   };
 
@@ -47,8 +47,11 @@ const [loading, setLoading] = useState(false);
     responsive: true,
     interaction: {
       intersect: true,
-      // enabled:false,
-  }
+      // events:['mouseout']
+    },
+    tansitions: {
+       type: 'color', properties: ['borderColor', 'backgroundColor'], from: 'transparent' 
+    }
   }
 
   const peticionApiAsistenciaManana = async () => {

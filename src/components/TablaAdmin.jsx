@@ -38,9 +38,10 @@ const TablaAdmin = () => {
         cambiarEstado();
         peticionTablaAdmin();
     }, [])
+
     if (loading) {
-        <Loading/>
-    } else {
+        return (<Loading />)
+    }else{
     return (
         <div>
             <MaterialTable
@@ -72,7 +73,7 @@ const TablaAdmin = () => {
 
                 ]}
                 data={tabla}
-                title="Tabla de Empleados"
+                title="Tabla de Administradores"
                 // tableRef={tableRef}
                 // actions={[
                 //   {
