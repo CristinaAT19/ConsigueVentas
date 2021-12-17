@@ -23,8 +23,6 @@ import { useState } from "react";
       });
       //////////////
       if(idToken==msjToken){
-        console.log(window.location.href);
-        console.log(window.location.pathname);
         // return true;
      } else {
        removeToken();

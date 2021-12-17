@@ -230,7 +230,6 @@ function TablaEmpleados() {
   }
 
   const abrircerrarModalEditar = () => {
-    console.log("Entre a modal editar");
     setErrorUpdate([]);
     setModalEditar(!modalEditar);    
   }
@@ -245,7 +244,6 @@ function TablaEmpleados() {
     //Cambio de else if a Switch
 
     let empleadoFormateado = { ...empleado };
-    console.log(empleadoFormateado)
 
     switch (empleadoFormateado.Turno) {
       case "Mañana":
@@ -344,7 +342,6 @@ function TablaEmpleados() {
     }
 
     setEmpleadoSeleccionado(empleadoFormateado);
-    console.log("No me paro aca");
     (caso === "Editar") ? abrircerrarModalEditar() :
       abrircerrarModalEliminar()
   }
