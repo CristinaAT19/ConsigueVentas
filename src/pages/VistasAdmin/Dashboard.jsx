@@ -28,7 +28,7 @@ const Dashboard = () => {
                     Mi asistencia del mes
                   </h1>
                 </div>
-                <div className="h-full py-4">
+                <div className="h-full py-4 flex items-center justify-center">
                   <AsistenciaPer />
                 </div>
               </div>
@@ -49,7 +49,7 @@ const Dashboard = () => {
                       Asistencia del Dia (Turno Mañana)
                     </h1>
                   </div>
-                  <div className="h-full py-4">
+                  <div className="h-full py-4 flex items-center justify-center">
                     <AsistenciaMa />
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                       Asistencia del Dia (Turno Tarde)
                     </h1>
                   </div>
-                  <div className="h-full py-4">
+                  <div className="h-full py-4 flex items-center justify-center">
                     <AsistenciaTarde />
                   </div>
                 </div>
@@ -105,7 +105,7 @@ const Dashboard = () => {
                   Asistencia del Dia (Mañana y Tarde)
                 </h1>
               </div>
-              <div className="h-full py-4">
+              <div className="h-full py-4 flex items-center justify-center">
                 <AsistenciaMaTa />
 
               </div>
@@ -122,7 +122,7 @@ const Dashboard = () => {
           <h1 className="border-b-2 text-3xl">
             Tabla de Asistencias: {fecha}{" "}
           </h1>
-          <div className="my-0 mx-auto py-4 w-6/7">
+          <div className="my-0 mx-auto py-4 w-6/7 flex items-center justify-center">
             <TablaDia />
 
           </div>
@@ -135,7 +135,7 @@ const Dashboard = () => {
           <h1 className="border-b-2 text-3xl">
             Tabla de empleados sin marcar: {fecha}{" "}
           </h1>
-          <div className="my-0 mx-auto py-4 w-6/7 ">
+          <div className="my-0 mx-auto py-4 w-6/7 flex items-center justify-center">
             <TablaSin />
 
           </div>

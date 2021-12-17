@@ -5,6 +5,9 @@ import { Modal, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getToken } from "../dist/Token";
 import Select from 'react-select'
+import Loading from "../components/Loading";
+
+    
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -29,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFaltas() {
+
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+    }, 1000);
+    }
+
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
@@ -107,6 +119,7 @@ function TablaFaltas() {
 
 
     useEffect(() => {
+        cambiarEstado();
         peticionGet();
     }, [])
 
@@ -147,6 +160,9 @@ function TablaFaltas() {
         </div>
     )
     // const tableRef = React.createRef();
+    if (loading) {
+        <Loading/>
+    }else{
     return (
         <div>
 
@@ -285,5 +301,6 @@ function TablaFaltas() {
 
 
     );
+    }
 }
 export default TablaFaltas;

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "../css/style.scss";
 import axios from "axios";
 import { setToken } from "../dist/Token";
-import Loading from "../components/Loading";
+import LoginSpinner from "../components/LoginSpinner";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
 import { distSetAutentication,distSetUser } from "../dist/Autentication";
@@ -151,7 +151,7 @@ const Login = () => {
             </div>
 
             {loading ? (
-              <Loading />
+              <LoginSpinner />
             ) : (
               <button
                 type="submit"
