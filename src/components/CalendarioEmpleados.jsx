@@ -2,7 +2,6 @@ import React, { useState, useRef} from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import listPlugin from '@fullcalendar/list';
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import Error from "../components/item/Error";
@@ -140,7 +139,7 @@ const CalendarioEmpleados = () => {
           </div>
           <div>
           <FullCalendar
-                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[dayGridPlugin, bootstrapPlugin]}
 
                   events={valor}
                   height={"600px"}
@@ -155,7 +154,7 @@ const CalendarioEmpleados = () => {
                   headerToolbar={{
                       start: "prev,next,today",
                       center: "title",
-                      end: "listYear,dayGridMonth,dayGridWeek,dayGridDay",
+                      end: "dayGridMonth,dayGridWeek,dayGridDay",
                   }}
                   dayHeaderFormat={{ weekday: "long" }}
             />

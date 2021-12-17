@@ -62,7 +62,6 @@ function TablaEmpleados() {
   const [selectArea, setSelectArea] = useState([]);
 
 
-
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
       {
@@ -130,9 +129,9 @@ function TablaEmpleados() {
 
 
     // Validacion inicio prueba, fin prueba 
-    if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
+    if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 2",
+        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
       }
       setErrorUpdate(errorVal);
       setLoading(false);
@@ -230,7 +229,6 @@ function TablaEmpleados() {
   }
 
   const abrircerrarModalEditar = () => {
-    console.log("Entre a modal editar");
     setErrorUpdate([]);
     setModalEditar(!modalEditar);    
   }
@@ -248,103 +246,76 @@ function TablaEmpleados() {
     console.log(empleadoFormateado)
 
     switch (empleadoFormateado.Turno) {
-      case "Mañana":
-        empleadoFormateado.Turno = 1;
-        break;
-      case "Tarde":
-        empleadoFormateado.Turno = 2;
-        break;
-      case "Mañana y tarde":
-        empleadoFormateado.Turno = 3;
-        break;
+      case 'Mañana':
+        return empleadoFormateado.Turno = 1;
+      case 'Tarde':
+        return empleadoFormateado.Turno = 2;
+      case 'Mañana y tarde':
+        return empleadoFormateado.Turno = 3;
     }
 
     // Formateo de 'select' area
+
     switch (empleadoFormateado.Perfil) {
       case 'Administracion':
-        empleadoFormateado.Perfil = 1;
-        break;
+        return empleadoFormateado.Perfil = 1;
       case 'Relaciones Publicas':
-        empleadoFormateado.Perfil = 2;
-        break;
+        return empleadoFormateado.Perfil = 2;
       case 'Comunity Manager Web':
-        empleadoFormateado.Perfil = 3;
-        break;
+        return empleadoFormateado.Perfil = 3;
       case 'Talento Humano':
-        empleadoFormateado.Perfil = 4;
-        break;
+        return empleadoFormateado.Perfil = 4;
       case 'Diseño Grafico':
-        empleadoFormateado.Perfil = 5;
-        break;
+        return empleadoFormateado.Perfil = 5;
       case 'Ventas':
-        empleadoFormateado.Perfil = 6;
-        break;
+        return empleadoFormateado.Perfil = 6;
       case 'Comunity Manager':
-        empleadoFormateado.Perfil = 7;
-        break;
+        return empleadoFormateado.Perfil = 7;
       case 'Big Data':
-        empleadoFormateado.Perfil = 8;
-        break;
+        return empleadoFormateado.Perfil = 8;
       case 'Diseño Web':
-        empleadoFormateado.Perfil = 9;
-        break;
+        return empleadoFormateado.Perfil = 9;
       case 'Desarrollo Web':
-        empleadoFormateado.Perfil = 10;
-        break;
+        return empleadoFormateado.Perfil = 10;
       case 'Soporte Tecnico':
-        empleadoFormateado.Perfil = 11;
-        break;
+        return empleadoFormateado.Perfil = 11;
       case 'Atención Al Cliente Digital':
-        empleadoFormateado.Perfil = 12;
-        break;
+        return empleadoFormateado.Perfil = 12;
       case 'Administracion Scrum':
-        empleadoFormateado.Perfil = 13;
-        break;
+        return empleadoFormateado.Perfil = 13;
       case 'Arquitectura':
-        empleadoFormateado.Perfil = 14;
-        break;
+        return empleadoFormateado.Perfil = 14;
     }
 
     // Formateo de 'select' condicion capacitacion
 
     switch (empleadoFormateado['Condicion Capacitación']) {
       case 'Terminó capacitación':
-        empleadoFormateado['Condicion Capacitación'] = 1;
-        break;
+        return empleadoFormateado['Condicion Capacitación'] = 1;
       case 'No terminó capacitación':
-        empleadoFormateado['Condicion Capacitación'] = 2;
-        break;
-
+        return empleadoFormateado['Condicion Capacitación'] = 2;
       case 'En proceso':
-        empleadoFormateado['Condicion Capacitación'] = 3;
-        break;
-      }
+        return empleadoFormateado['Condicion Capacitación'] = 3;
+    }
 
     // Formateo de 'select' convenio
 
     switch (empleadoFormateado['Convenio']) {
       case 'Firmado':
-        empleadoFormateado['Convenio'] = 1;
-        break;
+        return empleadoFormateado['Convenio'] = 1;
       case 'Enviado para firmar':
-        empleadoFormateado['Convenio'] = 2;
-        break;
+        return empleadoFormateado['Convenio'] = 2;
       case 'No firmado':
-        empleadoFormateado['Convenio'] = 3;
-        break;
+        return empleadoFormateado['Convenio'] = 3;
       case 'Terminó convenio':
-        empleadoFormateado['Convenio'] = 4;
-        break;
+        return empleadoFormateado['Convenio'] = 4;
       case 'En proceso':
-        empleadoFormateado['Convenio'] = 5;
-        break;
+        return empleadoFormateado['Convenio'] = 5;
       case 'Retirado':
-        empleadoFormateado['Convenio'] = 6;
-        break;
+        return empleadoFormateado['Convenio'] = 6;
     }
 
     setEmpleadoSeleccionado(empleadoFormateado);
-    console.log("No me paro aca");
     (caso === "Editar") ? abrircerrarModalEditar() :
       abrircerrarModalEliminar()
   }
@@ -729,9 +700,7 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (<Loading />)
-  }else{ 
+   
   return (
     <div>
       <br />
@@ -848,14 +817,15 @@ function TablaEmpleados() {
           />
         </div>
       </div>
-      <Modal animation={"false"} open={modalInsertar}>
+      <Modal animation={false} open={modalInsertar}
+        onClose={abrircerrarModalInsertar}>
         {bodyInsertar}
       </Modal>
-      <Modal animation={"false"} open={modalEditar}>
+      <Modal animation={false} open={modalEditar} onclose={abrircerrarModalEditar}>
         {bodyEditar}
       </Modal>
     </div>
-  );}
+  );
 
 
 

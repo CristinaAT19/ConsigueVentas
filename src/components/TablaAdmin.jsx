@@ -3,16 +3,10 @@ import React, { useState, useEffect } from "react";
 import DataTable from 'react-data-table-component';
 import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
-import Loading from "../components/Loading";
+
 const TablaAdmin = () => {
     const [tabla, setTabla] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      }
+
     const peticionTablaAdmin = async () => {
         await axios
             .get(
@@ -31,13 +25,8 @@ const TablaAdmin = () => {
 
     }
     useEffect(() => {
-        cambiarEstado();
         peticionTablaAdmin();
     }, [])
-
-    if (loading) {
-        return (<Loading />)
-    }else{
     return (
         <div>
             <MaterialTable
@@ -69,7 +58,7 @@ const TablaAdmin = () => {
 
                 ]}
                 data={tabla}
-                title="Tabla de Administradores"
+                title="Tabla de Empleados"
                 // tableRef={tableRef}
                 // actions={[
                 //   {
@@ -139,7 +128,7 @@ const TablaAdmin = () => {
             />
 
         </div>
-    )}
+    )
 }
 
 export default TablaAdmin
