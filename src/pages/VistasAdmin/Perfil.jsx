@@ -14,7 +14,7 @@ export const CalendarioAsistencia = () => {
         <h1 className="border-b-2 text-3xl"> Mi Calendario de Asistencia</h1>
         <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
           
-        <CalendarioPersonal />
+        <CalendarioPersonal style={{ fontsize: '1.0em'  }} />
         </div>
       </div>
     ) : null}

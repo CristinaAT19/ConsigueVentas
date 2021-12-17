@@ -61,6 +61,8 @@ const CalendarioPersonalMovil = () => {
 
                 
             />
+{/* style={{ fontSize:'0.80em ', textTransform:'uppercase' }} */}
+
         </div>
     );
 };
