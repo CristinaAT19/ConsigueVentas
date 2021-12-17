@@ -130,9 +130,9 @@ function TablaEmpleados() {
 
 
     // Validacion inicio prueba, fin prueba 
-    if (diffDiasPrueba < 10 || isNaN(diffDiasPrueba)) {
+    if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 10",
+        "emp_Fec_fin_prueba": "La diferencia de dias tiene que ser mayor a 2",
       }
       setErrorUpdate(errorVal);
       setLoading(false);
@@ -230,6 +230,7 @@ function TablaEmpleados() {
   }
 
   const abrircerrarModalEditar = () => {
+    console.log("Entre a modal editar");
     setErrorUpdate([]);
     setModalEditar(!modalEditar);    
   }
@@ -247,76 +248,103 @@ function TablaEmpleados() {
     console.log(empleadoFormateado)
 
     switch (empleadoFormateado.Turno) {
-      case 'Mañana':
-        return empleadoFormateado.Turno = 1;
-      case 'Tarde':
-        return empleadoFormateado.Turno = 2;
-      case 'Mañana y tarde':
-        return empleadoFormateado.Turno = 3;
+      case "Mañana":
+        empleadoFormateado.Turno = 1;
+        break;
+      case "Tarde":
+        empleadoFormateado.Turno = 2;
+        break;
+      case "Mañana y tarde":
+        empleadoFormateado.Turno = 3;
+        break;
     }
 
     // Formateo de 'select' area
-
     switch (empleadoFormateado.Perfil) {
       case 'Administracion':
-        return empleadoFormateado.Perfil = 1;
+        empleadoFormateado.Perfil = 1;
+        break;
       case 'Relaciones Publicas':
-        return empleadoFormateado.Perfil = 2;
+        empleadoFormateado.Perfil = 2;
+        break;
       case 'Comunity Manager Web':
-        return empleadoFormateado.Perfil = 3;
+        empleadoFormateado.Perfil = 3;
+        break;
       case 'Talento Humano':
-        return empleadoFormateado.Perfil = 4;
+        empleadoFormateado.Perfil = 4;
+        break;
       case 'Diseño Grafico':
-        return empleadoFormateado.Perfil = 5;
+        empleadoFormateado.Perfil = 5;
+        break;
       case 'Ventas':
-        return empleadoFormateado.Perfil = 6;
+        empleadoFormateado.Perfil = 6;
+        break;
       case 'Comunity Manager':
-        return empleadoFormateado.Perfil = 7;
+        empleadoFormateado.Perfil = 7;
+        break;
       case 'Big Data':
-        return empleadoFormateado.Perfil = 8;
+        empleadoFormateado.Perfil = 8;
+        break;
       case 'Diseño Web':
-        return empleadoFormateado.Perfil = 9;
+        empleadoFormateado.Perfil = 9;
+        break;
       case 'Desarrollo Web':
-        return empleadoFormateado.Perfil = 10;
+        empleadoFormateado.Perfil = 10;
+        break;
       case 'Soporte Tecnico':
-        return empleadoFormateado.Perfil = 11;
+        empleadoFormateado.Perfil = 11;
+        break;
       case 'Atención Al Cliente Digital':
-        return empleadoFormateado.Perfil = 12;
+        empleadoFormateado.Perfil = 12;
+        break;
       case 'Administracion Scrum':
-        return empleadoFormateado.Perfil = 13;
+        empleadoFormateado.Perfil = 13;
+        break;
       case 'Arquitectura':
-        return empleadoFormateado.Perfil = 14;
+        empleadoFormateado.Perfil = 14;
+        break;
     }
 
     // Formateo de 'select' condicion capacitacion
 
     switch (empleadoFormateado['Condicion Capacitación']) {
       case 'Terminó capacitación':
-        return empleadoFormateado['Condicion Capacitación'] = 1;
+        empleadoFormateado['Condicion Capacitación'] = 1;
+        break;
       case 'No terminó capacitación':
-        return empleadoFormateado['Condicion Capacitación'] = 2;
+        empleadoFormateado['Condicion Capacitación'] = 2;
+        break;
+
       case 'En proceso':
-        return empleadoFormateado['Condicion Capacitación'] = 3;
-    }
+        empleadoFormateado['Condicion Capacitación'] = 3;
+        break;
+      }
 
     // Formateo de 'select' convenio
 
     switch (empleadoFormateado['Convenio']) {
       case 'Firmado':
-        return empleadoFormateado['Convenio'] = 1;
+        empleadoFormateado['Convenio'] = 1;
+        break;
       case 'Enviado para firmar':
-        return empleadoFormateado['Convenio'] = 2;
+        empleadoFormateado['Convenio'] = 2;
+        break;
       case 'No firmado':
-        return empleadoFormateado['Convenio'] = 3;
+        empleadoFormateado['Convenio'] = 3;
+        break;
       case 'Terminó convenio':
-        return empleadoFormateado['Convenio'] = 4;
+        empleadoFormateado['Convenio'] = 4;
+        break;
       case 'En proceso':
-        return empleadoFormateado['Convenio'] = 5;
+        empleadoFormateado['Convenio'] = 5;
+        break;
       case 'Retirado':
-        return empleadoFormateado['Convenio'] = 6;
+        empleadoFormateado['Convenio'] = 6;
+        break;
     }
 
     setEmpleadoSeleccionado(empleadoFormateado);
+    console.log("No me paro aca");
     (caso === "Editar") ? abrircerrarModalEditar() :
       abrircerrarModalEliminar()
   }
@@ -820,11 +848,10 @@ function TablaEmpleados() {
           />
         </div>
       </div>
-      <Modal animation={false} open={modalInsertar}
-        onClose={abrircerrarModalInsertar}>
+      <Modal animation={"false"} open={modalInsertar}>
         {bodyInsertar}
       </Modal>
-      <Modal animation={false} open={modalEditar} onclose={abrircerrarModalEditar}>
+      <Modal animation={"false"} open={modalEditar}>
         {bodyEditar}
       </Modal>
     </div>
