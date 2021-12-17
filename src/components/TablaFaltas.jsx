@@ -12,7 +12,7 @@ import { setToken, getToken } from "../dist/Token";
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: 500,
+        width: '21rem',
         backgroundColor: theme.palette.background.paper,
         // border: '2px solid #000',
         boxshadow: theme.shadows[5],
@@ -163,8 +163,9 @@ function TablaFaltas() {
             <br /><br />
             <div align="right">
                 <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
                 |
+                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+                
             </div>
         </div>
     )

@@ -62,6 +62,7 @@ function TablaEmpleados() {
   const [selectArea, setSelectArea] = useState([]);
 
 
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
       {
@@ -728,7 +729,9 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-   
+  if (loading) {
+    return (<Loading />)
+  }else{ 
   return (
     <div>
       <br />
@@ -795,7 +798,10 @@ function TablaEmpleados() {
               headerStyle: {
                 backgroundColor: '#E2E2E2  ',
               },
-              exportButton: true,
+              exportButton: {
+                csv: true,
+                pdf: false
+              },
               actionsColumnIndex: -1
               
             }}
@@ -849,7 +855,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );
+  );}
 
 
 
