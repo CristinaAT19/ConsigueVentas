@@ -855,9 +855,7 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );}
-
-
-
+  );
+          }
 }
 export default TablaEmpleados;

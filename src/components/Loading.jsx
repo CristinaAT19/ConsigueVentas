@@ -4,11 +4,8 @@ import {Spinner} from 'reactstrap';
 
 
 const Loading = () => {
-
     return (
-        <div className="loading text-center mt-4">
-            <Spinner animation="border" variant="primary"  className="text-yellow-500" />
-        </div>
+        <Spinner className="text-yellow-500" />
     );
 }
 export default Loading;

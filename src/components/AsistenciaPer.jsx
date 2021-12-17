@@ -3,7 +3,7 @@ import axios from "axios";
 import { setToken, getToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import { UserContext } from './context/UserContext';
-import Loading from "../components/Loading.jsx";
+import Loading from '../components/Loading.jsx';
 
 
 const AsistenciaPer = () => {
