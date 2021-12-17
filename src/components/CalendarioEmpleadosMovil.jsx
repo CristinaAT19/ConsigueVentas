@@ -9,7 +9,7 @@ import Error from "../components/item/Error";
 import { getToken } from "../dist/Token";
 import esLocale from '@fullcalendar/core/locales/es';
 import { MdCleaningServices} from "react-icons/md";
-
+import { Calendar } from '@fullcalendar/core'
 
 const CalendarioEmpleadosMovil = () => {
 
@@ -120,19 +120,19 @@ const CalendarioEmpleadosMovil = () => {
     return (
         <div>
           <div className="flex justify-center items-center">
-              <input onChange={onChangeDni} ref={campo} type="number" placeholder="Dni de empleado"  className="border-2 border-black-500 h-8 " style={{borderRadius:"0.5rem 0 0 0.5rem"}} name="dni_calendario" id="dni_calendario" />
-              <button  onClick={peticionDatosCalendario} className="flex items-center justify-center w-28 bg-yellow-500  border-solid border-2 border-black h-8" style={{borderRadius:"0 0.5rem 0.5rem 0"}}>
+              <input onChange={onChangeDni} ref={campo} type="number" placeholder="Dni de empleado"  className="border-2 border-black-500 h-8" style={{borderRadius:"0.5rem 0 0 0.5rem", width: "10rem"}} name="dni_calendario" id="dni_calendario" />
+              <button  onClick={peticionDatosCalendario} className="flex items-center justify-center   bg-yellow-500  border-solid border-2 border-black h-8" style={{borderRadius:"0 0.5rem 0.5rem 0",width: "5rem"}}>
                   Mostrar
               </button> 
           </div>
 
           <div className="m-2 flex justify-center items-center transition-all" title="Limpiar datos">
-              { dniEmpleado&&<button onClick={limpiar} className=" flex items-center justify-center p-2 bg-yellow-500 h-8 border-solid border-2 border-black rounded-md" >
+              { dniEmpleado&&<button onClick={limpiar} className=" flex items-center justify-center p-2  bg-yellow-500 h-8 border-solid border-2 border-black rounded-md" >
               <MdCleaningServices/>
               </button>}
           </div>
             <Error errors={error['dni']} ></Error>
-          <div className="m-4 w-full flex flex-col  items-center text-2xl">
+          <div className=" w-full flex flex-col  items-center text-2xl">
               <div className="w-full">{nombreEmpleado}</div>
               <div className="w-full">{dniEmpleado}</div>
               <div className="w-full">{turnoEmpleado}</div>
@@ -141,7 +141,7 @@ const CalendarioEmpleadosMovil = () => {
           <div>
           <FullCalendar
                 plugins={[ bootstrapPlugin, listPlugin]}
-
+                  
                   events={valor}
                   height={"600px"}
                   unselect={"false"}
@@ -150,13 +150,15 @@ const CalendarioEmpleadosMovil = () => {
                   themeSystem='standard'
                   weekTextLong={"true"}
                   firstDay={1}
-                  initialView="listYear"
+                  initialView="listMonth"
                   Forma
                   headerToolbar={{
-                      start: "prev,next",
-                      center: "title",
-                      end: "listYear",
+                      start: "title",
+                      end: "prev,next",
                   }}
+
+
+                  
 
             />
           </div>
