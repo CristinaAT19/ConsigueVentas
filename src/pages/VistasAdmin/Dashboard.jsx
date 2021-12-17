@@ -122,7 +122,7 @@ const Dashboard = () => {
           <h1 className="border-b-2 text-3xl">
             Tabla de Asistencias: {fecha}{" "}
           </h1>
-          <div className="my-0 mx-auto py-4 w-6/7 flex items-center justify-center">
+          <div className="my-0 mx-auto py-4 w-6/7">
             <TablaDia />
 
           </div>
@@ -135,7 +135,7 @@ const Dashboard = () => {
           <h1 className="border-b-2 text-3xl">
             Tabla de empleados sin marcar: {fecha}{" "}
           </h1>
-          <div className="my-0 mx-auto py-4 w-6/7 flex items-center justify-center">
+          <div className="my-0 mx-auto py-4 w-6/7">
             <TablaSin />
 
           </div>
