@@ -729,9 +729,6 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (<Loading />)
-  }else{ 
   return (
     <div>
       <br />
@@ -856,6 +853,5 @@ function TablaEmpleados() {
       </Modal>
     </div>
   );
-          }
 }
 export default TablaEmpleados;
