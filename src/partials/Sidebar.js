@@ -109,7 +109,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           {/* Close button */}
 
           {<button
-            className="absolute right-0 top-0 p-1 m-2 lg:hidden text-gray-500 hover:text-gray-400 bg-gray-300 rounded-full"
+            className="absolute right-0 top-0 p-1 m-2 hidden text-gray-500 hover:text-gray-400 bg-gray-300 rounded-full"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
             aria-expanded={sidebarOpen}

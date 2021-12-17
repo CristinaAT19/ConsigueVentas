@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFaltas() {
+
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+    }, 1000);
+    }
+
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
@@ -40,7 +49,6 @@ function TablaFaltas() {
        // value:3, label: "Falta Justificada"
     });
 
-    const [loading, setLoading] = useState(false);
 
 
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
@@ -62,12 +70,6 @@ function TablaFaltas() {
           ...prevState,
           [name]: value
         }));
-      }
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       }
 
     const handleChange = e => {

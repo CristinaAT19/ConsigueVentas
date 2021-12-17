@@ -5,7 +5,7 @@ import { setToken, getToken, removeToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import CerrarSesion from './CerrarSesion';
 import { distSetAutentication } from '../dist/Autentication';
-import Loading from "../components/Loading.jsx";
+import Loading from "../components/Loading";
 
 
 
