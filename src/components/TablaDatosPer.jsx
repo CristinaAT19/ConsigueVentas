@@ -58,7 +58,7 @@ const TablaDatosPer = () => {
               <div className="px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-xs font-bold mb-2">
-                    Unidad
+                    Departamento
                   </label>
                   <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['unidad']}/>
                 </div>
