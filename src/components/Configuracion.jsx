@@ -58,6 +58,13 @@ const Configuracion = () => {
             })
             .catch((e) => {
                 // console.log(e.response.data.errors);
+                if( e.response.data.errors.oldPassword == undefined){
+                    e.response.data.errors.oldPassword = '';
+                }
+                if( e.response.data.errors.newPassword == undefined){
+                    e.response.data.errors.newPassword = '';
+                }
+
                 setPasswordError(e.response.data.errors.oldPassword + " " + e.response.data.errors.newPassword);
             });
 

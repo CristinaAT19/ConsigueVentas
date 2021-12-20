@@ -11,7 +11,7 @@ import { useState } from "react";
   //const [dni, setDni] = useState(user['dni']);
   let msjToken='';
   //let token=getToken();
-  let token=getToken();
+  let token=getToken()==null ? '0000|dwzawdwdawad':getToken();
   let idToken=token.split('|')[0];
    const peticionVerificacionToken = async () => {
    //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
