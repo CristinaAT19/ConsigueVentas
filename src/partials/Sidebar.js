@@ -35,7 +35,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     });
     if (media) setExpand(true);
 
-  })
+  }, [media, mql])
   const handleExpanded = () => {
     setSidebarExpanded(!sidebarExpanded);
     expandir();
