@@ -9,17 +9,14 @@ const AdminUsuario = ({
   descripcion3,
   texto,
   texto2,
-  button2,
+  tipoUsuario,
 }) => {
   const [resetea, setResetea] = useState(false);
-  const [valorDni, setValorDni]=useState("");
-  const resetear = () => {
-    setResetea(!resetea);
+  const [valorDni, setValorDni] = useState("");
+  const onChangeDni = (evento) => {
+    setValorDni(evento.target.value);
+    //console.log(componenteInput.current.value);
   };
-  const onChangeDni = (evento)=>{
-     setValorDni(evento.target.value);
-     //console.log(componenteInput.current.value);
-  }
 
   return (
     <>
@@ -32,16 +29,22 @@ const AdminUsuario = ({
         </div>
         <div className="flex flex-col md:flex-row items-baseline justify-center m-1.5">
           <label className="pr-3">{texto}</label>
-          <input onChange={onChangeDni} className="border pl-2 py-2 bg-gray-50 rounded text-sm shadow-md text-black" type="number" placeholder="DNI" name="dni_reset" id="dni_reset" />
+          <input
+            onChange={onChangeDni}
+            className="border pl-2 py-2 bg-gray-50 rounded text-sm shadow-md text-black"
+            type="number"
+            placeholder="DNI"
+            name="dni_reset"
+            id="dni_reset"
+          />
         </div>
         <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
-          
-            <input type="checkbox" name="" id="" onClick={resetear} />
-            
-            <label>{texto2}</label>
-            {resetea ? <TipoUsuario dni_reset={valorDni} /> : <ResetearConstra dni_reset={valorDni}/>
-             }
-          
+          <label>{texto2}</label>
+          {tipoUsuario ? (
+            <TipoUsuario dni_reset={valorDni} />
+          ) : (
+            <ResetearConstra dni_reset={valorDni} />
+          )}
         </div>
       </div>
     </>
@@ -49,4 +52,4 @@ const AdminUsuario = ({
 };
 
 export default AdminUsuario;
- // <span>{valorDni}</span><br/> (antes del checkbox)
+// <span>{valorDni}</span><br/> (antes del checkbox)
