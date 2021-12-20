@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { Modal, TextField, Button } from '@material-ui/core';
+import { Modal, TextField, Button,Select,MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
 // import { Component } from 'react'
-import Select from 'react-select'
+//import Select from 'react-select'
 
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: 500,
+        width: '21rem',
         backgroundColor: theme.palette.background.paper,
         // border: '2px solid #000',
         boxshadow: theme.shadows[5],
@@ -32,15 +32,23 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFaltas() {
+
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+    }, 1000);
+    }
+
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
 
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
-        value:3, label: "Falta Justificada"
+       // value:3, label: "Falta Justificada"
     });
 
-    const [loading, setLoading] = useState(false);
 
 
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
@@ -56,11 +64,12 @@ function TablaFaltas() {
         cambio_estado: "",
     })
 
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+    const handleChangeEdit = (e) => {
+        const { name, value } = e.target;
+        setEmpleadoSeleccionado((prevState) => ({
+          ...prevState,
+          [name]: value
+        }));
       }
 
     const handleChange = e => {
@@ -92,10 +101,9 @@ function TablaFaltas() {
 
 
     const peticionPut = async () => {
-
         await axios.post(baseUrl + 'tabla_faltas/' + empleadoSeleccionado.Id,
             {
-                "cambio_estado": modalSeleccionarOptionar.value
+                "cambio_estado": empleadoSeleccionado['Estado Falta']
             },
 
             {
@@ -105,12 +113,12 @@ function TablaFaltas() {
             }
         )
             .then(response => {
-                var dataNueva = data.concat(response.data);
-                data.map(empleado => {
-                    if (empleado.Id === empleadoSeleccionado.Id) {
-                        empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
-                    }
-                });
+                // var dataNueva = data.concat(response.data);
+                // data.map(empleado => {
+                //     if (empleado.Id === empleadoSeleccionado.Id) {
+                //         empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
+                //     }
+                // });
                 setData(data);
                 peticionGet();
                 abrirCerrarModalEditar();
@@ -128,7 +136,10 @@ function TablaFaltas() {
 
 
     const seleccionarEmpleado = (empleado, caso) => {
-        setEmpleadoSeleccionado(empleado);
+        let empleadoEdit={...empleado};
+        empleadoEdit['Estado Falta']==='Falta Justificada'?empleadoEdit['Estado Falta']=3:empleadoEdit['Estado Falta']=4;
+        setEmpleadoSeleccionado(empleadoEdit);
+        
         (caso === "Editar") && abrirCerrarModalEditar();
     }
 
@@ -146,13 +157,17 @@ function TablaFaltas() {
         <div className={styles.modal}>
             <h3>Editar Empleado</h3>
             <br />
-            <Select options={optiones} onChange={setModalSeleccionarOptionar} placeholder="Falta Justificada" defaultMenuIsOpen={false} isSearchable={false} />
+            <Select style={{width:"99%"}} onChange={handleChangeEdit} id="Estado Falta" name="Estado Falta" label="Estado Falta" value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} defaultMenuIsOpen={false} isSearchable={false}>
+                <MenuItem value={3}>Falta Justificada</MenuItem>
+                <MenuItem value={4}>Falta Injustificada</MenuItem>
+            </Select>
             {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
             <br /><br />
             <div align="right">
                 <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
                 |
+                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
+                
             </div>
         </div>
     )

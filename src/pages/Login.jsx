@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "../css/style.scss";
 import axios from "axios";
 import { setToken } from "../dist/Token";
-import Loading from "../components/Loading";
+import LoginSpinner from "../components/LoginSpinner";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
 import { distSetAutentication,distSetUser } from "../dist/Autentication";
@@ -139,7 +139,7 @@ const Login = () => {
                 name="password"
                 placeholder="Contraseña"
                 id="contrasena"
-                maxLength="8"
+                maxLength="20"
                 required
                 className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
               />
@@ -151,7 +151,7 @@ const Login = () => {
             </div>
 
             {loading ? (
-              <Loading />
+              <LoginSpinner />
             ) : (
               <button
                 type="submit"

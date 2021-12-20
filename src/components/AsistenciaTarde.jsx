@@ -5,7 +5,7 @@ import { getToken, removeToken } from '../dist/Token';
 import { Doughnut } from 'react-chartjs-2';
 import CerrarSesion from './CerrarSesion';
 import { distSetAutentication } from '../dist/Autentication';
-import Loading from "../components/Loading.jsx";
+import Loading from '../components/Loading.jsx';
 
 const AsistenciaTarde = () => {
     /*tarde*/
@@ -34,15 +34,20 @@ const AsistenciaTarde = () => {
         labels: [puntualidadT, tardanzaT, faltas_inT, faltas_jusT, sin_marcarT],
         datasets: [{
 
-            backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-            hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            data: [v_puntualidadT, v_tardanzaT, v_faltas_inT, v_faltas_jusT, v_sin_marcarT]
+            backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', 'gray'],
+            hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
+            data: [v_puntualidadT, v_tardanzaT, v_faltas_inT, v_faltas_jusT, v_sin_marcarT],
+            hoverOffset: 10
         }]
     };
 
     const opciones = {
         maintainAspectRatio: false,
-        responsive: true
+        responsive: true, 
+        interaction: {
+            intersect: true,
+            // enabled:false,
+        }
     }
     const peticionApiAsistenciaTarde = async () => {
 

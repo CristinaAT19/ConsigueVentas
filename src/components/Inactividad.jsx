@@ -2,18 +2,17 @@
 import { distSetAutentication,distSetUser } from "../dist/Autentication";
 import axios from "axios";
 import { getToken, removeToken } from "../dist/Token";
-//import { UserContext } from "./context/UserContext";
-
+import CerrarSesion from "./CerrarSesion";
+import { useState } from "react";
+// import { UserContext } from "./context/UserContext";
 
  const ControlInactividad = () => {
-  
-  //const { user } = useContext(UserContext);
+    //const { user } = useContext(UserContext);
   //const [dni, setDni] = useState(user['dni']);
   let msjToken='';
   //let token=getToken();
-  let token=getToken();
+  let token=getToken()==null ? '0000|dwzawdwdawad':getToken();
   let idToken=token.split('|')[0];
-
    const peticionVerificacionToken = async () => {
    //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
    await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${idToken}`)
@@ -24,11 +23,15 @@ import { getToken, removeToken } from "../dist/Token";
       });
       //////////////
       if(idToken==msjToken){
+        // return true;
      } else {
        removeToken();
        distSetAutentication(false); 
+      //  return false;
       // <Redirect to='/login'/>;
-        window.location = '/login';  
+      let route = window.location;
+      route['hash'] = '#/cerrarSesion';      
+      // window.location = '/#/cerrarSesion';  
     }
       ///////////////
   }
