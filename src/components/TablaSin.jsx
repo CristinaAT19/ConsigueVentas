@@ -56,14 +56,15 @@ function TablaSin() {
 
         <MaterialTable
           columns={[
-            {title: 'Nombres',field: 'Nombre'},
-            {title: 'Apellidos',field: 'Apellido'},
+            {title: 'Dni',field: 'Dni',filtering: false},
+            {title: 'Nombres',field: 'Nombre', filtering: false},
+            {title: 'Apellidos',field: 'Apellido', filtering: false},
             {title: 'Turno',field: 'Turno',lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'
           }},
             {title: 'Perfil',field: 'Perfil'},
             {title: 'Departamento',field: 'Unidad'},
-            {title: 'Dni',field: 'Dni'},
-            {title: 'Condición Practicas', field: 'Condición Practicas'}
+
+            {title: 'Condición Convenio', field: 'Condición Practicas',lookup:{Firmado:'Firmado',['Enviado para firmar']:'Enviado para firmar',['No firmado']:'No firmado',['Terminó convenio']:'Terminó convenio',['En proceso']:'En proceso','Retirado':'Retirado'}},
         ]}
           data={data}
 

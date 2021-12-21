@@ -7,7 +7,7 @@ import Loading from "../components/Loading.jsx";
 
 function TablaDia() {
   
-
+  const [filtering, setFiltering] = React.useState(false);
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
     const peticionTablaDia = async () => {
@@ -51,29 +51,30 @@ function TablaDia() {
     }else{
   return (
     <div className="main">
+      <button onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtros personalizados</button>
         <MaterialTable
           columns={[
-            {title: 'Fecha',field: 'Fecha'},
+            {title: 'Fecha',field: 'Fecha', },
             {title: 'Hora',field: 'Hora'},
             {title: 'Dni',field: 'Dni',filtering: false},
             {title: 'Nombres',field: 'Nombres',filtering: false},
-            {title: 'Sistema Operativo',field: 'Sistema Operativo'},
-            {title: 'Dispositivo',field: 'Dispositivo'},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo',filtering: false},
+            {title: 'Dispositivo',field: 'Dispositivo',lookup: {Computadora: 'Computadora', Celular: 'Celular'}},
             {title: 'Area',field: 'Perfil'},
-            {
-              title: 'Departamento',field: 'Unidad'
-            },
+            {title: 'Departamento',field: 'Unidad'},
             {title: 'Estado',field: 'Estado',lookup: { Activo: 'Activo', Retirado: 'Retirado' },},
             {title: 'Turno',field: 'Turno',
-              lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'
-          }},
+              lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'}
+            },
         ]}
           data={data}
 
-          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))} 
+
         options={{
             filterCellStyle: {
                 backgroundColor: '#D4D4D4',
+                height: '10px',
             },
             searchFieldAlignment: 'left',
             showTitle: false,
@@ -82,11 +83,13 @@ function TablaDia() {
               pdf: true,
             },
             actionsColumnIndex: -1,
-            filtering: true,
+            filtering,
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
-          }}
+          }
+        }
+
           localization={{
             body: {
               emptyDataSourceMessage: "No hay registro para mostrar",
@@ -123,6 +126,7 @@ function TablaDia() {
             }
         }}
         />
+        
     </div>
   );}
 }
