@@ -37,6 +37,7 @@ const CalendarioPersonal = () => {
             <FullCalendar
 
 
+                // plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
                 plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
                 /*events={[
                     { start: '2021-12-01',

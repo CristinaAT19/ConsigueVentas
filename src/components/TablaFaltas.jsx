@@ -95,11 +95,6 @@ function TablaFaltas() {
             })
     }
 
-
-
-
-
-
     const peticionPut = async () => {
         await axios.post(baseUrl + 'tabla_faltas/' + empleadoSeleccionado.Id,
             {
