@@ -15,7 +15,6 @@ import TipoUsuario from "../../components/TipoUsuario";
 //     </div>
 //   );
 // };
-
 export const administracionEmpleados = () => {
   return (
     <>
@@ -23,16 +22,7 @@ export const administracionEmpleados = () => {
         <h1 className="border-b-2 text-3xl text-center ">
           Administracion de Empleados
         </h1>
-        <div className="p-2">
-          <AdminUsuario
-            titulo="Cambio de tipo de usuario"
-            descripcion1="- Puedes cambiar el tipo de usuario ingresando el Nº de DNI del empleado."
-            descripcion2="- Puedes cambiar el tipo de usuario del empleado (Administrador / Usuario)."
-            descripcion3="- Si das click al signo de interrogación (?), puedes saber el tipo de usuario actual del empleado."
-            texto="DNI del empleado"
-            tipoUsuario={true}
-          />
-        </div>
+
         <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
           <TablaEmpleados />
         </div>
@@ -97,6 +87,16 @@ export const listaAdministradores = () => {
     >
       <h1 className="border-b-2 text-3xl"> Mi Calendario de Asistencia</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+        <div className="p-2">
+          <AdminUsuario
+            titulo="Cambio de tipo de usuario"
+            descripcion1="- Puedes cambiar el tipo de usuario ingresando el Nº de DNI del empleado."
+            descripcion2="- Puedes cambiar el tipo de usuario del empleado (Administrador / Usuario)."
+            descripcion3="- Si das click al signo de interrogación (?), puedes saber el tipo de usuario actual del empleado."
+            texto="DNI del empleado"
+            tipoUsuario={true}
+          />
+        </div>
         <TablaAdmin />
       </div>
     </div>

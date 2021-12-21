@@ -1,4 +1,5 @@
 import MaterialTable from "material-table";
+
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { setToken, getToken } from "../dist/Token";
@@ -74,12 +75,21 @@ const TablaAdmin = () => {
         //     isFreeAction: true,
         //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
         //   }
-        // ]}
+        // // ]}
+        actions={[
+          {
+            icon: "refresh",
+            tooltip: "refresh",
+            onClick: () => peticionTablaAdmin(),
+            isFreeAction: true,
+          },
+        ]}
         options={{
           // fixedColumns: {
 
           //   right: 1
           // },
+
           headerStyle: {
             backgroundColor: "#E2E2E2  ",
           },

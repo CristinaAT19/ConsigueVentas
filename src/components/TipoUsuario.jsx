@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 import Error from "../components/item/Error";
-
 const TipoUsuario = (dniReset) => {
   const campo = document.getElementById("dni_reset");
   const { dni_reset } = dniReset;
@@ -174,5 +173,4 @@ const TipoUsuario = (dniReset) => {
 };
 
 export default TipoUsuario;
-
 // despues de p {valor}-> <p> {tipo} </p>
