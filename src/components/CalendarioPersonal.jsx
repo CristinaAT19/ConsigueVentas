@@ -7,6 +7,8 @@ import bootstrapPlugin from "@fullcalendar/bootstrap";
 import esLocale from '@fullcalendar/core/locales/es';
 import { getToken } from "../dist/Token";
 import { UserContext } from "./context/UserContext";
+import listPlugin from '@fullcalendar/list';
+
 const CalendarioPersonal = () => {
     const [valor, setValor] = useState([]);
     const {user} = useContext(UserContext)
@@ -34,7 +36,10 @@ const CalendarioPersonal = () => {
     return (
         <div>
             <FullCalendar
-                plugins={[dayGridPlugin, bootstrapPlugin]}
+
+
+                // plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
                 /*events={[
                     { start: '2021-12-01',
                     title: "Tardanza:08:26",

@@ -8,6 +8,8 @@ import Error from "../components/item/Error";
 import { getToken } from "../dist/Token";
 import esLocale from '@fullcalendar/core/locales/es';
 import { MdCleaningServices} from "react-icons/md";
+import CalendarioGeneral from "./CalendarioGeneral";
+import listPlugin from '@fullcalendar/list';
 
 
 const CalendarioEmpleados = () => {
@@ -21,6 +23,8 @@ const CalendarioEmpleados = () => {
     const [dniEmpleado, setDniEmpleado]= useState('');
     const [nombreEmpleado, setNombreEmpleado]= useState('');
     const [turnoEmpleado, setTurnoEmpleado]= useState('');
+
+    const [mostrarCalendario, setMostrarCalendario] = useState(false)
 
 
     const onChangeDni = ()=>{
@@ -106,6 +110,7 @@ const CalendarioEmpleados = () => {
                 setDniEmpleado('Dni: ' + Response.data.dni);
                 setNombreEmpleado('Nombre: ' + Response.data.nombre+ ' ' + Response.data.apellido);
                 setTurnoEmpleado('Turno: ' + Response.data.turno);
+                setMostrarCalendario(true)
            }
        })
        .catch((e) => {
@@ -113,8 +118,6 @@ const CalendarioEmpleados = () => {
            setNombreEmpleado('');
            setTurnoEmpleado('');
        }); 
-
-
   }
     return (
         <div>
@@ -135,31 +138,41 @@ const CalendarioEmpleados = () => {
               <div className="w-full">{nombreEmpleado}</div>
               <div className="w-full">{dniEmpleado}</div>
               <div className="w-full">{turnoEmpleado}</div>
-
           </div>
           <div>
-          <FullCalendar
-                plugins={[dayGridPlugin, bootstrapPlugin]}
+            {
+              (mostrarCalendario)
+              ?
+              <>
+                <FullCalendar
+                    plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
 
-                  events={valor}
-                  height={"600px"}
-                  unselect={"false"}
-                  locales={esLocale}
-                  locale="es"
-                  themeSystem='standard'
-                  weekTextLong={"true"}
-                  firstDay={1}
-                  initialView="dayGridMonth"
-                  Forma
-                  headerToolbar={{
-                      start: "prev,next,today",
-                      center: "title",
-                      end: "dayGridMonth,dayGridWeek,dayGridDay",
-                  }}
-                  dayHeaderFormat={{ weekday: "long" }}
-            />
-          </div>
+                      events={valor}
+                      height={"600px"}
+                      unselect={"false"}
+                      locales={esLocale}
+                      locale="es"
+                      themeSystem='standard'
+                      weekTextLong={"true"}
+                      firstDay={1}
+                      initialView="dayGridMonth"
+                      Forma
+                      headerToolbar={{
+                          start: "prev,next,today",
+                          center: "title",
+                          end: "listYear,dayGridMonth,dayGridWeek,dayGridDay",
+                      }}
+                      dayHeaderFormat={{ weekday: "long" }}
+                />
+                <CalendarioGeneral dniCalendario={dniCalendario} />
+              </>
+
+
+              : null
+            }
             
+            
+          </div>
         </div>
     );
 };
