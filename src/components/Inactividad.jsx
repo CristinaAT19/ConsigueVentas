@@ -9,18 +9,15 @@ const ControlInactividad = () => {
   //const [dni, setDni] = useState(user['dni']);
   let msjToken = "";
   //let token=getToken();
-  let token = getToken();
-  let idToken = token.split("|")[0];
-
-  const peticionVerificacionToken = async () => {
-    //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
-    await axios
-      .get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${idToken}`)
-      .then((response) => {
-        msjToken = response.data.tokenId;
-      })
-      .catch((e) => {
-        msjToken = "Error";
+  let token=getToken()==null ? '0000|dwzawdwdawad':getToken();
+  let idToken=token.split('|')[0];
+   const peticionVerificacionToken = async () => {
+   //await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${token}`)
+   await axios.get(`${process.env.REACT_APP_API_URL}/api/verificarToken/${idToken}`)
+      .then(response => {
+          msjToken=response.data.tokenId;
+      }).catch((e) => {
+        msjToken='Error';
       });
     //////////////
     if (idToken == msjToken) {

@@ -1,7 +1,6 @@
 import React, { useState, useRef} from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import listPlugin from '@fullcalendar/list';
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
@@ -9,7 +8,7 @@ import Error from "../components/item/Error";
 import { getToken } from "../dist/Token";
 import esLocale from '@fullcalendar/core/locales/es';
 import { MdCleaningServices} from "react-icons/md";
-import { Calendar } from '@fullcalendar/core'
+
 
 const CalendarioEmpleadosMovil = () => {
 
