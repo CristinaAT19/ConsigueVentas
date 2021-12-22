@@ -507,7 +507,7 @@ function TablaEmpleados() {
       <div className={styles.modal}>
         <h3 className="text-2xl text-medium my-3">EDITAR EMPLEADO</h3>
 
-        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row">
           <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
              <Error errors={errorUpdate['emp_nombre']} ></Error>
@@ -619,9 +619,9 @@ function TablaEmpleados() {
         <br />
         <div align="right">
           {loading ? <Loading /> :
-            <Button color="primary" type="submit" >Editar</Button>
+            <button className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border" type="submit" >EDITAR</button>
           }
-          <Button onClick={() => abrircerrarModalEditar()}>Cancelar</Button>
+          <button onClick={() => abrircerrarModalEditar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border" >CANCELAR</button>
         </div>
       </div>
     </form>
@@ -633,7 +633,7 @@ function TablaEmpleados() {
         <h3 className="text-2xl text-medium my-3">AGREGAR EMPLEADO</h3>
 
 
-        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row">
           <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" />
             <Error errors={error['emp_nombre']} ></Error>
@@ -751,9 +751,9 @@ function TablaEmpleados() {
         <br />
         <div align="right">
           {loading ? <Loading /> :
-            <Button color="primary" type="submit" >Insertar</Button>
+            <button className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border" type="submit" >INSERTAR</button>
           }
-          <Button onClick={() => abrircerrarModalInsertar()}>Cancelar</Button>
+          <button onClick={() => abrircerrarModalInsertar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border">CANCELAR</button>
         </div>
       </div>
     </form>
