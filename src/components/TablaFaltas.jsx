@@ -144,11 +144,6 @@ function TablaFaltas() {
             })
     }
 
-
-
-
-
-
     const peticionPut = async () => {
         await axios.post(baseUrl + 'tabla_faltas/' + empleadoSeleccionado.Id,
             {
@@ -213,10 +208,8 @@ function TablaFaltas() {
             {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
             <br /><br />
             <div align="right">
-                <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                |
-                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
-                
+                <button onClick={() => peticionPut()} className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border">EDITAR</button>
+                <button onClick={() => abrirCerrarModalEditar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border">CANCELAR</button>
             </div>
         </div>
     )

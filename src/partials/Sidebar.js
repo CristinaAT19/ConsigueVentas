@@ -22,15 +22,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
-  const [expand, setExpand] = useState(
-    // localStorage.getItem("sidebar-expanded") ? true : false
-    // storedSidebarExpanded === null ? false : true
-    false
-  );
+  const [expand, setExpand] = useState(false);
 
   const expandir = () => {
     setExpand(!expand);
-
   };
 
   useEffect(() => {
@@ -40,7 +35,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     });
     if (media) setExpand(true);
 
-  })
+  }, [media, mql])
   const handleExpanded = () => {
     setSidebarExpanded(!sidebarExpanded);
     expandir();
