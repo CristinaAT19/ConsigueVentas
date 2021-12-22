@@ -59,8 +59,12 @@ const TipoUsuario = (dniReset) => {
 
       })
       .catch((e) => {
-        setValor("Ocurrio un error al cambiar");
-        //setError(e.response.data.errors);
+        // setValor("Aca");
+        if (e.response.status === 500) {
+          console.log("Error 500");
+          }else{
+            setError(e.response.data.errors);
+          };
       });
   };
 
@@ -112,7 +116,7 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        //setError(e.response.data.errors);
+        setError(e.response);
       });
   };
   ///////////////////////////////////////////////
@@ -125,8 +129,8 @@ const TipoUsuario = (dniReset) => {
         <label>Administrador</label>
       </div>
       <div className="flex items-center justify-start">
-        <input type="radio" name="usu_adm" id="" value="2"
-          checked={tipo == 2 ? true : false} onChange={seleccionarTipo} />
+        <input type="radio" name="usu_adm" id="" value="7"
+          checked={tipo == 7 ? true : false} onChange={seleccionarTipo} />
         <label>Usuario</label>
       </div>
 
