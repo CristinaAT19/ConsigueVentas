@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext} from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import listPlugin from '@fullcalendar/list';
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import esLocale from '@fullcalendar/core/locales/es';
@@ -35,9 +34,7 @@ const CalendarioPersonal = () => {
     return (
         <div>
             <FullCalendar
-
-
-                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[dayGridPlugin, bootstrapPlugin]}
                 /*events={[
                     { start: '2021-12-01',
                     title: "Tardanza:08:26",
@@ -50,18 +47,16 @@ const CalendarioPersonal = () => {
                 locales={esLocale}
                 locale="es"
                 themeSystem='standard'
-                weekTextLong={"false"}
+                weekTextLong={"true"}
                 firstDay={1}
                 initialView="dayGridMonth"
                 Forma
                 headerToolbar={{
                     start: "prev,next,today",
                     center: "title",
-                    end: 'listYear,dayGridMonth,dayGridWeek,dayGridDay',
+                    end: "dayGridMonth,dayGridWeek,dayGridDay",
                 }}
                 dayHeaderFormat={{ weekday: "long" }}
-
-                
             />
         </div>
     );
