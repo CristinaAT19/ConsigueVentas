@@ -11,6 +11,10 @@ import Loading from "../components/Loading.jsx";
 function TablaDia() {
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
+    //filtros tabla
+    const [selectArea, setSelectArea] = useState([]);
+    const [selectUnidad, setUnidad] = useState([]);
+
     const peticionTablaDia = async () => {
       // setLoading(true);
         await axios
@@ -37,6 +41,51 @@ function TablaDia() {
       peticionTablaDia();
       cambiarEstado();
   }, [])
+
+    //filtros tabla
+    useEffect(() => {
+      axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`
+          }
+        }
+      )
+        .then(response => {
+          setUnidad(response.data.Unidades);
+          //console.log(response)
+        }).catch(error => {
+        })
+    }, [])
+  
+    useEffect(() => {
+      axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`
+          }
+        }
+      )
+        .then(response => {
+          setSelectArea(response.data.Areas);
+          //console.log(response)
+        }).catch(error => {
+        })
+    }, [])
+
+    let resultArea = selectArea.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultArea2=JSON.parse(`{${resultArea}}`);
+
+    let resultUnidad = selectUnidad.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+    const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+    const condEst={Activo:'Activo',Retirado:'Retirado'};
+  //
+
   const [loading, setLoading] = useState(false);
 
   const cambiarEstado=()=>{
@@ -54,21 +103,22 @@ function TablaDia() {
     <div className="main">
         <MaterialTable
           columns={[
-            {title: 'Fecha',field: 'Fecha'},
-            {title: 'Hora',field: 'Hora'},
-            {title: 'Dni',field: 'Dni'},
-            {title: 'Nombres',field: 'Nombres'},
-            {title: 'Sistema Operativo',field: 'Sistema Operativo'},
-            {title: 'Dispositivo',field: 'Dispositivo'},
-            {title: 'Perfil',field: 'Perfil'},
-            {title: 'Departamento',field: 'Unidad'},
-            {title: 'Estado',field: 'Estado'},
-            {title: 'Turno',field: 'Turno'},
+            {title: 'Fecha',field: 'Fecha',filtering: false},
+            {title: 'Hora',field: 'Hora',filtering: false},
+            {title: 'Dni',field: 'Dni',filtering: false},
+            {title: 'Nombres',field: 'Nombres',filtering: false},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo',filtering: false},
+            {title: 'Dispositivo',field: 'Dispositivo',filtering: false},
+            {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
+            {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
+            {title: 'Estado',field: 'Estado',lookup:condEst},
+            {title: 'Turno',field: 'Turno',lookup:turnos},
         ]}
           data={data}
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
+            filtering: true,
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
             },
