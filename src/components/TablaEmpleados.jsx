@@ -668,7 +668,7 @@ function TablaEmpleados() {
 
             <FormControl fullWidth>
               <InputLabel id="capacitacion">Condicion de capacitación</InputLabel>
-              <Select labelId="capacitacion" id="capacitacion" label="Condicion de capacitación" name="Capacitacion" >
+              <Select labelId="capacitacion" defaultValue={3} id="capacitacion" label="Condicion de capacitación" name="Capacitacion" >
                 <MenuItem value={1}>Terminó capacitación</MenuItem>
                 <MenuItem value={2}>No terminó capacitación</MenuItem>
                 <MenuItem value={3}>En proceso</MenuItem>
@@ -683,7 +683,7 @@ function TablaEmpleados() {
 
             <FormControl fullWidth>
               <InputLabel id="convenio">Condicion de convenio</InputLabel>
-              <Select labelId="convenio" id="convenio" label="Convenio" name="Convenio"  >
+              <Select labelId="convenio" defaultValue={5} id="convenio" label="Convenio" name="Convenio"  >
                 <MenuItem value={1}>Firmado</MenuItem>
                 <MenuItem value={2}>Enviado para firmar</MenuItem>
                 <MenuItem value={3}>No firmado</MenuItem>
