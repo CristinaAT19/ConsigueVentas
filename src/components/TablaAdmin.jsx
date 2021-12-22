@@ -17,6 +17,10 @@ const TablaAdmin = () => {
         setLoading(false);
         }, 1000);
     }
+    //filtros tabla
+    const [selectArea, setSelectArea] = useState([]);
+    const [selectUnidad, setUnidad] = useState([]);
+
     const peticionTablaAdmin = async () => {
         await axios
             .get(
@@ -34,6 +38,50 @@ const TablaAdmin = () => {
             });
 
     }
+
+    //filtros tabla
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setUnidad(response.data.Unidades);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+    
+      useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setSelectArea(response.data.Areas);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+
+      let resultArea = selectArea.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultArea2=JSON.parse(`{${resultArea}}`);
+  
+      let resultUnidad = selectUnidad.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+      const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+    //
+
     useEffect(() => {
         cambiarEstado();
         peticionTablaAdmin();
@@ -47,27 +95,32 @@ const TablaAdmin = () => {
             <MaterialTable
                 columns={[
                     {
-                        title: 'Nombres', field: 'Nombre',
+                        title: 'Nombres', field: 'Nombre',filtering: false
                     },
                     {
                         title: 'Apellidos',
                         field: 'Apellido',
+                        filtering: false
                     },
                     {
                         title: 'Turno',
                         field: 'Turno',
+                        lookup:turnos
                     },
                     {
                         title: 'Perfil',
                         field: 'Perfil',
+                        lookup:resultArea2
                     },
                     {
                         title: 'Unidad',
                         field: 'Unidad',
+                        lookup:resultUnidad2
                     },
                     {
                         title: 'Dni',
                         field: 'Dni',
+                        filtering: false
                     },
 
 
@@ -93,6 +146,7 @@ const TablaAdmin = () => {
 
                     //   right: 1
                     // },
+                    filtering: true,
                     headerStyle: {
                         backgroundColor: '#E2E2E2  ',
                     },
