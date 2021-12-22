@@ -6,9 +6,8 @@ import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 import Loading from "../components/Loading";
 
-const TablaAdmin = () => {
-  const [tabla, setTabla] = useState([]);
-
+const TablaAdmin = (tabla, setTabla) => {
+  [tabla, setTabla] = useState([]);
   const [loading, setLoading] = useState(false);
   const cambiarEstado = () => {
     setLoading(true);
@@ -30,7 +29,7 @@ const TablaAdmin = () => {
   };
   useEffect(() => {
     peticionTablaAdmin();
-  }, []);
+  }, [tabla]);
   return (
     <div>
       <MaterialTable
@@ -76,14 +75,6 @@ const TablaAdmin = () => {
         //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
         //   }
         // // ]}
-        actions={[
-          {
-            icon: "refresh",
-            tooltip: "refresh",
-            onClick: () => peticionTablaAdmin(),
-            isFreeAction: true,
-          },
-        ]}
         options={{
           // fixedColumns: {
 

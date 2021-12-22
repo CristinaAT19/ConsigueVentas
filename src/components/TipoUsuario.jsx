@@ -3,14 +3,29 @@ import React, { useState } from "react";
 import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 import Error from "../components/item/Error";
+import TablaAdmin from "./TablaAdmin";
 const TipoUsuario = (dniReset) => {
+  const [tabla, setTabla] = useState([]);
   const campo = document.getElementById("dni_reset");
   const { dni_reset } = dniReset;
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("");
   const [tipoMostrar, setTipoMostrar] = useState("");
   const [error, setError] = useState([]);
-
+  //TablaAdmin
+  const peticionTablaAdmin = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}/api/listarAdministrador`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((Response) => {
+        setTabla(Response.data.administradores);
+      })
+      .catch((e) => {});
+  };
+  ///////////////
   const seleccionarTipo = async (e) => {
     //reiniciar otros msjs de vista
     setValor("");
@@ -20,6 +35,7 @@ const TipoUsuario = (dniReset) => {
   };
 
   const cambiarTipoUsuario = async (e) => {
+    peticionTablaAdmin();
     setValor("");
     setTipoMostrar("");
     setError([]);
@@ -123,7 +139,7 @@ const TipoUsuario = (dniReset) => {
   ///////////////////////////////////////////////
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-start md:gap-5 md:place-content-center">
+      <div className="flex w-full flex-row justify-start gap-2 place-content-start">
         <div>
           <input
             type="radio"
@@ -149,7 +165,7 @@ const TipoUsuario = (dniReset) => {
         <FaIcons.FaRegQuestionCircle onClick={mostrarTipoUsuarioActual} />
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-evenly m-1.5 gap-8">
+      <div className="flex flex-wrap items-center justify-evenly m-1.5 gap-8">
         <button
           onClick={cambiarTipoUsuario}
           className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
@@ -167,6 +183,9 @@ const TipoUsuario = (dniReset) => {
         <p> {valor} </p>
         <p> {tipoMostrar} </p>
         <Error errors={error["dni"]}></Error> <br />
+      </div>
+      <div className="m-auto w-full">
+        <TablaAdmin tabla={tabla} setTabla={setTabla} />
       </div>
     </>
   );

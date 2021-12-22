@@ -97,7 +97,6 @@ export const listaAdministradores = () => {
             tipoUsuario={true}
           />
         </div>
-        <TablaAdmin />
       </div>
     </div>
   );

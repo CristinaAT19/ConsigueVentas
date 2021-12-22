@@ -20,8 +20,8 @@ const AdminUsuario = ({
 
   return (
     <>
-      <div className="flex flex-col items-baseline justify-center w-full p-2 md:p-10 pt-2 bg-white rounded">
-        <div className="flex flex-col items-baseline justify-center m-1.5">
+      <div className="flex flex-col items-baseline justify-start w-full p-2 md:p-10 pt-2 bg-white rounded">
+        <div className="flex flex-col items-baseline justify-start m-1.5">
           <h3>{titulo}</h3>
           <p>{descripcion1}</p>
           <p>{descripcion2}</p>
@@ -38,7 +38,7 @@ const AdminUsuario = ({
             id="dni_reset"
           />
         </div>
-        <div className="flex flex-col items-baseline justify-center gap-2 m-1.5">
+        <div className="flex w-full flex-col items-baseline justify-center gap-2 m-1.5">
           <label>{texto2}</label>
           {tipoUsuario ? (
             <TipoUsuario dni_reset={valorDni} />
