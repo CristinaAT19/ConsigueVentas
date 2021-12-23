@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import React, { useState, useContext, useEffect } from 'react';
-import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';

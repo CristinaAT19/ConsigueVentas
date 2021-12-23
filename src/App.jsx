@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 import { focusHandling } from "cruip-js-toolkit";
 import "./charts/ChartjsConfig";
@@ -13,8 +9,12 @@ import DashAdmin from "./pages/DashAdmin";
 import Login from "./pages/Login";
 import RoutePrivate from "./routes/RoutePrivate";
 import RoutePublic from "./routes/RoutePublic";
-import { distGetAutentication, distSetAutentication } from "./dist/Autentication";
+import {
+  distGetAutentication,
+  distSetAutentication,
+} from "./dist/Autentication";
 import { UserContext } from "./components/context/UserContext";
+import Home from "./pages/Home";
 
 function App() {
   const [user, setUser] = useState({});
@@ -27,12 +27,12 @@ function App() {
     focusHandling("outline");
   }, [location.pathname]); // triggered on route change
 
-  useEffect(() =>{
-    if(distGetAutentication()==null){
-      distSetAutentication(false);      
+  useEffect(() => {
+    if (distGetAutentication() == null) {
+      distSetAutentication(false);
     }
   }, [user]);
-  
+
   return (
     <>
       <Switch>
@@ -45,7 +45,12 @@ function App() {
 
           <Route path="/*">
             <RoutePrivate>
-              <DashAdmin/>
+              <Home />
+            </RoutePrivate>
+          </Route>
+          <Route path="/dashAdmin">
+            <RoutePrivate>
+              <DashAdmin />
             </RoutePrivate>
           </Route>
         </UserContext.Provider>
