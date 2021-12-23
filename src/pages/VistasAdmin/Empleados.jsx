@@ -5,6 +5,7 @@ import CalendarioEmpleados from "../../components/CalendarioEmpleados";
 import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
+import ReporteAsistencia from "../../components/ReporteAsistencia";
 import App from "../../App";
 import TipoUsuario from "../../components/TipoUsuario";
 
@@ -60,6 +61,20 @@ export const tablaFaltas = () => {
       <h1 className="border-b-2 text-3xl">Administración de faltas</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
         <TablaFaltas />
+      </div>
+    </div>
+  );
+};
+
+export const reporteAsistencia = () => {
+  return (
+    <div
+      className="bg-white rounded-t-3xl text-center"
+      style={{ margin: "1rem 1rem" }}
+    >
+      <h1 className="border-b-2 text-3xl">Reporte Asistencia</h1>
+      <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+        <ReporteAsistencia />
       </div>
     </div>
   );
