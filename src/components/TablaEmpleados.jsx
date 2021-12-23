@@ -455,7 +455,7 @@ function TablaEmpleados() {
       <div className={styles.modal}>
         <h3 className="text-2xl text-medium my-3">EDITAR EMPLEADO</h3>
 
-        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row">
           <div className="mx-3 w-90 md:w-40">
             <TextField
               className={styles.inputMaterial}
@@ -713,14 +713,10 @@ function TablaEmpleados() {
         </div>
         <br />
         <div align="right">
-          {loading ? (
-            <Loading />
-          ) : (
-            <Button color="primary" type="submit">
-              Editar
-            </Button>
-          )}
-          <Button onClick={() => abrircerrarModalEditar()}>Cancelar</Button>
+          {loading ? <Loading /> :
+            <button className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border" type="submit" >EDITAR</button>
+          }
+          <button onClick={() => abrircerrarModalEditar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border" >CANCELAR</button>
         </div>
       </div>
     </form>
@@ -731,7 +727,8 @@ function TablaEmpleados() {
       <div className={styles.modal}>
         <h3 className="text-2xl text-medium my-3">AGREGAR EMPLEADO</h3>
 
-        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row justify-center items-center w-full">
+
+        <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row">
           <div className="mx-3 w-90 md:w-40">
             <TextField
               className={styles.inputMaterial}
@@ -844,15 +841,8 @@ function TablaEmpleados() {
             <br />
 
             <FormControl fullWidth>
-              <InputLabel id="capacitacion">
-                Condicion de capacitación
-              </InputLabel>
-              <Select
-                labelId="capacitacion"
-                id="capacitacion"
-                label="Condicion de capacitación"
-                name="Capacitacion"
-              >
+              <InputLabel id="capacitacion">Condicion de capacitación</InputLabel>
+              <Select labelId="capacitacion" defaultValue={3} id="capacitacion" label="Condicion de capacitación" name="Capacitacion" >
                 <MenuItem value={1}>Terminó capacitación</MenuItem>
                 <MenuItem value={2}>No terminó capacitación</MenuItem>
                 <MenuItem value={3}>En proceso</MenuItem>
@@ -872,12 +862,7 @@ function TablaEmpleados() {
 
             <FormControl fullWidth>
               <InputLabel id="convenio">Condicion de convenio</InputLabel>
-              <Select
-                labelId="convenio"
-                id="convenio"
-                label="Convenio"
-                name="Convenio"
-              >
+              <Select labelId="convenio" defaultValue={5} id="convenio" label="Convenio" name="Convenio"  >
                 <MenuItem value={1}>Firmado</MenuItem>
                 <MenuItem value={2}>Enviado para firmar</MenuItem>
                 <MenuItem value={3}>No firmado</MenuItem>
@@ -913,17 +898,12 @@ function TablaEmpleados() {
             <br /> */}
           </div>
         </div>
-
         <br />
         <div align="right">
-          {loading ? (
-            <Loading />
-          ) : (
-            <Button color="primary" type="submit">
-              Insertar
-            </Button>
-          )}
-          <Button onClick={() => abrircerrarModalInsertar()}>Cancelar</Button>
+          {loading ? <Loading /> :
+            <button className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border" type="submit" >INSERTAR</button>
+          }
+          <button onClick={() => abrircerrarModalInsertar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border">CANCELAR</button>
         </div>
       </div>
     </form>

@@ -101,8 +101,7 @@ function DashAdmin() {
                 component={CalendarioAsistencia}
               />
               {/* calendario general */}
-              {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
-
+              {/* <Route path='/calendarioGeneral' exact component={CalendarioGeneral} /> */}
               <Route
                 path="/tablaEmpleados"
                 exact

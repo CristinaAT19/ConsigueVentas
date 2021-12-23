@@ -64,8 +64,12 @@ const TipoUsuario = (dniReset) => {
         setCambio(!cambio);
       })
       .catch((e) => {
-        setValor("Ocurrio un error al cambiar");
-        //setError(e.response.data.errors);
+        // setValor("Aca");
+        if (e.response.status === 500) {
+          console.log("Error 500");
+          }else{
+            setError(e.response.data.errors);
+          };
       });
   };
 
@@ -120,7 +124,7 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        //setError(e.response.data.errors);
+        setError(e.response);
       });
   };
   ///////////////////////////////////////////////
@@ -144,7 +148,7 @@ const TipoUsuario = (dniReset) => {
             name="usu_adm"
             id=""
             value="2"
-            checked={tipo == 2 ? true : false}
+            checked={tipo == 7 ? true : false}
             onChange={seleccionarTipo}
           />
           <label className="ml-1">Usuario</label>
