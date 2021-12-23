@@ -6,8 +6,8 @@ import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 import Loading from "../components/Loading";
 
-const TablaAdmin = (tabla, setTabla) => {
-  [tabla, setTabla] = useState([]);
+const TablaAdmin = (cambio) => {
+  const [tabla, setTabla] = useState([]);
   const [loading, setLoading] = useState(false);
   const cambiarEstado = () => {
     setLoading(true);
@@ -29,7 +29,10 @@ const TablaAdmin = (tabla, setTabla) => {
   };
   useEffect(() => {
     peticionTablaAdmin();
-  }, [tabla]);
+  }, []);
+  useEffect(() => {
+    peticionTablaAdmin();
+  }, [cambio]);
   return (
     <div>
       <MaterialTable
