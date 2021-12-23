@@ -62,7 +62,6 @@ const TipoUsuario = (dniReset) => {
         //setValor("Correcto");
         setValor(Response.data.msg[0].cambiar);
         setCambio(!cambio);
-        console.log(cambio);
       })
       .catch((e) => {
         setValor("Ocurrio un error al cambiar");
