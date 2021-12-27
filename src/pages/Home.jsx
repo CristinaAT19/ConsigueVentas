@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import HomeContenido from "../components/HomeContenido";
+import { Link } from 'react-router-dom';
 // import Verificacion from "../images/listaVerificacion.png";
 // import Erp from "../images/erp.png";
 
 const Home = () => {
-  
+
   return (
     <>
       <section className="w-full h-screen bg-naranja flex flex-col items-center">
@@ -16,12 +17,13 @@ const Home = () => {
               alt=""
               className="w-36"
             />
-            <a
-              href="#"
+
+            <Link
               className="font-medium no-underline hover:no-underline hover:text-naranja text-negro text-xl"
+              to="dashadmin/cerrarSesion"
             >
               Cerrar Sesión
-            </a>
+            </Link>
           </div>
         </div>
 

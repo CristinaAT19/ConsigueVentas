@@ -43,16 +43,16 @@ function App() {
             </RoutePublic>
           </Route>
 
-          <Route path="/*">
+          <Route path="/home">
             <RoutePrivate>
               <Home />
             </RoutePrivate>
           </Route>
-          <Route path="/dashAdmin">
+          <Route path="/*">
             <RoutePrivate>
-              <DashAdmin />
+              <DashAdmin/>
             </RoutePrivate>
-          </Route>
+          </Route>          
         </UserContext.Provider>
 
         {/* <Route path='/admin' exact component={Dashboard} /> */}
