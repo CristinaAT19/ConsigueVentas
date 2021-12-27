@@ -45,6 +45,10 @@ function TablaFaltas() {
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
 
+    //filtros tabla
+    const [selectArea, setSelectArea] = useState([]);
+    const [selectUnidad, setUnidad] = useState([]);
+
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
        // value:3, label: "Falta Justificada"
     });
@@ -63,6 +67,51 @@ function TablaFaltas() {
         Unidad: "",
         cambio_estado: "",
     })
+
+    //filtros tabla
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setUnidad(response.data.Unidades);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+    
+      useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setSelectArea(response.data.Areas);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+
+      let resultArea = selectArea.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultArea2=JSON.parse(`{${resultArea}}`);
+  
+      let resultUnidad = selectUnidad.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+      const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+      const estFalta={'Falta Justificada':'Falta Justificada','Falta Injustificada':'Falta Injustificada'};
+    //
+
 
     const handleChangeEdit = (e) => {
         const { name, value } = e.target;
@@ -176,47 +225,56 @@ function TablaFaltas() {
                     {
                         title: 'Id',
                         field: 'Id',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Nombres',
                         field: 'Nombre',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Apellidos',
                         field: 'Apellido',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Dni',
                         field: 'Dni',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Perfil',
                         field: 'Perfil',
-                        sortable: true
+                        sortable: true,
+                        lookup:resultArea2
                     },
                     {
                         title: 'Unidad',
                         field: 'Unidad',
-                        sortable: true
+                        sortable: true,
+                        lookup:resultUnidad2
                     },
                     {
                         title: 'Turno',
                         field: 'Turno',
-                        sortable: true
+                        sortable: true,
+                        lookup:turnos
                     },
                     {
                         title: 'Fecha de Falta',
                         field: 'Fecha Falta',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Estado de Falta',
                         field: 'Estado Falta',
-                        sortable: true
+                        sortable: true,
+                        lookup:estFalta
                     },
                 ]}
                 data={data}
@@ -240,6 +298,7 @@ function TablaFaltas() {
 
                     //   right: 1
                     // },
+                    filtering: true,
                     headerStyle: {
                         backgroundColor: '#E2E2E2  ',
                     },
