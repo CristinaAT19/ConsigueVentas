@@ -9,7 +9,7 @@ const HomeContenido = ({ imagen, subTitulo }) => {
     setRedirect(true);
   }
   if (redirect) {
-    return <Redirect to="/dashAdmin"/>
+    return <Redirect to="/dashadmin/dashboard"/>
   }
   return (
     <>

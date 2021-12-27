@@ -37,22 +37,34 @@ function App() {
     <>
       <Switch>
         <UserContext.Provider value={{ user, setUser }}>
-          <Route path="/login">
+          <Route exact path="/login">
             <RoutePublic>
               <Login />
             </RoutePublic>
           </Route>
 
-          <Route path="/home">
+          <Route exact path="/">
+            <RoutePublic>
+              <Login />
+            </RoutePublic>
+          </Route>
+
+          <Route exact path="/home">
             <RoutePrivate>
               <Home />
             </RoutePrivate>
           </Route>
-          <Route path="/*">
+
+          <Route path="/dashadmin">
             <RoutePrivate>
               <DashAdmin/>
             </RoutePrivate>
-          </Route>          
+          </Route>                    
+          {/* <Route path="/*">
+            <RoutePrivate>
+              <DashAdmin/>
+            </RoutePrivate>
+          </Route>           */}
         </UserContext.Provider>
 
         {/* <Route path='/admin' exact component={Dashboard} /> */}
