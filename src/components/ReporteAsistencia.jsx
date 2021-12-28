@@ -20,16 +20,22 @@ function ReporteAsistencia() {
     const [fechaFin,setFechaFin]=useState('');
     const [valor, setValor] = useState("");
 
-    
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
     const dateFormat = "YYYY/MM/DD";
 
     function handlePicker(fieldsValue) {
       if(fieldsValue){
         const a = moment(fieldsValue[0]._d).format(dateFormat);
         setFechaIni(a);
-        console.log(a);
+ 
         const b = moment(fieldsValue[1]._d).format(dateFormat);
-        console.log(b);
+ 
         setFechaFin(b);
       }
     }
@@ -141,14 +147,9 @@ function ReporteAsistencia() {
     const condEst={Activo:'Activo',Retirado:'Retirado'};
   //
 
-  const [loading, setLoading] = useState(false);
 
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
+
+
 
     const [selectedRow, setSelectedRow] = useState(null);
     if (loading) {
@@ -157,10 +158,13 @@ function ReporteAsistencia() {
   return (
     <div className="main">
       <div>
+        <h1 style={{fontSize:'1.2rem'}}>Filtrar por fecha:</h1>
       <RangePicker onChange={handlePicker} placeholder={["Inicio","Fin"]} onOpenChange={()=>{setValor("")}} />
-      <button className="px-4" onClick={peticionFiltroFecha}>Buscar</button>
-      <button className="mx-4 text-gray-500" onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtros personalizados</button>
+
+      <button className="btn btn btn-warning mx-2 " onClick={peticionFiltroFecha}><img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" style={{width:'0.8rem',height:'0.8rem'}} /></button>
+      
       </div>
+      <button className="mx-2 text-gray-500" onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtrado personalizado</button>
       <br/> 
       <p className='text-danger'> {valor} </p>
       <br/>      

@@ -84,6 +84,26 @@ function TablaDia() {
     let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
     const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
     const condEst={Activo:'Activo',Retirado:'Retirado'};
+    const dispositivos={Computadora:'Computadora',Tablet:'Tablet',Celular:'Celular'};
+    const sis_operativo={
+      ['Windows 10']:'Windows 10',
+      ['Windows 8.1']:'Windows 8.1',
+      ['Windows 8']:'Windows 8',
+      ['Windows 7']:'Windows 7',
+      ['Windows Vista']:'Windows Vista',
+      ['Windows XP']:'Windows XP',
+      ['Windows 2003'] :'Windows 2003',
+      'Windows':'Windows',
+      'iPhone':'iPhone',
+      'iPad':'iPad',
+      ['Mac OS X']:'Mac OS X',
+      ['Mac otros']:'Mac otros',
+      'Android':'Android',
+      'Blackberry':'Blackberry',
+      'Linux':'Linux',
+    };
+
+    
   //
 
   const [loading, setLoading] = useState(false);
@@ -103,12 +123,11 @@ function TablaDia() {
     <div className="main">
         <MaterialTable
           columns={[
-            {title: 'Fecha',field: 'Fecha',filtering: false},
             {title: 'Hora',field: 'Hora',filtering: false},
             {title: 'Dni',field: 'Dni',filtering: false},
             {title: 'Nombres',field: 'Nombres',filtering: false},
-            {title: 'Sistema Operativo',field: 'Sistema Operativo',filtering: false},
-            {title: 'Dispositivo',field: 'Dispositivo',filtering: false},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo',lookup:sis_operativo},
+            {title: 'Dispositivo',field: 'Dispositivo',lookup:dispositivos},
             {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
             {title: 'Estado',field: 'Estado',lookup:condEst},
