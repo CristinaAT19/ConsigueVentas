@@ -64,12 +64,8 @@ const TipoUsuario = (dniReset) => {
         setCambio(!cambio);
       })
       .catch((e) => {
-        // setValor("Aca");
-        if (e.response.status === 500) {
-          console.log("Error 500");
-          }else{
-            setError(e.response.data.errors);
-          };
+        setValor("Ocurrio un error al cambiar");
+        //setError(e.response.data.errors);
       });
   };
 
@@ -124,7 +120,7 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        setError(e.response);
+        //setError(e.response.data.errors);
       });
   };
   ///////////////////////////////////////////////
@@ -147,7 +143,7 @@ const TipoUsuario = (dniReset) => {
             type="radio"
             name="usu_adm"
             id=""
-            value="2"
+            value="7"
             checked={tipo == 7 ? true : false}
             onChange={seleccionarTipo}
           />

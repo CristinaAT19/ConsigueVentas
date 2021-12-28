@@ -6,7 +6,6 @@ import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
 import Loading from "../components/Loading";
 
-
 const TablaAdmin = (cambio) => {
   const [tabla, setTabla] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -54,165 +53,84 @@ const TablaAdmin = (cambio) => {
             title: "Perfil",
             field: "Perfil",
           },
-
           {
-            headers: {
-              Authorization: `Bearer ${getToken()}`
-            }
-          }
-        )
-          .then(response => {
-            setUnidad(response.data.Unidades);
-            //console.log(response)
-          }).catch(error => {
-          })
-      }, [])
-    
-      useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+            title: "Unidad",
+            field: "Unidad",
+          },
           {
-            headers: {
-              Authorization: `Bearer ${getToken()}`
-            }
-          }
-        )
-          .then(response => {
-            setSelectArea(response.data.Areas);
-            //console.log(response)
-          }).catch(error => {
-          })
-      }, [])
+            title: "Dni",
+            field: "Dni",
+          },
+        ]}
+        data={tabla}
+        title="Tabla de Empleados"
+        // tableRef={tableRef}
+        // actions={[
+        //   {
+        //     icon: 'edit',
+        //     tooltip: 'Editar Empleado',
+        //     // onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
+        //   },
+        //   {
+        //     icon: 'refresh',
+        //     tooltip: 'Refresh Data',
+        //     isFreeAction: true,
+        //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+        //   }
+        // // ]}
+        options={{
+          // fixedColumns: {
 
-      let resultArea = selectArea.map(function(item,){      
-        return  `"${item}":"${item}"` 
-      });
-      let resultArea2=JSON.parse(`{${resultArea}}`);
-  
-      let resultUnidad = selectUnidad.map(function(item,){      
-        return  `"${item}":"${item}"` 
-      });
-      let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
-      const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
-    //
+          //   right: 1
+          // },
 
-    useEffect(() => {
-        cambiarEstado();
-        peticionTablaAdmin();
-    }, [])
-
-    if (loading) {
-        return (<Loading />)
-    }else{
-    return (
-        <div>
-            <MaterialTable
-                columns={[
-                    {
-                        title: 'Nombres', field: 'Nombre',filtering: false
-                    },
-                    {
-                        title: 'Apellidos',
-                        field: 'Apellido',
-                        filtering: false
-                    },
-                    {
-                        title: 'Turno',
-                        field: 'Turno',
-                        lookup:turnos
-                    },
-                    {
-                        title: 'Perfil',
-                        field: 'Perfil',
-                        lookup:resultArea2
-                    },
-                    {
-                        title: 'Unidad',
-                        field: 'Unidad',
-                        lookup:resultUnidad2
-                    },
-                    {
-                        title: 'Dni',
-                        field: 'Dni',
-                        filtering: false
-                    },
-
-
-                ]}
-                data={tabla}
-                title="Tabla de Administradores"
-                // tableRef={tableRef}
-                // actions={[
-                //   {
-                //     icon: 'edit',
-                //     tooltip: 'Editar Empleado',
-                //     // onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
-                //   },
-                //   {
-                //     icon: 'refresh',
-                //     tooltip: 'Refresh Data',
-                //     isFreeAction: true,
-                //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-                //   }
-                // ]}
-                options={{
-                    // fixedColumns: {
-
-                    //   right: 1
-                    // },
-                    filtering: true,
-                    headerStyle: {
-                        backgroundColor: '#E2E2E2  ',
-                    },
-                    exportButton: true,
-                    actionsColumnIndex: -1,
-                    
-                }}
-                localization={{
-                    body: {
-                        emptyDataSourceMessage: "No hay registro para mostrar",
-                        addTooltip: 'Agregar',
-                        deleteTooltip: 'Eliminar',
-                        editTooltip: 'Editar',
-                        filterRow: {
-                            filterTooltip: 'Filtrar'
-                        },
-
-                    },
-                    pagination: {
-                        labelDisplayedRows: '{from}-{to} de {count}',
-                        labelRowsSelect: 'filas',
-                        labelRowsPerPage: 'filas por pagina:',
-                        firstAriaLabel: 'Primera pagina',
-                        firstTooltip: 'Primera pagina',
-                        previousAriaLabel: 'Pagina anterior',
-                        previousTooltip: 'Pagina anterior',
-                        nextAriaLabel: 'Pagina siguiente',
-                        nextTooltip: 'Pagina siguiente',
-                        lastAriaLabel: 'Ultima pagina',
-                        lastTooltip: 'Ultima pagina'
-                    },
-                    toolbar: {
-                        nRowsSelected: '{0} ligne(s) sélectionée(s)',
-                        // showColumnsTitle: 'Voir les colonnes',
-                        // showColumnsAriaLabel: 'Voir les colonnes',
-                        exportTitle: 'Exportar',
-                        exportAriaLabel: 'Exportar',
-                        exportCSVName: "Exportar en formato CSV",
-                        exportPDFName: "Exportar como PDF",
-                        searchTooltip: 'Buscar',
-                        searchPlaceholder: 'Buscar'
-                    },
-                    header: {
-                        actions: 'Acciones'
-                    }
-                }}
-
-            />
-
-        </div>
-    )
-            }
-}
-
+          headerStyle: {
+            backgroundColor: "#E2E2E2  ",
+          },
+          exportButton: true,
+          actionsColumnIndex: -1,
+        }}
+        localization={{
+          body: {
+            emptyDataSourceMessage: "No hay registro para mostrar",
+            addTooltip: "Agregar",
+            deleteTooltip: "Eliminar",
+            editTooltip: "Editar",
+            filterRow: {
+              filterTooltip: "Filtrar",
+            },
+          },
+          pagination: {
+            labelDisplayedRows: "{from}-{to} de {count}",
+            labelRowsSelect: "filas",
+            labelRowsPerPage: "filas por pagina:",
+            firstAriaLabel: "Primera pagina",
+            firstTooltip: "Primera pagina",
+            previousAriaLabel: "Pagina anterior",
+            previousTooltip: "Pagina anterior",
+            nextAriaLabel: "Pagina siguiente",
+            nextTooltip: "Pagina siguiente",
+            lastAriaLabel: "Ultima pagina",
+            lastTooltip: "Ultima pagina",
+          },
+          toolbar: {
+            nRowsSelected: "{0} ligne(s) sélectionée(s)",
+            // showColumnsTitle: 'Voir les colonnes',
+            // showColumnsAriaLabel: 'Voir les colonnes',
+            exportTitle: "Exportar",
+            exportAriaLabel: "Exportar",
+            exportCSVName: "Exportar en formato CSV",
+            exportPDFName: "Exportar como PDF",
+            searchTooltip: "Buscar",
+            searchPlaceholder: "Buscar",
+          },
+          header: {
+            actions: "Acciones",
+          },
+        }}
+      />
+    </div>
+  );
+};
 
 export default TablaAdmin;
