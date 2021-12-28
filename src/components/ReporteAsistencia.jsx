@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import Loading from "../components/Loading";
-import { setToken, getToken } from "../dist/Token";
+import { getToken } from "../dist/Token";
+import { DatePicker } from "antd";
+import moment from "moment";
+const { RangePicker } = DatePicker;
 
 
-const useStyles = makeStyles((theme) => ({
-    modal: {
-        position: 'absolute',
-        width: '21rem',
-        backgroundColor: theme.palette.background.paper,
-        // border: '2px solid #000',
-        boxshadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-    },
-    iconos: {
-        cursor: 'pointer'
-    },
-    inputMaterial: {
-        width: '100%'
-    }
-}));
 
 function ReporteAsistencia() {
     const [filtering, setFiltering] = useState(false);
@@ -35,11 +18,24 @@ function ReporteAsistencia() {
     const [selectUnidad, setUnidad] = useState([]);
     const [fechaIni,setFechaIni]=useState('');
     const [fechaFin,setFechaFin]=useState('');
+    const [valor, setValor] = useState("");
 
-    const fechas={
-      "fecha_fin": "2021-11-01",
-      "fecha_inicio": "2021-12-01"      
+    
+    const dateFormat = "YYYY/MM/DD";
+
+    function handlePicker(fieldsValue) {
+      if(fieldsValue){
+        const a = moment(fieldsValue[0]._d).format(dateFormat);
+        setFechaIni(a);
+        console.log(a);
+        const b = moment(fieldsValue[1]._d).format(dateFormat);
+        console.log(b);
+        setFechaFin(b);
+      }
     }
+
+
+    
     const peticionTablaDia = async () => {
       // setLoading(true);
         await axios
@@ -58,8 +54,8 @@ function ReporteAsistencia() {
                 if(e.response.status === 403){
                   console.log("No tienes permisos para ver esta información");
                 }else{
+
                 }
-                console.log(e.response)
             });
             // setLoading(false);
     }
@@ -82,14 +78,16 @@ function ReporteAsistencia() {
             )
             .then((Response) => {
                 setTabla(Response.data.Asistencia);
+                setValor("");
                 //console.log(Response)
             })
             .catch((e) => {
                 if(e.response.status === 403){
                   console.log("No tienes permisos para ver esta información");
-                }else{
+                }else if(e.response.status === 422){
+                  setValor("Llenar campos de fecha");
                 }
-                console.log(e.response)
+                
             });
             // setLoading(false);
     }
@@ -159,26 +157,12 @@ function ReporteAsistencia() {
   return (
     <div className="main">
       <div>
-        <div className="flex items-center">
-          <div className="relative">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
-            </div>
-            <input name="start" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Inicio" value={fechaIni}
-                        onChange={(e)=>setFechaIni(e.target.value)}/>
-          </div>
-          <span className="mx-4 text-gray-500">Hasta</span>
-          <div className="relative">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"></path></svg>
-            </div>
-            <input name="end" type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Fin" value={fechaFin}
-                        onChange={(e)=>setFechaFin(e.target.value)}/>
-          </div>
-          <button className="mx-4 text-gray-500" onClick={peticionFiltroFecha} >Buscar</button>
-          <button className="mx-4 text-gray-500" onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtros personalizados</button>
-        </div>
+      <RangePicker onChange={handlePicker} placeholder={["Inicio","Fin"]} onOpenChange={()=>{setValor("")}} />
+      <button className="px-4" onClick={peticionFiltroFecha}>Buscar</button>
+      <button className="mx-4 text-gray-500" onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtros personalizados</button>
       </div>
+      <br/> 
+      <p className='text-danger'> {valor} </p>
       <br/>      
         <MaterialTable
           columns={[
