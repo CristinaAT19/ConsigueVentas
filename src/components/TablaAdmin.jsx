@@ -7,43 +7,54 @@ import axios from "axios";
 import Loading from "../components/Loading";
 
 
+const TablaAdmin = (cambio) => {
+  const [tabla, setTabla] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const cambiarEstado = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
+  const peticionTablaAdmin = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}/api/listarAdministrador`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((Response) => {
+        setTabla(Response.data.administradores);
+      })
+      .catch((e) => {});
+  };
+  useEffect(() => {
+    peticionTablaAdmin();
+  }, []);
+  useEffect(() => {
+    peticionTablaAdmin();
+  }, [cambio]);
+  return (
+    <div>
+      <MaterialTable
+        columns={[
+          {
+            title: "Nombres",
+            field: "Nombre",
+          },
+          {
+            title: "Apellidos",
+            field: "Apellido",
+          },
+          {
+            title: "Turno",
+            field: "Turno",
+          },
+          {
+            title: "Perfil",
+            field: "Perfil",
+          },
 
-
-const TablaAdmin = () => {
-    const [tabla, setTabla] = useState([]);
-    
-    const [loading, setLoading] = useState(false);
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-        setLoading(false);
-        }, 1000);
-    }
-    //filtros tabla
-    const [selectArea, setSelectArea] = useState([]);
-    const [selectUnidad, setUnidad] = useState([]);
-
-    const peticionTablaAdmin = async () => {
-        await axios
-            .get(
-                `${process.env.REACT_APP_API_URL}/api/listarAdministrador`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${getToken()}`
-                    }
-                }
-            )
-            .then((Response) => {
-                setTabla(Response.data.administradores);
-            })
-            .catch((e) => {
-            });
-
-    }
-
-    //filtros tabla
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
           {
             headers: {
               Authorization: `Bearer ${getToken()}`
