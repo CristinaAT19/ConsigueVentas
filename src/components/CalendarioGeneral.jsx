@@ -4,87 +4,33 @@ import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
 import Loading from "../components/Loading.jsx";
 
-
-
-
-
-function TablaDia() {
+function CalendarioGeneral({dniCalendario}) {
+    
     const [data, setTabla] = useState([]);
+    //const [valor, setValor] = useState([]);
+    // console.log(valor);
     // const [loading, setLoading] = useState(false);
-    //filtros tabla
-    const [selectArea, setSelectArea] = useState([]);
-    const [selectUnidad, setUnidad] = useState([]);
-
     const peticionTablaDia = async () => {
       // setLoading(true);
-        await axios
-            .get(
-              `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
+         await axios.get(`${process.env.REACT_APP_API_URL}/api/calendario/${dniCalendario}`,
                 {
                     headers: {
                         Authorization: `Bearer ${getToken()}`
                     }
                 }
             )
-            .then((Response) => {
-                setTabla(Response.data.AsistenciaEmpleadosDiario);
-            })
-            .catch((e) => {
-                if(e.response.status === 403){
-                  console.log("No tienes permisos para ver esta información");
-                }else{
-                }
+            .then(response => {
+                setTabla(response.data.CalendarioAsistencia);
+            }).catch((e) => {
+                setTabla([]);
             });
             // setLoading(false);
     }
+    
     useEffect(() => {
       peticionTablaDia();
       cambiarEstado();
-  }, [])
-
-    //filtros tabla
-    useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken()}`
-          }
-        }
-      )
-        .then(response => {
-          setUnidad(response.data.Unidades);
-          //console.log(response)
-        }).catch(error => {
-        })
-    }, [])
-  
-    useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
-        {
-          headers: {
-            Authorization: `Bearer ${getToken()}`
-          }
-        }
-      )
-        .then(response => {
-          setSelectArea(response.data.Areas);
-          //console.log(response)
-        }).catch(error => {
-        })
-    }, [])
-
-    let resultArea = selectArea.map(function(item,){      
-      return  `"${item}":"${item}"` 
-    });
-    let resultArea2=JSON.parse(`{${resultArea}}`);
-
-    let resultUnidad = selectUnidad.map(function(item,){      
-      return  `"${item}":"${item}"` 
-    });
-    let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
-    const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
-    const condEst={Activo:'Activo',Retirado:'Retirado'};
-  //
+  }, [dniCalendario])
 
   const [loading, setLoading] = useState(false);
 
@@ -100,25 +46,16 @@ function TablaDia() {
       return (<Loading />)
     }else{
   return (
-    <div className="main">
+    <div className="main mt-3">
         <MaterialTable
           columns={[
-            {title: 'Fecha',field: 'Fecha',filtering: false},
-            {title: 'Hora',field: 'Hora',filtering: false},
-            {title: 'Dni',field: 'Dni',filtering: false},
-            {title: 'Nombres',field: 'Nombres',filtering: false},
-            {title: 'Sistema Operativo',field: 'Sistema Operativo',filtering: false},
-            {title: 'Dispositivo',field: 'Dispositivo',filtering: false},
-            {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
-            {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
-            {title: 'Estado',field: 'Estado',lookup:condEst},
-            {title: 'Turno',field: 'Turno',lookup:turnos},
+            {title: 'Fecha',field: 'start'},
+            {title: 'Asistencia',field: 'title'}
         ]}
           data={data}
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
-        options={{
-            filtering: true,
+            options={{
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
             },
@@ -174,4 +111,4 @@ function TablaDia() {
   );}
 }
 
-export default TablaDia;
+export default CalendarioGeneral;

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios';
-import { Modal, TextField, Button } from '@material-ui/core';
+import { Modal, TextField, Button,Select,MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
 // import { Component } from 'react'
-import Select from 'react-select'
+//import Select from 'react-select'
 
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: 500,
+        width: '21rem',
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
+        // border: '2px solid #000',
         boxshadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
         top: '50%',
@@ -32,15 +32,27 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFaltas() {
+
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+        setLoading(true);
+        setTimeout(() => {
+        setLoading(false);
+    }, 1000);
+    }
+
     const styles = useStyles();
     const [data, setData] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
 
+    //filtros tabla
+    const [selectArea, setSelectArea] = useState([]);
+    const [selectUnidad, setUnidad] = useState([]);
+
     const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
-        value:3, label: "Falta Justificada"
+       // value:3, label: "Falta Justificada"
     });
 
-    const [loading, setLoading] = useState(false);
 
 
     const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
@@ -56,11 +68,57 @@ function TablaFaltas() {
         cambio_estado: "",
     })
 
-    const cambiarEstado=()=>{
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+    //filtros tabla
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setUnidad(response.data.Unidades);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+    
+      useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            }
+          }
+        )
+          .then(response => {
+            setSelectArea(response.data.Areas);
+            //console.log(response)
+          }).catch(error => {
+          })
+      }, [])
+
+      let resultArea = selectArea.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultArea2=JSON.parse(`{${resultArea}}`);
+  
+      let resultUnidad = selectUnidad.map(function(item,){      
+        return  `"${item}":"${item}"` 
+      });
+      let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+      const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+      const estFalta={'Falta Justificada':'Falta Justificada','Falta Injustificada':'Falta Injustificada'};
+    //
+
+
+    const handleChangeEdit = (e) => {
+        const { name, value } = e.target;
+        setEmpleadoSeleccionado((prevState) => ({
+          ...prevState,
+          [name]: value
+        }));
       }
 
     const handleChange = e => {
@@ -69,7 +127,6 @@ function TablaFaltas() {
             ...prevState,
             [name]: value
         }));
-        console.log(empleadoSeleccionado);
     }
 
 
@@ -83,22 +140,14 @@ function TablaFaltas() {
         )
             .then(response => {
                 setData(response.data.data);
-                console.log(response.data)
             }).catch(error => {
-                console.log(error);
             })
     }
 
-
-
-
-
-
     const peticionPut = async () => {
-
         await axios.post(baseUrl + 'tabla_faltas/' + empleadoSeleccionado.Id,
             {
-                "cambio_estado": modalSeleccionarOptionar.value
+                "cambio_estado": empleadoSeleccionado['Estado Falta']
             },
 
             {
@@ -108,20 +157,18 @@ function TablaFaltas() {
             }
         )
             .then(response => {
-                var dataNueva = data.concat(response.data);
-                data.map(empleado => {
-                    if (empleado.Id === empleadoSeleccionado.Id) {
-                        empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
-                    }
-                });
+                // var dataNueva = data.concat(response.data);
+                // data.map(empleado => {
+                //     if (empleado.Id === empleadoSeleccionado.Id) {
+                //         empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
+                //     }
+                // });
                 setData(data);
                 peticionGet();
                 abrirCerrarModalEditar();
 
             }).catch(error => {
-                console.log(error);
             });
-        console.log(modalSeleccionarOptionar);
     }
 
 
@@ -133,7 +180,10 @@ function TablaFaltas() {
 
 
     const seleccionarEmpleado = (empleado, caso) => {
-        setEmpleadoSeleccionado(empleado);
+        let empleadoEdit={...empleado};
+        empleadoEdit['Estado Falta']==='Falta Justificada'?empleadoEdit['Estado Falta']=3:empleadoEdit['Estado Falta']=4;
+        setEmpleadoSeleccionado(empleadoEdit);
+        
         (caso === "Editar") && abrirCerrarModalEditar();
     }
 
@@ -151,13 +201,15 @@ function TablaFaltas() {
         <div className={styles.modal}>
             <h3>Editar Empleado</h3>
             <br />
-            <Select options={optiones} onChange={setModalSeleccionarOptionar} placeholder="Falta Justificada" defaultMenuIsOpen={false} isSearchable={false} />
+            <Select style={{width:"99%"}} onChange={handleChangeEdit} id="Estado Falta" name="Estado Falta" label="Estado Falta" value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} defaultMenuIsOpen={false} isSearchable={false}>
+                <MenuItem value={3}>Falta Justificada</MenuItem>
+                <MenuItem value={4}>Falta Injustificada</MenuItem>
+            </Select>
             {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
             <br /><br />
             <div align="right">
-                <Button color="primary" onClick={() => peticionPut()}>Editar</Button>
-                <Button onClick={() => abrirCerrarModalEditar()}>Cancelar</Button>
-                |
+                <button onClick={() => peticionPut()} className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border">EDITAR</button>
+                <button onClick={() => abrirCerrarModalEditar()} className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border">CANCELAR</button>
             </div>
         </div>
     )
@@ -173,47 +225,56 @@ function TablaFaltas() {
                     {
                         title: 'Id',
                         field: 'Id',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Nombres',
                         field: 'Nombre',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Apellidos',
                         field: 'Apellido',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Dni',
                         field: 'Dni',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Perfil',
                         field: 'Perfil',
-                        sortable: true
+                        sortable: true,
+                        lookup:resultArea2
                     },
                     {
                         title: 'Unidad',
                         field: 'Unidad',
-                        sortable: true
+                        sortable: true,
+                        lookup:resultUnidad2
                     },
                     {
                         title: 'Turno',
                         field: 'Turno',
-                        sortable: true
+                        sortable: true,
+                        lookup:turnos
                     },
                     {
                         title: 'Fecha de Falta',
                         field: 'Fecha Falta',
-                        sortable: true
+                        sortable: true,
+                        filtering: false
                     },
                     {
                         title: 'Estado de Falta',
                         field: 'Estado Falta',
-                        sortable: true
+                        sortable: true,
+                        lookup:estFalta
                     },
                 ]}
                 data={data}
@@ -237,11 +298,13 @@ function TablaFaltas() {
 
                     //   right: 1
                     // },
+                    filtering: true,
                     headerStyle: {
                         backgroundColor: '#E2E2E2  ',
                     },
                     exportButton: true,
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+                    
                 }}
                 localization={{
                     body: {
@@ -273,7 +336,8 @@ function TablaFaltas() {
                         // showColumnsAriaLabel: 'Voir les colonnes',
                         exportTitle: 'Exportar',
                         exportAriaLabel: 'Exportar',
-                        exportName: 'Exportar como CSV',
+                        exportCSVName: "Exportar en formato CSV",
+                        exportPDFName: "Exportar como PDF",
                         searchTooltip: 'Buscar',
                         searchPlaceholder: 'Buscar'
                     },

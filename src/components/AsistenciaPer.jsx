@@ -3,7 +3,7 @@ import axios from "axios";
 import { setToken, getToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import { UserContext } from './context/UserContext';
-import Loading from "../components/Loading.jsx";
+import Loading from '../components/Loading.jsx';
 
 
 const AsistenciaPer = () => {
@@ -34,9 +34,10 @@ const AsistenciaPer = () => {
     const dataPersonal = {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
         datasets: [{
-            backgroundColor: ['green', 'yellow', 'red', 'blue'],
-            hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-            data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP]
+            backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF'],
+            hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
+            data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP],
+            hoverOffset: 10
         }]
     };
 
@@ -64,14 +65,17 @@ const AsistenciaPer = () => {
                 if (e.response.status === 403) {
                     console.log("No tienes permisos para ver esta información");
                 }
-                console.log(e.response);
             });
 
     }
 
     const opciones = {
         maintainAspectRatio: false,
-        responsive: true
+        responsive: true,
+        interaction: {
+            intersect: true,
+            // enabled:false,
+        }
     }
     useEffect(() => {
         peticionApiAsistenciaPersonal();

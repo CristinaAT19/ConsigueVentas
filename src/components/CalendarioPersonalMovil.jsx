@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext} from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import listPlugin from '@fullcalendar/list';
 import 'bootstrap/dist/css/bootstrap.css';
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import esLocale from '@fullcalendar/core/locales/es';
 import { getToken } from "../dist/Token";
 import { UserContext } from "./context/UserContext";
-import listPlugin from '@fullcalendar/list';
-
-const CalendarioPersonal = () => {
+const CalendarioPersonalMovil = () => {
     const [valor, setValor] = useState([]);
     const {user} = useContext(UserContext)
     const [dniUtilizar, setDniUtilizar] = useState(user['dni']);
@@ -38,8 +37,7 @@ const CalendarioPersonal = () => {
             <FullCalendar
 
 
-                // plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
-                plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
+                plugins={[ bootstrapPlugin, listPlugin]}
                 /*events={[
                     { start: '2021-12-01',
                     title: "Tardanza:08:26",
@@ -52,19 +50,21 @@ const CalendarioPersonal = () => {
                 locales={esLocale}
                 locale="es"
                 themeSystem='standard'
-                weekTextLong={"true"}
+                weekTextLong={"false"}
                 firstDay={1}
-                initialView="dayGridMonth"
+                initialView="listMonth"
                 Forma
                 headerToolbar={{
-                    start: "prev,next,today",
-                    center: "title",
-                    end: "dayGridMonth,dayGridWeek,dayGridDay",
+                  start: "title",
+                  end: "prev,next",
                 }}
-                dayHeaderFormat={{ weekday: "long" }}
+
+                
             />
+{/* style={{ fontSize:'0.80em ', textTransform:'uppercase' }} */}
+
         </div>
     );
 };
 
-export default CalendarioPersonal;
+export default CalendarioPersonalMovil;
