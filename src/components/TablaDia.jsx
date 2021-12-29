@@ -5,10 +5,9 @@ import { setToken, getToken } from "../dist/Token";
 import Loading from "../components/Loading.jsx";
 
 
-
-
-
 function TablaDia() {
+  
+  const [filtering, setFiltering] = React.useState(false);
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
     //filtros tabla
@@ -101,8 +100,10 @@ function TablaDia() {
     }else{
   return (
     <div className="main">
+      <button onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtros personalizados</button>
         <MaterialTable
           columns={[
+
             {title: 'Fecha',field: 'Fecha',filtering: false},
             {title: 'Hora',field: 'Hora',filtering: false},
             {title: 'Dni',field: 'Dni',filtering: false},
@@ -113,11 +114,14 @@ function TablaDia() {
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
             {title: 'Estado',field: 'Estado',lookup:condEst},
             {title: 'Turno',field: 'Turno',lookup:turnos},
+
         ]}
           data={data}
 
-          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))} 
+
         options={{
+
             filtering: true,
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
@@ -125,15 +129,23 @@ function TablaDia() {
             rowStyle: rowData => ({
               backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
             }),
+
             searchFieldAlignment: 'left',
             showTitle: false,
-            exportButton: true,
+            exportButton: {
+              csv: true,
+              pdf: true,
+            },
             actionsColumnIndex: -1,
+
             
+
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
-          }}
+          }
+        }
+
           localization={{
             body: {
               emptyDataSourceMessage: "No hay registro para mostrar",
@@ -170,6 +182,7 @@ function TablaDia() {
             }
         }}
         />
+        
     </div>
   );}
 }
