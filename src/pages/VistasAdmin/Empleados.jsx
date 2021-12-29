@@ -2,6 +2,7 @@ import React from "react";
 import AdminUsuario from "../../components/AdminUsuario";
 import CalendarioPersonal from "../../components/CalendarioPersonal";
 import CalendarioEmpleados from "../../components/CalendarioEmpleados";
+import CalendarioEmpleadosMovil from "../../components/CalendarioEmpleadosMovil";
 import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
@@ -81,17 +82,25 @@ export const reporteAsistencia = () => {
 };
 
 export const calendarioEmpleados = () => {
-  return (
-    <div
-      className="bg-white rounded-t-3xl text-center"
-      style={{ margin: "1rem 1rem" }}
-    >
+  if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    return (
+      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
       <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
-      <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
-        <CalendarioEmpleados />
+      <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
+      <CalendarioEmpleados/>
       </div>
     </div>
-  );
+    );
+  }else{
+    return (
+      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
+      <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+      <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
+      <CalendarioEmpleadosMovil/>
+      </div>
+    </div>
+    );
+  }
 };
 
 export const listaAdministradores = () => {

@@ -223,8 +223,8 @@ function TablaFaltas() {
             <MaterialTable
                 columns={[
                     {
-                        title: 'Id',
-                        field: 'Id',
+                        title: 'Fecha de Falta',
+                        field: 'Fecha Falta',
                         sortable: true,
                         filtering: false
                     },
@@ -263,12 +263,6 @@ function TablaFaltas() {
                         field: 'Turno',
                         sortable: true,
                         lookup:turnos
-                    },
-                    {
-                        title: 'Fecha de Falta',
-                        field: 'Fecha Falta',
-                        sortable: true,
-                        filtering: false
                     },
                     {
                         title: 'Estado de Falta',
