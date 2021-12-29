@@ -164,7 +164,11 @@ const CalendarioEmpleados = () => {
                       }}
                       dayHeaderFormat={{ weekday: "long" }}
                 />
-                <CalendarioGeneral dniCalendario={dniCalendario} />
+                <div className="my-5">
+                  <h1 style={{fontSize: "2rem"}}>Tabla de asistencias del empleado</h1>
+                  <CalendarioGeneral dniCalendario={dniCalendario} />
+                </div>
+                
               </>
 
 
