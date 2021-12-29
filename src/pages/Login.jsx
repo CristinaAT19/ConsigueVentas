@@ -88,7 +88,7 @@ const Login = () => {
   // }, [redirect]);
 
   if (redirect) {
-    return <Redirect to='/dashadmin' />;
+    return <Redirect to='/home' />;
   }
   return (
     <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-700 h-screen">

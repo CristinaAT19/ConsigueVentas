@@ -103,6 +103,7 @@ function TablaSin() {
 
         <MaterialTable
           columns={[
+
             {title: 'Nombres',field: 'Nombre',filtering: false},
             {title: 'Apellidos',field: 'Apellido',filtering: false},
             {title: 'Dni',field: 'Dni',filtering: false},
@@ -110,11 +111,13 @@ function TablaSin() {
             {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
             {title: 'Condición Practicas', field: 'Condición Practicas',lookup:condPrac}
+
         ]}
           data={data}
 
         onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
+
             filtering: true,
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
@@ -122,11 +125,14 @@ function TablaSin() {
             rowStyle: rowData => ({
               backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
             }),
+
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
+
             
+
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
