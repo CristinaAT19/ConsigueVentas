@@ -87,7 +87,7 @@ function TablaSin() {
     });
     let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
     const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
-    const condPrac={Retirado:'Retirado',Ingresante:'Activo','En proceso':'En proceso','Terminó Practicas':'Terminó Practicas'};
+    const condPrac={Retirado:'Retirado',Ingresante:'Ingresante',['En proceso']:'En proceso',['Terminó Practicas']:'Terminó Practicas'};
     //
     useEffect(() => {
       cambiarEstado();
@@ -106,10 +106,10 @@ function TablaSin() {
 
             {title: 'Nombres',field: 'Nombre',filtering: false},
             {title: 'Apellidos',field: 'Apellido',filtering: false},
+            {title: 'Dni',field: 'Dni',filtering: false},
             {title: 'Turno',field: 'Turno',lookup:turnos},
             {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
-            {title: 'Dni',field: 'Dni',filtering: false},
             {title: 'Condición Practicas', field: 'Condición Practicas',lookup:condPrac}
 
         ]}
