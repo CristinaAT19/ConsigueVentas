@@ -21,17 +21,14 @@ const Dashboard = () => {
         <div>
           <div className="my-4 ">
             <h1 className="mt-2 text-center text-3xl">Dashboard personal</h1>
-            <div
-              className="border-gray-500 w-full flex justify-evenly my-2"
-              style={{ height: "700px" }}
-            >
-              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center w-4/5">
+            <div className="border-gray-500 w-full flex justify-evenly my-2" >
+              <div className="bg-white border-transparent rounded-lg shadow-xl flex flex-col justify-center  w-10/12" style={{height: "30rem"}}>
                 <div className="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-1">
                   <h1 className="font-bold uppercase text-gray-600 w-full text-center text-xl">
                     Mi asistencia del mes
                   </h1>
                 </div>
-                <div className="h-full py-4">
+                <div className="h-full py-4 flex items-center justify-center">
                   <AsistenciaPer />
                 </div>
               </div>
@@ -52,7 +49,7 @@ const Dashboard = () => {
                       Asistencia del Dia (Turno Mañana)
                     </h1>
                   </div>
-                  <div className="h-full py-4">
+                  <div className="h-full py-4 flex items-center justify-center">
                     <AsistenciaMa />
                   </div>
                 </div>
@@ -67,7 +64,7 @@ const Dashboard = () => {
                       Asistencia del Dia (Turno Tarde)
                     </h1>
                   </div>
-                  <div className="h-full py-4">
+                  <div className="h-full py-4 flex items-center justify-center">
                     <AsistenciaTarde />
                   </div>
                 </div>
@@ -108,7 +105,7 @@ const Dashboard = () => {
                   Asistencia del Dia (Mañana y Tarde)
                 </h1>
               </div>
-              <div className="h-full py-4">
+              <div className="h-full py-4 flex items-center justify-center">
                 <AsistenciaMaTa />
 
               </div>
@@ -129,8 +126,10 @@ const Dashboard = () => {
             <TablaDia />
 
           </div>
-          </div>
-      ) : null}
+
+        </div>
+        ) : null}
+
 
 
       {user["id_TipoUsuario"] == 1 ? (
@@ -138,13 +137,14 @@ const Dashboard = () => {
           <h1 className="border-b-2 text-3xl">
             Tabla de empleados sin marcar: {fecha}{" "}
           </h1>
-          <div className="my-0 mx-auto py-4 w-6/7 ">
+          <div className="my-0 mx-auto py-4 w-6/7">
             <TablaSin />
 
           </div>
-        </div>
-      ) : null}
-      
+
+          </div>
+        ) : null}
+
     </>
   );
 };

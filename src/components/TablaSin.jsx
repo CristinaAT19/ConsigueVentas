@@ -11,6 +11,10 @@ function TablaSin() {
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
 
+    //filtros tabla
+    const [selectArea, setSelectArea] = useState([]);
+    const [selectUnidad, setUnidad] = useState([]);
+
     const [loading, setLoading] = useState(false);
 
     const cambiarEstado=()=>{
@@ -42,6 +46,49 @@ function TablaSin() {
         });
         // setLoading(false);
     }
+    //filtros tabla
+    useEffect(() => {
+      axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`
+          }
+        }
+      )
+        .then(response => {
+          setUnidad(response.data.Unidades);
+          //console.log(response)
+        }).catch(error => {
+        })
+    }, [])
+  
+    useEffect(() => {
+      axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`
+          }
+        }
+      )
+        .then(response => {
+          setSelectArea(response.data.Areas);
+          //console.log(response)
+        }).catch(error => {
+        })
+    }, [])
+
+    let resultArea = selectArea.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultArea2=JSON.parse(`{${resultArea}}`);
+
+    let resultUnidad = selectUnidad.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+    const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+    const condPrac={Retirado:'Retirado',Ingresante:'Activo','En proceso':'En proceso','Terminó Practicas':'Terminó Practicas'};
+    //
     useEffect(() => {
       cambiarEstado();
         peticionTablaDia();
@@ -56,25 +103,36 @@ function TablaSin() {
 
         <MaterialTable
           columns={[
-            {title: 'Dni',field: 'Dni',filtering: false},
-            {title: 'Nombres',field: 'Nombre', filtering: false},
-            {title: 'Apellidos',field: 'Apellido', filtering: false},
-            {title: 'Turno',field: 'Turno',lookup:{Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'
-          }},
-            {title: 'Perfil',field: 'Perfil'},
-            {title: 'Departamento',field: 'Unidad'},
 
-            {title: 'Condición Convenio', field: 'Condición Practicas',lookup:{Firmado:'Firmado',['Enviado para firmar']:'Enviado para firmar',['No firmado']:'No firmado',['Terminó convenio']:'Terminó convenio',['En proceso']:'En proceso','Retirado':'Retirado'}},
+            {title: 'Nombres',field: 'Nombre',filtering: false},
+            {title: 'Apellidos',field: 'Apellido',filtering: false},
+            {title: 'Turno',field: 'Turno',lookup:turnos},
+            {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
+            {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
+            {title: 'Dni',field: 'Dni',filtering: false},
+            {title: 'Condición Practicas', field: 'Condición Practicas',lookup:condPrac}
+
         ]}
           data={data}
 
         onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
+
+            filtering: true,
+            headerStyle: {
+              backgroundColor: '#E2E2E2  ',
+            },
+            rowStyle: rowData => ({
+              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
+            }),
+
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
-            filtering: true,
+
+            
+
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
@@ -109,7 +167,8 @@ function TablaSin() {
                 // showColumnsAriaLabel: 'Voir les colonnes',
                 exportTitle: 'Exportar',
                 exportAriaLabel: 'Exportar',
-                exportName: 'Exportar como CSV',
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
                 searchTooltip: 'Buscar',
                 searchPlaceholder: 'Buscar'
             }

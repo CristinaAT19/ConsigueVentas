@@ -18,4 +18,23 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+.fc .fc-toolbar-title  {
+      font-size : 1.05em !important;     
+}
+
+.fc .fc-toolbar-title::first-letter{
+      text-transform: uppercase ;
+
+}
+@media screen and (min-width: 768px) {
+  .fc .fc-toolbar-title  {
+      font-size : 2em !important;      
+  }
+  .fc .fc-toolbar-title::first-letter{
+      text-transform: uppercase ;
+}
+  
+}
+
+
 input[type=number] { -moz-appearance:textfield; }

@@ -5,7 +5,7 @@ import { setToken, getToken, removeToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import CerrarSesion from './CerrarSesion';
 import { distSetAutentication } from '../dist/Autentication';
-import Loading from "../components/Loading.jsx";
+import Loading from "../components/Loading";
 
 
 
@@ -35,15 +35,23 @@ const [loading, setLoading] = useState(false);
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
-      backgroundColor: ['green', 'yellow', 'red', 'blue', 'gray'],
-      hoverBackgroundColor: 'rgba(255,0,0,0.2)',
-      data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar]
+      backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', 'gray'],
+      hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
+      data: [v_puntualidad, v_tardanza, v_faltas_in, v_faltas_jus, v_sin_marcar],
+      hoverOffset: 10
     }]
   };
 
   const opciones = {
     maintainAspectRatio: false,
-    responsive: true
+    responsive: true,
+    interaction: {
+      intersect: true,
+      // events:['mouseout']
+    },
+    tansitions: {
+       type: 'color', properties: ['borderColor', 'backgroundColor'], from: 'transparent' 
+    }
   }
 
   const peticionApiAsistenciaManana = async () => {
