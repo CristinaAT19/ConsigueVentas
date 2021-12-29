@@ -1,42 +1,103 @@
-import React, { useState,useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
-import { setToken, getToken } from "../dist/Token";
-import Loading from "../components/Loading.jsx";
+import axios from 'axios';
+import Loading from "../components/Loading";
+import { getToken } from "../dist/Token";
+import { DatePicker } from "antd";
+import moment from "moment";
+const { RangePicker } = DatePicker;
 
 
 
-
-
-function TablaDia() {
+function ReporteAsistencia() {
+    const [filtering, setFiltering] = useState(false);
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
     //filtros tabla
     const [selectArea, setSelectArea] = useState([]);
     const [selectUnidad, setUnidad] = useState([]);
+    const [fechaIni,setFechaIni]=useState('');
+    const [fechaFin,setFechaFin]=useState('');
+    const [valor, setValor] = useState("");
 
+    const [loading, setLoading] = useState(false);
+    const cambiarEstado=()=>{
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+    const dateFormat = "YYYY/MM/DD";
+
+    function handlePicker(fieldsValue) {
+      if(fieldsValue){
+        const a = moment(fieldsValue[0]._d).format(dateFormat);
+        setFechaIni(a);
+ 
+        const b = moment(fieldsValue[1]._d).format(dateFormat);
+ 
+        setFechaFin(b);
+      }
+    }
+
+
+    
     const peticionTablaDia = async () => {
       // setLoading(true);
         await axios
             .get(
-              `${process.env.REACT_APP_API_URL}/api/tablas_administrador`,
+              `${process.env.REACT_APP_API_URL}/api/asistenciaTotal`,             
                 {
                     headers: {
-                        Authorization: `Bearer ${getToken()}`
-                    }
+                      'Authorization': `Bearer ${getToken()}`
+                    },
                 }
             )
             .then((Response) => {
-                setTabla(Response.data.AsistenciaEmpleadosDiario);
+                setTabla(Response.data.Asistencias);
             })
             .catch((e) => {
                 if(e.response.status === 403){
                   console.log("No tienes permisos para ver esta información");
                 }else{
+
                 }
             });
             // setLoading(false);
     }
+    //filtros fecha
+    const peticionFiltroFecha = async () => {
+      // setLoading(true);
+        await axios
+            .get(
+              // `${process.env.REACT_APP_API_URL}/api/asistenciaTotal`,
+              `${process.env.REACT_APP_API_URL}/api/filtradoFecha`,
+                {
+                    headers: {
+                      'Authorization': `Bearer ${getToken()}`
+                    },
+                    params:{
+                      "fecha_fin": fechaFin,
+                      "fecha_inicio": fechaIni
+                    }
+                }
+            )
+            .then((Response) => {
+                setTabla(Response.data.Asistencia);
+                setValor("");
+                //console.log(Response)
+            })
+            .catch((e) => {
+                if(e.response.status === 403){
+                  console.log("No tienes permisos para ver esta información");
+                }else if(e.response.status === 422){
+                  setValor("Llenar campos de fecha");
+                }
+                
+            });
+            // setLoading(false);
+    }
+
     useEffect(() => {
       peticionTablaDia();
       cambiarEstado();
@@ -84,36 +145,11 @@ function TablaDia() {
     let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
     const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
     const condEst={Activo:'Activo',Retirado:'Retirado'};
-    const dispositivos={Computadora:'Computadora',Tablet:'Tablet',Celular:'Celular'};
-    const sis_operativo={
-      ['Windows 10']:'Windows 10',
-      ['Windows 8.1']:'Windows 8.1',
-      ['Windows 8']:'Windows 8',
-      ['Windows 7']:'Windows 7',
-      ['Windows Vista']:'Windows Vista',
-      ['Windows XP']:'Windows XP',
-      ['Windows 2003'] :'Windows 2003',
-      'Windows':'Windows',
-      'iPhone':'iPhone',
-      'iPad':'iPad',
-      ['Mac OS X']:'Mac OS X',
-      ['Mac otros']:'Mac otros',
-      'Android':'Android',
-      'Blackberry':'Blackberry',
-      'Linux':'Linux',
-    };
-
-    
   //
 
-  const [loading, setLoading] = useState(false);
 
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
+
+
 
     const [selectedRow, setSelectedRow] = useState(null);
     if (loading) {
@@ -121,13 +157,25 @@ function TablaDia() {
     }else{
   return (
     <div className="main">
+      <div>
+        <h1 style={{fontSize:'1.2rem'}}>Filtrar por fecha:</h1>
+      <RangePicker onChange={handlePicker} placeholder={["Inicio","Fin"]} onOpenChange={()=>{setValor("")}} />
+
+      <button className="btn btn btn-warning mx-2 " onClick={peticionFiltroFecha}><img src="https://img.icons8.com/ios-glyphs/30/000000/search.png" style={{width:'0.8rem',height:'0.8rem'}} /></button>
+      
+      </div>
+      <button className="mx-2 text-gray-500" onClick={() => {setFiltering(currentFilter => !currentFilter)}}>Filtrado personalizado</button>
+      <br/> 
+      <p className='text-danger'> {valor} </p>
+      <br/>      
         <MaterialTable
           columns={[
+            {title: 'Fecha',field: 'Fecha',filtering: false},
             {title: 'Hora',field: 'Hora',filtering: false},
             {title: 'Dni',field: 'Dni',filtering: false},
             {title: 'Nombres',field: 'Nombres',filtering: false},
-            {title: 'Sistema Operativo',field: 'Sistema Operativo',lookup:sis_operativo},
-            {title: 'Dispositivo',field: 'Dispositivo',lookup:dispositivos},
+            {title: 'Sistema Operativo',field: 'Sistema Operativo',filtering: false},
+            {title: 'Dispositivo',field: 'Dispositivo',filtering: false},
             {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
             {title: 'Estado',field: 'Estado',lookup:condEst},
@@ -137,7 +185,7 @@ function TablaDia() {
 
           onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
-            filtering: true,
+
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
             },
@@ -148,7 +196,7 @@ function TablaDia() {
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
-            
+            filtering,
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
@@ -192,5 +240,4 @@ function TablaDia() {
     </div>
   );}
 }
-
-export default TablaDia;
+export default ReporteAsistencia;
