@@ -5,27 +5,14 @@ import axios from "axios";
 import Error from "../components/item/Error";
 import TablaAdmin from "./TablaAdmin";
 const TipoUsuario = (dniReset) => {
-  const [tabla, setTabla] = useState([]);
+  let [cambio, setCambio] = useState(false);
   const campo = document.getElementById("dni_reset");
   const { dni_reset } = dniReset;
   const [valor, setValor] = useState("");
   const [tipo, setTipo] = useState("");
   const [tipoMostrar, setTipoMostrar] = useState("");
   const [error, setError] = useState([]);
-  //TablaAdmin
-  const peticionTablaAdmin = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_API_URL}/api/listarAdministrador`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      })
-      .then((Response) => {
-        setTabla(Response.data.administradores);
-      })
-      .catch((e) => {});
-  };
-  ///////////////
+  //////
   const seleccionarTipo = async (e) => {
     //reiniciar otros msjs de vista
     setValor("");
@@ -35,7 +22,6 @@ const TipoUsuario = (dniReset) => {
   };
 
   const cambiarTipoUsuario = async (e) => {
-    peticionTablaAdmin();
     setValor("");
     setTipoMostrar("");
     setError([]);
@@ -75,14 +61,11 @@ const TipoUsuario = (dniReset) => {
       .then((Response) => {
         //setValor("Correcto");
         setValor(Response.data.msg[0].cambiar);
+        setCambio(!cambio);
       })
       .catch((e) => {
-        // setValor("Aca");
-        if (e.response.status === 500) {
-          console.log("Error 500");
-          }else{
-            setError(e.response.data.errors);
-          };
+        setValor("Ocurrio un error al cambiar");
+        //setError(e.response.data.errors);
       });
   };
 
@@ -137,7 +120,7 @@ const TipoUsuario = (dniReset) => {
       })
       .catch((e) => {
         setTipoMostrar("Error al mostrar");
-        setError(e.response);
+        //setError(e.response.data.errors);
       });
   };
   ///////////////////////////////////////////////
@@ -160,7 +143,7 @@ const TipoUsuario = (dniReset) => {
             type="radio"
             name="usu_adm"
             id=""
-            value="2"
+            value="7"
             checked={tipo == 7 ? true : false}
             onChange={seleccionarTipo}
           />
@@ -189,7 +172,7 @@ const TipoUsuario = (dniReset) => {
         <Error errors={error["dni"]}></Error> <br />
       </div>
       <div className="m-auto w-full">
-        <TablaAdmin tabla={tabla} setTabla={setTabla} />
+        <TablaAdmin cambio={cambio} />
       </div>
     </>
   );
