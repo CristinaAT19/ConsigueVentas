@@ -35,8 +35,9 @@ const Home = () => {
             <HomeContenido
               imagen="listaVerificacion.png"
               subTitulo="Asistencia"
+              opcionSistema="1"
             />
-            <HomeContenido imagen="erp.png" subTitulo="Sistema ERP" />
+            <HomeContenido imagen="erp.png" subTitulo="Sistema ERP" opcionSistema="2" />
           </div>
         </div>
       </section>
