@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchModal from './header/SearchModal';
 import UserMenu from './header/UserMenu';
+import { Link } from 'react-router-dom';
 
 function Header({
   sidebarOpen,
@@ -12,8 +13,8 @@ function Header({
         <div className="flex items-center justify-between h-16 -mb-px">
 
           {/* Header: Left side */}
-          <div className="flex">
-
+          <div className="flex justify-items-end">
+            
             {/* Hamburger button */}
             <button
               className="text-gray-700 hover:text-gray-600 lg:hidden"
@@ -36,7 +37,16 @@ function Header({
 
           {/* Header: Right side */}
           <div className="flex items-center">
-
+            <div  style={{width: '2.5rem',height: '2.5rem', padding: '0.5rem',backgroundColor:'#ffb45c',borderRadius: '10px'}}>
+                
+                
+              <button onClick={() => {
+                  let route = window.location;
+                  route['hash'] = '#/home'; 
+              }}>                  
+                <img src="https://img.icons8.com/external-becris-lineal-becris/64/000000/external-back-arrow-mintab-for-ios-becris-lineal-becris.png"/>
+              </button>
+            </div>
 
             {/*  Divider */}
             <hr className="w-px h-6 bg-gray-800 mx-3" />

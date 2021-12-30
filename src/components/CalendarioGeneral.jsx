@@ -49,8 +49,8 @@ function CalendarioGeneral({dniCalendario}) {
     <div className="main mt-3">
         <MaterialTable
           columns={[
-            {title: 'Fecha',field: 'start'},
-            {title: 'Asistencia',field: 'title'}
+            {title: 'Fecha',field: 'start',align: 'center',},
+            {title: 'Asistencia',field: 'title',align: 'center',}
         ]}
           data={data}
 

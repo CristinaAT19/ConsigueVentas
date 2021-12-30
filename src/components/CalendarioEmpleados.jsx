@@ -134,7 +134,7 @@ const CalendarioEmpleados = () => {
               </button>}
           </div>
             <Error errors={error['dni']} ></Error>
-          <div className="m-4 w-full flex flex-col  items-center text-2xl">
+          <div className="mx-auto my-4 text-2xl" style={{backgroundColor:'rgb(134 239 172)',borderRadius:'10px', width:'20rem'}}>
               <div className="w-full">{nombreEmpleado}</div>
               <div className="w-full">{dniEmpleado}</div>
               <div className="w-full">{turnoEmpleado}</div>
@@ -164,7 +164,11 @@ const CalendarioEmpleados = () => {
                       }}
                       dayHeaderFormat={{ weekday: "long" }}
                 />
-                <CalendarioGeneral dniCalendario={dniCalendario} />
+                <div className="my-5">
+                  <h1 style={{fontSize: "2rem"}}>Tabla de asistencias del empleado</h1>
+                  <CalendarioGeneral dniCalendario={dniCalendario} />
+                </div>
+                
               </>
 
 

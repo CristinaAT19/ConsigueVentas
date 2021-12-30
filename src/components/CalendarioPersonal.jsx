@@ -59,7 +59,7 @@ const CalendarioPersonal = () => {
                 headerToolbar={{
                     start: "prev,next,today",
                     center: "title",
-                    end: "dayGridMonth,dayGridWeek,dayGridDay",
+                    end: "listYear,dayGridMonth,dayGridWeek,dayGridDay",
                 }}
                 dayHeaderFormat={{ weekday: "long" }}
             />
