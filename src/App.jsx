@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { HashRouter as Switch, Route, useLocation } from "react-router-dom";
 
 import { focusHandling } from "cruip-js-toolkit";
 import "./charts/ChartjsConfig";
