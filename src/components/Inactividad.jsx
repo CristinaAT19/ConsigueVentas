@@ -27,7 +27,7 @@ const ControlInactividad = () => {
       distSetAutentication(false);
       // <Redirect to='/login'/>;
       let route = window.location;
-      route['hash'] = '#/home';   
+      route['hash'] = '#/cerrarSesion';   
     }
     ///////////////
   };
