@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import "../css/style.scss";
 import axios from "axios";
 import { setToken } from "../dist/Token";
@@ -9,6 +9,7 @@ import { distSetAutentication, distSetUser } from "../dist/Autentication";
 import { UserContext } from "../components/context/UserContext";
 
 const Login = () => {
+  const campo = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [redirect, setRedirect] = useState(false);
@@ -17,9 +18,19 @@ const Login = () => {
   //   Contexto de usuario
   const { user, setUser } = useContext(UserContext);
 
+  const onInputDni = ()=>{
+    if (campo.current.value.length > 8) {
+      campo.current.value = campo.current.value.slice(0,8); 
+    }
+  }
+  
   const peticiontoken = async (e) => {
     setLoading(true);
     e.preventDefault();
+    
+    
+    
+
     if (e.target.elements.dni.value.length !== 8) {
       const error = {
         dni: "El dni debe tener 8 numeros",
@@ -123,6 +134,8 @@ const Login = () => {
               <input
                 type="number"
                 name="dni"
+                ref={campo}
+                onInput={onInputDni}
                 placeholder="Es tu DNI"
                 id="dni"
                 maxLength="8"
