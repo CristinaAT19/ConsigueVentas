@@ -93,12 +93,7 @@ function TablaEmpleados() {
       })
   }, [])
 
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
+
   
   //Array Filtros Tabla
     let resultArea = selectArea.map(function(item,){      
@@ -138,6 +133,12 @@ function TablaEmpleados() {
     peticionGet();
   }, [])
 
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }
 
   // Actualizar empleado
   const actualizarEmpleado = async (e) => {
@@ -759,6 +760,11 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
+
+  
+  if (loading) {
+    return (<Loading />)
+  }else{
   return (
     <div>
       <br />
@@ -883,6 +889,6 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );
+  );}
 }
 export default TablaEmpleados;

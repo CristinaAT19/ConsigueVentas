@@ -144,6 +144,7 @@ const TipoUsuario = (dniReset) => {
             name="usu_adm"
             id=""
             value="7"
+            maxlength="8"
             checked={tipo == 7 ? true : false}
             onChange={seleccionarTipo}
           />

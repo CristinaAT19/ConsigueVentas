@@ -94,7 +94,6 @@ function TablaSin() {
         peticionTablaDia();
     }, [])
     // const { useState } = React;
-    const [selectedRow, setSelectedRow] = useState(null);
     if (loading) {
       return (<Loading />)
     }else{
@@ -115,16 +114,13 @@ function TablaSin() {
         ]}
           data={data}
 
-        onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
         options={{
 
             filtering: true,
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
             },
-            rowStyle: rowData => ({
-              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-            }),
+
 
             searchFieldAlignment: 'left',
             showTitle: false,

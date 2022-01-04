@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import axios from "axios";
-import { Modal, TextField, Button, Select, MenuItem } from "@material-ui/core";
+import {
+  Modal,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  Input,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
-import TablaFeriados from "./TablaFeriados";
 // import { Component } from 'react'
 //import Select from 'react-select'
 
@@ -25,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
   },
   inputMaterial: {
-    width: "100%",
+    width: "20%",
   },
 }));
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
-function TablaFaltas() {
+function TablaFeriados() {
   const [loading, setLoading] = useState(false);
   const cambiarEstado = () => {
     setLoading(true);
@@ -132,13 +138,13 @@ function TablaFaltas() {
 
   const peticionGet = async () => {
     await axios
-      .get(baseUrl + "tabla_faltas", {
+      .get(baseUrl + "listarFeriados", {
         headers: {
           Authorization: `Bearer ${getToken()}`,
         },
       })
       .then((response) => {
-        setData(response.data.data);
+        setData(response.data.Feriados);
       })
       .catch((error) => {});
   };
@@ -197,21 +203,30 @@ function TablaFaltas() {
 
   const bodyEditar = (
     <div className={styles.modal}>
-      <h3>Editar Empleado</h3>
+      <h3>Editar Feriado</h3>
       <br />
-      <Select
+      <Input
+        type="date"
         style={{ width: "99%" }}
         onChange={handleChangeEdit}
-        id="Estado Falta"
-        name="Estado Falta"
-        label="Estado Falta"
+        id="Fecha Feriado"
+        name="Fecha Feriado"
+        label="Fecha Feriado"
         value={empleadoSeleccionado && empleadoSeleccionado["Estado Falta"]}
         defaultMenuIsOpen={false}
         isSearchable={false}
-      >
-        <MenuItem value={3}>Falta Justificada</MenuItem>
-        <MenuItem value={4}>Falta Injustificada</MenuItem>
-      </Select>
+      ></Input>
+      <TextField
+        type="text"
+        style={{ width: "99%" }}
+        onChange={handleChangeEdit}
+        id="Fecha Feriado"
+        name="Fecha Feriado"
+        label="Fecha Feriado"
+        value={empleadoSeleccionado && empleadoSeleccionado["Estado Falta"]}
+        defaultMenuIsOpen={false}
+        isSearchable={false}
+      ></TextField>
       {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
       <br />
       <br />
@@ -237,79 +252,70 @@ function TablaFaltas() {
   } else {
     return (
       <div>
+        <div className="my-4">
+          <p>En esta seccion puede insertar los dias feriados.</p>
+          <TextField
+            InputLabelProps={{ shrink: true, required: true }}
+            type="date"
+            className={styles.inputMaterial}
+            label="Fecha del Dia Feriado"
+            name="Fecha del Dia Feriado"
+            onChange={handleChangeEdit}
+            value={
+              empleadoSeleccionado &&
+              empleadoSeleccionado["Fecha inicio prueba"]
+            }
+          />
+          <br />
+          <TextField
+            className={styles.inputMaterial}
+            label="Festividad"
+            name="Festividad"
+            value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
+          />
+          <br />
+          <br />
+          <button
+            className=" bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
+            style={{ width: "6rem" }}
+          >
+            Insertar
+          </button>
+        </div>
         <MaterialTable
           columns={[
             {
-              title: "Fecha de Falta",
-              field: "Fecha Falta",
+              title: "Dia Festivo",
+              field: "DiaFeriado",
               sortable: true,
               filtering: false,
+              align: "center",
             },
             {
-              title: "Nombres",
-              field: "Nombre",
-              sortable: true,
+              title: "Fecha",
+              field: "FechaFeriado",
               filtering: false,
-            },
-            {
-              title: "Apellidos",
-              field: "Apellido",
-              sortable: true,
-              filtering: false,
-            },
-            {
-              title: "Dni",
-              field: "Dni",
-              sortable: true,
-              filtering: false,
-            },
-            {
-              title: "Perfil",
-              field: "Perfil",
-              sortable: true,
-              lookup: resultArea2,
-            },
-            {
-              title: "Unidad",
-              field: "Unidad",
-              sortable: true,
-              lookup: resultUnidad2,
-            },
-            {
-              title: "Turno",
-              field: "Turno",
-              sortable: true,
-              lookup: turnos,
-            },
-            {
-              title: "Estado de Falta",
-              field: "Estado Falta",
-              sortable: true,
-              lookup: estFalta,
+              align: "center",
             },
           ]}
           data={data}
-          title="Tabla de Faltas"
+          title="Tabla de dias feriados"
           // tableRef={tableRef}
           actions={[
             {
               icon: "edit",
-              tooltip: "Editar faltas",
+              tooltip: "Editar",
               onClick: (event, rowData) =>
                 seleccionarEmpleado(rowData, "Editar"),
             },
-            // {
-            //     icon: 'refresh',
-            //     tooltip: 'Refresh Data',
-            //     isFreeAction: true,
-            //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-            //   }
+            {
+              icon: "delete",
+              tooltip: "Eliminar",
+              onClick: (event, rowData) =>
+                seleccionarEmpleado(rowData, "Eliminar"),
+            },
           ]}
           options={{
-            // fixedColumns: {
-
-            //   right: 1
-            // },
             filtering: true,
             headerStyle: {
               backgroundColor: "#E2E2E2  ",
@@ -364,4 +370,4 @@ function TablaFaltas() {
     );
   }
 }
-export default TablaFaltas;
+export default TablaFeriados;

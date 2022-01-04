@@ -4,19 +4,21 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { setToken, getToken } from "../dist/Token";
 import axios from "axios";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading.jsx";
 
 const TablaAdmin = (cambio) => {
   const [tabla, setTabla] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectArea, setSelectArea] = useState([]);
   const [selectUnidad, setUnidad] = useState([]);
+  
   const cambiarEstado = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   };
+
 
   const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
   let resultArea = selectArea.map(function(item,){      
@@ -43,6 +45,7 @@ const TablaAdmin = (cambio) => {
   };
   useEffect(() => {
     peticionTablaAdmin();
+    cambiarEstado();
   }, []);
   useEffect(() => {
     peticionTablaAdmin();
@@ -77,6 +80,12 @@ const TablaAdmin = (cambio) => {
       }).catch(error => {
       })
   }, [])
+
+
+
+    if (loading) {
+      return (<Loading />)
+    }else{
   return (
     <div>
       <MaterialTable
@@ -115,20 +124,6 @@ const TablaAdmin = (cambio) => {
         ]}
         data={tabla}
         title="Tabla de Administradores"
-        // tableRef={tableRef}
-        // actions={[
-        //   {
-        //     icon: 'edit',
-        //     tooltip: 'Editar Empleado',
-        //     // onClick: (event, rowData) => seleccionarEmpleado(rowData, "Editar")
-        //   },
-        //   {
-        //     icon: 'refresh',
-        //     tooltip: 'Refresh Data',
-        //     isFreeAction: true,
-        //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-        //   }
-        // // ]}
         options={{
           filtering: true,
 
@@ -163,8 +158,6 @@ const TablaAdmin = (cambio) => {
           },
           toolbar: {
             nRowsSelected: "{0} ligne(s) sélectionée(s)",
-            // showColumnsTitle: 'Voir les colonnes',
-            // showColumnsAriaLabel: 'Voir les colonnes',
             exportTitle: "Exportar",
             exportAriaLabel: "Exportar",
             exportCSVName: "Exportar en formato CSV",
@@ -178,7 +171,7 @@ const TablaAdmin = (cambio) => {
         }}
       />
     </div>
-  );
+  );}
 };
 
 export default TablaAdmin;

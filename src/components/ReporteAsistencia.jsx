@@ -169,7 +169,7 @@ function ReporteAsistencia() {
 
 
 
-    const [selectedRow, setSelectedRow] = useState(null);
+
     if (loading) {
       return (<Loading />)
     }else{
@@ -201,15 +201,13 @@ function ReporteAsistencia() {
         ]}
           data={data}
 
-          onRowClick={((evt, selectedRow) => setSelectedRow(selectedRow.tableData.id))}
+
         options={{
 
             headerStyle: {
               backgroundColor: '#E2E2E2  ',
             },
-            rowStyle: rowData => ({
-              backgroundColor: (selectedRow === rowData.tableData.id) ? '#EEE' : '#FFF'
-            }),
+
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
