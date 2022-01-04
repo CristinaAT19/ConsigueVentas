@@ -5,7 +5,7 @@ import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import Dashboard from './VistasAdmin/Dashboard';
-import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores } from './VistasAdmin/Empleados'
+import { administracionEmpleados, restablecimientoContraseña, tablaFaltas, calendarioEmpleados, listaAdministradores, reporteAsistencia } from './VistasAdmin/Empleados'
 import TablaDatosPer from '../components/TablaDatosPer';
 import CerrarSesion from '../components/CerrarSesion';
 
@@ -78,6 +78,7 @@ function DashAdmin() {
               <Route path="/datosPersonales" exact component={TablaDatosPer} />
               <Route path="/cerrarSesion" exact component={CerrarSesion} />
               <Route path="/configuracion" exact component={Configuracion} />
+              <Route path="/reporteAsistencia" exact component={reporteAsistencia} />
               <Route
                 path="/calendarioEmpleados"
                 exact
@@ -101,8 +102,7 @@ function DashAdmin() {
                 component={CalendarioAsistencia}
               />
               {/* calendario general */}
-              {/* <Route path='/calendarioGeneral' exact component={calendarioGeneral} /> */}
-
+              {/* <Route path='/calendarioGeneral' exact component={CalendarioGeneral} /> */}
               <Route
                 path="/tablaEmpleados"
                 exact

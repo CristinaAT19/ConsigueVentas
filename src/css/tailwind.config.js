@@ -27,6 +27,7 @@ module.exports = {
         naranjaBajo: '#F9B058',       
         naranja: '#F29204',
         plomo: '#2D2D2B',
+        negro: '#000000',
       },
       outline: {
         blue: '2px solid rgba(0, 112, 244, 0.5)',

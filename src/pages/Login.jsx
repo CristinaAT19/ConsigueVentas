@@ -1,25 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import "../css/style.scss";
 import axios from "axios";
 import { setToken } from "../dist/Token";
 import LoginSpinner from "../components/LoginSpinner";
 import Error from "../components/item/Error";
 import { Redirect } from "react-router";
-import { distSetAutentication,distSetUser } from "../dist/Autentication";
+import { distSetAutentication, distSetUser } from "../dist/Autentication";
 import { UserContext } from "../components/context/UserContext";
 
 const Login = () => {
+  const campo = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const paramsRequest = {};
   const [valor, setValor] = useState("");
   //   Contexto de usuario
-  const {user, setUser} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
+  const onInputDni = ()=>{
+    if (campo.current.value.length > 8) {
+      campo.current.value = campo.current.value.slice(0,8); 
+    }
+  }
+  
   const peticiontoken = async (e) => {
     setLoading(true);
     e.preventDefault();
+    
+    
+    
+
     if (e.target.elements.dni.value.length !== 8) {
       const error = {
         dni: "El dni debe tener 8 numeros",
@@ -45,14 +56,14 @@ const Login = () => {
       })
       .then((Response) => {
         setUser({
-            dni: Response.data.dni,
-            nombre: Response.data.nombre,
-            apellido: Response.data.apellido,
-            id_TipoUsuario: Response.data.id_TipoUsuario,
-            TipoUsuario: Response.data.TipoUsuario,
-            perfil:Response.data.perfil,
-            unidad:Response.data.unidad,
-            turno:Response.data.turno,
+          dni: Response.data.dni,
+          nombre: Response.data.nombre,
+          apellido: Response.data.apellido,
+          id_TipoUsuario: Response.data.id_TipoUsuario,
+          TipoUsuario: Response.data.TipoUsuario,
+          perfil: Response.data.perfil,
+          unidad: Response.data.unidad,
+          turno: Response.data.turno,
 
         });
         setToken(Response.data.token);
@@ -60,16 +71,22 @@ const Login = () => {
         distSetUser(Response.data);
         setRedirect(true);
         setError([]);
-        
+
       })
       .catch((e) => {
-        if(e.response.status === 404){
-            const error = {
-                dni: "Problemas al intentar contectar con el servidor.",
-              };            
-            setError(error);
-        }else{
-            setError(e.response.data.errors);
+        if (e.response.status === 404) {
+          const error = {
+            dni: "Recurso no encontrado.",
+          };
+          setError(error);
+        } else if (e.response.status === 500) {
+          const error = {
+            dni: "Problemas al intentar contectar con el servidor.",
+          };
+          setError(error);
+        }
+        else {
+          setError(e.response.data.errors);
         }
       });
     setLoading(false);
@@ -82,7 +99,7 @@ const Login = () => {
   // }, [redirect]);
 
   if (redirect) {
-      return <Redirect to='/dashadmin'/>;
+    return <Redirect to='/home' />;
   }
   return (
     <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-700 h-screen">
@@ -100,7 +117,7 @@ const Login = () => {
               Recuerda que tu usuario y contraseña es tu DNI
             </span>
           </div>
-        </div>        
+        </div>
         <div className="md:col-span-2  pb-9 px-8 bg-white rounded-xl md:rounded-l-none shadow-xl">
           <div className=" md:hidden flex justify-center border-b pt-2 pb-3">
             <img
@@ -117,6 +134,8 @@ const Login = () => {
               <input
                 type="number"
                 name="dni"
+                ref={campo}
+                onInput={onInputDni}
                 placeholder="Es tu DNI"
                 id="dni"
                 maxLength="8"

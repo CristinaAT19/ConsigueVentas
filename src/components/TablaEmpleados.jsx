@@ -60,8 +60,23 @@ function TablaEmpleados() {
 //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
   const [selectArea, setSelectArea] = useState([]);
+  const [selectUnidad, setUnidad] = useState([]);
 
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/unidades`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      }
+    )
+      .then(response => {
+        setUnidad(response.data.Unidades);
+        //console.log(response)
+      }).catch(error => {
+      })
+  }, [])
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/api/areas`,
@@ -73,18 +88,31 @@ function TablaEmpleados() {
     )
       .then(response => {
         setSelectArea(response.data.Areas);
-        //console.log(selectArea)
+        //console.log(response)
       }).catch(error => {
       })
   }, [])
 
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
 
+  
+  //Array Filtros Tabla
+    let resultArea = selectArea.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultArea2=JSON.parse(`{${resultArea}}`);
+
+    let resultUnidad = selectUnidad.map(function(item,){      
+      return  `"${item}":"${item}"` 
+    });
+    let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
+
+    const condCapa={'Terminó capacitación':'Terminó capacitación','No terminó capacitación':'No terminó capacitación', 'En proceso':'En proceso'}; 
+    const condConv={'Firmado':'Firmado','Enviado para firmar':'Enviado para firmar', 'No firmado':'No firmado','Terminó convenio':'Terminó convenio','En proceso':'En proceso','Retirado':'Retirado'}; 
+    const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
+    const condEst={Activo:'Activo',Retirado:'Retirado'};
+    const tipColab={Apoyo:'Apoyo',Colaborador:'Colaborador',Practicante:'Practicante'};
+    const condPrac={Retirado:'Retirado',Ingresante:'Activo','En proceso':'En proceso','Terminó Practicas':'Terminó Practicas'};
+  //
 
   const peticionGet = async () => {
     
@@ -105,6 +133,12 @@ function TablaEmpleados() {
     peticionGet();
   }, [])
 
+  const cambiarEstado=()=>{
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }
 
   // Actualizar empleado
   const actualizarEmpleado = async (e) => {
@@ -668,7 +702,7 @@ function TablaEmpleados() {
 
             <FormControl fullWidth>
               <InputLabel id="capacitacion">Condicion de capacitación</InputLabel>
-              <Select labelId="capacitacion" defaultValue={3} id="capacitacion" label="Condicion de capacitación" name="Capacitacion" >
+              <Select labelId="capacitacion" id="capacitacion" label="Condicion de capacitación" name="Capacitacion" >
                 <MenuItem value={1}>Terminó capacitación</MenuItem>
                 <MenuItem value={2}>No terminó capacitación</MenuItem>
                 <MenuItem value={3}>En proceso</MenuItem>
@@ -683,7 +717,7 @@ function TablaEmpleados() {
 
             <FormControl fullWidth>
               <InputLabel id="convenio">Condicion de convenio</InputLabel>
-              <Select labelId="convenio" defaultValue={5} id="convenio" label="Convenio" name="Convenio"  >
+              <Select labelId="convenio" id="convenio" label="Convenio" name="Convenio"  >
                 <MenuItem value={1}>Firmado</MenuItem>
                 <MenuItem value={2}>Enviado para firmar</MenuItem>
                 <MenuItem value={3}>No firmado</MenuItem>
@@ -708,6 +742,13 @@ function TablaEmpleados() {
             <br /> */}
           </div>
         </div>
+
+
+
+
+
+
+
         <br />
         <div align="right">
           {loading ? <Loading /> :
@@ -719,6 +760,11 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
+
+  
+  if (loading) {
+    return (<Loading />)
+  }else{
   return (
     <div>
       <br />
@@ -732,33 +778,33 @@ function TablaEmpleados() {
           <MaterialTable
             columns={[
 
-              { title: 'ID', field: 'Id' },
-              { title: 'Nombres', field: 'Nombres' },
-              { title: 'Apellidos', field: 'Apellidos' },
+              { title: 'ID', field: 'Id',filtering: false },
+              { title: 'Nombres', field: 'Nombres',filtering: false },
+              { title: 'Apellidos', field: 'Apellidos',filtering: false },
               { title: 'Fecha Inicio Prueba', field: 'Fecha inicio prueba', type: 'date' },
               { title: 'Fecha Fin Prueba', field: 'Fecha fin prueba', type: 'date' },
-              { title: 'Turno', field: 'Turno' },
-              { title: 'Perfil', field: 'Perfil' },
-              { title: 'Dni', field: 'Dni' },
-              { title: 'Carrera', field: 'Carrera' },
-              { title: 'Telefono', field: 'Telefono' },
-              { title: 'Link CV', field: 'Link CV' },
-              { title: 'Correo', field: 'Correo' },
-              { title: 'Condicion Capacitación', field: 'Condicion Capacitación' },
-              { title: 'Link Calificaciones', field: 'Link Calificaciones' },
-              { title: 'Convenio', field: 'Convenio' },
-              { title: 'Link Convenio', field: 'Link Convenio' },
-              { title: 'Fecha Nacimiento', field: 'Fecha Nacimiento', type: 'date' },
-              { title: 'Area', field: 'Unidad' },
+              { title: 'Turno', field: 'Turno',lookup:turnos},
+              { title: 'Area', field: 'Perfil',lookup:resultArea2 },
+              { title: 'Dni', field: 'Dni',filtering: false },
+              { title: 'Carrera', field: 'Carrera',filtering: false },
+              { title: 'Telefono', field: 'Telefono',filtering: false },
+              { title: 'Link CV', field: 'Link CV',filtering: false },
+              { title: 'Correo', field: 'Correo',filtering: false },
+              { title: 'Condicion Capacitación', field: 'Condicion Capacitación',lookup:condCapa },
+              { title: 'Link Calificaciones', field: 'Link Calificaciones',filtering: false },
+              { title: 'Convenio', field: 'Convenio', lookup:condConv },
+              { title: 'Link Convenio', field: 'Link Convenio', filtering: false},
+              { title: 'Fecha Nacimiento', field: 'Fecha Nacimiento', type: 'date',filtering: false },
+              { title: 'Departamento', field: 'Unidad',lookup:resultUnidad2 },
               { title: 'Fecha Inicio Practicas', field: 'Fecha inicio practicas', type: 'date' },
-              { title: 'Días extra', field: 'Días extra' },
+              { title: 'Días extra', field: 'Días extra',filtering: false },
               { title: 'Fecha Salida Practicas', field: 'Fecha salida practicas', type: 'date' },
               { title: 'Fecha Fin Practicas', field: 'Fecha fin practicas', type: 'date' },
-              { title: 'Días Fin Practicas', field: 'Días fin practicas' },
-              { title: 'Nro Días Cumple', field: 'Nro días cumple' },
-              { title: 'Condición Practicas', field: 'Condición Practicas' },
-              { title: 'Estado', field: 'Estado' },
-              { title: 'Tipo Empleado', field: 'Tipo Empleado' },
+              { title: 'Días Fin Practicas', field: 'Días fin practicas',filtering: false },
+              { title: 'Nro Días Cumple', field: 'Nro días cumple',filtering: false},
+              { title: 'Condición Practicas', field: 'Condición Practicas', lookup:condPrac },
+              { title: 'Estado', field: 'Estado', lookup:condEst },
+              { title: 'Tipo Empleado', field: 'Tipo Empleado', lookup:tipColab },
               { title: 'Fecha Baja', field: 'Fecha baja' }
             ]}
             data={data}
@@ -782,6 +828,7 @@ function TablaEmpleados() {
 
               //   right: 1
               // },
+              filtering: true,
               headerStyle: {
                 backgroundColor: '#E2E2E2  ',
               },
@@ -842,6 +889,6 @@ function TablaEmpleados() {
         {bodyEditar}
       </Modal>
     </div>
-  );
+  );}
 }
 export default TablaEmpleados;
