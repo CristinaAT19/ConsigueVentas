@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import axios from "axios";
+import Error from "../components/item/Error";
 import {
   Modal,
   TextField,
@@ -8,6 +9,8 @@ import {
   Select,
   MenuItem,
   Input,
+  InputLabel, 
+  FormControl
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "../components/Loading";
@@ -49,19 +52,20 @@ function TablaFeriados() {
   const styles = useStyles();
   const [data, setData] = useState([]);
   const [modalEditar, setModalEditar] = useState(false);
-
+  const [modalEliminar, setModalEliminar ] = useState(false);
+  const [error, setError] = useState([]);
   const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
-    Fecha: "",
-    ["Dia Festivo"]: "",
   });
+ const [sucess, setSucess] = useState(false);
 
-  const handleChangeEdit = (e) => {
-    const { name, value } = e.target;
-    setEmpleadoSeleccionado((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+ const handleChangeEdit = (e) => {
+  const { name, value } = e.target;
+  setEmpleadoSeleccionado((prevState) => ({
+    ...prevState,
+    [name]: value
+  }));
+}
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,26 +89,66 @@ function TablaFeriados() {
   };
 
   const peticionPut = async () => {
+    setError([]);
     await axios
-      .post(
-        baseUrl + "tabla_faltas/" + empleadoSeleccionado.Id,
+      .put(`${process.env.REACT_APP_API_URL}/api/feriados`,
         {
-          cambio_estado: empleadoSeleccionado["Estado Falta"],
+          fecha_feriado: empleadoSeleccionado["fer_fechaCalendario"],
+          dia_feriado: empleadoSeleccionado["fer_detalleCalendario"],
+          tipo_feriado: empleadoSeleccionado["fer_tipoFeriado"],
         },
-
         {
           headers: {
-            Authorization: `Bearer ${getToken()}`,
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',            
           },
         }
       )
       .then((response) => {
         setData(data);
+        setError([]);
         peticionGet();
         abrirCerrarModalEditar();
       })
-      .catch((error) => {});
+      .catch((e) => {
+        if(e.response.status === 422){
+          setError(e.response.data.errors);
+        }else{
+          setError(['Error no encontrado']);
+        }
+      });
   };
+
+  const peticionDelete = async () => {
+    setError([]);
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/api/feriados`,
+        {
+          headers: {
+            'Authorization': `Bearer ${getToken()}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',    
+          },
+          params:{
+            fecha_feriado: empleadoSeleccionado["fer_fechaCalendario"],
+          }          
+        }
+      )
+      .then((response) => {
+        setError([]);
+        peticionGet();
+        abrirCerrarModalEliminar();
+      })
+      .catch((e) => {
+        console.log(e.response);
+        if(e.response.status === 422){
+          // setError(e.response.data.errors);
+        }else{
+          setError(['Error no encontrado']);
+        }
+      });
+  };  
 
   useEffect(() => {
     cambiarEstado();
@@ -117,12 +161,15 @@ function TablaFeriados() {
       ? (empleadoEdit["Estado Falta"] = 3)
       : (empleadoEdit["Estado Falta"] = 4);
     setEmpleadoSeleccionado(empleadoEdit);
-
     caso === "Editar" && abrirCerrarModalEditar();
+    caso === "Eliminar" && abrirCerrarModalEliminar();
   };
 
   const abrirCerrarModalEditar = () => {
     setModalEditar(!modalEditar);
+  };
+  const abrirCerrarModalEliminar = () => {
+    setModalEliminar(!modalEliminar);
   };
 
   const optiones = [
@@ -130,33 +177,86 @@ function TablaFeriados() {
     { value: 4, label: "Falta Injustificada" },
   ];
 
+
+  // Para insertar empleado 
+  
+  const manejadorInsertar = async (e) => {
+    
+    e.preventDefault();
+    setLoading(true);
+    const form = e.target.elements;
+    setError([]);
+    const nuevoFeriado = {
+      "fecha_feriado": form.Fecha.value,
+      "dia_feriado": form.DiaFestivo.value,
+      "tipo_feriado": form.TipoFeriado.value,
+    };
+    await axios.post(`${process.env.REACT_APP_API_URL}/api/insertarFeriados`, nuevoFeriado,
+      {
+        headers: {
+          'Authorization': `Bearer ${getToken()}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      })
+      .then((Response) => {
+        setSucess(true);
+        setError([]);
+        peticionGet();
+      })
+      .catch((e) => {
+        setSucess(false);
+        setLoading(false);
+        if(e.response.status === 422){
+          setError(e.response.data.errors);
+        }else{
+          setError(['Error no encontrado']);
+        }
+      });
+    setLoading(false);
+  }  
+
   const bodyEditar = (
     <div className={styles.modal}>
       <h3>Editar Feriado</h3>
       <br />
       <Input
+        disabled
         type="date"
         style={{ width: "99%" }}
         onChange={handleChangeEdit}
         id="Fecha Feriado"
-        name="Fecha Feriado"
+        name="fer_fechaCalendario"
         label="Fecha Feriado"
-        value={empleadoSeleccionado && empleadoSeleccionado["Estado Falta"]}
+        value={empleadoSeleccionado && empleadoSeleccionado["fer_fechaCalendario"]}
         defaultMenuIsOpen={false}
         isSearchable={false}
       ></Input>
+      <Error errors={error['fecha_feriado']} ></Error>
+
       <TextField
         type="text"
         style={{ width: "99%" }}
         onChange={handleChangeEdit}
         id="Fecha Feriado"
-        name="Fecha Feriado"
-        label="Fecha Feriado"
-        value={empleadoSeleccionado && empleadoSeleccionado["Estado Falta"]}
+        name="fer_detalleCalendario"
+        label="Dia festivo"
+        value={empleadoSeleccionado && empleadoSeleccionado["fer_detalleCalendario"]}
         defaultMenuIsOpen={false}
         isSearchable={false}
       ></TextField>
-      {/* <TextField className={styles.inputMaterial} label="Estado Falta" name="Estado Falta" onChange={handleChange} value={empleadoSeleccionado && empleadoSeleccionado['Estado Falta']} /> */}
+      <Error errors={error['dia_feriado']} ></Error>
+
+
+      <FormControl fullWidth>
+        <InputLabel id="turno">Tipo de Feriado</InputLabel>
+        <Select labelId="turno" id="turno" name="fer_tipoFeriado" label="Turno" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['fer_tipoFeriado']} >
+          <MenuItem value={'C'}>Calendario</MenuItem>
+          <MenuItem value={'N'}>No calendario</MenuItem>
+        </Select>
+        <Error errors={error['tipo_feriado']} ></Error>        
+      </FormControl>
       <br />
       <br />
       <div align="right">
@@ -175,135 +275,173 @@ function TablaFeriados() {
       </div>
     </div>
   );
-  // const tableRef = React.createRef();
-  if (loading) {
-    return <Loading />;
-  } else {
+
+
+  const bodyEliminar = (
+    <div className={styles.modal}>
+      <h3>Eliminar feriado</h3>
+      <br />
+      <p>Eliminaras el feriado <strong>{empleadoSeleccionado["fer_detalleCalendario"]}</strong> con fecha de  <strong>{empleadoSeleccionado["fer_fechaCalendario"]} </strong></p>
+      <br />
+      <div align="right">
+        <button
+          onClick={() => peticionDelete()}
+          className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border"
+        >
+          Eliminar
+        </button>
+        <button
+          onClick={() => abrirCerrarModalEliminar()}
+          className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border"
+        >
+          CANCELAR
+        </button>
+      </div>
+    </div>
+  );  
+    // Para podeer insertar dias feriados
     return (
       <div>
-        <div className="my-4">
-          <p>En esta seccion puede insertar los dias feriados.</p>
-          <TextField
-            InputLabelProps={{ shrink: true, required: true }}
-            type="date"
-            className={styles.inputMaterial}
-            label="Fecha"
-            name="Fecha"
-            onChange={handleChangeEdit}
-            value={
-              empleadoSeleccionado &&
-              empleadoSeleccionado["Fecha inicio prueba"]
-            }
-          />
-          <br />
-          <TextField
-            className={styles.inputMaterial}
-            label="Dia Festivo"
-            name="DiaFestivo"
-            value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
-          />
-          <br />
-          <br />
-          <button
-            className=" bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
-            style={{ width: "6rem" }}
-          >
-            Insertar
-          </button>
-        </div>
-        <MaterialTable
-          columns={[
-            {
-              title: "Dia Festivo",
-              field: "fer_detalleCalendario",
-              sortable: true,
-              filtering: false,
-              align: "center",
-            },
-            {
-              title: "Fecha",
-              field: "fer_fechaCalendario",
-              filtering: false,
-              align: "center",
-            },
-            {
-              title: "Tipo Feriado",
-              field: "fer_tipoFeriado",
-              sortable: true,
-              filtering: false,
-              align: "center",
-            },
-          ]}
-          data={data}
-          title="Tabla de dias feriados"
-          // tableRef={tableRef}
-          actions={[
-            {
-              icon: "edit",
-              tooltip: "Editar",
-              onClick: (event, rowData) =>
-                seleccionarEmpleado(rowData, "Editar"),
-            },
-            {
-              icon: "delete",
-              tooltip: "Eliminar",
-              onClick: (event, rowData) =>
-                seleccionarEmpleado(rowData, "Eliminar"),
-            },
-          ]}
-          options={{
-            filtering: true,
-            headerStyle: {
-              backgroundColor: "#E2E2E2  ",
-            },
-            exportButton: true,
-            actionsColumnIndex: -1,
-          }}
-          localization={{
-            body: {
-              emptyDataSourceMessage: "No hay registro para mostrar",
-              addTooltip: "Agregar",
-              deleteTooltip: "Eliminar",
-              editTooltip: "Editar",
-              filterRow: {
-                filterTooltip: "Filtrar",
-              },
-            },
-            pagination: {
-              labelDisplayedRows: "{from}-{to} de {count}",
-              labelRowsSelect: "filas",
-              labelRowsPerPage: "filas por pagina:",
-              firstAriaLabel: "Primera pagina",
-              firstTooltip: "Primera pagina",
-              previousAriaLabel: "Pagina anterior",
-              previousTooltip: "Pagina anterior",
-              nextAriaLabel: "Pagina siguiente",
-              nextTooltip: "Pagina siguiente",
-              lastAriaLabel: "Ultima pagina",
-              lastTooltip: "Ultima pagina",
-            },
-            toolbar: {
-              nRowsSelected: "{0} ligne(s) sélectionée(s)",
-              // showColumnsTitle: 'Voir les colonnes',
-              // showColumnsAriaLabel: 'Voir les colonnes',
-              exportTitle: "Exportar",
-              exportAriaLabel: "Exportar",
-              exportCSVName: "Exportar en formato CSV",
-              exportPDFName: "Exportar como PDF",
-              searchTooltip: "Buscar",
-              searchPlaceholder: "Buscar",
-            },
-            header: {
-              actions: "Acciones",
-            },
-          }}
-        />
+        <form onSubmit={manejadorInsertar}  >
+          <div className="my-4">
+            <p>En esta seccion puede insertar los dias feriados.</p>
+            {sucess ? <p className="text-green-500">Feriado insertado con exito</p> : null}
+            <TextField
+              InputLabelProps={{ shrink: true, required: true }}
+              type="date"
+              className={styles.inputMaterial}
+              label="Fecha"
+              name="Fecha"
+            />
+            <Error errors={error['fecha_feriado']} ></Error>
+            <TextField
+              className={styles.inputMaterial}
+              label="Dia Festivo"
+              name="DiaFestivo"
+            />
+            <Error errors={error['dia_feriado']} ></Error>
 
-        <Modal open={modalEditar} onClose={abrirCerrarModalEditar}>
-          {bodyEditar}
-        </Modal>
+            <FormControl
+              className={styles.inputMaterial}
+              >
+              <InputLabel id="TipoFeriado">Tipo de Feriado</InputLabel>
+              <Select labelId="TipoFeriado" id="TipoFeriado" name="TipoFeriado" label="TipoFeriado">
+                <MenuItem value={'C'}>Calendario</MenuItem>
+                <MenuItem value={'N'}>No calendario</MenuItem>
+              </Select>
+              <Error errors={error['tipo_feriado']} ></Error>
+
+            </FormControl>
+
+            <br />
+            <br />
+
+            {loading ? 
+              <Loading /> :
+              <button
+                className=" bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
+                style={{ width: "6rem" }}
+                type="submit"
+              >
+                Insertar</button>
+            }
+          </div>
+          </form>   
+          <MaterialTable
+            columns={[
+              {
+                title: "Dia Festivo",
+                field: "fer_detalleCalendario",
+                sortable: true,
+                filtering: false,
+                align: "center",
+              },
+              {
+                title: "Fecha",
+                field: "fer_fechaCalendario",
+                filtering: false,
+                align: "center",
+              },
+              {
+                title: "Tipo Feriado",
+                field: "fer_tipoFeriado",
+                sortable: true,
+                filtering: false,
+                align: "center",
+              },
+            ]}
+            data={data}
+            title="Tabla de dias feriados"
+            // tableRef={tableRef}
+            actions={[
+              {
+                icon: "edit",
+                tooltip: "Editar",
+                onClick: (event, rowData) =>
+                  seleccionarEmpleado(rowData, "Editar"),
+              },
+              {
+                icon: "delete",
+                tooltip: "Eliminar",
+                onClick: (event, rowData) =>
+                  seleccionarEmpleado(rowData, "Eliminar"),
+              },
+            ]}
+            options={{
+              filtering: true,
+              headerStyle: {
+                backgroundColor: "#E2E2E2  ",
+              },
+              exportButton: true,
+              actionsColumnIndex: -1,
+            }}
+            localization={{
+              body: {
+                emptyDataSourceMessage: "No hay registro para mostrar",
+                addTooltip: "Agregar",
+                deleteTooltip: "Eliminar",
+                editTooltip: "Editar",
+                filterRow: {
+                  filterTooltip: "Filtrar",
+                },
+              },
+              pagination: {
+                labelDisplayedRows: "{from}-{to} de {count}",
+                labelRowsSelect: "filas",
+                labelRowsPerPage: "filas por pagina:",
+                firstAriaLabel: "Primera pagina",
+                firstTooltip: "Primera pagina",
+                previousAriaLabel: "Pagina anterior",
+                previousTooltip: "Pagina anterior",
+                nextAriaLabel: "Pagina siguiente",
+                nextTooltip: "Pagina siguiente",
+                lastAriaLabel: "Ultima pagina",
+                lastTooltip: "Ultima pagina",
+              },
+              toolbar: {
+                nRowsSelected: "{0} ligne(s) sélectionée(s)",
+                // showColumnsTitle: 'Voir les colonnes',
+                // showColumnsAriaLabel: 'Voir les colonnes',
+                exportTitle: "Exportar",
+                exportAriaLabel: "Exportar",
+                exportCSVName: "Exportar en formato CSV",
+                exportPDFName: "Exportar como PDF",
+                searchTooltip: "Buscar",
+                searchPlaceholder: "Buscar",
+              },
+              header: {
+                actions: "Acciones",
+              },
+            }}
+          />
+      <Modal animation={"false"} open={modalEditar}>
+        {bodyEditar}
+      </Modal>     
+      <Modal animation={"false"} open={modalEliminar}>
+        {bodyEliminar}
+      </Modal>     
+
       </div>
     );
-  }
 }
 export default TablaFeriados;
