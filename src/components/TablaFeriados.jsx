@@ -50,75 +50,10 @@ function TablaFeriados() {
   const [data, setData] = useState([]);
   const [modalEditar, setModalEditar] = useState(false);
 
-  //filtros tabla
-  const [selectArea, setSelectArea] = useState([]);
-  const [selectUnidad, setUnidad] = useState([]);
-
-  const [modalSeleccionarOptionar, setModalSeleccionarOptionar] = useState({
-    // value:3, label: "Falta Justificada"
-  });
-
   const [empleadoSeleccionado, setEmpleadoSeleccionado] = useState({
-    Apellido: "",
-    Dni: "",
-    ["Estado Falta"]: "",
-    ["Fecha Falta"]: "",
-    Id: "",
-    Nombre: "",
-    Perfil: "",
-    Turno: "",
-    Unidad: "",
-    cambio_estado: "",
+    Fecha: "",
+    ["Dia Festivo"]: "",
   });
-
-  //filtros tabla
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/unidades`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      })
-      .then((response) => {
-        setUnidad(response.data.Unidades);
-        //console.log(response)
-      })
-      .catch((error) => {});
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/areas`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      })
-      .then((response) => {
-        setSelectArea(response.data.Areas);
-        //console.log(response)
-      })
-      .catch((error) => {});
-  }, []);
-
-  let resultArea = selectArea.map(function (item) {
-    return `"${item}":"${item}"`;
-  });
-  let resultArea2 = JSON.parse(`{${resultArea}}`);
-
-  let resultUnidad = selectUnidad.map(function (item) {
-    return `"${item}":"${item}"`;
-  });
-  let resultUnidad2 = JSON.parse(`{${resultUnidad}}`);
-  const turnos = {
-    Mañana: "Mañana",
-    Tarde: "Tarde",
-    ["Mañana y tarde"]: "Mañana y Tarde",
-  };
-  const estFalta = {
-    "Falta Justificada": "Falta Justificada",
-    "Falta Injustificada": "Falta Injustificada",
-  };
-  //
 
   const handleChangeEdit = (e) => {
     const { name, value } = e.target;
@@ -164,12 +99,6 @@ function TablaFeriados() {
         }
       )
       .then((response) => {
-        // var dataNueva = data.concat(response.data);
-        // data.map(empleado => {
-        //     if (empleado.Id === empleadoSeleccionado.Id) {
-        //         empleado['Estado Falta'] = empleadoSeleccionado['Estado Falta']
-        //     }
-        // });
         setData(data);
         peticionGet();
         abrirCerrarModalEditar();
@@ -258,8 +187,8 @@ function TablaFeriados() {
             InputLabelProps={{ shrink: true, required: true }}
             type="date"
             className={styles.inputMaterial}
-            label="Fecha del Dia Feriado"
-            name="Fecha del Dia Feriado"
+            label="Fecha"
+            name="Fecha"
             onChange={handleChangeEdit}
             value={
               empleadoSeleccionado &&
@@ -269,8 +198,8 @@ function TablaFeriados() {
           <br />
           <TextField
             className={styles.inputMaterial}
-            label="Festividad"
-            name="Festividad"
+            label="Dia Festivo"
+            name="DiaFestivo"
             value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
           />
           <br />
@@ -286,14 +215,21 @@ function TablaFeriados() {
           columns={[
             {
               title: "Dia Festivo",
-              field: "DiaFeriado",
+              field: "fer_detalleCalendario",
               sortable: true,
               filtering: false,
               align: "center",
             },
             {
               title: "Fecha",
-              field: "FechaFeriado",
+              field: "fer_fechaCalendario",
+              filtering: false,
+              align: "center",
+            },
+            {
+              title: "Tipo Feriado",
+              field: "fer_tipoFeriado",
+              sortable: true,
               filtering: false,
               align: "center",
             },
