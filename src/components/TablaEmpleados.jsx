@@ -763,7 +763,7 @@ function TablaEmpleados() {
 
   
   if (loading) {
-    return (<Loading />)
+    return <div className="flex justify-center align-center"><Loading /></div>
   }else{
   return (
     <div>
