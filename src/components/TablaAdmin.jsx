@@ -8,18 +8,10 @@ import Loading from "../components/Loading.jsx";
 
 const TablaAdmin = (cambio) => {
   const [tabla, setTabla] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectArea, setSelectArea] = useState([]);
   const [selectUnidad, setUnidad] = useState([]);
   
-  const cambiarEstado = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
-
-
   const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
   let resultArea = selectArea.map(function(item,){      
     return  `"${item}":"${item}"` 
@@ -39,13 +31,13 @@ const TablaAdmin = (cambio) => {
         },
       })
       .then((Response) => {
+        setLoading(false);
         setTabla(Response.data.administradores);
       })
       .catch((e) => {});
   };
   useEffect(() => {
     peticionTablaAdmin();
-    cambiarEstado();
   }, []);
   useEffect(() => {
     peticionTablaAdmin();
@@ -84,7 +76,7 @@ const TablaAdmin = (cambio) => {
 
 
     if (loading) {
-      return (<Loading />)
+      return <div className="flex justify-center align-center"><Loading /></div>
     }else{
   return (
     <div>

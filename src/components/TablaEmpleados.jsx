@@ -55,7 +55,7 @@ function TablaEmpleados() {
   });
 
   // Utilidades 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
 //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
@@ -124,21 +124,14 @@ function TablaEmpleados() {
       }
     )
       .then(response => {
+        setLoading(false);
         setData(response.data.empleados);
       }).catch(error => {
       })
   }
   useEffect(() => {
-    cambiarEstado();
     peticionGet();
   }, [])
-
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }
 
   // Actualizar empleado
   const actualizarEmpleado = async (e) => {
@@ -511,7 +504,7 @@ function TablaEmpleados() {
         <div className="flex flex-col w-full justify-evenly items-center my-3 md:flex-row">
           <div className="mx-3 w-90 md:w-40">
             <TextField className={styles.inputMaterial} label="Nombres" name="Nombres" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Nombres']} />
-             <Error errors={errorUpdate['emp_nombre']} ></Error>
+             <Error errors={errorUpdate['Emp_Nombre']} ></Error>
             <br />
 
             <TextField className={styles.inputMaterial} label="Apellidos" name="Apellidos" onChange={handleChangeEdit} value={empleadoSeleccionado && empleadoSeleccionado['Apellidos']} />
@@ -760,11 +753,9 @@ function TablaEmpleados() {
     </form>
   )
   //   const tableRef = React.createRef();
-
-  
   if (loading) {
     return <div className="flex justify-center align-center"><Loading /></div>
-  }else{
+  } else {
   return (
     <div>
       <br />

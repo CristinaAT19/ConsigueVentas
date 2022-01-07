@@ -41,13 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFeriados() {
-  const [loading, setLoading] = useState(false);
-  const cambiarEstado = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  const [loading, setLoading] = useState(true);
 
   const styles = useStyles();
   const [data, setData] = useState([]);
@@ -83,6 +77,7 @@ function TablaFeriados() {
         },
       })
       .then((response) => {
+        setLoading(false);
         setData(response.data.Feriados);
       })
       .catch((error) => {});
@@ -151,7 +146,6 @@ function TablaFeriados() {
   };  
 
   useEffect(() => {
-    cambiarEstado();
     peticionGet();
   }, []);
 
@@ -300,6 +294,9 @@ function TablaFeriados() {
     </div>
   );  
     // Para podeer insertar dias feriados
+    if (loading){
+      return <div className="flex justify-center align-center"><Loading /></div>
+    } else {
     return (
       <div>
         <form onSubmit={manejadorInsertar}  >
@@ -335,16 +332,14 @@ function TablaFeriados() {
 
             <br />
             <br />
-
-            {loading ? 
-              <Loading /> :
+            
               <button
                 className=" bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
                 style={{ width: "6rem" }}
                 type="submit"
               >
                 Insertar</button>
-            }
+                
           </div>
           </form>   
           <MaterialTable
@@ -442,6 +437,6 @@ function TablaFeriados() {
       </Modal>     
 
       </div>
-    );
+    );}
 }
 export default TablaFeriados;

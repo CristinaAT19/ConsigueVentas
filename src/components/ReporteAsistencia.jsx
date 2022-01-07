@@ -20,13 +20,7 @@ function ReporteAsistencia() {
     const [fechaFin,setFechaFin]=useState('');
     const [valor, setValor] = useState("");
 
-    const [loading, setLoading] = useState(false);
-    const cambiarEstado=()=>{
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
+    const [loading, setLoading] = useState(true);
     const dateFormat = "YYYY/MM/DD";
 
     function handlePicker(fieldsValue) {
@@ -54,6 +48,7 @@ function ReporteAsistencia() {
                 }
             )
             .then((Response) => {
+              setLoading(false);
                 setTabla(Response.data.Asistencias);
             })
             .catch((e) => {
@@ -100,7 +95,6 @@ function ReporteAsistencia() {
 
     useEffect(() => {
       peticionTablaDia();
-      cambiarEstado();
   }, [])
 
     //filtros tabla
@@ -171,7 +165,7 @@ function ReporteAsistencia() {
 
 
     if (loading) {
-      return (<Loading />)
+      return <div className="flex justify-center align-center"><Loading /></div>
     }else{
   return (
     <div className="main">
