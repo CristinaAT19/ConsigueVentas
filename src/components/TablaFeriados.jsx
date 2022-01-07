@@ -5,7 +5,6 @@ import Error from "../components/item/Error";
 import {
   Modal,
   TextField,
-  Button,
   Select,
   MenuItem,
   Input,
@@ -15,6 +14,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import Loading from "../components/Loading";
 import { setToken, getToken } from "../dist/Token";
+import { validationRequired } from "../helpers/validaciones";
 // import { Component } from 'react'
 //import Select from 'react-select'
 
@@ -84,13 +84,33 @@ function TablaFeriados() {
   };
 
   const peticionPut = async () => {
-    setError([]);
+    let erroresEncontrados = false;
+    setError({});
+    // Validacion de requerido
+    if(!validationRequired(empleadoSeleccionado['fer_fechaCalendario'])){
+      setError( {...error,fecha_feriado_edit:'Este campo es requerido'});
+      erroresEncontrados = true;
+    } 
+    if(!validationRequired(empleadoSeleccionado['fer_detalleCalendario'])) {
+      setError( {...error,dia_feriado_edit:'Este campo es requerido'});
+      erroresEncontrados = true;
+    } 
+    if(!validationRequired(empleadoSeleccionado['fer_tipoFeriado'])){
+      setError({...error,tipo_feriado_edit:'Este campo es requerido'});
+      erroresEncontrados = true;
+    }
+    if(erroresEncontrados){
+      return;
+    }
+
+
+    setLoading(true);
     await axios
       .put(`${process.env.REACT_APP_API_URL}/api/feriados`,
         {
           fecha_feriado: empleadoSeleccionado["fer_fechaCalendario"],
           dia_feriado: empleadoSeleccionado["fer_detalleCalendario"],
-          tipo_feriado: empleadoSeleccionado["fer_tipoFeriado"],
+          tipo_feriado: empleadoSeleccionado["fer_tipoFeriado"],          
         },
         {
           headers: {
@@ -101,22 +121,33 @@ function TablaFeriados() {
         }
       )
       .then((response) => {
+        setLoading(false);
         setData(data);
         setError([]);
         peticionGet();
         abrirCerrarModalEditar();
       })
       .catch((e) => {
+        setLoading(false);
         if(e.response.status === 422){
-          setError(e.response.data.errors);
+          setError({
+            dia_feriado_edit: e.response.data.errors.dia_feriado,
+            fecha_feriado_edit: e.response.data.errors.fecha_feriado,
+            tipo_feriado_edit: e.response.data.errors.tipo_feriado,
+          });
         }else{
-          setError(['Error no encontrado']);
+  
+          setError({
+            tipo_feriado_edit: e.response.data.errors.msg
+          });
         }
       });
+      setLoading(false);
   };
 
   const peticionDelete = async () => {
     setError([]);
+    setLoading(true);
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/api/feriados`,
         {
@@ -131,11 +162,13 @@ function TablaFeriados() {
         }
       )
       .then((response) => {
+        setLoading(false);
         setError([]);
         peticionGet();
         abrirCerrarModalEliminar();
       })
       .catch((e) => {
+        setLoading(false);
         console.log(e.response);
         if(e.response.status === 422){
           // setError(e.response.data.errors);
@@ -143,6 +176,7 @@ function TablaFeriados() {
           setError(['Error no encontrado']);
         }
       });
+      setLoading(false);
   };  
 
   useEffect(() => {
@@ -160,6 +194,7 @@ function TablaFeriados() {
   };
 
   const abrirCerrarModalEditar = () => {
+    setError([]);
     setModalEditar(!modalEditar);
   };
   const abrirCerrarModalEliminar = () => {
@@ -177,9 +212,22 @@ function TablaFeriados() {
   const manejadorInsertar = async (e) => {
     
     e.preventDefault();
-    setLoading(true);
     const form = e.target.elements;
-    setError([]);
+    let erroresEncontrados = false;
+    setError({});
+    // Validacion de requerido
+    if(!validationRequired(form.DiaFestivo.value)) {
+      setError( {...error,dia_feriado:'Este campo es requerido'});
+      erroresEncontrados = true;
+    } 
+    if(erroresEncontrados){
+      return;
+    }
+
+
+    setLoading(true);
+    // Validacion de requerido
+
     const nuevoFeriado = {
       "fecha_feriado": form.Fecha.value,
       "dia_feriado": form.DiaFestivo.value,
@@ -205,7 +253,8 @@ function TablaFeriados() {
         if(e.response.status === 422){
           setError(e.response.data.errors);
         }else{
-          setError(['Error no encontrado']);
+          console.log(e.response.data.msg);
+          setError({fecha_feriado:e.response.data.msg});
         }
       });
     setLoading(false);
@@ -227,7 +276,7 @@ function TablaFeriados() {
         defaultMenuIsOpen={false}
         isSearchable={false}
       ></Input>
-      <Error errors={error['fecha_feriado']} ></Error>
+      <Error errors={error['fecha_feriado_edit']} ></Error>
 
       <TextField
         type="text"
@@ -240,7 +289,7 @@ function TablaFeriados() {
         defaultMenuIsOpen={false}
         isSearchable={false}
       ></TextField>
-      <Error errors={error['dia_feriado']} ></Error>
+      <Error errors={error['dia_feriado_edit']} ></Error>
 
 
       <FormControl fullWidth>
@@ -249,17 +298,19 @@ function TablaFeriados() {
           <MenuItem value={'C'}>Calendario</MenuItem>
           <MenuItem value={'N'}>No calendario</MenuItem>
         </Select>
-        <Error errors={error['tipo_feriado']} ></Error>        
+        <Error errors={error['tipo_feriado_edit']} ></Error>        
       </FormControl>
       <br />
       <br />
       <div align="right">
-        <button
+        {loading ? <Loading /> : 
+          <button
           onClick={() => peticionPut()}
           className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border"
-        >
-          EDITAR
-        </button>
+          >
+            EDITAR
+          </button>
+        }
         <button
           onClick={() => abrirCerrarModalEditar()}
           className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border"
@@ -278,12 +329,14 @@ function TablaFeriados() {
       <p>Eliminaras el feriado <strong>{empleadoSeleccionado["fer_detalleCalendario"]}</strong> con fecha de  <strong>{empleadoSeleccionado["fer_fechaCalendario"]} </strong></p>
       <br />
       <div align="right">
-        <button
+        {loading ? <Loading /> :
+          <button
           onClick={() => peticionDelete()}
           className="bg-naranja h-1/5 py-2 px-3 mx-2 hover:bg-gray-700 hover:text-white border"
-        >
-          Eliminar
-        </button>
+          >
+            Eliminar
+          </button>
+        }
         <button
           onClick={() => abrirCerrarModalEliminar()}
           className="bg-gray-700 text-gray-50 h-1/5 py-2 px-3 mx-2 hover:bg-naranja border"
