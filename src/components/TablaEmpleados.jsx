@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
 }));
-const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
 function TablaEmpleados() {
 
