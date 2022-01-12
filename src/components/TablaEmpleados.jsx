@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
-const baseUrl = "https://desarrollo.consigueventas.com/Backend/public/api/";
 
 function TablaEmpleados() {
   // Estilos
@@ -76,7 +75,7 @@ function TablaEmpleados() {
   });
 
   // Utilidades
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
   //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
@@ -88,6 +87,9 @@ function TablaEmpleados() {
   const [perfilesTabla, setPerfilesTabla] = useState([]);
   const [marcas, setMarcas] = useState([]);
   //////
+  const [selectMarca, setSelectMarca] = useState([]);
+  const [selectPerfil, setSelectPerfil] = useState([]);
+  const [selectSubarea, setSelectSubarea] = useState([]);
 
   useEffect(() => {
     axios
@@ -127,6 +129,48 @@ function TablaEmpleados() {
     }, 1000);
   };
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/marcas`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((response) => {
+        setSelectMarca(response.data.Marcas);
+        //console.log(response)
+      })
+      .catch((error) => {});
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/perfiles`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((response) => {
+        setSelectPerfil(response.data.Perfiles);
+        //console.log(response)
+      })
+      .catch((error) => {});
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/subareas`, {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      })
+      .then((response) => {
+        setSelectSubarea(response.data.Subareas);
+        //console.log(response)
+      })
+      .catch((error) => {});
+  }, []);
+
   //Array Filtros Tabla
   let resultArea = selectArea.map(function (item) {
     return `"${item}":"${item}"`;
@@ -138,6 +182,20 @@ function TablaEmpleados() {
   });
   let resultUnidad2 = JSON.parse(`{${resultUnidad}}`);
 
+  let resultMarca = selectMarca.map(function (item) {
+    return `"${item}":"${item}"`;
+  });
+  let resultMarca2 = JSON.parse(`{${resultMarca}}`);
+
+  let resultPerfil = selectPerfil.map(function (item) {
+    return `"${item}":"${item}"`;
+  });
+  let resultPerfil2 = JSON.parse(`{${resultPerfil}}`);
+
+  let resultSubarea = selectSubarea.map(function (item) {
+    return `"${item}":"${item}"`;
+  });
+  let resultSubarea2 = JSON.parse(`{${resultSubarea}}`);
   const condCapa = {
     "Terminó capacitación": "Terminó capacitación",
     "No terminó capacitación": "No terminó capacitación",
@@ -178,12 +236,12 @@ function TablaEmpleados() {
         },
       })
       .then((response) => {
+        setLoading(false);
         setData(response.data.empleados);
       })
       .catch((error) => {});
   };
   useEffect(() => {
-    cambiarEstado();
     peticionGet();
   }, []);
   ///////////
@@ -536,11 +594,6 @@ function TablaEmpleados() {
       Emp_Id_Convenio_fk: form.Convenio.value,
       emp_link_convenio: form.ConvenioUrl.value,
       emp_fechanac: form.FechaNacimiento.value,
-      //
-
-      // "Emp_Perfiles_Id":1,
-      // "Emp_Unidad_Id_fk":1,
-      // "Emp_Marca_Id_fk":1,
     };
 
     await axios
@@ -582,7 +635,7 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
             />
-            <Error errors={errorUpdate["emp_nombre"]}></Error>
+            <Error errors={errorUpdate["Emp_Nombre"]}></Error>
             <br />
 
             <TextField
@@ -976,6 +1029,14 @@ function TablaEmpleados() {
 
             <TextField
               className={styles.inputMaterial}
+              label="DNI"
+              name="Dni"
+            />
+            <Error errors={error["emp_dni"]}></Error>
+            <br />
+
+            <TextField
+              className={styles.inputMaterial}
               label="Carrera"
               name="Carrera"
             />
@@ -1132,183 +1193,193 @@ function TablaEmpleados() {
     </form>
   );
   //   const tableRef = React.createRef();
-  return (
-    <div>
-      <br />
-      <div className=" text-center flex flex-col  ">
-        <div className="flex justify-center align-center ">
-          <div className="shadow-sm rounded-2xl mb-2 border-black">
-            <Button onClick={() => abrircerrarModalInsertar()}>
-              <img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png" />
-              Insertar Empleado
-            </Button>
+  if (loading) {
+    return (
+      <div className="flex justify-center align-center">
+        <Loading />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <br />
+        <div className=" text-center flex flex-col  ">
+          <div className="flex justify-center align-center ">
+            <div className="shadow-sm rounded-2xl mb-2 border-black">
+              <Button onClick={() => abrircerrarModalInsertar()}>
+                <img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png" />
+                Insertar Empleado
+              </Button>
+            </div>
+          </div>
+          <div>
+            <MaterialTable
+              columns={[
+                { title: "ID", field: "Id", filtering: false },
+                { title: "Nombres", field: "Nombres", filtering: false },
+                { title: "Apellidos", field: "Apellidos", filtering: false },
+                { title: "Dni", field: "Dni", filtering: false },
+                {
+                  title: "Fecha Inicio Prueba",
+                  field: "Fecha inicio prueba",
+                  filtering: false,
+                },
+                {
+                  title: "Fecha Fin Prueba",
+                  field: "Fecha fin prueba",
+                  filtering: false,
+                },
+                { title: "Turno", field: "Turno", lookup: turnos },
+                { title: "Perfil", field: "Perfil", lookup: resultPerfil2 },
+                { title: "SubArea", field: "SubArea", lookup: resultSubarea2 },
+                { title: "Area", field: "Area", lookup: resultArea2 },
+                {
+                  title: "Departamento",
+                  field: "Departamento",
+                  lookup: resultUnidad2,
+                },
+                { title: "Marca", field: "Marca", lookup: resultMarca2 },
+                { title: "Carrera", field: "Carrera", filtering: false },
+                { title: "Telefono", field: "Telefono", filtering: false },
+                { title: "Link CV", field: "Link CV", filtering: false },
+                { title: "Correo", field: "Correo", filtering: false },
+                {
+                  title: "Link Calificaciones",
+                  field: "Link Calificaciones",
+                  filtering: false,
+                },
+
+                {
+                  title: "Link Convenio",
+                  field: "Link Convenio",
+                  filtering: false,
+                },
+                {
+                  title: "Fecha Nacimiento",
+                  field: "Fecha Nacimiento",
+                  filtering: false,
+                },
+                {
+                  title: "Fecha Inicio Practicas",
+                  field: "Fecha inicio practicas",
+                  filtering: false,
+                },
+                { title: "Días extra", field: "Días extra", filtering: false },
+                {
+                  title: "Fecha Salida Practicas",
+                  field: "Fecha salida practicas",
+                  filtering: false,
+                },
+                {
+                  title: "Fecha Fin Practicas",
+                  field: "Fecha fin practicas",
+                  filtering: false,
+                },
+                {
+                  title: "Días Fin Practicas",
+                  field: "Días fin practicas",
+                  filtering: false,
+                },
+                {
+                  title: "Nro Días Cumple",
+                  field: "Nro días cumple",
+                  filtering: false,
+                },
+                { title: "Fecha Baja", field: "Fecha baja", filtering: false },
+                { title: "Convenio", field: "Convenio", lookup: condConv },
+                {
+                  title: "Condición Practicas",
+                  field: "Condición Practicas",
+                  lookup: condPrac,
+                },
+                { title: "Estado", field: "Estado", lookup: condEst },
+                {
+                  title: "Tipo Empleado",
+                  field: "Tipo Empleado",
+                  lookup: tipColab,
+                },
+              ]}
+              data={data}
+              title="Tabla de Empleados"
+              // tableRef={tableRef}
+              actions={[
+                {
+                  icon: "edit",
+                  tooltip: "Editar Empleado",
+                  onClick: (event, rowData) =>
+                    seleccionarEmpleado(rowData, "Editar"),
+                },
+                //   {
+                //     icon: 'refresh',
+                //     tooltip: 'Refresh Data',
+                //     isFreeAction: true,
+                //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
+                //   }
+              ]}
+              options={{
+                // fixedColumns: {
+
+                //   right: 1
+                // },
+                filtering: true,
+                headerStyle: {
+                  backgroundColor: "#E2E2E2  ",
+                },
+                exportButton: {
+                  csv: true,
+                  pdf: false,
+                },
+                actionsColumnIndex: -1,
+              }}
+              localization={{
+                body: {
+                  emptyDataSourceMessage: "No hay registro para mostrar",
+                  addTooltip: "Agregar",
+                  deleteTooltip: "Eliminar",
+                  editTooltip: "Editar",
+                  filterRow: {
+                    filterTooltip: "Filtrar",
+                  },
+                },
+                pagination: {
+                  labelDisplayedRows: "{from}-{to} de {count}",
+                  labelRowsSelect: "filas",
+                  labelRowsPerPage: "filas por pagina:",
+                  firstAriaLabel: "Primera pagina",
+                  firstTooltip: "Primera pagina",
+                  previousAriaLabel: "Pagina anterior",
+                  previousTooltip: "Pagina anterior",
+                  nextAriaLabel: "Pagina siguiente",
+                  nextTooltip: "Pagina siguiente",
+                  lastAriaLabel: "Ultima pagina",
+                  lastTooltip: "Ultima pagina",
+                },
+                toolbar: {
+                  nRowsSelected: "{0} ligne(s) sélectionée(s)",
+                  // showColumnsTitle: 'Voir les colonnes',
+                  // showColumnsAriaLabel: 'Voir les colonnes',
+                  exportTitle: "Exportar",
+                  exportAriaLabel: "Exportar",
+                  exportCSVName: "Exportar en formato CSV",
+                  exportPDFName: "Exportar como PDF",
+                  searchTooltip: "Buscar",
+                  searchPlaceholder: "Buscar",
+                },
+                header: {
+                  actions: "Acciones",
+                },
+              }}
+            />
           </div>
         </div>
-        <div>
-          <MaterialTable
-            columns={[
-              { title: "ID", field: "Id", filtering: false },
-              { title: "Nombres", field: "Nombres", filtering: false },
-              { title: "Apellidos", field: "Apellidos", filtering: false },
-              {
-                title: "Fecha Inicio Prueba",
-                field: "Fecha inicio prueba",
-                type: "date",
-              },
-              {
-                title: "Fecha Fin Prueba",
-                field: "Fecha fin prueba",
-                type: "date",
-              },
-              { title: "Turno", field: "Turno", lookup: turnos },
-              { title: "Area", field: "Perfil", lookup: resultArea2 },
-              { title: "Dni", field: "Dni", filtering: false },
-              { title: "Carrera", field: "Carrera", filtering: false },
-              { title: "Telefono", field: "Telefono", filtering: false },
-              { title: "Link CV", field: "Link CV", filtering: false },
-              { title: "Correo", field: "Correo", filtering: false },
-              {
-                title: "Condicion Capacitación",
-                field: "Condicion Capacitación",
-                lookup: condCapa,
-              },
-              {
-                title: "Link Calificaciones",
-                field: "Link Calificaciones",
-                filtering: false,
-              },
-              { title: "Convenio", field: "Convenio", lookup: condConv },
-              {
-                title: "Link Convenio",
-                field: "Link Convenio",
-                filtering: false,
-              },
-              {
-                title: "Fecha Nacimiento",
-                field: "Fecha Nacimiento",
-                type: "date",
-                filtering: false,
-              },
-              { title: "Departamento", field: "Unidad", lookup: resultUnidad2 },
-              {
-                title: "Fecha Inicio Practicas",
-                field: "Fecha inicio practicas",
-                type: "date",
-              },
-              { title: "Días extra", field: "Días extra", filtering: false },
-              {
-                title: "Fecha Salida Practicas",
-                field: "Fecha salida practicas",
-                type: "date",
-              },
-              {
-                title: "Fecha Fin Practicas",
-                field: "Fecha fin practicas",
-                type: "date",
-              },
-              {
-                title: "Días Fin Practicas",
-                field: "Días fin practicas",
-                filtering: false,
-              },
-              {
-                title: "Nro Días Cumple",
-                field: "Nro días cumple",
-                filtering: false,
-              },
-              {
-                title: "Condición Practicas",
-                field: "Condición Practicas",
-                lookup: condPrac,
-              },
-              { title: "Estado", field: "Estado", lookup: condEst },
-              {
-                title: "Tipo Empleado",
-                field: "Tipo Empleado",
-                lookup: tipColab,
-              },
-              { title: "Fecha Baja", field: "Fecha baja" },
-            ]}
-            data={data}
-            title="Tabla de Empleados"
-            // tableRef={tableRef}
-            actions={[
-              {
-                icon: "edit",
-                tooltip: "Editar Empleado",
-                onClick: (event, rowData) =>
-                  seleccionarEmpleado(rowData, "Editar"),
-              },
-              //   {
-              //     icon: 'refresh',
-              //     tooltip: 'Refresh Data',
-              //     isFreeAction: true,
-              //     onClick: () => tableRef.current && tableRef.current.onQueryChange(),
-              //   }
-            ]}
-            options={{
-              // fixedColumns: {
-
-              //   right: 1
-              // },
-              filtering: true,
-              headerStyle: {
-                backgroundColor: "#E2E2E2  ",
-              },
-              exportButton: {
-                csv: true,
-                pdf: false,
-              },
-              actionsColumnIndex: -1,
-            }}
-            localization={{
-              body: {
-                emptyDataSourceMessage: "No hay registro para mostrar",
-                addTooltip: "Agregar",
-                deleteTooltip: "Eliminar",
-                editTooltip: "Editar",
-                filterRow: {
-                  filterTooltip: "Filtrar",
-                },
-              },
-              pagination: {
-                labelDisplayedRows: "{from}-{to} de {count}",
-                labelRowsSelect: "filas",
-                labelRowsPerPage: "filas por pagina:",
-                firstAriaLabel: "Primera pagina",
-                firstTooltip: "Primera pagina",
-                previousAriaLabel: "Pagina anterior",
-                previousTooltip: "Pagina anterior",
-                nextAriaLabel: "Pagina siguiente",
-                nextTooltip: "Pagina siguiente",
-                lastAriaLabel: "Ultima pagina",
-                lastTooltip: "Ultima pagina",
-              },
-              toolbar: {
-                nRowsSelected: "{0} ligne(s) sélectionée(s)",
-                // showColumnsTitle: 'Voir les colonnes',
-                // showColumnsAriaLabel: 'Voir les colonnes',
-                exportTitle: "Exportar",
-                exportAriaLabel: "Exportar",
-                exportCSVName: "Exportar en formato CSV",
-                exportPDFName: "Exportar como PDF",
-                searchTooltip: "Buscar",
-                searchPlaceholder: "Buscar",
-              },
-              header: {
-                actions: "Acciones",
-              },
-            }}
-          />
-        </div>
+        <Modal animation={"false"} open={modalInsertar}>
+          {bodyInsertar}
+        </Modal>
+        <Modal animation={"false"} open={modalEditar}>
+          {bodyEditar}
+        </Modal>
       </div>
-      <Modal animation={"false"} open={modalInsertar}>
-        {bodyInsertar}
-      </Modal>
-      <Modal animation={"false"} open={modalEditar}>
-        {bodyEditar}
-      </Modal>
-    </div>
-  );
+    );
+  }
 }
 export default TablaEmpleados;

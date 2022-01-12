@@ -7,6 +7,7 @@ import bootstrapPlugin from "@fullcalendar/bootstrap";
 import Error from "../components/item/Error";
 import { getToken } from "../dist/Token";
 import esLocale from '@fullcalendar/core/locales/es';
+import CalendarioGeneral from "./CalendarioGeneral";
 import { MdCleaningServices} from "react-icons/md";
 
 
@@ -131,7 +132,7 @@ const CalendarioEmpleadosMovil = () => {
               </button>}
           </div>
             <Error errors={error['dni']} ></Error>
-          <div className=" w-full flex flex-col  items-center text-2xl">
+          <div className="mx-auto my-4 text-2xl" style={{backgroundColor:'rgb(134 239 172)',borderRadius:'10px', width:'20rem'}}>
               <div className="w-full">{nombreEmpleado}</div>
               <div className="w-full">{dniEmpleado}</div>
               <div className="w-full">{turnoEmpleado}</div>
@@ -160,6 +161,10 @@ const CalendarioEmpleadosMovil = () => {
                   
 
             />
+             <div className="my-5 ">
+                  <h1 style={{fontSize: "2rem"}}>Tabla de asistencias del empleado</h1>
+                  <CalendarioGeneral dniCalendario={dniCalendario} />
+                </div>
           </div>
             
         </div>

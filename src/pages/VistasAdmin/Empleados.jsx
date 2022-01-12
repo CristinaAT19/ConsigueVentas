@@ -2,9 +2,12 @@ import React from "react";
 import AdminUsuario from "../../components/AdminUsuario";
 import CalendarioPersonal from "../../components/CalendarioPersonal";
 import CalendarioEmpleados from "../../components/CalendarioEmpleados";
+import CalendarioEmpleadosMovil from "../../components/CalendarioEmpleadosMovil";
 import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
+import TablaFeriados from "../../components/TablaFeriados";
+import ReporteAsistencia from "../../components/ReporteAsistencia";
 import App from "../../App";
 import TipoUsuario from "../../components/TipoUsuario";
 
@@ -35,8 +38,10 @@ export const restablecimientoContraseña = () => {
   return (
     <>
       <div className="w-4/5 mx-auto mt-14">
-        <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
-          <h2 className="py-4">Restablecimiento de contraseña</h2>
+        <div className=" bg-gray-700 text-2xl font-bold uppercase text-center">
+          <h2 className="py-4" style={{ color: "white" }}>
+            Restablecimiento de contraseña
+          </h2>
         </div>
         <section className="rounded-b-2xl shadow-md bg-white p-2">
           <AdminUsuario
@@ -53,30 +58,73 @@ export const restablecimientoContraseña = () => {
 
 export const tablaFaltas = () => {
   return (
+    <div>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl">Administración de faltas</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <TablaFaltas />
+        </div>
+      </div>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl">Administrar Dias Feriados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <TablaFeriados />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const reporteAsistencia = () => {
+  return (
     <div
       className="bg-white rounded-t-3xl text-center"
       style={{ margin: "1rem 1rem" }}
     >
-      <h1 className="border-b-2 text-3xl">Administración de faltas</h1>
+      <h1 className="border-b-2 text-3xl">Reporte Asistencia</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
-        <TablaFaltas />
+        <ReporteAsistencia />
       </div>
     </div>
   );
 };
 
 export const calendarioEmpleados = () => {
-  return (
-    <div
-      className="bg-white rounded-t-3xl text-center"
-      style={{ margin: "1rem 1rem" }}
-    >
-      <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
-      <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
-        <CalendarioEmpleados />
+  if (
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return (
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <CalendarioEmpleados />
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <CalendarioEmpleadosMovil />
+        </div>
+      </div>
+    );
+  }
 };
 
 export const listaAdministradores = () => {
@@ -85,7 +133,7 @@ export const listaAdministradores = () => {
       className="bg-white rounded-t-3xl text-center"
       style={{ margin: "1rem 1rem" }}
     >
-      <h1 className="border-b-2 text-3xl"> Mi Calendario de Asistencia</h1>
+      <h1 className="border-b-2 text-3xl"> Administracion de Usuarios</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
         <div className="p-2">
           <AdminUsuario

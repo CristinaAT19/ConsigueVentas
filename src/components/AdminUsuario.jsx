@@ -17,7 +17,12 @@ const AdminUsuario = ({
     setValorDni(evento.target.value);
     //console.log(componenteInput.current.value);
   };
-
+  const campo = useRef();
+  const onInputDni = () => {
+    if (campo.current.value.length > 8) {
+      campo.current.value = campo.current.value.slice(0, 8);
+    }
+  };
   return (
     <>
       <div className="flex flex-col items-baseline justify-start w-full p-2 md:p-10 pt-2 bg-white rounded">
@@ -30,7 +35,9 @@ const AdminUsuario = ({
         <div className="flex flex-col md:flex-row items-baseline justify-center m-1.5">
           <label className="pr-3">{texto}</label>
           <input
+            onInput={onInputDni}
             onChange={onChangeDni}
+            ref={campo}
             className="border pl-2 py-2 bg-gray-50 rounded text-sm shadow-md text-black"
             type="number"
             placeholder="DNI"

@@ -26,7 +26,8 @@ const ControlInactividad = () => {
       removeToken();
       distSetAutentication(false);
       // <Redirect to='/login'/>;
-      window.location = "/cerrarSesion";
+      let route = window.location;
+      route['hash'] = '#/cerrarSesion';   
     }
     ///////////////
   };

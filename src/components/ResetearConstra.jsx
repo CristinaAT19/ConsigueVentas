@@ -21,7 +21,13 @@ const ResetearConstra = (dniReset) => {
       setError(error);
       return;
     }
-
+    if (dni_reset.length == 0) {
+      const error = {
+        dni: "El dni es requerido",
+      };
+      setError(error);
+      return;
+    }
     if (dni_reset.length !== 8) {
       const error = {
         dni: "El dni debe tener 8 numeros",
@@ -29,6 +35,7 @@ const ResetearConstra = (dniReset) => {
       setError(error);
       return;
     }
+
 
     const config = {
       headers: {
