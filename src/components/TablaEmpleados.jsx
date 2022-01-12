@@ -1029,14 +1029,6 @@ function TablaEmpleados() {
 
             <TextField
               className={styles.inputMaterial}
-              label="DNI"
-              name="Dni"
-            />
-            <Error errors={error["emp_dni"]}></Error>
-            <br />
-
-            <TextField
-              className={styles.inputMaterial}
               label="Carrera"
               name="Carrera"
             />
