@@ -27,6 +27,7 @@ import {
   getPeticionPerfiles,
   getPeticionUnidades,
   getPeticionMarcas,
+  getPeticionAreasEmpleado,
 } from "../dist/getPeticiones";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +87,8 @@ function TablaEmpleados() {
   const [perfiles, setPerfiles] = useState([]);
   const [perfilesTabla, setPerfilesTabla] = useState([]);
   const [marcas, setMarcas] = useState([]);
+  const [areasEmp, setAreasEmp] = useState([]);
+  const [areasTabla, setAreasTabla] = useState([]);
   //////
   const [selectMarca, setSelectMarca] = useState([]);
   const [selectPerfil, setSelectPerfil] = useState([]);
@@ -114,12 +117,12 @@ function TablaEmpleados() {
       })
       .then((response) => {
         setSelectArea(response.data.Areas);
-        //console.log(response)
       })
       .catch((error) => {});
     getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla);
     getPeticionUnidades(setUnidades, setLoading);
     getPeticionMarcas(setMarcas, setLoading);
+    getPeticionAreasEmpleado(setAreasEmp, setLoading, setAreasTabla);
   }, []);
 
   const cambiarEstado = () => {
@@ -337,14 +340,19 @@ function TablaEmpleados() {
           emp_fec_inicio_prueba: empleadoSeleccionado["Fecha inicio prueba"],
           emp_Fec_fin_prueba: empleadoSeleccionado["Fecha fin prueba"],
           emp_TurnoId: empleadoSeleccionado["Turno"],
-          emp_AreaId: empleadoSeleccionado["Perfil"],
+          emp_AreaId: empleadoSeleccionado["Area"],
           emp_dni: empleadoSeleccionado["Dni"],
           emp_carrera: empleadoSeleccionado["Carrera"],
           emp_email: empleadoSeleccionado["Correo"],
           emp_telefono: empleadoSeleccionado["Telefono"],
           emp_link_cv: empleadoSeleccionado["Link CV"],
-          Emp_Id_Condicion_capacitacion_fk:
-            empleadoSeleccionado["Condicion Capacitación"],
+          ////
+          Emp_Perfiles_Id: empleadoSeleccionado["Perfil"],
+          Emp_Unidad_Id_fk: empleadoSeleccionado["Departamento"],
+          Emp_Marca_Id_fk: empleadoSeleccionado["Marca"],
+          ////
+          // Emp_Id_Condicion_capacitacion_fk:
+          //   empleadoSeleccionado["Condicion Capacitación"],
           emp_link_calificaciones: empleadoSeleccionado["Link Calificaciones"],
           Emp_Id_Convenio_fk: empleadoSeleccionado["Convenio"],
           emp_link_convenio: empleadoSeleccionado["Link Convenio"],
@@ -391,7 +399,26 @@ function TablaEmpleados() {
     //Cambio de else if a Switch
 
     let empleadoFormateado = { ...empleado };
+    //Formato de departamento
+    unidades.forEach((el, i) => {
+      if (empleadoFormateado.Departamento === el)
+        empleadoFormateado.Departamento = i + 1;
+    });
+    //Formato de Perfiles
 
+    perfiles.forEach((el, i) => {
+      if (empleadoFormateado.Perfil === el.perfil_nombre)
+        empleadoFormateado.Perfil = el.perfil_Id;
+    });
+    //Formato Marcas
+    marcas.forEach((el, i) => {
+      if (empleadoFormateado.Marca === el) empleadoFormateado.Marca = i + 1;
+    });
+    //Formato Areas
+    selectArea.forEach((el, i) => {
+      if (empleadoFormateado.Area === el) empleadoFormateado.Area = i + 1;
+    });
+    //Formato Turno
     switch (empleadoFormateado.Turno) {
       case "Mañana":
         empleadoFormateado.Turno = 1;
@@ -401,52 +428,6 @@ function TablaEmpleados() {
         break;
       case "Mañana y tarde":
         empleadoFormateado.Turno = 3;
-        break;
-    }
-
-    // Formateo de 'select' area
-    switch (empleadoFormateado.Perfil) {
-      case "Administracion":
-        empleadoFormateado.Perfil = 1;
-        break;
-      case "Relaciones Publicas":
-        empleadoFormateado.Perfil = 2;
-        break;
-      case "Comunity Manager Web":
-        empleadoFormateado.Perfil = 3;
-        break;
-      case "Talento Humano":
-        empleadoFormateado.Perfil = 4;
-        break;
-      case "Diseño Grafico":
-        empleadoFormateado.Perfil = 5;
-        break;
-      case "Ventas":
-        empleadoFormateado.Perfil = 6;
-        break;
-      case "Comunity Manager":
-        empleadoFormateado.Perfil = 7;
-        break;
-      case "Big Data":
-        empleadoFormateado.Perfil = 8;
-        break;
-      case "Diseño Web":
-        empleadoFormateado.Perfil = 9;
-        break;
-      case "Desarrollo Web":
-        empleadoFormateado.Perfil = 10;
-        break;
-      case "Soporte Tecnico":
-        empleadoFormateado.Perfil = 11;
-        break;
-      case "Atención Al Cliente Digital":
-        empleadoFormateado.Perfil = 12;
-        break;
-      case "Administracion Scrum":
-        empleadoFormateado.Perfil = 13;
-        break;
-      case "Arquitectura":
-        empleadoFormateado.Perfil = 14;
         break;
     }
 
@@ -580,16 +561,19 @@ function TablaEmpleados() {
       emp_fec_inicio_prueba: form.FechaInicioPrueba.value,
       emp_Fec_fin_prueba: form.FechaFinPrueba.value,
       emp_TurnoId: form.Turno.value,
-      emp_AreaId: form.Area.value,
+
+      //
       Emp_Perfiles_Id: form.perfil.value,
       Emp_Unidad_Id_fk: form.Unidad.value,
       Emp_Marca_Id_fk: form.Marca.value,
+      emp_AreaId: form.Area.value,
+      //
       emp_dni: form.Dni.value,
       emp_carrera: form.Carrera.value,
       emp_email: form.Email.value,
       emp_telefono: form.Telefono.value,
       emp_link_cv: form.Cv.value,
-      Emp_Id_Condicion_capacitacion_fk: form.Capacitacion.value,
+      // Emp_Id_Condicion_capacitacion_fk: form.Capacitacion.value,
       emp_link_calificaciones: form.Calificaciones.value,
       Emp_Id_Convenio_fk: form.Convenio.value,
       emp_link_convenio: form.ConvenioUrl.value,
@@ -706,18 +690,19 @@ function TablaEmpleados() {
             </FormControl>
             <Error errors={errorUpdate["emp_TurnoId"]}></Error>
             <br />
-
             <FormControl fullWidth>
-              <InputLabel id="area">Area</InputLabel>
+              <InputLabel id="Unidad">Departamento</InputLabel>
               <Select
-                labelId="area"
-                id="area"
-                name="Perfil"
-                label="Area"
+                labelId="Unidad"
+                id="Unidad"
+                label="Unidad"
+                name="Departamento"
                 onChange={handleChangeEdit}
-                value={empleadoSeleccionado && empleadoSeleccionado["Perfil"]}
+                value={
+                  empleadoSeleccionado && empleadoSeleccionado["Departamento"]
+                }
               >
-                {selectArea.map((option, i) => {
+                {unidades.map((option, i) => {
                   return (
                     <MenuItem key={i + 1} value={i + 1}>
                       {option}
@@ -726,9 +711,79 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
+            <Error errors={error["Emp_Unidad_Id_fk"]}></Error>
+            <br />
+            <FormControl fullWidth>
+              <InputLabel id="perfil">Marca</InputLabel>
+              <Select
+                labelId="Marca"
+                id="Marca"
+                label="Marca"
+                name="Marca"
+                onChange={handleChangeEdit}
+                value={empleadoSeleccionado && empleadoSeleccionado["Marca"]}
+              >
+                {marcas.map((option, i) => {
+                  return (
+                    <MenuItem key={i + 1} value={i + 1}>
+                      {option}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <Error errors={error["Emp_Marca_Id_fk"]}></Error>
+            <br />
+            <FormControl fullWidth>
+              <InputLabel id="perfil">Perfil</InputLabel>
+              <Select
+                labelId="perfil"
+                className="flex-1"
+                value={empleadoSeleccionado && empleadoSeleccionado["Perfil"]}
+                onChange={handleChangeEdit}
+                // onChange={handleChange}
+                // value={perfil}
+                id="perfil"
+                name="Perfil"
+                label="perfil"
+              >
+                {perfiles.map((option, i) => {
+                  return (
+                    <MenuItem key={i} value={option.perfil_Id}>
+                      {option.perfil_nombre}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <Error errors={error["Emp_Perfiles_Id"]}></Error>
+            <br />
+            <FormControl fullWidth>
+              <InputLabel id="area">Area</InputLabel>
+              <Select
+                labelId="area"
+                className="flex-1"
+                // onChange={handleChange}
+                // value={perfil}
+                id="area"
+                name="Emp_Area_Id"
+                label="Area"
+                onChange={handleChangeEdit}
+                value={empleadoSeleccionado && empleadoSeleccionado["Area"]}
+              >
+                {areasEmp.map((option, i) => {
+                  return (
+                    <MenuItem key={i} value={option.Area_Id}>
+                      {option.Area_Nombre}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <Error errors={errorUpdate["emp_AreaId"]}></Error>
             <br />
-
+          </div>
+          <div className="mx-3 w-90 md:w-40">
             <TextField
               className={styles.inputMaterial}
               label="DNI"
@@ -748,8 +803,6 @@ function TablaEmpleados() {
             />
             <Error errors={errorUpdate["emp_carrera"]}></Error>
             <br />
-          </div>
-          <div className="mx-3 w-90 md:w-40">
             <TextField
               type="email"
               className={styles.inputMaterial}
@@ -783,7 +836,7 @@ function TablaEmpleados() {
             <Error errors={errorUpdate["emp_link_cv"]}></Error>
             <br />
 
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel id="capacitacion">
                 Condicion de capacitación
               </InputLabel>
@@ -806,7 +859,7 @@ function TablaEmpleados() {
             <Error
               errors={errorUpdate["Emp_Id_Condicion_capacitacion_fk"]}
             ></Error>
-            <br />
+            <br /> */}
 
             <TextField
               type="url"
@@ -951,7 +1004,6 @@ function TablaEmpleados() {
             />
             <Error errors={error["emp_Fec_fin_prueba"]}></Error>
             <br />
-
             <FormControl fullWidth>
               <InputLabel id="turno">Turno</InputLabel>
               <Select labelId="turno" id="turno" label="Turno" name="Turno">
@@ -963,11 +1015,40 @@ function TablaEmpleados() {
             <Error errors={error["emp_TurnoId"]}></Error>
             <br />
             <FormControl fullWidth>
+              <InputLabel id="Unidad">Departamento</InputLabel>
+              <Select labelId="Unidad" id="Unidad" label="Unidad" name="Unidad">
+                {unidades.map((option, i) => {
+                  return (
+                    <MenuItem key={i + 1} value={i + 1}>
+                      {option}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <Error errors={error["Emp_Unidad_Id_fk"]}></Error>
+            <br />
+            <FormControl fullWidth>
+              <InputLabel id="perfil">Marca</InputLabel>
+              <Select labelId="Marca" id="Marca" label="Marca" name="Marca">
+                {marcas.map((option, i) => {
+                  return (
+                    <MenuItem key={i + 1} value={i + 1}>
+                      {option}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <Error errors={error["Emp_Marca_Id_fk"]}></Error>
+            <br />
+            <FormControl fullWidth>
               <InputLabel id="perfil">Perfil</InputLabel>
               <Select
+                labelId="perfil"
                 className="flex-1"
-                onChange={handleChange}
-                value={perfil}
+                // onChange={handleChange}
+                // value={perfil}
                 id="perfil"
                 name="perfil"
                 label="perfil"
@@ -981,31 +1062,31 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            {/* <Error errors={error["emp_PerfilId"]}></Error> */}
+            <Error errors={error["Emp_Perfiles_Id"]}></Error>
             <br />
             <FormControl fullWidth>
-              <div className="flex-1 mt-2 flex items-center">
-                <label id="area">Area</label>
-              </div>
-              <TextField
-                className={styles.inputMaterial}
-                disabled
-                name="Area"
-                value={area}
-              />
-              {/* <Select labelId="area" id="area" label="Area" name="Area">
-                {selectArea.map((option, i) => {
+              <InputLabel id="area">Area</InputLabel>
+              <Select
+                labelId="area"
+                className="flex-1"
+                // onChange={handleChange}
+                // value={perfil}
+                id="area"
+                name="Emp_Area_Id"
+                label="Area"
+              >
+                {areasEmp.map((option, i) => {
                   return (
-                    <MenuItem key={i + 1} value={i + 1}>
-                      {option}
+                    <MenuItem key={i} value={option.Area_Id}>
+                      {option.Area_Nombre}
                     </MenuItem>
                   );
                 })}
-              </Select> */}
+              </Select>
             </FormControl>
-            {/* <Error errors={error["emp_AreaId"]}></Error> */}
+            <Error errors={error["emp_AreaId"]}></Error>
             <br />
-            <br />
+            {/* <br />
             <FormControl fullWidth>
               <div className="flex-1 mt-2 flex items-center">
                 <label id="subArea">SubArea</label>
@@ -1017,8 +1098,34 @@ function TablaEmpleados() {
                 value={subarea}
               />
             </FormControl>
-            {/* <Error errors={error["emp_AreaId"]}></Error> */}
-            <br />
+            <Error errors={error["emp_AreaId"]}></Error> 
+            <br /> */}
+            {/*************SubArea************/}
+            {/* <FormControl fullWidth>
+              <InputLabel id="subArea">SubArea</InputLabel>
+              <Select
+                labelId="subArea"
+                className="flex-1"
+                // onChange={handleChange}
+                // value={perfil}
+                id="subArea"
+                name="SubArea"
+                label="SubArea"
+              >
+                {areasEmp.map((option, i) => {
+                  return (
+                    <MenuItem key={i} value={option.Area_Id}>
+                      {option.Area_Nombre}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <Error errors={error["emp_AreaId"]}></Error>
+            <br /> */}
+          </div>
+
+          <div className="mx-3 w-90 md:w-40">
             <TextField
               className={styles.inputMaterial}
               label="DNI"
@@ -1034,9 +1141,6 @@ function TablaEmpleados() {
             />
             <Error errors={error["emp_carrera"]}></Error>
             <br />
-          </div>
-
-          <div className="mx-3 w-90 md:w-40">
             <TextField
               type="email"
               className={styles.inputMaterial}
@@ -1045,7 +1149,6 @@ function TablaEmpleados() {
             />
             <Error errors={error["emp_email"]}></Error>
             <br />
-
             <TextField
               type="tel"
               className={styles.inputMaterial}
@@ -1054,34 +1157,6 @@ function TablaEmpleados() {
             />
             <Error errors={error["emp_telefono"]}></Error>
             <br />
-            <FormControl fullWidth>
-              <InputLabel id="Unidad">Departamento</InputLabel>
-              <Select labelId="Unidad" id="Unidad" label="Unidad" name="Unidad">
-                {unidades.map((option, i) => {
-                  return (
-                    <MenuItem key={i + 1} value={i + 1}>
-                      {option}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-            {/* <Error errors={error["emp_PerfilId"]}></Error> */}
-            <br />
-            <FormControl fullWidth>
-              <InputLabel id="perfil">Marca</InputLabel>
-              <Select labelId="Marca" id="Marca" label="Marca" name="Marca">
-                {marcas.map((option, i) => {
-                  return (
-                    <MenuItem key={i + 1} value={i + 1}>
-                      {option}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-            {/* <Error errors={error["emp_PerfilId"]}></Error> */}
-            <br />
             <TextField
               type="url"
               className={styles.inputMaterial}
@@ -1089,8 +1164,7 @@ function TablaEmpleados() {
               name="Cv"
             />
             <Error errors={error["emp_link_cv"]}></Error>
-            <br />
-
+            {/* <br />
             <FormControl fullWidth>
               <InputLabel id="capacitacion">
                 Condicion de capacitación
@@ -1106,9 +1180,8 @@ function TablaEmpleados() {
                 <MenuItem value={3}>En proceso</MenuItem>
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Id_Condicion_capacitacion_fk"]}></Error>
+            <Error errors={error["Emp_Id_Condicion_capacitacion_fk"]}></Error> */}
             <br />
-
             <TextField
               type="url"
               className={styles.inputMaterial}
@@ -1199,7 +1272,10 @@ function TablaEmpleados() {
           <div className="flex justify-center align-center ">
             <div className="shadow-sm rounded-2xl mb-2 border-black">
               <Button onClick={() => abrircerrarModalInsertar()}>
-                <img src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png" />
+                <img
+                  src="https://img.icons8.com/ios-glyphs/30/000000/add--v1.png"
+                  alt=""
+                />
                 Insertar Empleado
               </Button>
             </div>
@@ -1298,8 +1374,9 @@ function TablaEmpleados() {
                 {
                   icon: "edit",
                   tooltip: "Editar Empleado",
-                  onClick: (event, rowData) =>
-                    seleccionarEmpleado(rowData, "Editar"),
+                  onClick: (event, rowData) => {
+                    seleccionarEmpleado(rowData, "Editar");
+                  },
                 },
                 //   {
                 //     icon: 'refresh',
