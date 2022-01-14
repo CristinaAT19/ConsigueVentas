@@ -24,9 +24,9 @@ const HomeContenido = ({ imagen, subTitulo , opcionSistema }) => {
         if( process.env.REACT_APP_ENV == "local"){
           console.log("Local");
           // console.log(`http://localhost:${process.env.REACT_APP_PORT_LOCAL}/#/getToken/${getToken()}`);
-          // return <Redirect to="/dashadmin/dashboard"/>
+          return <Redirect to="/dashadmin/dashboard"/>
  
-          return window.location.href=`http://localhost:${process.env.REACT_APP_PORT_LOCAL}/#/getToken/${getToken()}`;
+          // return window.location.href=`http://localhost:${process.env.REACT_APP_PORT_LOCAL}/#/getToken/${getToken()}`;
         }else{
           return <Redirect to="/dashadmin/dashboard"/> 
           // console.log("Falta URL de produccion");
