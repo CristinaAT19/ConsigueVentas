@@ -340,7 +340,7 @@ function TablaEmpleados() {
           emp_fec_inicio_prueba: empleadoSeleccionado["Fecha inicio prueba"],
           emp_Fec_fin_prueba: empleadoSeleccionado["Fecha fin prueba"],
           emp_TurnoId: empleadoSeleccionado["Turno"],
-          emp_AreaId: empleadoSeleccionado["Area"],
+          Emp_Area_Id: empleadoSeleccionado["Area"],
           emp_dni: empleadoSeleccionado["Dni"],
           emp_carrera: empleadoSeleccionado["Carrera"],
           emp_email: empleadoSeleccionado["Correo"],
@@ -558,22 +558,19 @@ function TablaEmpleados() {
     const nuevoEmpleado = {
       emp_nombre: form.Nombres.value,
       emp_apellido: form.Apellidos.value,
+      // emp_fechabaja,
       emp_fec_inicio_prueba: form.FechaInicioPrueba.value,
       emp_Fec_fin_prueba: form.FechaFinPrueba.value,
       emp_TurnoId: form.Turno.value,
-
-      //
       Emp_Perfiles_Id: form.perfil.value,
+      Emp_Area_Id: form.Area.value,
       Emp_Unidad_Id_fk: form.Unidad.value,
       Emp_Marca_Id_fk: form.Marca.value,
-      emp_AreaId: form.Area.value,
-      //
       emp_dni: form.Dni.value,
       emp_carrera: form.Carrera.value,
       emp_email: form.Email.value,
       emp_telefono: form.Telefono.value,
       emp_link_cv: form.Cv.value,
-      // Emp_Id_Condicion_capacitacion_fk: form.Capacitacion.value,
       emp_link_calificaciones: form.Calificaciones.value,
       Emp_Id_Convenio_fk: form.Convenio.value,
       emp_link_convenio: form.ConvenioUrl.value,
@@ -766,7 +763,7 @@ function TablaEmpleados() {
                 // onChange={handleChange}
                 // value={perfil}
                 id="area"
-                name="Emp_Area_Id"
+                name="Area"
                 label="Area"
                 onChange={handleChangeEdit}
                 value={empleadoSeleccionado && empleadoSeleccionado["Area"]}
@@ -1072,7 +1069,7 @@ function TablaEmpleados() {
                 // onChange={handleChange}
                 // value={perfil}
                 id="area"
-                name="Emp_Area_Id"
+                name="Area"
                 label="Area"
               >
                 {areasEmp.map((option, i) => {
