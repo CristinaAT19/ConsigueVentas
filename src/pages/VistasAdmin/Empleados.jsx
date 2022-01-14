@@ -6,8 +6,10 @@ import CalendarioEmpleadosMovil from "../../components/CalendarioEmpleadosMovil"
 import TablaAdmin from "../../components/TablaAdmin";
 import TablaEmpleados from "../../components/TablaEmpleados";
 import TablaFaltas from "../../components/TablaFaltas";
+import TablaFeriados from "../../components/TablaFeriados";
+import ReporteAsistencia from "../../components/ReporteAsistencia";
 import App from "../../App";
-
+import TipoUsuario from "../../components/TipoUsuario";
 
 // export const Reports = () => {
 //   return (
@@ -16,14 +18,16 @@ import App from "../../App";
 //     </div>
 //   );
 // };
-
 export const administracionEmpleados = () => {
   return (
     <>
-      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
-        <h1 className="border-b-2 text-3xl">Administracion de Empleados</h1>
-        <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
-          <TablaEmpleados/>
+      <div className="bg-white rounded-t-3xl " style={{ margin: "1rem 1rem" }}>
+        <h1 className="border-b-2 text-3xl text-center ">
+          Administracion de Empleados
+        </h1>
+
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <TablaEmpleados />
         </div>
       </div>
     </>
@@ -34,17 +38,17 @@ export const restablecimientoContraseña = () => {
   return (
     <>
       <div className="w-4/5 mx-auto mt-14">
-        <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
-          <h2 className="py-4">Administración de Usuarios</h2>
+        <div className=" bg-gray-700 text-2xl font-bold uppercase text-center">
+          <h2 className="py-4" style={{ color: "white" }}>
+            Restablecimiento de contraseña
+          </h2>
         </div>
-        <section className="rounded-b-2xl shadow-md bg-white">
+        <section className="rounded-b-2xl shadow-md bg-white p-2">
           <AdminUsuario
-            titulo="Sección para reseteo y cambio de tipo de usuario"
+            titulo="Sección para reseteo"
             descripcion1="- Puedes resetear el ingreso al sistema ingresando el Nº de DNI del empleado (La contraseña que quedará por defecto es el DNI)."
-            descripcion2="- Si marcas el check puedes cambiar el tipo de usuario del empleado (Administrador / Usuario)."
-            descripcion3="- Si das click al signo de interrogación (?), puedes saber el tipo de usuario actual del empleado."
             texto="DNI del empleado"
-            texto2="Solo resetear contraseña"
+            tipoUsuario={false}
           />
         </section>
       </div>
@@ -54,47 +58,94 @@ export const restablecimientoContraseña = () => {
 
 export const tablaFaltas = () => {
   return (
-    <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
+    <div>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
         <h1 className="border-b-2 text-3xl">Administración de faltas</h1>
-        <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
-        <TablaFaltas />
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <TablaFaltas />
         </div>
       </div>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl">Administrar Dias Feriados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <TablaFeriados />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const reporteAsistencia = () => {
+  return (
+    <div
+      className="bg-white rounded-t-3xl text-center"
+      style={{ margin: "1rem 1rem" }}
+    >
+      <h1 className="border-b-2 text-3xl">Reporte Asistencia</h1>
+      <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+        <ReporteAsistencia />
+      </div>
+    </div>
   );
 };
 
 export const calendarioEmpleados = () => {
-  if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+  if (
+    !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
     return (
-      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
-      <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
-      <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
-      <CalendarioEmpleados/>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <CalendarioEmpleados />
+        </div>
       </div>
-    </div>
     );
-  }else{
+  } else {
     return (
-      <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
-      <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
-      <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
-      <CalendarioEmpleadosMovil/>
+      <div
+        className="bg-white rounded-t-3xl text-center"
+        style={{ margin: "1rem 1rem" }}
+      >
+        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+          <CalendarioEmpleadosMovil />
+        </div>
       </div>
-    </div>
     );
   }
-  
 };
 
 export const listaAdministradores = () => {
   return (
-  <div className="bg-white rounded-t-3xl text-center" style={{margin: '1rem 1rem'}}>
-    <h1 className="border-b-2 text-3xl"> Administracion de Usuarios</h1>
-    <div className="my-0 mx-auto py-4" style={{ width: '97%'}}>
-    <TablaAdmin />
+    <div
+      className="bg-white rounded-t-3xl text-center"
+      style={{ margin: "1rem 1rem" }}
+    >
+      <h1 className="border-b-2 text-3xl"> Administracion de Usuarios</h1>
+      <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
+        <div className="p-2">
+          <AdminUsuario
+            titulo="Cambio de tipo de usuario"
+            descripcion1="- Puedes cambiar el tipo de usuario ingresando el Nº de DNI del empleado."
+            descripcion2="- Puedes cambiar el tipo de usuario del empleado (Administrador / Usuario)."
+            descripcion3="- Si das click al signo de interrogación (?), puedes saber el tipo de usuario actual del empleado."
+            texto="DNI del empleado"
+            tipoUsuario={true}
+          />
+        </div>
+      </div>
     </div>
-  </div>
-
-
   );
 };

@@ -19,7 +19,7 @@ const TablaDatosPer = () => {
   <section clasName="">
     <div className="w-4/5 mx-auto mt-14">
       <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
-        <h2 className="py-4">Datos Personales</h2>
+        <h2 className="py-4" style={{ color: "white"}}>Datos Personales</h2>
       </div>
       <div className="py-4 rounded-b-2xl shadow-md bg-white">            
             <div className="flex flex-wrap justify-center">
@@ -58,7 +58,7 @@ const TablaDatosPer = () => {
               <div className="px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-xs font-bold mb-2">
-                    Unidad
+                    Departamento
                   </label>
                   <input type="text" disabled className="border px-3 py-3 bg-gray-50  rounded text-sm shadow-md" value={user['unidad']}/>
                 </div>

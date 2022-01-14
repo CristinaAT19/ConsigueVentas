@@ -6,6 +6,7 @@ import { UserContext } from "../../components/context/UserContext";
 export const CalendarioAsistencia = () => {
 
   const { user } = useContext(UserContext);
+
   if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
     return (
       <>
@@ -36,8 +37,6 @@ export const CalendarioAsistencia = () => {
       </>
     );
   }
-  
-  
 };
 
 export const datosPersonales = () => {

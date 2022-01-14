@@ -22,15 +22,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const [sidebarExpanded, setSidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
   );
-  const [expand, setExpand] = useState(
-    // localStorage.getItem("sidebar-expanded") ? true : false
-    // storedSidebarExpanded === null ? false : true
-    false
-  );
+  const [expand, setExpand] = useState(false);
 
   const expandir = () => {
     setExpand(!expand);
-
   };
 
   useEffect(() => {
@@ -40,7 +35,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
     });
     if (media) setExpand(true);
 
-  })
+  }, [media, mql])
   const handleExpanded = () => {
     setSidebarExpanded(!sidebarExpanded);
     expandir();
@@ -316,6 +311,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                     onClick={() => setSidebarOpen(!sidebarOpen)}
                                     className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                     Lista Administradores
+                                  </span>
+                                </NavLink>
+                              </li>
+                            ) : null
+                            }
+                            <hr className="w-10/12 h-1 bg-yellow-600"></hr>
+                            {user['id_TipoUsuario'] == 1 ? (
+
+                              <li className="mb-1 last:mb-0">
+                                <NavLink
+                                  exact
+                                  to="/reporteAsistencia"
+                                  className="block text-gray-50 hover:text-gray-600 transition duration-150 truncate"
+                                >
+                                  <span
+                                    onClick={() => setSidebarOpen(!sidebarOpen)}
+                                    className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                    Reporte Asistencia
                                   </span>
                                 </NavLink>
                               </li>

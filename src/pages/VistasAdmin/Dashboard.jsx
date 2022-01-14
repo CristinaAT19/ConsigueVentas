@@ -126,8 +126,10 @@ const Dashboard = () => {
             <TablaDia />
 
           </div>
+
         </div>
         ) : null}
+
 
 
       {user["id_TipoUsuario"] == 1 ? (
@@ -139,8 +141,10 @@ const Dashboard = () => {
             <TablaSin />
 
           </div>
+
           </div>
         ) : null}
+
     </>
   );
 };

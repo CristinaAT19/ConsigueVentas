@@ -20,16 +20,8 @@ const AsistenciaTarde = () => {
     const [sin_marcarT, setSin_marT] = useState([]);
     const [v_sin_marcarT, setV_sin_marT] = useState([]);
 
-    const [loading, setLoading] = useState(false);
-
-    const cambiarEstado=()=>{
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-
-
+    const [loading, setLoading] = useState(true);
+    
     const dataTarde = {
         labels: [puntualidadT, tardanzaT, faltas_inT, faltas_jusT, sin_marcarT],
         datasets: [{
@@ -59,6 +51,7 @@ const AsistenciaTarde = () => {
                 }
             })
             .then(response => {
+                setLoading(false);
                 setPuntualidadT(response.data.puntualidad);
                 setV_PuntualidadT(response.data.v_puntualidad);
                 setTardanzaT(response.data.tardanza);
@@ -85,11 +78,10 @@ const AsistenciaTarde = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaTarde();
-        cambiarEstado();
     }, [])
 
     if (loading) {
-        return (<Loading />)
+        return <div className="flex justify-center align-center"><Loading /></div>
     }else{
         return (< Doughnut data={dataTarde} options={opciones} />);
     }

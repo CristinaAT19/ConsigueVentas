@@ -1,15 +1,13 @@
 //import Reat, { useState, useContext } from "react";
-import { distSetAutentication,distSetUser } from "../dist/Autentication";
+import { distSetAutentication, distSetUser } from "../dist/Autentication";
 import axios from "axios";
 import { getToken, removeToken } from "../dist/Token";
-import CerrarSesion from "./CerrarSesion";
-import { useState } from "react";
-// import { UserContext } from "./context/UserContext";
+//import { UserContext } from "./context/UserContext";
 
- const ControlInactividad = () => {
-    //const { user } = useContext(UserContext);
+const ControlInactividad = () => {
+  //const { user } = useContext(UserContext);
   //const [dni, setDni] = useState(user['dni']);
-  let msjToken='';
+  let msjToken = "";
   //let token=getToken();
   let token=getToken()==null ? '0000|dwzawdwdawad':getToken();
   let idToken=token.split('|')[0];
@@ -21,20 +19,18 @@ import { useState } from "react";
       }).catch((e) => {
         msjToken='Error';
       });
-      //////////////
-      if(idToken==msjToken){
-        // return true;
-     } else {
-       removeToken();
-       distSetAutentication(false); 
-      //  return false;
+    //////////////
+    if (idToken == msjToken) {
+      // return true;
+    } else {
+      removeToken();
+      distSetAutentication(false);
       // <Redirect to='/login'/>;
       let route = window.location;
-      route['hash'] = '#/cerrarSesion';      
-      // window.location = '/#/cerrarSesion';  
+      route['hash'] = '#/cerrarSesion';   
     }
-      ///////////////
-  }
+    ///////////////
+  };
   peticionVerificacionToken();
 };
 

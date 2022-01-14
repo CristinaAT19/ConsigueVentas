@@ -6,7 +6,7 @@ const Error = ({errors}) => {
         {
             errors === undefined 
             ? null
-            : <p style={{ color:"red" }} >{errors}</p>             
+            : <label style={{ color:"red" }} >{errors}</label>             
 
         }
         </div>
