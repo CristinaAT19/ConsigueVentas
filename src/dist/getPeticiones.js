@@ -65,3 +65,21 @@ export const getPeticionMarcas = async (setMarcas, setLoading) => {
     })
     .catch((e) => { });
 };
+//Peticion data para Areas con su id
+export const getPeticionAreasEmpleado = async (setAreas, setLoading, setAreasTabla) => {
+  await axios
+    .get(`${process.env.REACT_APP_API_URL}/api/areasEmpleados`, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
+    .then((Response) => {
+      setAreas(Response.data.Areas);
+      setLoading(false);
+      setAreasTabla(Response.data.Areas.reduce(function (acc, cur, i) {
+        acc[cur.Area_Id] = cur.Area_Nombre;
+        return acc;
+      }, {}));
+    })
+    .catch((e) => { });
+};
