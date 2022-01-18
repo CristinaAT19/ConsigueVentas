@@ -1296,7 +1296,7 @@ function TablaEmpleados() {
                 },
                 { title: "Turno", field: "Turno", lookup: turnos },
                 { title: "Perfil", field: "Perfil", lookup: resultPerfil2 },
-                { title: "SubArea", field: "SubArea", lookup: resultSubarea2 },
+              //  { title: "SubArea", field: "SubArea", lookup: resultSubarea2 },
                 { title: "Area", field: "Area", lookup: resultArea2 },
                 {
                   title: "Departamento",
