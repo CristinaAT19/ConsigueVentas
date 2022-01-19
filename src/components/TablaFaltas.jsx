@@ -227,7 +227,11 @@ function TablaFaltas() {
   );
   // const tableRef = React.createRef();
   if (loading) {
-    return <div className="flex justify-center align-center"><Loading /></div>
+    return (
+      <div className="flex justify-center align-center">
+        <Loading />
+      </div>
+    );
   } else {
     return (
       <div>
@@ -252,19 +256,19 @@ function TablaFaltas() {
               filtering: false,
             },
             {
-              title: "Dni",
+              title: "DNI",
               field: "Dni",
               sortable: true,
               filtering: false,
             },
             {
-              title: "Perfil",
-              field: "Perfil",
+              title: "Area",
+              field: "Area",
               sortable: true,
               lookup: resultArea2,
             },
             {
-              title: "Unidad",
+              title: "Departamento",
               field: "Unidad",
               sortable: true,
               lookup: resultUnidad2,
