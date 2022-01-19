@@ -42,7 +42,7 @@ const CalendarioEmpleados = () => {
   const peticionDatosCalendario = async () => {
     if (isNaN(dniCalendario)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       setValor([]);
@@ -53,7 +53,7 @@ const CalendarioEmpleados = () => {
     }
     if (dniCalendario.length == 0) {
       const error = {
-        dni: "El dni es requerido",
+        dni: "El DNI es requerido",
       };
       setError(error);
       setValor([]);
@@ -64,7 +64,7 @@ const CalendarioEmpleados = () => {
     }
     if (dniCalendario.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       setValor([]);
@@ -96,7 +96,7 @@ const CalendarioEmpleados = () => {
             setNombreEmpleado('');
             setTurnoEmpleado('');*/
           const errorDni = {
-            dni: "El dni ingresado no se encuentra en la base de datos. Corregir",
+            dni: "El DNI ingresado no se encuentra en la base de datos. Corregir",
           };
           setError(errorDni);
           setDniEmpleado("");
@@ -122,7 +122,7 @@ const CalendarioEmpleados = () => {
               setValor([]);
             });
 
-          setDniEmpleado("Dni: " + Response.data.dni);
+          setDniEmpleado("DNI: " + Response.data.dni);
           setNombreEmpleado(
             "Nombre: " + Response.data.nombre + " " + Response.data.apellido
           );
@@ -149,7 +149,7 @@ const CalendarioEmpleados = () => {
           onInput={onInputDni}
           onChange={onChangeDni}
           ref={campo}
-          placeholder="Dni de empleado"
+          placeholder="DNI del empleado"
           className="border-2 border-black-500 h-8 "
           style={{ borderRadius: "0.5rem 0 0 0.5rem" }}
           name="dni_calendario"

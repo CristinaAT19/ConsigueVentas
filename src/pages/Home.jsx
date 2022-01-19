@@ -22,14 +22,14 @@ const Home = () => {
               className="font-medium no-underline hover:no-underline hover:text-naranja text-negro text-xl"
               to="dashadmin/cerrarSesion"
             >
-              Cerrar Sesión
+              Cerrar sesión
             </Link>
           </div>
         </div>
 
         <div className="contenido flex flex-col justify-center items-center w-full">
           <h1 className="title py-20 text-4xl font-semibold">
-            ¿A DONDE QUIERES IR?
+            ¿A DÓNDE QUIERES IR?
           </h1>
           <div className="items flex justify-around items-center w-8/12">
             <HomeContenido

@@ -18,9 +18,9 @@ const TablaDatosPer = () => {
 {user["id_TipoUsuario"] == 2 || user["id_TipoUsuario"] == 1 ? (
   <section clasName="">
     <div className="w-4/5 mx-auto mt-14">
-      <div className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center">
-        <h2 className="py-4" style={{ color: "white"}}>Datos Personales</h2>
-      </div>
+      <h2 className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center py-4">
+        Datos personales
+      </h2>
       <div className="py-4 rounded-b-2xl shadow-md bg-white">            
             <div className="flex flex-wrap justify-center">
               <div className="px-4">

@@ -43,7 +43,7 @@ const CalendarioEmpleadosMovil = () => {
   const peticionDatosCalendario = async () => {
     if(isNaN(dniCalendario)){
         const error = {
-            "dni": "El dni debe ser un dato numerico",
+            "dni": "El DNI debe ser un dato numerico",
         };
         setError(error);  
         setValor([]); 
@@ -55,7 +55,7 @@ const CalendarioEmpleadosMovil = () => {
   
        if(dniCalendario.length !== 8){
         const error = {
-            "dni": "El dni debe tener 8 numeros",
+            "dni": "El DNI debe tener 8 números",
         };
         setError(error);
         setValor([]); 
@@ -82,7 +82,7 @@ const CalendarioEmpleadosMovil = () => {
             setNombreEmpleado('');
             setTurnoEmpleado('');*/
             const errorDni = {
-              "dni": "El dni ingresado no se encuentra en la base de datos. Corregir",
+              "dni": "El DNI ingresado no se encuentra en la base de datos. Corregir",
             };
             setError(errorDni);
             setDniEmpleado('');
@@ -120,7 +120,7 @@ const CalendarioEmpleadosMovil = () => {
     return (
         <div>
           <div className="flex justify-center items-center">
-              <input onChange={onChangeDni} ref={campo} type="number" placeholder="Dni de empleado"  className="border-2 border-black-500 h-8" style={{borderRadius:"0.5rem 0 0 0.5rem", width: "10rem"}} name="dni_calendario" id="dni_calendario" />
+              <input onChange={onChangeDni} ref={campo} type="number" placeholder="DNI del empleado"  className="border-2 border-black-500 h-8" style={{borderRadius:"0.5rem 0 0 0.5rem", width: "10rem"}} name="dni_calendario" id="dni_calendario" />
               <button  onClick={peticionDatosCalendario} className="flex items-center justify-center   bg-yellow-500  border-solid border-2 border-black h-8" style={{borderRadius:"0 0.5rem 0.5rem 0",width: "5rem"}}>
                   Mostrar
               </button> 

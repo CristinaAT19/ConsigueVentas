@@ -373,9 +373,9 @@ function TablaFeriados() {
       <div>
         <form onSubmit={manejadorInsertar}>
           <div className="my-4">
-            <p>En esta seccion puede insertar los dias feriados.</p>
+            <p>En esta sección puede insertar los días feriados.</p>
             {sucess ? (
-              <p className="text-green-500">Feriado insertado con exito</p>
+              <p className="text-green-500">Feriado insertado con éxito</p>
             ) : null}
             <TextField
               InputLabelProps={{ shrink: true, required: true }}
@@ -387,7 +387,7 @@ function TablaFeriados() {
             <Error errors={error["fecha_feriado"]}></Error>
             <TextField
               className={styles.inputMaterial}
-              label="Dia Festivo"
+              label="Día Festivo"
               name="DiaFestivo"
             />
             <Error errors={error["dia_feriado"]}></Error>
@@ -421,7 +421,7 @@ function TablaFeriados() {
         <MaterialTable
           columns={[
             {
-              title: "Dia Festivo",
+              title: "Día Festivo",
               field: "fer_detalleCalendario",
               sortable: true,
               filtering: false,
@@ -443,7 +443,7 @@ function TablaFeriados() {
             },
           ]}
           data={data}
-          title="Tabla de dias feriados"
+          title="Tabla de días feriados"
           // tableRef={tableRef}
           actions={[
             {

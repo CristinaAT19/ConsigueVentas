@@ -94,7 +94,7 @@ function UserMenu() {
                 to="/cerrarSesion"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Cerrar Sesión
+                Cerrar sesión
               </Link>
             </li>
           </ul>
