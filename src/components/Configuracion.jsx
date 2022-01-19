@@ -49,7 +49,7 @@ const Configuracion = () => {
             return true;
         }
         if (newPassword != confirPassword) {
-            setPasswordError('La nueva contraseña y confirmar contraseña no coinciden!');
+            setPasswordError('¡La nueva contraseña y confirmar contraseña no coinciden!');
             return true;
         }
         axios.post(`${process.env.REACT_APP_API_URL}/api/cambiarPassword`, bodyParameters, config)

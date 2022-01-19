@@ -283,7 +283,7 @@ function TablaEmpleados() {
     // Validacion inicio prueba, fin prueba
     if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        emp_Fec_fin_prueba: "La diferencia de dias tiene que ser mayor a 2",
+        emp_Fec_fin_prueba: "La diferencia de días tiene que ser mayor a 2",
       };
       setErrorUpdate(errorVal);
       setLoading(false);
@@ -303,7 +303,7 @@ function TablaEmpleados() {
     // Validacion numerico
     if (validationOnlyNumbers(form["Dni"].value) === false) {
       const errorVal = {
-        emp_dni: "Solo se permiten numeros",
+        emp_dni: "Solo se permiten números",
       };
       setLoading(false);
       setErrorUpdate(errorVal);
@@ -312,7 +312,7 @@ function TablaEmpleados() {
 
     if (validationOnlyNumbers(form["Telefono"].value) === false) {
       const errorVal = {
-        emp_telefono: "Solo se permiten numeros",
+        emp_telefono: "Solo se permiten números",
       };
       setLoading(false);
       setErrorUpdate(errorVal);
@@ -321,7 +321,7 @@ function TablaEmpleados() {
 
     if (validationOnlyNumbers(form["Días extra"].value) === false) {
       const errorVal = {
-        emp_dias_extra: "Solo se permiten numeros",
+        emp_dias_extra: "Solo se permiten números",
       };
       setLoading(false);
       setErrorUpdate(errorVal);
@@ -508,7 +508,7 @@ function TablaEmpleados() {
     // Validacion inicio prueba, fin prueba
     if (diffDiasPrueba < 2 || isNaN(diffDiasPrueba)) {
       const errorVal = {
-        emp_Fec_fin_prueba: "La diferencia de dias tiene que ser mayor a 2",
+        emp_Fec_fin_prueba: "La diferencia de días tiene que ser mayor a 2",
       };
       setError(errorVal);
       setLoading(false);
@@ -528,7 +528,7 @@ function TablaEmpleados() {
     // Validacion numerico
     if (validationOnlyNumbers(form.Dni.value) === false) {
       const errorVal = {
-        emp_dni: "Solo se permiten numeros.",
+        emp_dni: "Solo se permiten números.",
       };
       setLoading(false);
       setError(errorVal);
@@ -537,7 +537,7 @@ function TablaEmpleados() {
 
     if (validationOnlyNumbers(form.Telefono.value) === false) {
       const errorVal = {
-        emp_telefono: "Solo se permiten numeros.",
+        emp_telefono: "Solo se permiten números.",
       };
       setLoading(false);
       setError(errorVal);
@@ -756,7 +756,7 @@ function TablaEmpleados() {
             <Error errors={error["Emp_Perfiles_Id"]}></Error>
             <br />
             <FormControl fullWidth>
-              <InputLabel id="area">Area</InputLabel>
+              <InputLabel id="area">Área</InputLabel>
               <Select
                 labelId="area"
                 className="flex-1"
@@ -1062,7 +1062,7 @@ function TablaEmpleados() {
             <Error errors={error["Emp_Perfiles_Id"]}></Error>
             <br />
             <FormControl fullWidth>
-              <InputLabel id="area">Area</InputLabel>
+              <InputLabel id="area">Área</InputLabel>
               <Select
                 labelId="area"
                 className="flex-1"
@@ -1283,7 +1283,7 @@ function TablaEmpleados() {
                 { title: "ID", field: "Id", filtering: false },
                 { title: "Nombres", field: "Nombres", filtering: false },
                 { title: "Apellidos", field: "Apellidos", filtering: false },
-                { title: "Dni", field: "Dni", filtering: false },
+                { title: "DNI", field: "Dni", filtering: false },
                 {
                   title: "Fecha Inicio Prueba",
                   field: "Fecha inicio prueba",
@@ -1297,7 +1297,7 @@ function TablaEmpleados() {
                 { title: "Turno", field: "Turno", lookup: turnos },
                 { title: "Perfil", field: "Perfil", lookup: resultPerfil2 },
               //  { title: "SubArea", field: "SubArea", lookup: resultSubarea2 },
-                { title: "Area", field: "Area", lookup: resultArea2 },
+                { title: "Área", field: "Area", lookup: resultArea2 },
                 {
                   title: "Departamento",
                   field: "Departamento",
@@ -1305,7 +1305,7 @@ function TablaEmpleados() {
                 },
                 { title: "Marca", field: "Marca", lookup: resultMarca2 },
                 { title: "Carrera", field: "Carrera", filtering: false },
-                { title: "Telefono", field: "Telefono", filtering: false },
+                { title: "Teléfono", field: "Telefono", filtering: false },
                 { title: "Link CV", field: "Link CV", filtering: false },
                 { title: "Correo", field: "Correo", filtering: false },
                 {
@@ -1365,7 +1365,7 @@ function TablaEmpleados() {
                 },
               ]}
               data={data}
-              title="Tabla de Empleados"
+              title="Tabla de empleados"
               // tableRef={tableRef}
               actions={[
                 {
@@ -1410,15 +1410,15 @@ function TablaEmpleados() {
                 pagination: {
                   labelDisplayedRows: "{from}-{to} de {count}",
                   labelRowsSelect: "filas",
-                  labelRowsPerPage: "filas por pagina:",
-                  firstAriaLabel: "Primera pagina",
-                  firstTooltip: "Primera pagina",
-                  previousAriaLabel: "Pagina anterior",
-                  previousTooltip: "Pagina anterior",
-                  nextAriaLabel: "Pagina siguiente",
-                  nextTooltip: "Pagina siguiente",
-                  lastAriaLabel: "Ultima pagina",
-                  lastTooltip: "Ultima pagina",
+                  labelRowsPerPage: "filas por página:",
+                  firstAriaLabel: "Primera página",
+                  firstTooltip: "Primera página",
+                  previousAriaLabel: "Página anterior",
+                  previousTooltip: "Página anterior",
+                  nextAriaLabel: "Página siguiente",
+                  nextTooltip: "Página siguiente",
+                  lastAriaLabel: "Última página",
+                  lastTooltip: "Última página",
                 },
                 toolbar: {
                   nRowsSelected: "{0} ligne(s) sélectionée(s)",

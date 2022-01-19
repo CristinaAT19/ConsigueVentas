@@ -211,7 +211,7 @@ function ReporteAsistencia() {
           columns={[
             { title: "Fecha", field: "Fecha", filtering: false },
             { title: "Hora", field: "Hora", filtering: false },
-            { title: "Dni", field: "Dni", filtering: false },
+            { title: "DNI", field: "Dni", filtering: false },
             { title: "Nombres", field: "Nombres", filtering: false },
             {
               title: "Sistema Operativo",
@@ -256,15 +256,15 @@ function ReporteAsistencia() {
             pagination: {
               labelDisplayedRows: "{from}-{to} de {count}",
               labelRowsSelect: "filas",
-              labelRowsPerPage: "filas por pagina:",
-              firstAriaLabel: "Primera pagina",
-              firstTooltip: "Primera pagina",
-              previousAriaLabel: "Pagina anterior",
-              previousTooltip: "Pagina anterior",
-              nextAriaLabel: "Pagina siguiente",
-              nextTooltip: "Pagina siguiente",
-              lastAriaLabel: "Ultima pagina",
-              lastTooltip: "Ultima pagina",
+              labelRowsPerPage: "filas por página:",
+              firstAriaLabel: "Primera página",
+              firstTooltip: "Primera página",
+              previousAriaLabel: "Página anterior",
+              previousTooltip: "Página anterior",
+              nextAriaLabel: "Página siguiente",
+              nextTooltip: "Página siguiente",
+              lastAriaLabel: "Última página",
+              lastTooltip: "Última página",
             },
             toolbar: {
               nRowsSelected: "{0} ligne(s) sélectionée(s)",
