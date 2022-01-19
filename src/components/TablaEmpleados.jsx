@@ -376,6 +376,7 @@ function TablaEmpleados() {
       })
       .catch((error) => {
         setLoading(false);
+        console.log(error.response.data.errors);
         setErrorUpdate(error.response.data.errors);
       });
   };
@@ -616,7 +617,7 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
             />
-            <Error errors={errorUpdate["Emp_Nombre"]}></Error>
+            <Error errors={errorUpdate["emp_nombre"]}></Error>
             <br />
 
             <TextField
@@ -708,7 +709,7 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Unidad_Id_fk"]}></Error>
+            <Error errors={errorUpdate["Emp_Unidad_Id_fk"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="perfil">Marca</InputLabel>
@@ -729,7 +730,7 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Marca_Id_fk"]}></Error>
+            <Error errors={errorUpdate["Emp_Marca_Id_fk"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="perfil">Perfil</InputLabel>
@@ -753,7 +754,7 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Perfiles_Id"]}></Error>
+            <Error errors={errorUpdate["Emp_Perfiles_Id"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="area">Area</InputLabel>
@@ -1255,13 +1256,6 @@ function TablaEmpleados() {
     </form>
   );
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (
-      <div className="flex justify-center align-center">
-        <Loading />
-      </div>
-    );
-  } else {
     return (
       <div>
         <br />
@@ -1446,6 +1440,5 @@ function TablaEmpleados() {
         </Modal>
       </div>
     );
-  }
 }
 export default TablaEmpleados;
