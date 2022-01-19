@@ -23,7 +23,7 @@ export const administracionEmpleados = () => {
     <>
       <div className="bg-white rounded-t-3xl " style={{ margin: "1rem 1rem" }}>
         <h1 className="border-b-2 text-3xl text-center ">
-          Administracion de Empleados
+          Administración de empleados
         </h1>
 
         <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
@@ -38,15 +38,13 @@ export const restablecimientoContraseña = () => {
   return (
     <>
       <div className="w-4/5 mx-auto mt-14">
-        <div className=" bg-gray-700 text-2xl font-bold uppercase text-center">
-          <h2 className="py-4" style={{ color: "white" }}>
-            Restablecimiento de contraseña
-          </h2>
-        </div>
+        <h2 className="text-gray-50 bg-gray-700 text-2xl font-bold uppercase text-center py-4">
+          Restablecimiento de contraseña
+        </h2>
         <section className="rounded-b-2xl shadow-md bg-white p-2">
           <AdminUsuario
             titulo="Sección para reseteo"
-            descripcion1="- Puedes resetear el ingreso al sistema ingresando el Nº de DNI del empleado (La contraseña que quedará por defecto es el DNI)."
+            descripcion1="Puedes resetear el ingreso al sistema ingresando el Nº de DNI del empleado (La contraseña que quedará por defecto es el DNI)."
             texto="DNI del empleado"
             tipoUsuario={false}
           />
@@ -72,7 +70,7 @@ export const tablaFaltas = () => {
         className="bg-white rounded-t-3xl text-center"
         style={{ margin: "1rem 1rem" }}
       >
-        <h1 className="border-b-2 text-3xl">Administrar Dias Feriados</h1>
+        <h1 className="border-b-2 text-3xl">Administrar días feriados</h1>
         <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
           <TablaFeriados />
         </div>
@@ -87,7 +85,7 @@ export const reporteAsistencia = () => {
       className="bg-white rounded-t-3xl text-center"
       style={{ margin: "1rem 1rem" }}
     >
-      <h1 className="border-b-2 text-3xl">Reporte Asistencia</h1>
+      <h1 className="border-b-2 text-3xl">Reporte asistencia</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
         <ReporteAsistencia />
       </div>
@@ -106,7 +104,7 @@ export const calendarioEmpleados = () => {
         className="bg-white rounded-t-3xl text-center"
         style={{ margin: "1rem 1rem" }}
       >
-        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <h1 className="border-b-2 text-3xl"> Vista calendario de empleados</h1>
         <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
           <CalendarioEmpleados />
         </div>
@@ -118,7 +116,7 @@ export const calendarioEmpleados = () => {
         className="bg-white rounded-t-3xl text-center"
         style={{ margin: "1rem 1rem" }}
       >
-        <h1 className="border-b-2 text-3xl"> Vista Calendario de Empleados</h1>
+        <h1 className="border-b-2 text-3xl"> Vista calendario de empleados</h1>
         <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
           <CalendarioEmpleadosMovil />
         </div>
@@ -133,7 +131,7 @@ export const listaAdministradores = () => {
       className="bg-white rounded-t-3xl text-center"
       style={{ margin: "1rem 1rem" }}
     >
-      <h1 className="border-b-2 text-3xl"> Administracion de Usuarios</h1>
+      <h1 className="border-b-2 text-3xl"> Administración de usuarios</h1>
       <div className="my-0 mx-auto py-4" style={{ width: "97%" }}>
         <div className="p-2">
           <AdminUsuario

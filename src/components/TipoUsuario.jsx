@@ -27,7 +27,7 @@ const TipoUsuario = (dniReset) => {
     setError([]);
     if (isNaN(dni_reset)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       return;
@@ -35,7 +35,7 @@ const TipoUsuario = (dniReset) => {
 
     if (dni_reset.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       return;
@@ -64,7 +64,7 @@ const TipoUsuario = (dniReset) => {
         setCambio(!cambio);
       })
       .catch((e) => {
-        setValor("Ocurrio un error al cambiar");
+        setValor("Ocurrió un error al cambiar");
         //setError(e.response.data.errors);
       });
   };
@@ -84,7 +84,7 @@ const TipoUsuario = (dniReset) => {
     setError([]);
     if (isNaN(dni_reset)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       return;
@@ -92,7 +92,7 @@ const TipoUsuario = (dniReset) => {
 
     if (dni_reset.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       return;
@@ -158,7 +158,7 @@ const TipoUsuario = (dniReset) => {
           onClick={cambiarTipoUsuario}
           className="flex items-center justify-center w-56 bg-gray-700 text-gray-50 h-1/5 py-2 hover:bg-naranja rounded-md"
         >
-          Cambiar tipo de Usuario
+          Cambiar tipo de usuario
         </button>
         <button
           onClick={limpiar}

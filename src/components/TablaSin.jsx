@@ -78,7 +78,7 @@ function TablaSin() {
     });
     let resultUnidad2=JSON.parse(`{${resultUnidad}}`);
     const turnos={Mañana:'Mañana',Tarde:'Tarde', ['Mañana y tarde']:'Mañana y Tarde'};
-    const condPrac={Retirado:'Retirado',Ingresante:'Ingresante',['En proceso']:'En proceso',['Terminó Practicas']:'Terminó Practicas'};
+    const condPrac={Retirado:'Retirado',Ingresante:'Ingresante',['En proceso']:'En proceso',['Terminó Practicas']:'Terminó Prácticas'};
     //
     useEffect(() => {
         peticionTablaDia();
@@ -95,7 +95,7 @@ function TablaSin() {
 
             {title: 'Nombres',field: 'Nombre',filtering: false},
             {title: 'Apellidos',field: 'Apellido',filtering: false},
-            {title: 'Dni',field: 'Dni',filtering: false},
+            {title: 'DNI',field: 'Dni',filtering: false},
             {title: 'Turno',field: 'Turno',lookup:turnos},
             {title: 'Perfil',field: 'Perfil',lookup:resultArea2},
             {title: 'Departamento',field: 'Unidad',lookup:resultUnidad2},
@@ -140,12 +140,12 @@ function TablaSin() {
                 labelRowsPerPage: 'filas por pagina:',
                 firstAriaLabel: 'Primera pagina',
                 firstTooltip: 'Primera pagina',
-                previousAriaLabel: 'Pagina anterior',
-                previousTooltip: 'Pagina anterior',
-                nextAriaLabel: 'Pagina siguiente',
-                nextTooltip: 'Pagina siguiente',
-                lastAriaLabel: 'Ultima pagina',
-                lastTooltip: 'Ultima pagina'
+                previousAriaLabel: 'Página anterior',
+                previousTooltip: 'Página anterior',
+                nextAriaLabel: 'Página siguiente',
+                nextTooltip: 'Página siguiente',
+                lastAriaLabel: 'Última pagina',
+                lastTooltip: 'Última pagina'
             },
             toolbar: {
                 nRowsSelected: '{0} ligne(s) sélectionée(s)',

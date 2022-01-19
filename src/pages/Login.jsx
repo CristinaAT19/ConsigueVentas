@@ -30,7 +30,7 @@ const Login = () => {
 
     if (e.target.elements.dni.value.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       setLoading(false);
@@ -39,7 +39,7 @@ const Login = () => {
 
     if (isNaN(e.target.elements.dni.value)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       setLoading(false);
