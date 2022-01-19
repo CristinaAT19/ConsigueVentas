@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
-import { setToken, getToken } from "../dist/Token";
+import { setToken, getToken, removeToken } from "../dist/Token";
 import { Doughnut } from 'react-chartjs-2';
 import { UserContext } from './context/UserContext';
 import Loading from '../components/Loading.jsx';
+import { distSetAutentication } from '../dist/Autentication';
 
 
 const AsistenciaPer = () => {
@@ -16,21 +17,28 @@ const AsistenciaPer = () => {
     const [v_faltas_inP, setV_Faltas_inP] = useState([]);
     const [faltas_jusP, setFaltasJusP] = useState([]);
     const [v_faltas_jusP, setV_Faltas_jusP] = useState([]);
+    const [feriados, setFeriados] = useState([]);
+    const [v_feriados, setV_Feriados] = useState([]);
+
 
     const [loading, setLoading] = useState(true);
     
     // Obtiene contexto
     const { user } = useContext(UserContext);
+
+    const feriadosNC = feriados.filter( fer => fer.fer_tipoFeriado === 'N')
+    const feriadosC = feriados.filter( fer => fer.fer_tipoFeriado === 'C')
     
     const dataPersonal = {
-        labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
+        labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP, "Feriados no calendario", "Feriados calendario"],
         datasets: [{
-            backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF'],
-            hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#9c9c9c'],
-            data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP],
+            backgroundColor: ['#46CF35', '#DCD617', '#DA2020', '#51F7CF', '#0D7EEB', '#F2711B'],
+            hoverBackgroundColor: ['#89de7e', '#e3df6f', '#c95959', '#88e3cd', '#3290EC', '#F08945'],
+            data: [v_puntualidadP, v_tardanzaP, v_faltas_inP, v_faltas_jusP, feriadosNC.length, feriadosC.length],
             hoverOffset: 10
         }]
     };
+
 
     const peticionApiAsistenciaPersonal = async () => {
         await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboardUsuario/${user['dni']}`,
@@ -60,6 +68,34 @@ const AsistenciaPer = () => {
 
     }
 
+    const peticionApiFeriados = async () => {
+        await axios.get(`${process.env.REACT_APP_API_URL}/api/listarFeriados`,
+          {
+            headers: {
+    
+              Authorization: `Bearer ${getToken()}`
+    
+            }
+          })
+          .then(response => {
+            setLoading(false);
+            setFeriados(response.data.Feriados)
+            setV_Feriados(response.data.Feriados.length)
+          })
+          .catch((e) => {
+            if(e.response.status === 403){
+              console.log("No tienes permisos para ver esta información");
+            }
+            if(e.response.status === 401){
+              console.log("El token expiro o no te has aunteticado");
+              
+              distSetAutentication(false);
+              removeToken();
+    
+            }
+          });
+      }
+
     const opciones = {
         maintainAspectRatio: false,
         responsive: true,
@@ -70,6 +106,7 @@ const AsistenciaPer = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaPersonal();
+        peticionApiFeriados()
     }, []);
 
     if (loading) {

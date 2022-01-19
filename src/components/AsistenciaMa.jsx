@@ -21,6 +21,7 @@ const AsistenciaMa = () => {
   const [v_faltas_jus, setV_Faltas_jus] = useState([]);
   const [sin_marcar, setSin_mar] = useState([]);
   const [v_sin_marcar, setV_sin_mar] = useState([]);
+ 
 
 
 const [loading, setLoading] = useState(true);
@@ -73,7 +74,6 @@ const [loading, setLoading] = useState(true);
         if(e.response.status === 403){
           console.log("No tienes permisos para ver esta información");
         }
-
         if(e.response.status === 401){
           console.log("El token expiro o no te has aunteticado");
           
@@ -82,10 +82,12 @@ const [loading, setLoading] = useState(true);
 
         }
       });
-
   }
+
+  
   useEffect(() => {
     peticionApiAsistenciaManana();
+    
   }, [])
 
   if (loading) {
