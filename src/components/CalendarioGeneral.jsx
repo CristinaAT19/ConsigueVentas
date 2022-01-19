@@ -57,7 +57,6 @@ function CalendarioGeneral({ dniCalendario }) {
             showTitle: false,
             exportButton: true,
             actionsColumnIndex: -1,
-
             // rowStyle: {
             //   backgroundColor: '#EEE',
             // }
