@@ -35,7 +35,7 @@ const CerrarSesion= ()=>{
 
     }
     cerrarSesion();
-    return (<div>Cerrando sesion</div>);
+    return (<div>Cerrando sesión</div>);
 }
 
 export default CerrarSesion;

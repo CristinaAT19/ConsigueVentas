@@ -16,21 +16,21 @@ const ResetearConstra = (dniReset) => {
 
     if (isNaN(dni_reset)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       return;
     }
     if (dni_reset.length == 0) {
       const error = {
-        dni: "El dni es requerido",
+        dni: "El DNI es requerido",
       };
       setError(error);
       return;
     }
     if (dni_reset.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       return;
@@ -60,7 +60,7 @@ const ResetearConstra = (dniReset) => {
         //console.log(Response);
       })
       .catch((e) => {
-        setValor("Ocurrio un error");
+        setValor("Ocurrió un error");
         //setError(e.response.data.errors);
       });
   };

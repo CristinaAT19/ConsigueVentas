@@ -262,7 +262,7 @@ function TablaFeriados() {
 
   const bodyEditar = (
     <div className={styles.modal}>
-      <h3>Editar Feriado</h3>
+      <h3>Editar feriado</h3>
       <br />
       <Input
         disabled
@@ -354,8 +354,8 @@ function TablaFeriados() {
       <div>
         <form onSubmit={manejadorInsertar}  >
           <div className="my-4">
-            <p>En esta seccion puede insertar los dias feriados.</p>
-            {sucess ? <p className="text-green-500">Feriado insertado con exito</p> : null}
+            <p>En esta sección puede insertar los días feriados.</p>
+            {sucess ? <p className="text-green-500">Feriado insertado con éxito</p> : null}
             <TextField
               InputLabelProps={{ shrink: true, required: true }}
               type="date"
@@ -366,7 +366,7 @@ function TablaFeriados() {
             <Error errors={error['fecha_feriado']} ></Error>
             <TextField
               className={styles.inputMaterial}
-              label="Dia Festivo"
+              label="Día festivo"
               name="DiaFestivo"
             />
             <Error errors={error['dia_feriado']} ></Error>
@@ -374,7 +374,7 @@ function TablaFeriados() {
             <FormControl
               className={styles.inputMaterial}
               >
-              <InputLabel id="TipoFeriado">Tipo de Feriado</InputLabel>
+              <InputLabel id="TipoFeriado">Tipo de feriado</InputLabel>
               <Select labelId="TipoFeriado" id="TipoFeriado" name="TipoFeriado" label="TipoFeriado">
                 <MenuItem value={'C'}>Calendario</MenuItem>
                 <MenuItem value={'N'}>No calendario</MenuItem>
@@ -398,7 +398,7 @@ function TablaFeriados() {
           <MaterialTable
             columns={[
               {
-                title: "Dia Festivo",
+                title: "Dia festivo",
                 field: "fer_detalleCalendario",
                 sortable: true,
                 filtering: false,
@@ -457,14 +457,14 @@ function TablaFeriados() {
                 labelDisplayedRows: "{from}-{to} de {count}",
                 labelRowsSelect: "filas",
                 labelRowsPerPage: "filas por pagina:",
-                firstAriaLabel: "Primera pagina",
-                firstTooltip: "Primera pagina",
-                previousAriaLabel: "Pagina anterior",
-                previousTooltip: "Pagina anterior",
-                nextAriaLabel: "Pagina siguiente",
-                nextTooltip: "Pagina siguiente",
-                lastAriaLabel: "Ultima pagina",
-                lastTooltip: "Ultima pagina",
+                firstAriaLabel: "Primera página",
+                firstTooltip: "Primera página",
+                previousAriaLabel: "Página anterior",
+                previousTooltip: "Página anterior",
+                nextAriaLabel: "Página siguiente",
+                nextTooltip: "Página siguiente",
+                lastAriaLabel: "Última página",
+                lastTooltip: "Última página",
               },
               toolbar: {
                 nRowsSelected: "{0} ligne(s) sélectionée(s)",

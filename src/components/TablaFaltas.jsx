@@ -234,7 +234,7 @@ function TablaFaltas() {
         <MaterialTable
           columns={[
             {
-              title: "Fecha de Falta",
+              title: "Fecha de falta",
               field: "Fecha Falta",
               sortable: true,
               filtering: false,
@@ -252,7 +252,7 @@ function TablaFaltas() {
               filtering: false,
             },
             {
-              title: "Dni",
+              title: "DNI",
               field: "Dni",
               sortable: true,
               filtering: false,
@@ -276,14 +276,14 @@ function TablaFaltas() {
               lookup: turnos,
             },
             {
-              title: "Estado de Falta",
+              title: "Estado de falta",
               field: "Estado Falta",
               sortable: true,
               lookup: estFalta,
             },
           ]}
           data={data}
-          title="Tabla de Faltas"
+          title="Tabla de faltas"
           // tableRef={tableRef}
           actions={[
             {
@@ -324,15 +324,15 @@ function TablaFaltas() {
             pagination: {
               labelDisplayedRows: "{from}-{to} de {count}",
               labelRowsSelect: "filas",
-              labelRowsPerPage: "filas por pagina:",
-              firstAriaLabel: "Primera pagina",
-              firstTooltip: "Primera pagina",
-              previousAriaLabel: "Pagina anterior",
-              previousTooltip: "Pagina anterior",
-              nextAriaLabel: "Pagina siguiente",
-              nextTooltip: "Pagina siguiente",
-              lastAriaLabel: "Ultima pagina",
-              lastTooltip: "Ultima pagina",
+              labelRowsPerPage: "filas por página:",
+              firstAriaLabel: "Primera página",
+              firstTooltip: "Primera página",
+              previousAriaLabel: "Página anterior",
+              previousTooltip: "Página anterior",
+              nextAriaLabel: "Página siguiente",
+              nextTooltip: "Página siguiente",
+              lastAriaLabel: "Última página",
+              lastTooltip: "Última página",
             },
             toolbar: {
               nRowsSelected: "{0} ligne(s) sélectionée(s)",
