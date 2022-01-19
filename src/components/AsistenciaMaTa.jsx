@@ -21,16 +21,8 @@ const AsistenciaMaTa = () => {
   const [sin_marcar, setSin_mar] = useState([]);
   const [v_sin_marcar, setV_sin_mar] = useState([]);
 
-  const [loading, setLoading] = useState(false);
-
-  const cambiarEstado=()=>{
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }
-
-
+  const [loading, setLoading] = useState(true);
+  
   const dataManana = {
     labels: [puntualidad, tardanza, faltas_in, faltas_jus, sin_marcar],
     datasets: [{
@@ -60,6 +52,7 @@ const AsistenciaMaTa = () => {
         }
       })
       .then(response => {
+        setLoading(false);
         setPuntualidad(response.data.puntualidad);
         setV_Puntualidad(response.data.v_puntualidad);
         setTardanza(response.data.tardanza);
@@ -88,10 +81,9 @@ const AsistenciaMaTa = () => {
   }
   useEffect(() => {
     peticionApiAsistenciaManana();
-    cambiarEstado();
   }, [])
   if (loading) {
-    return (<Loading />)
+    return <div className="flex justify-center align-center"><Loading /></div>
   }else{
     return (< Doughnut data={dataManana} options={opciones} />);
   }

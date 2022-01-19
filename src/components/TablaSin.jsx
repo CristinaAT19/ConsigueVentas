@@ -4,9 +4,6 @@ import MaterialTable from 'material-table';
 import { setToken, getToken } from "../dist/Token";
 import Loading from "../components/Loading.jsx";
 
-
-
-
 function TablaSin() {
     const [data, setTabla] = useState([]);
     // const [loading, setLoading] = useState(false);
@@ -15,14 +12,7 @@ function TablaSin() {
     const [selectArea, setSelectArea] = useState([]);
     const [selectUnidad, setUnidad] = useState([]);
 
-    const [loading, setLoading] = useState(false);
-
-    const cambiarEstado=()=>{
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
+    const [loading, setLoading] = useState(true);
 
     const peticionTablaDia = async () => {
       // setLoading(true);
@@ -36,6 +26,7 @@ function TablaSin() {
             }
         )
         .then((Response) => {
+          setLoading(false);
             setTabla(Response.data.EmpleadosSinMarcarDiario);
         })
         .catch((e) => {
@@ -90,12 +81,11 @@ function TablaSin() {
     const condPrac={Retirado:'Retirado',Ingresante:'Ingresante',['En proceso']:'En proceso',['Terminó Practicas']:'Terminó Practicas'};
     //
     useEffect(() => {
-      cambiarEstado();
         peticionTablaDia();
     }, [])
     // const { useState } = React;
     if (loading) {
-      return (<Loading />)
+      return <div className="flex justify-center align-center"><Loading /></div>
     }else{
   return (
     <div className="main">

@@ -17,20 +17,11 @@ const AsistenciaPer = () => {
     const [faltas_jusP, setFaltasJusP] = useState([]);
     const [v_faltas_jusP, setV_Faltas_jusP] = useState([]);
 
-    const [loading, setLoading] = useState(false);
-
-    const cambiarEstado=()=>{
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-
+    const [loading, setLoading] = useState(true);
+    
     // Obtiene contexto
     const { user } = useContext(UserContext);
-
-
-
+    
     const dataPersonal = {
         labels: [puntualidadP, tardanzaP, faltas_inP, faltas_jusP],
         datasets: [{
@@ -51,7 +42,7 @@ const AsistenciaPer = () => {
                 }
             })
             .then(response => {
-
+                setLoading(false);
                 setPuntualidadP(response.data.DashboardAsistencia[0].Estado);
                 setV_PuntualidadP(response.data.DashboardAsistencia[0].Cantidad);
                 setTardanzaP(response.data.DashboardAsistencia[1].Estado);
@@ -79,11 +70,10 @@ const AsistenciaPer = () => {
     }
     useEffect(() => {
         peticionApiAsistenciaPersonal();
-        cambiarEstado();
     }, []);
 
     if (loading) {
-        return (<Loading />)
+        return <div className="flex justify-center align-center"><Loading /></div>
     }else{
         return (<Doughnut data={dataPersonal} options={opciones} />);
     }

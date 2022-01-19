@@ -32,13 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const baseUrl = `${process.env.REACT_APP_API_URL}/api/`;
 
 function TablaFaltas() {
-  const [loading, setLoading] = useState(false);
-  const cambiarEstado = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  const [loading, setLoading] = useState(true);
 
   const styles = useStyles();
   const [data, setData] = useState([]);
@@ -138,6 +132,7 @@ function TablaFaltas() {
         },
       })
       .then((response) => {
+        setLoading(false);
         setData(response.data.data);
       })
       .catch((error) => {});
@@ -172,7 +167,6 @@ function TablaFaltas() {
   };
 
   useEffect(() => {
-    cambiarEstado();
     peticionGet();
   }, []);
 
@@ -233,7 +227,7 @@ function TablaFaltas() {
   );
   // const tableRef = React.createRef();
   if (loading) {
-    return <Loading />;
+    return <div className="flex justify-center align-center"><Loading /></div>
   } else {
     return (
       <div>

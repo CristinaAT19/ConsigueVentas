@@ -24,10 +24,13 @@ const HomeContenido = ({ imagen, subTitulo , opcionSistema }) => {
         if( process.env.REACT_APP_ENV == "local"){
           console.log("Local");
           // console.log(`http://localhost:${process.env.REACT_APP_PORT_LOCAL}/#/getToken/${getToken()}`);
+          // return <Redirect to="/dashadmin/dashboard"/>
+ 
           return window.location.href=`http://localhost:${process.env.REACT_APP_PORT_LOCAL}/#/getToken/${getToken()}`;
         }else{
-          console.log("Falta URL de produccion");
-          return window.location.href=`${process.env.REACT_APP_URL_SYSTEM_ERP}`;
+          return <Redirect to="/dashadmin/dashboard"/> 
+          // console.log("Falta URL de produccion");
+          // return window.location.href=`${process.env.REACT_APP_URL_SYSTEM_ERP}`;
         }
         break;
       default:
@@ -54,3 +57,4 @@ const HomeContenido = ({ imagen, subTitulo , opcionSistema }) => {
 };
 
 export default HomeContenido;
+  

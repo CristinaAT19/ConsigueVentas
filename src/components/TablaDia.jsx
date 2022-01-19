@@ -21,6 +21,7 @@ function TablaDia() {
         },
       })
       .then((Response) => {
+        setLoading(false);
         setTabla(Response.data.AsistenciaEmpleadosDiario);
       })
       .catch((e) => {
@@ -33,7 +34,6 @@ function TablaDia() {
   };
   useEffect(() => {
     peticionTablaDia();
-    cambiarEstado();
   }, []);
 
   //filtros tabla
@@ -105,17 +105,10 @@ function TablaDia() {
 
   //
 
-  const [loading, setLoading] = useState(false);
-
-  const cambiarEstado = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  };
+  const [loading, setLoading] = useState(true);
 
   if (loading) {
-    return <Loading />;
+    return <div className="flex justify-center align-center"><Loading /></div>
   } else {
     return (
       <div className="main">
