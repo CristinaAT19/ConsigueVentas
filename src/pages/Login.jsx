@@ -18,22 +18,19 @@ const Login = () => {
   //   Contexto de usuario
   const { user, setUser } = useContext(UserContext);
 
-  const onInputDni = ()=>{
+  const onInputDni = () => {
     if (campo.current.value.length > 8) {
-      campo.current.value = campo.current.value.slice(0,8); 
+      campo.current.value = campo.current.value.slice(0, 8);
     }
-  }
-  
+  };
+
   const peticiontoken = async (e) => {
     setLoading(true);
     e.preventDefault();
-    
-    
-    
 
     if (e.target.elements.dni.value.length !== 8) {
       const error = {
-        dni: "El dni debe tener 8 numeros",
+        dni: "El DNI debe tener 8 números",
       };
       setError(error);
       setLoading(false);
@@ -42,7 +39,7 @@ const Login = () => {
 
     if (isNaN(e.target.elements.dni.value)) {
       const error = {
-        dni: "El dni debe ser un dato numerico",
+        dni: "El DNI debe ser un dato numérico",
       };
       setError(error);
       setLoading(false);
@@ -52,8 +49,7 @@ const Login = () => {
     paramsRequest["password"] = e.target.elements.password.value;
 
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest, {
-      })
+      .post(`${process.env.REACT_APP_API_URL}/api/acceso`, paramsRequest, {})
       .then((Response) => {
         setUser({
           dni: Response.data.dni,
@@ -64,14 +60,12 @@ const Login = () => {
           perfil: Response.data.perfil,
           unidad: Response.data.unidad,
           turno: Response.data.turno,
-
         });
         setToken(Response.data.token);
         distSetAutentication(true);
         distSetUser(Response.data);
         setRedirect(true);
         setError([]);
-
       })
       .catch((e) => {
         if (e.response.status === 404) {
@@ -84,8 +78,7 @@ const Login = () => {
             dni: "Problemas al intentar contectar con el servidor.",
           };
           setError(error);
-        }
-        else {
+        } else {
           setError(e.response.data.errors);
         }
       });
@@ -99,12 +92,12 @@ const Login = () => {
   // }, [redirect]);
 
   if (redirect) {
-    return <Redirect to='/home' />;
+    return <Redirect to="/home" />;
   }
   return (
     <section className="flex flex-col items-center justify-center bg-gradient-to-r from-yellow-300 to-yellow-700 h-screen">
       <div className="flex md:grid md:grid-cols-5 shadow-xl mx-2 sm:mx-0 max-w-2xl">
-        <div className="hidden md:grid md:col-span-3 pt-4 px-8 bg-gray-50 rounded-l-xl h-full">
+        <div className="hidden md:grid md:col-span-3 py-4 px-8 bg-gray-50 rounded-l-xl h-full">
           <div className="flex justify-center h-1/3">
             <img
               src="https://desarrollo.consigueventas.com/Frontend/Recursos/logoCompleto.png"
@@ -118,19 +111,22 @@ const Login = () => {
             </span>
           </div>
           <div className="flex justify-center mb-3">
-          <button
+            <button
               type="submit"
               id="boton"
-              onClick={()=>{
-
-                window.location.replace("https://erp.consigueventas.com/marcacion/");
-              }}  
-              className="cursor-pointer py-2 px-6 block duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-32 text-center rounded">
+              onClick={() => {
+                window.location.replace(
+                  "https://erp.consigueventas.com/marcacion/"
+                );
+              }}
+              className="cursor-pointer py-2 px-6 block duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-32 text-center rounded"
+            >
               Marcación
             </button>
           </div>
         </div>
-        <div className="md:col-span-2  pb-9 px-8 bg-white rounded-xl md:rounded-l-none shadow-xl">
+
+        <div className="md:col-span-2 flex justify-center content-center flex-column py-4 px-8 bg-white rounded-xl md:rounded-l-none shadow-xl">
           <div className=" md:hidden flex justify-center border-b pt-2 pb-3">
             <img
               // src="icono-cventas.png"
@@ -138,7 +134,12 @@ const Login = () => {
               className="h-16"
             />
           </div>
-          <form action="" onSubmit={peticiontoken} id="formulario" className="mt-4 md:mt-0">
+          <form
+            action=""
+            onSubmit={peticiontoken}
+            id="formulario"
+            className="md:mt-0"
+          >
             <div className="mb-3">
               <label htmlFor="name" className="block text-gray-800 font-bold">
                 Usuario
@@ -187,21 +188,22 @@ const Login = () => {
               <button
                 type="submit"
                 id="boton"
-                className="cursor-pointer py-2 px-6 block mt-6 duration-75 bg-gray-900 hover:bg-gray-700  text-white font-bold w-full text-center rounded">
+                className="cursor-pointer py-2 px-6 border-gray-900 block mt-6 duration-75 bg-gray-900 hover:bg-gray-700  text-white font-bold border-2 w-full text-center rounded"
+              >
                 Ingresar
               </button>
-              
-
             )}
 
             <button
               type="submit"
               id="boton"
-              onClick={()=>{
-
-                window.location.replace("https://erp.consigueventas.com/marcacion/");
-              }}  
-              className="cursor-pointer mt-3 py-2 px-6  duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-full text-center rounded block md:hidden">
+              onClick={() => {
+                window.location.replace(
+                  "https://erp.consigueventas.com/marcacion/"
+                );
+              }}
+              className="cursor-pointer mt-3 py-2 px-6  duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-full text-center rounded block md:hidden"
+            >
               Marcación
             </button>
           </form>

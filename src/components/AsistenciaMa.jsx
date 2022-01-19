@@ -75,7 +75,7 @@ const [loading, setLoading] = useState(true);
         }
 
         if(e.response.status === 401){
-          console.log("El token expiro o no te has aunteticado");
+          console.log("El token expiró o no te has autenticado");
           
           distSetAutentication(false);
           removeToken();
