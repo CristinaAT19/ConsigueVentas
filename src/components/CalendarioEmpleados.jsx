@@ -23,6 +23,7 @@ const CalendarioEmpleados = () => {
   const [turnoEmpleado, setTurnoEmpleado] = useState("");
 
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
+  const [reporte, setReporte] = useState([]);
 
   const onChangeDni = () => {
     setDniCalendario(campo.current.value);
@@ -38,6 +39,22 @@ const CalendarioEmpleados = () => {
     setNombreEmpleado("");
     setTurnoEmpleado("");
   };
+
+  const peticionApiReporteAsistencia = async (dniUsuario) => {
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/generarReporteAsistencia/${dniUsuario}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      })
+      .then(response => {
+          setReporte(response.data.data);
+          console.log(response.data.data);
+      }).catch((e) => {
+        setReporte("error");
+      });
+      console.log(reporte)
+  }
 
   const peticionDatosCalendario = async () => {
     if (isNaN(dniCalendario)) {
@@ -104,6 +121,8 @@ const CalendarioEmpleados = () => {
           setTurnoEmpleado("");
         } else {
           //console.log(tipoMostrar);
+          // Otra data del usuario
+          peticionApiReporteAsistencia(dniCalendario);
 
           axios
             .get(
@@ -193,6 +212,14 @@ const CalendarioEmpleados = () => {
       <div>
         {mostrarCalendario ? (
           <>
+            <div style={{textAlign:"left"}}>
+            {
+                reporte.map((valor,i)=>{
+                    return <li key={i}>{valor.Descripcion} : {valor.Cantidad}</li>;
+                })
+                }
+            </div>
+                <br />
             <FullCalendar
               plugins={[dayGridPlugin, bootstrapPlugin, listPlugin]}
               events={valor}

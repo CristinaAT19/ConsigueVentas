@@ -928,7 +928,7 @@ function TablaEmpleados() {
             <Error errors={errorUpdate["emp_fechanac"]}></Error>
             <br />
 
-            {/* <TextField
+            <TextField
               type="number"
               className={styles.inputMaterial}
               label="Dias adicionales de trabajo"
@@ -936,8 +936,8 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Días extra"]}
             />
-            <Error errors={errorUpdate["emp_dias_extra"]}></Error> */}
-            {/* <br /> */}
+            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
+            <br />
           </div>
         </div>
         <br />
