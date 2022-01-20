@@ -81,7 +81,9 @@ function TablaEmpleados() {
   //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
   const [selectArea, setSelectArea] = useState([]);
+ 
   const [unidades, setUnidades] = useState([]);
+  const [idUnidades,setIdUnidades] = useState([]);
   const [selectUnidad, setUnidad] = useState([]);
   /////
   const [perfiles, setPerfiles] = useState([]);
@@ -120,7 +122,7 @@ function TablaEmpleados() {
       })
       .catch((error) => {});
     getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla);
-    getPeticionUnidades(setUnidades, setLoading);
+    getPeticionUnidades(setUnidades, setLoading,setIdUnidades);
     getPeticionMarcas(setMarcas, setLoading);
     getPeticionAreasEmpleado(setAreasEmp, setLoading, setAreasTabla);
   }, []);
@@ -402,8 +404,11 @@ function TablaEmpleados() {
     let empleadoFormateado = { ...empleado };
     //Formato de departamento
     unidades.forEach((el, i) => {
+      // console.log(el);
+      // console.log(i);
+      // console.log(idUnidades[i]);
       if (empleadoFormateado.Departamento === el)
-        empleadoFormateado.Departamento = i + 1;
+        empleadoFormateado.Departamento = idUnidades[i];
     });
     //Formato de Perfiles
 
@@ -702,7 +707,7 @@ function TablaEmpleados() {
               >
                 {unidades.map((option, i) => {
                   return (
-                    <MenuItem key={i + 1} value={i + 1}>
+                    <MenuItem key={i + 1} value={idUnidades[i]}>
                       {option}
                     </MenuItem>
                   );
@@ -1017,7 +1022,7 @@ function TablaEmpleados() {
               <Select labelId="Unidad" id="Unidad" label="Unidad" name="Unidad">
                 {unidades.map((option, i) => {
                   return (
-                    <MenuItem key={i + 1} value={i + 1}>
+                    <MenuItem key={i + 1} value={idUnidades[i]}>
                       {option}
                     </MenuItem>
                   );

@@ -9,7 +9,6 @@ export const getPeticionPerfilId = async (setData, id) => {
       }
     })
     .then((Response) => {
-      console.log(Response.data.perfiles[0]);
       const { Marca, Area, SubArea } = Response.data.perfiles[0];
       setData({
         perfil: id,
@@ -38,7 +37,7 @@ export const getPeticionPerfiles = async (setPerfiles, setLoading, setPerfilesTa
     .catch((e) => { });
 };
 //Peticion Departamentos
-export const getPeticionUnidades = async (setUnidades, setLoading) => {
+export const getPeticionUnidades = async (setUnidades, setLoading, setIdUnidades =null) => {
   await axios
     .get(`${process.env.REACT_APP_API_URL}/api/unidades`, {
       headers: {
@@ -47,6 +46,7 @@ export const getPeticionUnidades = async (setUnidades, setLoading) => {
     })
     .then((Response) => {
       setUnidades(Response.data.Unidades);
+      setIdUnidades(Response.data.id);
       setLoading(false);
     })
     .catch((e) => { });
