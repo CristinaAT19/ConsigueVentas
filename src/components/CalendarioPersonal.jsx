@@ -11,7 +11,9 @@ import listPlugin from '@fullcalendar/list';
 
 const CalendarioPersonal = () => {
     const [valor, setValor] = useState([]);
-    const {user} = useContext(UserContext)
+    const [reporte, setReporte] = useState([]);
+
+    const {user} = useContext(UserContext);
     const [dniUtilizar, setDniUtilizar] = useState(user['dni']);
    
     const peticionApiCalendarioPersonal = async () => {
@@ -28,13 +30,39 @@ const CalendarioPersonal = () => {
         setValor("error");
       });
   }
+
+  const peticionApiReporteAsistencia = async () => {
+    await axios.get(`${process.env.REACT_APP_API_URL}/api/generarReporteAsistencia/${dniUtilizar}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`
+        }
+      })
+      .then(response => {
+          setReporte(response.data.data);
+          console.log(response.data.data);
+      }).catch((e) => {
+        setReporte("error");
+      });
+      console.log(reporte)
+  }
+
   useEffect(() => {
     peticionApiCalendarioPersonal();
+    peticionApiReporteAsistencia();
   }, [])
 ////////////
 
     return (
         <div>
+            <div style={{textAlign:"left"}}>
+            {
+                reporte.map((valor,i)=>{
+                    return <li key={i}>{valor.Descripcion} : {valor.Cantidad}</li>;
+                })
+                }
+            </div>
+            <br />
             <FullCalendar
 
 

@@ -87,6 +87,8 @@ function TablaEmpleados() {
   const [selectUnidad, setUnidad] = useState([]);
   /////
   const [perfiles, setPerfiles] = useState([]);
+  const [idPerfil, setIdPerfil] = useState([]);
+
   const [perfilesTabla, setPerfilesTabla] = useState([]);
   const [marcas, setMarcas] = useState([]);
   const [areasEmp, setAreasEmp] = useState([]);
@@ -121,7 +123,7 @@ function TablaEmpleados() {
         setSelectArea(response.data.Areas);
       })
       .catch((error) => {});
-    getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla);
+    getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla,setIdPerfil);
     getPeticionUnidades(setUnidades, setLoading,setIdUnidades);
     getPeticionMarcas(setMarcas, setLoading);
     getPeticionAreasEmpleado(setAreasEmp, setLoading, setAreasTabla);
@@ -321,17 +323,17 @@ function TablaEmpleados() {
       return;
     }
 
-    if (validationOnlyNumbers(form["Días extra"].value) === false) {
-      const errorVal = {
-        emp_dias_extra: "Solo se permiten números",
-      };
-      setLoading(false);
-      setErrorUpdate(errorVal);
-      return;
-    }
+    // if (validationOnlyNumbers(form["Días extra"].value) === false) {
+    //   const errorVal = {
+    //     emp_dias_extra: "Solo se permiten números",
+    //   };
+    //   setLoading(false);
+    //   setErrorUpdate(errorVal);
+    //   return;
+    // }
 
     setError([]);
-
+    console.log(empleadoSeleccionado);
     await axios
       .post(
         `${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleadoSeleccionado["Id"]}`,
@@ -926,7 +928,7 @@ function TablaEmpleados() {
             <Error errors={errorUpdate["emp_fechanac"]}></Error>
             <br />
 
-            <TextField
+            {/* <TextField
               type="number"
               className={styles.inputMaterial}
               label="Dias adicionales de trabajo"
@@ -934,8 +936,8 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Días extra"]}
             />
-            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
-            <br />
+            <Error errors={errorUpdate["emp_dias_extra"]}></Error> */}
+            {/* <br /> */}
           </div>
         </div>
         <br />

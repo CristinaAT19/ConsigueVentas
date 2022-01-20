@@ -19,7 +19,7 @@ export const getPeticionPerfilId = async (setData, id) => {
     .catch((e) => { });
 };
 //Peticion data para perfiles
-export const getPeticionPerfiles = async (setPerfiles, setLoading, setPerfilesTabla) => {
+export const getPeticionPerfiles = async (setPerfiles, setLoading, setPerfilesTabla,setIdPerfil) => {
   await axios
     .get(`${process.env.REACT_APP_API_URL}/api/perfil`, {
       headers: {
@@ -28,6 +28,7 @@ export const getPeticionPerfiles = async (setPerfiles, setLoading, setPerfilesTa
     })
     .then((Response) => {
       setPerfiles(Response.data.perfiles);
+      setIdPerfil(Response.data.id);
       setLoading(false);
       setPerfilesTabla(Response.data.perfiles.reduce(function (acc, cur, i) {
         acc[cur.perfil_Id] = cur.perfil_nombre;
