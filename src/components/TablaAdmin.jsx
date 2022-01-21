@@ -123,6 +123,8 @@ const TablaAdmin = (cambio) => {
             backgroundColor: "#E2E2E2  ",
           },
           exportButton: true,
+          exportAllData: true,
+          exportFileName: "Tabla de Administradores",
           actionsColumnIndex: -1,
         }}
         localization={{

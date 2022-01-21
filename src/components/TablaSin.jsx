@@ -115,6 +115,8 @@ function TablaSin() {
             searchFieldAlignment: 'left',
             showTitle: false,
             exportButton: true,
+            exportAllData: true,
+            exportFileName: "Tabla de Empleados sin marcar",
             actionsColumnIndex: -1,
 
             

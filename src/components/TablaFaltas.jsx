@@ -313,6 +313,8 @@ function TablaFaltas() {
               backgroundColor: "#E2E2E2  ",
             },
             exportButton: true,
+            exportAllData: true,
+            exportFileName: "Tabla de Faltas",
             actionsColumnIndex: -1,
           }}
           localization={{
