@@ -221,7 +221,7 @@ function TablaEmpleados() {
     Tarde: "Tarde",
     ["Mañana y tarde"]: "Mañana y Tarde",
   };
-  const condEst = { Activo: "Activo", Retirado: "Retirado" };
+  const condEst = { 1: "Activo", 2: "Retirado" };
   const tipColab = {
     Apoyo: "Apoyo",
     Colaborador: "Colaborador",
@@ -229,7 +229,7 @@ function TablaEmpleados() {
   };
   const condPrac = {
     Retirado: "Retirado",
-    Ingresante: "Activo",
+    Ingresante: "Ingresante",
     "En proceso": "En proceso",
     "Terminó Practicas": "Terminó Practicas",
   };
@@ -244,6 +244,7 @@ function TablaEmpleados() {
       })
       .then((response) => {
         setLoading(false);
+        console.log(response.data.empleados);
         setData(response.data.empleados);
       })
       .catch((error) => {});
