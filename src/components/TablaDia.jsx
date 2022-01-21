@@ -146,6 +146,9 @@ function TablaDia() {
               csv: true,
               pdf: true,
             },
+            
+            exportAllData: true,
+            exportFileName: "Tabla de Asistencia",
             actionsColumnIndex: -1,
 
             // rowStyle: {
