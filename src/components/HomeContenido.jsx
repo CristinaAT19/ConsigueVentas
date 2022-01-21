@@ -41,11 +41,11 @@ const HomeContenido = ({ imagen, subTitulo , opcionSistema }) => {
   return (
     <>
       <div className="subcontenido bg-white flex flex-col justify-center items-center p-8 rounded-2xl">
-        <button onClick={handleIngresar} className="text-center w-full h-full hover:no-underline">
+        <button onClick={handleIngresar} className="text-center flex flex-col justify-center items-center w-full h-full hover:no-underline">
           <img
             src={Images(`./${imagen}`).default}
             alt=""
-            className="seleccion"
+            className="w-24 "
           />
           <h2 className="text-xl font-medium hover:text-naranja">
             {subTitulo}
