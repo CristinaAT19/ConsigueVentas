@@ -1395,6 +1395,8 @@ function TablaEmpleados() {
                   csv: true,
                   pdf: false,
                 },
+                exportAllData: true,
+                exportFileName: "Tabla de Empleados",
                 actionsColumnIndex: -1,
               }}
               localization={{

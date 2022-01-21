@@ -465,6 +465,8 @@ function TablaFeriados() {
               backgroundColor: "#E2E2E2  ",
             },
             exportButton: true,
+            exportAllData: true,
+            exportFileName: "Tabla de Feriados",
             actionsColumnIndex: -1,
           }}
           localization={{

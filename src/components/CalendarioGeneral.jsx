@@ -56,6 +56,8 @@ function CalendarioGeneral({ dniCalendario }) {
             searchFieldAlignment: "left",
             showTitle: false,
             exportButton: true,
+            exportAllData: true,
+            exportFileName: "Tabla de Asistencia del Empleado",
             actionsColumnIndex: -1,
             // rowStyle: {
             //   backgroundColor: '#EEE',
