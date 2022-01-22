@@ -73,7 +73,7 @@ const AsistenciaPer = () => {
             
             })
             .catch((e) => {
-                if (e.response.status === 403) {
+                if (e) {
                     console.log("No tienes permisos para ver esta información");
                 }
             });

@@ -75,6 +75,8 @@ function TablaEmpleados() {
     Nombres: "",
   });
 
+  console.log(empleadoSeleccionado);
+
   // Utilidades
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState([]);
@@ -363,6 +365,7 @@ function TablaEmpleados() {
           emp_link_convenio: empleadoSeleccionado["Link Convenio"],
           emp_fechanac: empleadoSeleccionado["Fecha Nacimiento"],
           emp_dias_extra: empleadoSeleccionado["Días extra"],
+          emp_estado: empleadoSeleccionado["Estado"],
         },
         {
           headers: {
@@ -937,7 +940,7 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Días extra"]}
             />
-
+            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
               <FormControl fullWidth>
                 <InputLabel id="convenio">Estado</InputLabel>
                 <Select
@@ -952,9 +955,9 @@ function TablaEmpleados() {
                   <MenuItem value={2}>Retirado</MenuItem>
                 </Select>
             </FormControl>
-            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
+
             <br />
-            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
+            <Error errors={errorUpdate["emp_estado"]}></Error>
             {/* <br /> */}
           </div>
         </div>
