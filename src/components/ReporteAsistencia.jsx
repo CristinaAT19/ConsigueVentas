@@ -237,6 +237,8 @@ function ReporteAsistencia() {
             searchFieldAlignment: "left",
             showTitle: false,
             exportButton: true,
+            exportAllData: true,
+            exportFileName: "Reporte de asistencia del mes",            
             actionsColumnIndex: -1,
             filtering,
             // rowStyle: {

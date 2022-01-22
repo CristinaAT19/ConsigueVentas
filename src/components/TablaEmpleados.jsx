@@ -363,6 +363,7 @@ function TablaEmpleados() {
           emp_link_convenio: empleadoSeleccionado["Link Convenio"],
           emp_fechanac: empleadoSeleccionado["Fecha Nacimiento"],
           emp_dias_extra: empleadoSeleccionado["Días extra"],
+          emp_estado: empleadoSeleccionado["Estado"],          
         },
         {
           headers: {
@@ -939,6 +940,22 @@ function TablaEmpleados() {
             />
             <Error errors={errorUpdate["emp_dias_extra"]}></Error>
             <br />
+
+            <FormControl fullWidth>
+                <InputLabel id="convenio">Estado</InputLabel>
+                <Select
+                  labelId="convenio"
+                  id="convenio"
+                  name="Estado"
+                  label="Convenio"
+                  onChange={handleChangeEdit}
+                  value={empleadoSeleccionado && empleadoSeleccionado["Estado"]}
+                >
+                  <MenuItem value={1}>Activo</MenuItem>
+                  <MenuItem value={2}>Retirado</MenuItem>
+                </Select>
+            </FormControl>
+            <Error errors={errorUpdate["emp_estado"]}></Error>            
           </div>
         </div>
         <br />
