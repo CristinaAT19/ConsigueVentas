@@ -74,6 +74,7 @@ function TablaEmpleados() {
     Apellidos: "",
     Nombres: "",
   });
+  console.log(empleadoSeleccionado);
 
   // Utilidades
   const [loading, setLoading] = useState(true);
@@ -217,7 +218,7 @@ function TablaEmpleados() {
     Tarde: "Tarde",
     ["Mañana y tarde"]: "Mañana y Tarde",
   };
-  const condEst = { Activo: "Activo", Retirado: "Retirado" };
+  const condEst = { 1: "Activo", 2: "Retirado" };
   const tipColab = {
     Apoyo: "Apoyo",
     Colaborador: "Colaborador",
@@ -229,6 +230,7 @@ function TablaEmpleados() {
     "En proceso": "En proceso",
     "Terminó Practicas": "Terminó Practicas",
   };
+
   //
   const { perfil, area, subarea } = empleado;
   const peticionGet = async () => {
@@ -928,6 +930,21 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Días extra"]}
             />
+
+              <FormControl fullWidth>
+                <InputLabel id="convenio">Estado</InputLabel>
+                <Select
+                  labelId="convenio"
+                  id="convenio"
+                  name="Estado"
+                  label="Convenio"
+                  onChange={handleChangeEdit}
+                  value={empleadoSeleccionado && empleadoSeleccionado["Estado"]}
+                >
+                  <MenuItem value={1}>Activo</MenuItem>
+                  <MenuItem value={2}>Retirado</MenuItem>
+                </Select>
+            </FormControl>
             <Error errors={errorUpdate["emp_dias_extra"]}></Error>
             <br />
           </div>
