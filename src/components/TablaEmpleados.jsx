@@ -74,7 +74,6 @@ function TablaEmpleados() {
     Apellidos: "",
     Nombres: "",
   });
-  console.log(empleadoSeleccionado);
 
   // Utilidades
   const [loading, setLoading] = useState(true);
@@ -82,10 +81,14 @@ function TablaEmpleados() {
   //  const [sucess, setSucess] = useState(false);
   const [errorUpdate, setErrorUpdate] = useState([]);
   const [selectArea, setSelectArea] = useState([]);
+ 
   const [unidades, setUnidades] = useState([]);
+  const [idUnidades,setIdUnidades] = useState([]);
   const [selectUnidad, setUnidad] = useState([]);
   /////
   const [perfiles, setPerfiles] = useState([]);
+  const [idPerfil, setIdPerfil] = useState([]);
+
   const [perfilesTabla, setPerfilesTabla] = useState([]);
   const [marcas, setMarcas] = useState([]);
   const [areasEmp, setAreasEmp] = useState([]);
@@ -120,8 +123,8 @@ function TablaEmpleados() {
         setSelectArea(response.data.Areas);
       })
       .catch((error) => {});
-    getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla);
-    getPeticionUnidades(setUnidades, setLoading);
+    getPeticionPerfiles(setPerfiles, setLoading, setPerfilesTabla,setIdPerfil);
+    getPeticionUnidades(setUnidades, setLoading,setIdUnidades);
     getPeticionMarcas(setMarcas, setLoading);
     getPeticionAreasEmpleado(setAreasEmp, setLoading, setAreasTabla);
   }, []);
@@ -321,17 +324,17 @@ function TablaEmpleados() {
       return;
     }
 
-    if (validationOnlyNumbers(form["Días extra"].value) === false) {
-      const errorVal = {
-        emp_dias_extra: "Solo se permiten números",
-      };
-      setLoading(false);
-      setErrorUpdate(errorVal);
-      return;
-    }
+    // if (validationOnlyNumbers(form["Días extra"].value) === false) {
+    //   const errorVal = {
+    //     emp_dias_extra: "Solo se permiten números",
+    //   };
+    //   setLoading(false);
+    //   setErrorUpdate(errorVal);
+    //   return;
+    // }
 
     setError([]);
-
+    console.log(empleadoSeleccionado);
     await axios
       .post(
         `${process.env.REACT_APP_API_URL}/api/actualizarEmpleado/${empleadoSeleccionado["Id"]}`,
@@ -378,6 +381,7 @@ function TablaEmpleados() {
       })
       .catch((error) => {
         setLoading(false);
+        console.log(error.response.data.errors);
         setErrorUpdate(error.response.data.errors);
       });
   };
@@ -403,8 +407,11 @@ function TablaEmpleados() {
     let empleadoFormateado = { ...empleado };
     //Formato de departamento
     unidades.forEach((el, i) => {
+      // console.log(el);
+      // console.log(i);
+      // console.log(idUnidades[i]);
       if (empleadoFormateado.Departamento === el)
-        empleadoFormateado.Departamento = i + 1;
+        empleadoFormateado.Departamento = idUnidades[i];
     });
     //Formato de Perfiles
 
@@ -618,7 +625,7 @@ function TablaEmpleados() {
               onChange={handleChangeEdit}
               value={empleadoSeleccionado && empleadoSeleccionado["Nombres"]}
             />
-            <Error errors={errorUpdate["Emp_Nombre"]}></Error>
+            <Error errors={errorUpdate["emp_nombre"]}></Error>
             <br />
 
             <TextField
@@ -703,14 +710,14 @@ function TablaEmpleados() {
               >
                 {unidades.map((option, i) => {
                   return (
-                    <MenuItem key={i + 1} value={i + 1}>
+                    <MenuItem key={i + 1} value={idUnidades[i]}>
                       {option}
                     </MenuItem>
                   );
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Unidad_Id_fk"]}></Error>
+            <Error errors={errorUpdate["Emp_Unidad_Id_fk"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="perfil">Marca</InputLabel>
@@ -731,7 +738,7 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Marca_Id_fk"]}></Error>
+            <Error errors={errorUpdate["Emp_Marca_Id_fk"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="perfil">Perfil</InputLabel>
@@ -755,7 +762,7 @@ function TablaEmpleados() {
                 })}
               </Select>
             </FormControl>
-            <Error errors={error["Emp_Perfiles_Id"]}></Error>
+            <Error errors={errorUpdate["Emp_Perfiles_Id"]}></Error>
             <br />
             <FormControl fullWidth>
               <InputLabel id="area">Área</InputLabel>
@@ -947,6 +954,8 @@ function TablaEmpleados() {
             </FormControl>
             <Error errors={errorUpdate["emp_dias_extra"]}></Error>
             <br />
+            <Error errors={errorUpdate["emp_dias_extra"]}></Error>
+            {/* <br /> */}
           </div>
         </div>
         <br />
@@ -1033,7 +1042,7 @@ function TablaEmpleados() {
               <Select labelId="Unidad" id="Unidad" label="Unidad" name="Unidad">
                 {unidades.map((option, i) => {
                   return (
-                    <MenuItem key={i + 1} value={i + 1}>
+                    <MenuItem key={i + 1} value={idUnidades[i]}>
                       {option}
                     </MenuItem>
                   );
@@ -1272,13 +1281,6 @@ function TablaEmpleados() {
     </form>
   );
   //   const tableRef = React.createRef();
-  if (loading) {
-    return (
-      <div className="flex justify-center align-center">
-        <Loading />
-      </div>
-    );
-  } else {
     return (
       <div>
         <br />
@@ -1465,6 +1467,5 @@ function TablaEmpleados() {
         </Modal>
       </div>
     );
-  }
 }
 export default TablaEmpleados;

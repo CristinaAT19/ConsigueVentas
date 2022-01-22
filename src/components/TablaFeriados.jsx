@@ -164,7 +164,6 @@ function TablaFeriados() {
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e.response);
         if (e.response.status === 422) {
           // setError(e.response.data.errors);
         } else {
@@ -249,7 +248,6 @@ function TablaFeriados() {
         if (e.response.status === 422) {
           setError(e.response.data.errors);
         } else {
-          console.log(e.response.data.msg);
           setError({ fecha_feriado: e.response.data.msg });
         }
       });

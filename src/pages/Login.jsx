@@ -116,7 +116,7 @@ const Login = () => {
               id="boton"
               onClick={() => {
                 window.location.replace(
-                  "https://erp.consigueventas.com/sistema/marcacion/"
+                  "https://erp.consigueventas.com/marcacion/"
                 );
               }}
               className="cursor-pointer py-2 px-6 block duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-32 text-center rounded"
@@ -199,7 +199,7 @@ const Login = () => {
               id="boton"
               onClick={() => {
                 window.location.replace(
-                  "https://erp.consigueventas.com/sistema/marcacion/"
+                  "https://erp.consigueventas.com/marcacion/"
                 );
               }}
               className="cursor-pointer mt-3 py-2 px-6  duration-75 bg-naranja hover:bg-yellow-300 text-white font-bold w-full text-center rounded block md:hidden"

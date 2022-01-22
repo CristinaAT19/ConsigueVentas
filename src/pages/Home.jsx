@@ -37,7 +37,9 @@ const Home = () => {
               subTitulo="Asistencia"
               opcionSistema="1"
             />
-            <HomeContenido imagen="erp.png" subTitulo="Sistema ERP" opcionSistema="2" />
+            <HomeContenido imagen="talento humano.png" subTitulo="Talento Humano" opcionSistema="2" />
+            <HomeContenido imagen="comercial.png" subTitulo="Comercial" opcionSistema="2" />
+
           </div>
         </div>
       </section>
